@@ -1,0 +1,116 @@
+import { effectiveHydration, formatAmount, parseInputs, recipeFor } from "./formula.mjs";
+
+const form = document.querySelector("#calc");
+const labels = JSON.parse(document.querySelector("#labels").textContent);
+const outs = {
+  flour: document.querySelector("#out-flour"),
+  water: document.querySelector("#out-water"),
+  starter: document.querySelector("#out-starter"),
+  salt: document.querySelector("#out-salt"),
+  yeast: document.querySelector("#out-yeast"),
+  total: document.querySelector("#out-total"),
+  effective: document.querySelector("#out-effective"),
+};
+const error = document.querySelector("#form-error");
+const copyButton = document.querySelector("#copy");
+const recipeBox = document.querySelector("#recipe-text");
+const copyLabel = copyButton.textContent;
+
+function readForm() {
+  const data = new FormData(form);
+  return parseInputs({
+    mode: data.get("mode"),
+    flour: data.get("flour"),
+    balls: data.get("balls"),
+    gramsPerBall: data.get("gramsPerBall"),
+    hydration: data.get("hydration"),
+    starter: data.get("starter"),
+    salt: data.get("salt"),
+    yeast: data.get("yeast"),
+  });
+}
+
+function showRecipe(recipe) {
+  for (const key of ["flour", "water", "starter", "salt", "yeast", "total"]) {
+    outs[key].textContent = `${formatAmount(recipe[key])} ${labels.grams}`;
+  }
+  outs.effective.textContent = `${formatAmount(effectiveHydration(recipe))}%`;
+  if (new FormData(form).get("mode") === "balls") {
+    form.querySelector("[name=flour]").value = formatAmount(recipe.flour);
+  }
+}
+
+function recipeText(recipe) {
+  const lines = [labels.title];
+  const rows = [
+    ["flour", true],
+    ["water", true],
+    ["starter", recipe.starter !== 0],
+    ["salt", true],
+    ["yeast", recipe.yeast !== 0],
+    ["total", true],
+  ];
+  for (const [key, show] of rows) {
+    if (!show) continue;
+    lines.push(`${labels[key]}: ${formatAmount(recipe[key])} ${labels.grams}`);
+  }
+  lines.push(`${labels.effective}: ${formatAmount(effectiveHydration(recipe))}%`);
+  return lines.join("\n");
+}
+
+function syncPanels() {
+  const mode = new FormData(form).get("mode");
+  form.querySelector("[data-panel=flour]").hidden = mode !== "flour";
+  form.querySelector("[data-panel=balls]").hidden = mode !== "balls";
+}
+
+function update() {
+  syncPanels();
+  const parsed = readForm();
+  if (!parsed.ok) {
+    error.hidden = false;
+    return;
+  }
+  error.hidden = true;
+  showRecipe(recipeFor(parsed.preset));
+}
+
+form.addEventListener("input", update);
+form.addEventListener("change", update);
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+  update();
+});
+
+copyButton.addEventListener("click", async () => {
+  const parsed = readForm();
+  if (!parsed.ok) {
+    error.hidden = false;
+    return;
+  }
+  const text = recipeText(recipeFor(parsed.preset));
+  recipeBox.value = text;
+  let copied = false;
+  try {
+    await navigator.clipboard.writeText(text);
+    copied = true;
+    recipeBox.hidden = true;
+  } catch {
+    recipeBox.hidden = false;
+    recipeBox.focus();
+    recipeBox.select();
+    copied = document.execCommand("copy");
+  }
+  copyButton.textContent = copied ? labels.copied : labels.copyFail;
+  if (copied) {
+    setTimeout(() => {
+      copyButton.textContent = copyLabel;
+    }, 1600);
+  }
+});
+
+document.querySelector("#print").addEventListener("click", () => {
+  window.print();
+});
+
+update();
