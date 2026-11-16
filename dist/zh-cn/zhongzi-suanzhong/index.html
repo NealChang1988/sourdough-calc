@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>种子酸种面包烘焙百分比</title>
+<meta name="description" content="种子酸种面包以 500 克面粉为基准，水合 80%，酸种 22%，盐 2.2%，不加酵母。">
+<link rel="canonical" href="https://sourdough-calc.example.com/zh-cn/zhongzi-suanzhong/">
+<link rel="alternate" hreflang="en" href="https://sourdough-calc.example.com/en/seeded-sourdough-bakers-percentage/"><link rel="alternate" hreflang="zh-CN" href="https://sourdough-calc.example.com/zh-cn/zhongzi-suanzhong/"><link rel="alternate" hreflang="zh-TW" href="https://sourdough-calc.example.com/zh-tw/zhongzi-suanzhong/"><link rel="alternate" hreflang="x-default" href="https://sourdough-calc.example.com/en/seeded-sourdough-bakers-percentage/">
+<meta property="og:title" content="种子酸种面包烘焙百分比">
+<meta property="og:description" content="种子酸种面包以 500 克面粉为基准，水合 80%，酸种 22%，盐 2.2%，不加酵母。">
+<meta property="og:url" content="https://sourdough-calc.example.com/zh-cn/zhongzi-suanzhong/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:locale:alternate" content="en_US"><meta property="og:locale:alternate" content="zh_TW">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">跳到计算器</a>
+<header>
+<a class="brand" href="/zh-cn/">面团计算器</a>
+<nav class="langs" aria-label="语言"><a href="/en/seeded-sourdough-bakers-percentage/" hreflang="en" lang="en">EN</a><a href="/zh-cn/zhongzi-suanzhong/" hreflang="zh-CN" lang="zh-CN" aria-current="page">简体</a><a href="/zh-tw/zhongzi-suanzhong/" hreflang="zh-TW" lang="zh-TW">繁體</a></nav>
+</header>
+<main id="main">
+<nav class="crumb" aria-label="当前位置"><a href="/zh-cn/">面团计算器</a> / <a href="/zh-cn/mianbao-baifenbi/">面包面团</a></nav>
+<h1>种子酸种面包烘焙百分比</h1>
+<p>种子酸种面包以 500 克面粉为基准，水合 80%，酸种 22%，盐 2.2%，不加酵母。拌面前用一部分配方里的水把种子泡软，免得后来把面包心的水分吸走。</p>
+<form id="calc" autocomplete="off">
+<fieldset class="modes">
+<legend>怎么算</legend>
+<label><input type="radio" name="mode" value="flour" checked> 按面粉重量</label>
+<label><input type="radio" name="mode" value="balls"> 按面团球</label>
+</fieldset>
+<div class="fields" data-panel="flour">
+<label class="field"><span class="label">面粉 <span class="unit">克</span></span><input name="flour" inputmode="decimal" min="0" step="any" value="500"></label>
+</div>
+<div class="fields grid-2" data-panel="balls" hidden>
+<label class="field"><span class="label">面团球数</span><input name="balls" inputmode="decimal" min="0" step="any" value="4"></label>
+<label class="field"><span class="label">每球克数 <span class="unit">克</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="250"></label>
+</div>
+<div class="fields grid-2">
+<label class="field"><span class="label">水合 <span class="unit">%</span></span><input name="hydration" inputmode="decimal" min="0" step="any" value="80"></label>
+<label class="field"><span class="label">酸种 <span class="unit">%</span></span><input name="starter" inputmode="decimal" min="0" step="any" value="22"></label>
+<label class="field"><span class="label">盐 <span class="unit">%</span></span><input name="salt" inputmode="decimal" min="0" step="any" value="2.2"></label>
+<label class="field"><span class="label">酵母 <span class="unit">%</span></span><input name="yeast" inputmode="decimal" min="0" step="any" value="0"><span class="hint">可选。不加酵母就填 0。</span></label>
+</div>
+</form>
+<section class="card result" aria-live="polite">
+<h2>配方</h2>
+<dl><div><dt>面粉</dt><dd id="out-flour">500 克</dd></div><div><dt>水</dt><dd id="out-water">400 克</dd></div><div><dt>酸种</dt><dd id="out-starter">110 克</dd></div><div><dt>盐</dt><dd id="out-salt">11 克</dd></div><div><dt>酵母</dt><dd id="out-yeast">0 克</dd></div><div><dt>面团总重</dt><dd id="out-total">1021 克</dd></div></dl>
+<p class="effective">有效水合 <strong id="out-effective">82%</strong></p>
+<p class="convention">百分比以你称出的面粉为基准，有效水合则把本身为 100% 水合的酸种里的面粉和水也算进去。</p>
+<p id="form-error" class="error" hidden>面粉重量要大于 0。如果按面团球计算，球数和每球克数也要大于 0。百分比不能为负。</p>
+<div class="actions">
+<button type="button" id="copy">复制配方</button>
+<button type="button" id="print" class="secondary">打印</button>
+</div>
+<textarea id="recipe-text" hidden readonly></textarea>
+</section>
+<script type="application/json" id="labels">{"title":"种子酸种面包烘焙百分比","flour":"面粉","water":"水","starter":"酸种","salt":"盐","yeast":"酵母","total":"面团总重","grams":"克","effective":"有效水合","copied":"已复制","copyFail":"请选中配方文字再复制"}</script>
+<script type="module" src="/assets/calc.js"></script>
+<section class="related"><h2>相关计算</h2><ul class="link-list"><li><a href="/zh-cn/quanmai-suanzhong/">全麦酸种烘焙百分比</a></li><li><a href="/zh-cn/sipeierte-suanzhong/">斯佩尔特酸种烘焙百分比</a></li><li><a href="/zh-cn/heimai-suanzhong/">黑麦酸种烘焙百分比</a></li><li><a href="/zh-cn/ganlan-suanzhong/">橄榄酸种面包烘焙百分比</a></li></ul></section>
+</main>
+<footer>
+<nav aria-label="更多页面"><a href="/zh-cn/">面团计算器</a><a href="/zh-cn/suanzhong-shuihe/">酸种水合</a><a href="/zh-cn/pisa-fenlei/">披萨面团</a><a href="/zh-cn/mianbao-baifenbi/">面包面团</a><a href="/zh-cn/suanzhong-bili/">酸种比例</a><a href="/zh-cn/yan-bili/">盐的比例</a></nav>
+<p>家庭烘焙用的比例。</p>
+</footer>
+</body>
+</html>

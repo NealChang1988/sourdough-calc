@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>8 球薄皮披薩麵團</title>
+<meta name="description" content="8 球，每球 200 克，麵團合計 1600 克，水合 55%，不加酸種，鹽 2%，酵母 0.4%。">
+<link rel="canonical" href="https://sourdough-calc.example.com/zh-tw/baopi-pisa-8-qiu/">
+<link rel="alternate" hreflang="en" href="https://sourdough-calc.example.com/en/thin-crust-pizza-dough-8-balls/"><link rel="alternate" hreflang="zh-CN" href="https://sourdough-calc.example.com/zh-cn/baopi-pisa-8-qiu/"><link rel="alternate" hreflang="zh-TW" href="https://sourdough-calc.example.com/zh-tw/baopi-pisa-8-qiu/"><link rel="alternate" hreflang="x-default" href="https://sourdough-calc.example.com/en/thin-crust-pizza-dough-8-balls/">
+<meta property="og:title" content="8 球薄皮披薩麵團">
+<meta property="og:description" content="8 球，每球 200 克，麵團合計 1600 克，水合 55%，不加酸種，鹽 2%，酵母 0.4%。">
+<meta property="og:url" content="https://sourdough-calc.example.com/zh-tw/baopi-pisa-8-qiu/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:locale:alternate" content="en_US"><meta property="og:locale:alternate" content="zh_CN">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">跳到計算器</a>
+<header>
+<a class="brand" href="/zh-tw/">麵團計算器</a>
+<nav class="langs" aria-label="語言"><a href="/en/thin-crust-pizza-dough-8-balls/" hreflang="en" lang="en">EN</a><a href="/zh-cn/baopi-pisa-8-qiu/" hreflang="zh-CN" lang="zh-CN">简体</a><a href="/zh-tw/baopi-pisa-8-qiu/" hreflang="zh-TW" lang="zh-TW" aria-current="page">繁體</a></nav>
+</header>
+<main id="main">
+<nav class="crumb" aria-label="目前位置"><a href="/zh-tw/">麵團計算器</a> / <a href="/zh-tw/pisa-fenlei/">披薩麵團</a></nav>
+<h1>8 球薄皮披薩麵團</h1>
+<p>薄皮披薩麵團，8 球，水合 55%，不加酸種，鹽 2%，酵母 0.4%。八球各 200 克，合計 1600 克。用大盆拌，冷藏時給麵團球留出空隙。麵團偏硬，可以擀薄。若氣泡會把配料頂起來，就用叉子扎幾個小孔。</p>
+<form id="calc" autocomplete="off">
+<fieldset class="modes">
+<legend>怎麼算</legend>
+<label><input type="radio" name="mode" value="flour"> 按麵粉重量</label>
+<label><input type="radio" name="mode" value="balls" checked> 按麵團球</label>
+</fieldset>
+<div class="fields" data-panel="flour" hidden>
+<label class="field"><span class="label">麵粉 <span class="unit">克</span></span><input name="flour" inputmode="decimal" min="0" step="any" value="1016.5"></label>
+</div>
+<div class="fields grid-2" data-panel="balls">
+<label class="field"><span class="label">麵團球數</span><input name="balls" inputmode="decimal" min="0" step="any" value="8"></label>
+<label class="field"><span class="label">每球克數 <span class="unit">克</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="200"></label>
+</div>
+<div class="fields grid-2">
+<label class="field"><span class="label">水合 <span class="unit">%</span></span><input name="hydration" inputmode="decimal" min="0" step="any" value="55"></label>
+<label class="field"><span class="label">酸種 <span class="unit">%</span></span><input name="starter" inputmode="decimal" min="0" step="any" value="0"></label>
+<label class="field"><span class="label">鹽 <span class="unit">%</span></span><input name="salt" inputmode="decimal" min="0" step="any" value="2"></label>
+<label class="field"><span class="label">酵母 <span class="unit">%</span></span><input name="yeast" inputmode="decimal" min="0" step="any" value="0.4"><span class="hint">可選。不加酵母就填 0。</span></label>
+</div>
+</form>
+<section class="card result" aria-live="polite">
+<h2>配方</h2>
+<dl><div><dt>麵粉</dt><dd id="out-flour">1016.5 克</dd></div><div><dt>水</dt><dd id="out-water">559.1 克</dd></div><div><dt>酸種</dt><dd id="out-starter">0 克</dd></div><div><dt>鹽</dt><dd id="out-salt">20.3 克</dd></div><div><dt>酵母</dt><dd id="out-yeast">4.1 克</dd></div><div><dt>麵團總重</dt><dd id="out-total">1600 克</dd></div></dl>
+<p class="effective">有效水合 <strong id="out-effective">55%</strong></p>
+<p class="convention">百分比以你秤出的麵粉為基準，有效水合則把本身為 100% 水合的酸種裡的麵粉和水也算進去。</p>
+<p id="form-error" class="error" hidden>麵粉重量要大於 0。如果按麵團球計算，球數和每球克數也要大於 0。百分比不能為負。</p>
+<div class="actions">
+<button type="button" id="copy">複製配方</button>
+<button type="button" id="print" class="secondary">列印</button>
+</div>
+<textarea id="recipe-text" hidden readonly></textarea>
+</section>
+<script type="application/json" id="labels">{"title":"8 球薄皮披薩麵團","flour":"麵粉","water":"水","starter":"酸種","salt":"鹽","yeast":"酵母","total":"麵團總重","grams":"克","effective":"有效水合","copied":"已複製","copyFail":"請選中配方文字再複製"}</script>
+<script type="module" src="/assets/calc.js"></script>
+<section class="related"><h2>相關計算</h2><ul class="link-list"><li><a href="/zh-tw/baopi-pisa-6-qiu/">6 球薄皮披薩麵團</a></li><li><a href="/zh-tw/baopi-pisa-10-qiu/">10 球薄皮披薩麵團</a></li><li><a href="/zh-tw/baopi-pisa-4-qiu/">4 球薄皮披薩麵團</a></li><li><a href="/zh-tw/baopi-pisa-12-qiu/">12 球薄皮披薩麵團</a></li></ul></section>
+</main>
+<footer>
+<nav aria-label="更多頁面"><a href="/zh-tw/">麵團計算器</a><a href="/zh-tw/suan-zhong-han-shuai/">酸種水合</a><a href="/zh-tw/pisa-fenlei/">披薩麵團</a><a href="/zh-tw/mianbao-baifenbi/">麵包麵團</a><a href="/zh-tw/suan-zhong-bili/">酸種比例</a><a href="/zh-tw/yan-bili/">鹽的比例</a></nav>
+<p>家庭烘焙用的比例。</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brioche Base Baker's Percentage</title>
+<meta name="description" content="Brioche Base from 400 g of flour at 50% water, no starter, 1.8% salt, and 1.6% yeast.">
+<link rel="canonical" href="https://sourdough-calc.example.com/en/brioche-base-bakers-percentage/">
+<link rel="alternate" hreflang="en" href="https://sourdough-calc.example.com/en/brioche-base-bakers-percentage/"><link rel="alternate" hreflang="zh-CN" href="https://sourdough-calc.example.com/zh-cn/buliou/"><link rel="alternate" hreflang="zh-TW" href="https://sourdough-calc.example.com/zh-tw/buliou/"><link rel="alternate" hreflang="x-default" href="https://sourdough-calc.example.com/en/brioche-base-bakers-percentage/">
+<meta property="og:title" content="Brioche Base Baker's Percentage">
+<meta property="og:description" content="Brioche Base from 400 g of flour at 50% water, no starter, 1.8% salt, and 1.6% yeast.">
+<meta property="og:url" content="https://sourdough-calc.example.com/en/brioche-base-bakers-percentage/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="zh_CN"><meta property="og:locale:alternate" content="zh_TW">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to the calculator</a>
+<header>
+<a class="brand" href="/en/">Dough calculator</a>
+<nav class="langs" aria-label="Language"><a href="/en/brioche-base-bakers-percentage/" hreflang="en" lang="en" aria-current="page">EN</a><a href="/zh-cn/buliou/" hreflang="zh-CN" lang="zh-CN">简体</a><a href="/zh-tw/buliou/" hreflang="zh-TW" lang="zh-TW">繁體</a></nav>
+</header>
+<main id="main">
+<nav class="crumb" aria-label="Breadcrumb"><a href="/en/">Dough calculator</a> / <a href="/en/bread-dough/">Bread dough</a></nav>
+<h1>Brioche Base Baker's Percentage</h1>
+<p>Brioche Base is mixed from 400 g of flour at 50% water, no starter, 1.8% salt, and 1.6% yeast. The water here is only the added water. Soft butter and egg go in after the dough forms and are not part of the displayed total.</p>
+<form id="calc" autocomplete="off">
+<fieldset class="modes">
+<legend>How to scale</legend>
+<label><input type="radio" name="mode" value="flour" checked> From flour weight</label>
+<label><input type="radio" name="mode" value="balls"> From dough balls</label>
+</fieldset>
+<div class="fields" data-panel="flour">
+<label class="field"><span class="label">Flour <span class="unit">g</span></span><input name="flour" inputmode="decimal" min="0" step="any" value="400"></label>
+</div>
+<div class="fields grid-2" data-panel="balls" hidden>
+<label class="field"><span class="label">Dough balls</span><input name="balls" inputmode="decimal" min="0" step="any" value="4"></label>
+<label class="field"><span class="label">Grams per ball <span class="unit">g</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="250"></label>
+</div>
+<div class="fields grid-2">
+<label class="field"><span class="label">Hydration <span class="unit">%</span></span><input name="hydration" inputmode="decimal" min="0" step="any" value="50"></label>
+<label class="field"><span class="label">Starter <span class="unit">%</span></span><input name="starter" inputmode="decimal" min="0" step="any" value="0"></label>
+<label class="field"><span class="label">Salt <span class="unit">%</span></span><input name="salt" inputmode="decimal" min="0" step="any" value="1.8"></label>
+<label class="field"><span class="label">Yeast <span class="unit">%</span></span><input name="yeast" inputmode="decimal" min="0" step="any" value="1.6"><span class="hint">Optional. Use 0 when the dough has no added yeast.</span></label>
+</div>
+</form>
+<section class="card result" aria-live="polite">
+<h2>Recipe</h2>
+<dl><div><dt>Flour</dt><dd id="out-flour">400 g</dd></div><div><dt>Water</dt><dd id="out-water">200 g</dd></div><div><dt>Starter</dt><dd id="out-starter">0 g</dd></div><div><dt>Salt</dt><dd id="out-salt">7.2 g</dd></div><div><dt>Yeast</dt><dd id="out-yeast">6.4 g</dd></div><div><dt>Total dough</dt><dd id="out-total">613.6 g</dd></div></dl>
+<p class="effective">Effective hydration <strong id="out-effective">50%</strong></p>
+<p class="convention">Percentages are of the flour you weigh out, and effective hydration also counts the flour and water inside a starter that is itself 100% hydration.</p>
+<p id="form-error" class="error" hidden>Enter a flour weight above zero, or a ball count and grams per ball above zero. Percentages cannot be negative.</p>
+<div class="actions">
+<button type="button" id="copy">Copy recipe</button>
+<button type="button" id="print" class="secondary">Print</button>
+</div>
+<textarea id="recipe-text" hidden readonly></textarea>
+</section>
+<script type="application/json" id="labels">{"title":"Brioche Base Baker's Percentage","flour":"Flour","water":"Water","starter":"Starter","salt":"Salt","yeast":"Yeast","total":"Total dough","grams":"g","effective":"Effective hydration","copied":"Copied","copyFail":"Select the recipe text and copy it"}</script>
+<script type="module" src="/assets/calc.js"></script>
+<section class="related"><h2>Related calculators</h2><ul class="link-list"><li><a href="/en/ciabatta-bakers-percentage/">Ciabatta Baker's Percentage</a></li><li><a href="/en/sandwich-loaf-bakers-percentage/">Sandwich Loaf Baker's Percentage</a></li><li><a href="/en/pullman-loaf-bakers-percentage/">Pullman Loaf Baker's Percentage</a></li><li><a href="/en/no-knead-bread-bakers-percentage/">No-Knead Bread Baker's Percentage</a></li></ul></section>
+</main>
+<footer>
+<nav aria-label="More pages"><a href="/en/">Dough calculator</a><a href="/en/sourdough-hydration/">Sourdough hydration</a><a href="/en/pizza-dough/">Pizza dough</a><a href="/en/bread-dough/">Bread dough</a><a href="/en/starter-percentage/">Starter percentage</a><a href="/en/salt-percentage/">Salt percentage</a></nav>
+<p>Ratios for home baking.</p>
+</footer>
+</body>
+</html>
