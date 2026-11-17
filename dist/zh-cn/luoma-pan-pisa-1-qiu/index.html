@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1 球罗马盘披萨面团</title>
+<meta name="description" content="1 球，每球 350 克，面团合计 350 克，水合 80%，不加酸种，盐 2.5%，酵母 0.4%。">
+<link rel="canonical" href="https://doughcalc.app/zh-cn/luoma-pan-pisa-1-qiu/">
+<link rel="alternate" hreflang="en" href="https://doughcalc.app/en/roman-pan-pizza-dough-1-ball/"><link rel="alternate" hreflang="zh-CN" href="https://doughcalc.app/zh-cn/luoma-pan-pisa-1-qiu/"><link rel="alternate" hreflang="zh-TW" href="https://doughcalc.app/zh-tw/luoma-pan-pisa-1-qiu/"><link rel="alternate" hreflang="x-default" href="https://doughcalc.app/en/roman-pan-pizza-dough-1-ball/">
+<meta property="og:title" content="1 球罗马盘披萨面团">
+<meta property="og:description" content="1 球，每球 350 克，面团合计 350 克，水合 80%，不加酸种，盐 2.5%，酵母 0.4%。">
+<meta property="og:url" content="https://doughcalc.app/zh-cn/luoma-pan-pisa-1-qiu/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:locale:alternate" content="en_US"><meta property="og:locale:alternate" content="zh_TW">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">跳到计算器</a>
+<header>
+<a class="brand" href="/zh-cn/">面团计算器</a>
+<nav class="langs" aria-label="语言"><a href="/en/roman-pan-pizza-dough-1-ball/" hreflang="en" lang="en">EN</a><a href="/zh-cn/luoma-pan-pisa-1-qiu/" hreflang="zh-CN" lang="zh-CN" aria-current="page">简体</a><a href="/zh-tw/luoma-pan-pisa-1-qiu/" hreflang="zh-TW" lang="zh-TW">繁體</a></nav>
+</header>
+<main id="main">
+<nav class="crumb" aria-label="当前位置"><a href="/zh-cn/">面团计算器</a> / <a href="/zh-cn/pisa-fenlei/">披萨面团</a></nav>
+<h1>1 球罗马盘披萨面团</h1>
+<p>罗马盘披萨面团，1 球，水合 80%，不加酸种，盐 2.5%，酵母 0.4%。一球 350 克，就是一张饼，面团一共 350 克。烤盘抹油，把面团铺到四角，烤到锅底上色、边缘发脆。</p>
+<form id="calc" autocomplete="off">
+<fieldset class="modes">
+<legend>怎么算</legend>
+<label><input type="radio" name="mode" value="flour"> 按面粉重量</label>
+<label><input type="radio" name="mode" value="balls" checked> 按面团球</label>
+</fieldset>
+<div class="fields" data-panel="flour" hidden>
+<label class="field"><span class="label">面粉 <span class="unit">克</span></span><input name="flour" inputmode="decimal" min="0" step="any" value="191.4"></label>
+</div>
+<div class="fields grid-2" data-panel="balls">
+<label class="field"><span class="label">面团球数</span><input name="balls" inputmode="decimal" min="0" step="any" value="1"></label>
+<label class="field"><span class="label">每球克数 <span class="unit">克</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="350"></label>
+</div>
+<div class="fields grid-2">
+<label class="field"><span class="label">水合 <span class="unit">%</span></span><input name="hydration" inputmode="decimal" min="0" step="any" value="80"></label>
+<label class="field"><span class="label">酸种 <span class="unit">%</span></span><input name="starter" inputmode="decimal" min="0" step="any" value="0"></label>
+<label class="field"><span class="label">盐 <span class="unit">%</span></span><input name="salt" inputmode="decimal" min="0" step="any" value="2.5"></label>
+<label class="field"><span class="label">酵母 <span class="unit">%</span></span><input name="yeast" inputmode="decimal" min="0" step="any" value="0.4"><span class="hint">可选。不加酵母就填 0。</span></label>
+</div>
+</form>
+<section class="card result" aria-live="polite">
+<h2>配方</h2>
+<dl><div><dt>面粉</dt><dd id="out-flour">191.4 克</dd></div><div><dt>水</dt><dd id="out-water">153.1 克</dd></div><div><dt>酸种</dt><dd id="out-starter">0 克</dd></div><div><dt>盐</dt><dd id="out-salt">4.8 克</dd></div><div><dt>酵母</dt><dd id="out-yeast">0.8 克</dd></div><div><dt>面团总重</dt><dd id="out-total">350 克</dd></div></dl>
+<p class="effective">有效水合 <strong id="out-effective">80%</strong></p>
+<p class="convention">百分比以你称出的面粉为基准，有效水合则把本身为 100% 水合的酸种里的面粉和水也算进去。</p>
+<p id="form-error" class="error" hidden>面粉重量要大于 0。如果按面团球计算，球数和每球克数也要大于 0。百分比不能为负。</p>
+<div class="actions">
+<button type="button" id="copy">复制配方</button>
+<button type="button" id="print" class="secondary">打印</button>
+</div>
+<textarea id="recipe-text" hidden readonly></textarea>
+</section>
+<script type="application/json" id="labels">{"title":"1 球罗马盘披萨面团","flour":"面粉","water":"水","starter":"酸种","salt":"盐","yeast":"酵母","total":"面团总重","grams":"克","effective":"有效水合","copied":"已复制","copyFail":"请选中配方文字再复制"}</script>
+<script type="module" src="/assets/calc.js"></script>
+<section class="related"><h2>相关计算</h2><ul class="link-list"><li><a href="/zh-cn/luoma-pan-pisa-2-qiu/">2 球罗马盘披萨面团</a></li><li><a href="/zh-cn/luoma-pan-pisa-3-qiu/">3 球罗马盘披萨面团</a></li><li><a href="/zh-cn/luoma-pan-pisa-4-qiu/">4 球罗马盘披萨面团</a></li><li><a href="/zh-cn/luoma-pan-pisa-6-qiu/">6 球罗马盘披萨面团</a></li></ul></section>
+</main>
+<footer>
+<nav aria-label="更多页面"><a href="/zh-cn/">面团计算器</a><a href="/zh-cn/suanzhong-shuihe/">酸种水合</a><a href="/zh-cn/pisa-fenlei/">披萨面团</a><a href="/zh-cn/mianbao-baifenbi/">面包面团</a><a href="/zh-cn/suanzhong-bili/">酸种比例</a><a href="/zh-cn/yan-bili/">盐的比例</a></nav>
+<p>家庭烘焙用的比例。</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>79% 水合酸種計算</title>
+<meta name="description" content="非常軟。發酵籃多撒粉，倒扣出來，不要硬拉。">
+<link rel="canonical" href="https://doughcalc.app/zh-tw/79-shuihe-suan-zhong-jisuan/">
+<link rel="alternate" hreflang="en" href="https://doughcalc.app/en/79-hydration-sourdough-calculator/"><link rel="alternate" hreflang="zh-CN" href="https://doughcalc.app/zh-cn/79-shuihe-suanzhong-jisuanqi/"><link rel="alternate" hreflang="zh-TW" href="https://doughcalc.app/zh-tw/79-shuihe-suan-zhong-jisuan/"><link rel="alternate" hreflang="x-default" href="https://doughcalc.app/en/79-hydration-sourdough-calculator/">
+<meta property="og:title" content="79% 水合酸種計算">
+<meta property="og:description" content="非常軟。發酵籃多撒粉，倒扣出來，不要硬拉。">
+<meta property="og:url" content="https://doughcalc.app/zh-tw/79-shuihe-suan-zhong-jisuan/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:locale:alternate" content="en_US"><meta property="og:locale:alternate" content="zh_CN">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">跳到計算器</a>
+<header>
+<a class="brand" href="/zh-tw/">麵團計算器</a>
+<nav class="langs" aria-label="語言"><a href="/en/79-hydration-sourdough-calculator/" hreflang="en" lang="en">EN</a><a href="/zh-cn/79-shuihe-suanzhong-jisuanqi/" hreflang="zh-CN" lang="zh-CN">简体</a><a href="/zh-tw/79-shuihe-suan-zhong-jisuan/" hreflang="zh-TW" lang="zh-TW" aria-current="page">繁體</a></nav>
+</header>
+<main id="main">
+<nav class="crumb" aria-label="目前位置"><a href="/zh-tw/">麵團計算器</a> / <a href="/zh-tw/suan-zhong-han-shuai/">酸種水合</a></nav>
+<h1>79% 水合酸種計算</h1>
+<p>這份 79% 水合的酸種以 500 克麵粉為基準，酸種 20%，鹽 2%。非常軟。發酵籃多撒粉，倒扣出來，不要硬拉。</p>
+<form id="calc" autocomplete="off">
+<fieldset class="modes">
+<legend>怎麼算</legend>
+<label><input type="radio" name="mode" value="flour" checked> 按麵粉重量</label>
+<label><input type="radio" name="mode" value="balls"> 按麵團球</label>
+</fieldset>
+<div class="fields" data-panel="flour">
+<label class="field"><span class="label">麵粉 <span class="unit">克</span></span><input name="flour" inputmode="decimal" min="0" step="any" value="500"></label>
+</div>
+<div class="fields grid-2" data-panel="balls" hidden>
+<label class="field"><span class="label">麵團球數</span><input name="balls" inputmode="decimal" min="0" step="any" value="4"></label>
+<label class="field"><span class="label">每球克數 <span class="unit">克</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="250"></label>
+</div>
+<div class="fields grid-2">
+<label class="field"><span class="label">水合 <span class="unit">%</span></span><input name="hydration" inputmode="decimal" min="0" step="any" value="79"></label>
+<label class="field"><span class="label">酸種 <span class="unit">%</span></span><input name="starter" inputmode="decimal" min="0" step="any" value="20"></label>
+<label class="field"><span class="label">鹽 <span class="unit">%</span></span><input name="salt" inputmode="decimal" min="0" step="any" value="2"></label>
+<label class="field"><span class="label">酵母 <span class="unit">%</span></span><input name="yeast" inputmode="decimal" min="0" step="any" value="0"><span class="hint">可選。不加酵母就填 0。</span></label>
+</div>
+</form>
+<section class="card result" aria-live="polite">
+<h2>配方</h2>
+<dl><div><dt>麵粉</dt><dd id="out-flour">500 克</dd></div><div><dt>水</dt><dd id="out-water">395 克</dd></div><div><dt>酸種</dt><dd id="out-starter">100 克</dd></div><div><dt>鹽</dt><dd id="out-salt">10 克</dd></div><div><dt>酵母</dt><dd id="out-yeast">0 克</dd></div><div><dt>麵團總重</dt><dd id="out-total">1005 克</dd></div></dl>
+<p class="effective">有效水合 <strong id="out-effective">80.9%</strong></p>
+<p class="convention">百分比以你秤出的麵粉為基準，有效水合則把本身為 100% 水合的酸種裡的麵粉和水也算進去。</p>
+<p id="form-error" class="error" hidden>麵粉重量要大於 0。如果按麵團球計算，球數和每球克數也要大於 0。百分比不能為負。</p>
+<div class="actions">
+<button type="button" id="copy">複製配方</button>
+<button type="button" id="print" class="secondary">列印</button>
+</div>
+<textarea id="recipe-text" hidden readonly></textarea>
+</section>
+<script type="application/json" id="labels">{"title":"79% 水合酸種計算","flour":"麵粉","water":"水","starter":"酸種","salt":"鹽","yeast":"酵母","total":"麵團總重","grams":"克","effective":"有效水合","copied":"已複製","copyFail":"請選中配方文字再複製"}</script>
+<script type="module" src="/assets/calc.js"></script>
+<section class="related"><h2>相關計算</h2><ul class="link-list"><li><a href="/zh-tw/78-shuihe-suan-zhong-jisuan/">78% 水合酸種計算</a></li><li><a href="/zh-tw/80-shuihe-suan-zhong-jisuan/">80% 水合酸種計算</a></li><li><a href="/zh-tw/77-shuihe-suan-zhong-jisuan/">77% 水合酸種計算</a></li><li><a href="/zh-tw/81-shuihe-suan-zhong-jisuan/">81% 水合酸種計算</a></li></ul></section>
+</main>
+<footer>
+<nav aria-label="更多頁面"><a href="/zh-tw/">麵團計算器</a><a href="/zh-tw/suan-zhong-han-shuai/">酸種水合</a><a href="/zh-tw/pisa-fenlei/">披薩麵團</a><a href="/zh-tw/mianbao-baifenbi/">麵包麵團</a><a href="/zh-tw/suan-zhong-bili/">酸種比例</a><a href="/zh-tw/yan-bili/">鹽的比例</a></nav>
+<p>家庭烘焙用的比例。</p>
+</footer>
+</body>
+</html>
