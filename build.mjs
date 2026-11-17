@@ -29,6 +29,7 @@ export async function writeSite(distDir) {
   await writeFile(path.join(assets, "calc.js"), await readFile(path.join(root, "src", "calc.js")));
   await writeFile(path.join(assets, "formula.mjs"), await readFile(path.join(root, "src", "formula.mjs")));
   await writeFile(path.join(distDir, "favicon.svg"), await readFile(path.join(root, "src", "favicon.svg")));
+  await writeFile(path.join(distDir, "favicon.ico"), await readFile(path.join(root, "src", "favicon.ico")));
   await writeText(path.join(distDir, "index.html"), renderRoot());
   await writeText(path.join(distDir, "404.html"), renderNotFound());
   await writeText(path.join(distDir, "robots.txt"), renderRobots());

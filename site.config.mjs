@@ -1,1 +1,1 @@
-export const SITE_URL = "https://sourdough-calc.example.com";
+export const SITE_URL = "https://doughcalc.app";
