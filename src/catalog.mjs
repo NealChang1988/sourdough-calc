@@ -1,3 +1,4 @@
+import { breadAbout } from "./data/bread-about.mjs";
 import { breads } from "./data/breads.mjs";
 import { hydrationCopy, KEPT_HYDRATION } from "./data/hydration-notes.mjs";
 import { OLD_BALL_COUNTS, pizzaStyles } from "./data/pizza.mjs";
@@ -220,21 +221,24 @@ function breadPages() {
       "zh-cn": `${item.name["zh-cn"]}烘焙百分比`,
       "zh-tw": `${item.name["zh-tw"]}烘焙百分比`,
     };
-    const description = {};
+    const about = breadAbout[item.id];
+    if (!about?.en || !about["zh-cn"] || !about["zh-tw"]) throw new Error(`missing bread description ${item.id}`);
+    const description = { en: about.en, "zh-cn": about["zh-cn"], "zh-tw": about["zh-tw"] };
     const intro = {};
     for (const lang of LANGS) {
       const ratios = ratioParts(lang, item);
       if (lang === "en") {
-        description[lang] = `${item.name.en} from ${item.flour} g of flour at ${ratios}.`;
         intro[lang] = [
           `${item.name.en} is mixed from ${item.flour} g of flour at ${ratios}. ${item.clause.en}`,
         ];
       } else if (lang === "zh-cn") {
-        description[lang] = `${item.name["zh-cn"]}以 ${item.flour} 克面粉为基准，${ratios}。`;
-        intro[lang] = [`${description[lang]}${item.clause["zh-cn"]}`];
+        intro[lang] = [
+          `${item.name["zh-cn"]}以 ${item.flour} 克面粉为基准，${ratios}。${item.clause["zh-cn"]}`,
+        ];
       } else {
-        description[lang] = `${item.name["zh-tw"]}以 ${item.flour} 克麵粉為基準，${ratios}。`;
-        intro[lang] = [`${description[lang]}${item.clause["zh-tw"]}`];
+        intro[lang] = [
+          `${item.name["zh-tw"]}以 ${item.flour} 克麵粉為基準，${ratios}。${item.clause["zh-tw"]}`,
+        ];
       }
     }
     return {

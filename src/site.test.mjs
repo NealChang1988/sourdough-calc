@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { spawnSync } from "node:child_process";
 import { mkdtemp, readdir, readFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
@@ -117,6 +118,28 @@ test("kept pages describe different doughs and category pages calculate", () => 
   assert.match(tw, /意見回饋/);
   assert.match(tw, /請只填數字，例如 3000，不要加單位/);
   assert.match(renderPage(pages.find((page) => page.id === "home"), "en"), /Enter a number only, for example 3000, without units/);
+});
+
+test("bread descriptions differ within each language", () => {
+  const breads = pages.filter((page) => page.category === "bread" && page.kind === "tool");
+  const payload = {};
+  for (const lang of ["en", "zh-cn", "zh-tw"]) payload[lang] = breads.map((page) => page.description[lang]);
+  const script = `
+import json, difflib, sys
+data = json.load(sys.stdin)
+for lang, texts in data.items():
+    best = 0.0
+    for i, a in enumerate(texts):
+        for b in texts[i+1:]:
+            ratio = difflib.SequenceMatcher(None, a, b, autojunk=False).ratio()
+            if ratio > best:
+                best = ratio
+    print(f"{lang} {best:.4f}")
+    if best >= 0.60:
+        sys.exit(1)
+`;
+  const result = spawnSync("python3", ["-c", script], { input: JSON.stringify(payload), encoding: "utf8" });
+  assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
 });
 
 test("removed urls redirect to the nearest kept page", () => {
