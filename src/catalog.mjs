@@ -13,36 +13,6 @@ const FEATURED_IDS = [
   "bread-country-sourdough",
 ];
 
-function listAnd(parts) {
-  if (parts.length <= 1) return parts[0] ?? "";
-  if (parts.length === 2) return `${parts[0]} and ${parts[1]}`;
-  return `${parts.slice(0, -1).join(", ")}, and ${parts[parts.length - 1]}`;
-}
-
-function ratioParts(lang, spec) {
-  const yeast = spec.yeast ?? 0;
-  if (lang === "en") {
-    return listAnd([
-      `${spec.hydration}% water`,
-      spec.starter > 0 ? `${spec.starter}% starter` : "no starter",
-      `${spec.salt}% salt`,
-      yeast > 0 ? `${yeast}% yeast` : "no added yeast",
-    ]);
-  }
-  const starter = spec.starter > 0 ? `酸种 ${spec.starter}%` : "不加酸种";
-  const salt = lang === "zh-tw" ? `鹽 ${spec.salt}%` : `盐 ${spec.salt}%`;
-  const starterTw = spec.starter > 0 ? `酸種 ${spec.starter}%` : "不加酸種";
-  const yeastText =
-    lang === "zh-tw"
-      ? yeast > 0
-        ? `酵母 ${yeast}%`
-        : "不加酵母"
-      : yeast > 0
-        ? `酵母 ${yeast}%`
-        : "不加酵母";
-  return [`水合 ${spec.hydration}%`, lang === "zh-tw" ? starterTw : starter, salt, yeastText].join("，");
-}
-
 function homePage() {
   const title = {};
   const h1 = {};
@@ -224,23 +194,11 @@ function breadPages() {
     const about = breadAbout[item.id];
     if (!about?.en || !about["zh-cn"] || !about["zh-tw"]) throw new Error(`missing bread description ${item.id}`);
     const description = { en: about.en, "zh-cn": about["zh-cn"], "zh-tw": about["zh-tw"] };
-    const intro = {};
-    for (const lang of LANGS) {
-      const ratios = ratioParts(lang, item);
-      if (lang === "en") {
-        intro[lang] = [
-          `${item.name.en} is mixed from ${item.flour} g of flour at ${ratios}. ${item.clause.en}`,
-        ];
-      } else if (lang === "zh-cn") {
-        intro[lang] = [
-          `${item.name["zh-cn"]}以 ${item.flour} 克面粉为基准，${ratios}。${item.clause["zh-cn"]}`,
-        ];
-      } else {
-        intro[lang] = [
-          `${item.name["zh-tw"]}以 ${item.flour} 克麵粉為基準，${ratios}。${item.clause["zh-tw"]}`,
-        ];
-      }
-    }
+    const intro = {
+      en: [about.en],
+      "zh-cn": [about["zh-cn"]],
+      "zh-tw": [about["zh-tw"]],
+    };
     return {
       id: `bread-${item.id}`,
       kind: "tool",
@@ -291,7 +249,11 @@ function assertPages(list) {
       }
       if (titles[lang].has(page.title[lang])) throw new Error(`duplicate title ${lang} ${page.title[lang]}`);
       titles[lang].add(page.title[lang]);
-      if (page.kind !== "hub" && page.description[lang] === page.intro[lang].join(" ")) {
+      if (
+        page.kind !== "hub" &&
+        page.category !== "bread" &&
+        page.description[lang] === page.intro[lang].join(" ")
+      ) {
         throw new Error(`description copies intro ${page.id} ${lang}`);
       }
     }

@@ -120,25 +120,32 @@ test("kept pages describe different doughs and category pages calculate", () => 
   assert.match(renderPage(pages.find((page) => page.id === "home"), "en"), /Enter a number only, for example 3000, without units/);
 });
 
-test("bread descriptions differ within each language", () => {
-  const breads = pages.filter((page) => page.category === "bread" && page.kind === "tool");
+test("visible long-tail paragraphs differ within each language", () => {
   const payload = {};
-  for (const lang of ["en", "zh-cn", "zh-tw"]) payload[lang] = breads.map((page) => page.description[lang]);
+  for (const category of ["bread", "hydration", "pizza"]) {
+    const group = pages.filter((page) => page.category === category && page.kind === "tool");
+    payload[category] = {};
+    for (const lang of ["en", "zh-cn", "zh-tw"]) {
+      payload[category][lang] = group.map((page) => page.intro[lang].join("\n"));
+    }
+  }
   const script = `
 import json, difflib, sys
 data = json.load(sys.stdin)
-for lang, texts in data.items():
-    best = 0.0
-    for i, a in enumerate(texts):
-        for b in texts[i+1:]:
-            ratio = difflib.SequenceMatcher(None, a, b, autojunk=False).ratio()
-            if ratio > best:
-                best = ratio
-    print(f"{lang} {best:.4f}")
-    if best >= 0.60:
-        sys.exit(1)
+for category, langs in data.items():
+    for lang, texts in langs.items():
+        best = 0.0
+        for i, a in enumerate(texts):
+            for b in texts[i+1:]:
+                ratio = difflib.SequenceMatcher(None, a, b, autojunk=False).ratio()
+                if ratio > best:
+                    best = ratio
+        print(f"{category} {lang} {best:.4f}")
+        if best >= 0.60:
+            sys.exit(1)
 `;
   const result = spawnSync("python3", ["-c", script], { input: JSON.stringify(payload), encoding: "utf8" });
+  if (result.stdout) console.log(result.stdout.trim());
   assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
 });
 
