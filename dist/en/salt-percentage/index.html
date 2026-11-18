@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Salt Percentage for Dough</title>
-<meta name="description" content="Salt from 1.5% to 3% of flour weight, on a 70% hydration sourdough with 20% starter.">
+<meta name="description" content="Salt from about 1.5% to 3% of flour weight. Less salt lets the dough rise faster. More salt tightens it and slows fermentation, which some pizza doughs use.">
 <link rel="canonical" href="https://doughcalc.app/en/salt-percentage/">
 <link rel="alternate" hreflang="en" href="https://doughcalc.app/en/salt-percentage/"><link rel="alternate" hreflang="zh-CN" href="https://doughcalc.app/zh-cn/yan-bili/"><link rel="alternate" hreflang="zh-TW" href="https://doughcalc.app/zh-tw/yan-bili/"><link rel="alternate" hreflang="x-default" href="https://doughcalc.app/en/salt-percentage/">
 <meta property="og:title" content="Salt Percentage for Dough">
-<meta property="og:description" content="Salt from 1.5% to 3% of flour weight, on a 70% hydration sourdough with 20% starter.">
+<meta property="og:description" content="Salt from about 1.5% to 3% of flour weight. Less salt lets the dough rise faster. More salt tightens it and slows fermentation, which some pizza doughs use.">
 <meta property="og:url" content="https://doughcalc.app/en/salt-percentage/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_US">
@@ -26,12 +26,45 @@
 <main id="main">
 <nav class="crumb" aria-label="Breadcrumb"><a href="/en/">Dough calculator</a></nav>
 <h1>Salt Percentage for Dough</h1>
-<p>Salt is a percentage of the flour you weigh out. Around 2% is usual for country bread. Less salt speeds fermentation. More salt tightens the dough and slows it, which is common in some pizza doughs.</p>
-<section class="related"><ul class="link-list"><li><a href="/en/1-5-salt-bakers-percentage/">1.5% Salt Baker's Percentage</a></li><li><a href="/en/1-8-salt-bakers-percentage/">1.8% Salt Baker's Percentage</a></li><li><a href="/en/2-salt-bakers-percentage/">2% Salt Baker's Percentage</a></li><li><a href="/en/2-2-salt-bakers-percentage/">2.2% Salt Baker's Percentage</a></li><li><a href="/en/2-5-salt-bakers-percentage/">2.5% Salt Baker's Percentage</a></li><li><a href="/en/3-salt-bakers-percentage/">3% Salt Baker's Percentage</a></li></ul></section>
-<section class="related"><h2>Related calculators</h2><ul class="link-list"><li><a href="/en/1-5-salt-bakers-percentage/">1.5% Salt Baker's Percentage</a></li><li><a href="/en/1-8-salt-bakers-percentage/">1.8% Salt Baker's Percentage</a></li><li><a href="/en/2-salt-bakers-percentage/">2% Salt Baker's Percentage</a></li><li><a href="/en/2-2-salt-bakers-percentage/">2.2% Salt Baker's Percentage</a></li></ul></section>
+<p>Salt is a percentage of the flour you weigh out. Around 2% seasons a country loaf and slows fermentation a little. At 1.5% the dough rises faster and the crumb tastes milder. At 2.5% to 3% the dough feels tighter in the hand. That range is ordinary for some pizzas and high for most breads, so give it extra proof time until it is airy. This page starts at 500 g of flour, 70% hydration, and 20% starter. Edit the salt field to change the grams.</p>
+<form id="calc" autocomplete="off">
+<fieldset class="modes">
+<legend>How to scale</legend>
+<label><input type="radio" name="mode" value="flour" checked> From flour weight</label>
+<label><input type="radio" name="mode" value="balls"> From dough balls</label>
+</fieldset>
+<div class="fields" data-panel="flour">
+<label class="field"><span class="label">Flour <span class="unit">g</span></span><input name="flour" inputmode="decimal" min="0" step="any" value="500"></label>
+</div>
+<div class="fields grid-2" data-panel="balls" hidden>
+<label class="field"><span class="label">Dough balls</span><input name="balls" inputmode="decimal" min="0" step="any" value="4"></label>
+<label class="field"><span class="label">Grams per ball <span class="unit">g</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="250"></label>
+</div>
+<div class="fields grid-2">
+<label class="field"><span class="label">Hydration <span class="unit">%</span></span><input name="hydration" inputmode="decimal" min="0" step="any" value="70"></label>
+<label class="field"><span class="label">Starter <span class="unit">%</span></span><input name="starter" inputmode="decimal" min="0" step="any" value="20"></label>
+<label class="field"><span class="label">Salt <span class="unit">%</span></span><input name="salt" inputmode="decimal" min="0" step="any" value="2"></label>
+<label class="field"><span class="label">Yeast <span class="unit">%</span></span><input name="yeast" inputmode="decimal" min="0" step="any" value="0"><span class="hint">Optional. Use 0 when the dough has no added yeast.</span></label>
+</div>
+</form>
+<section class="card result" aria-live="polite">
+<h2>Recipe</h2>
+<span id="form-error" class="error" role="alert" hidden>Enter a number only, for example 3000, without units</span>
+<dl><div><dt>Flour</dt><dd id="out-flour">500 g</dd></div><div><dt>Water</dt><dd id="out-water">350 g</dd></div><div><dt>Starter</dt><dd id="out-starter">100 g</dd></div><div><dt>Salt</dt><dd id="out-salt">10 g</dd></div><div><dt>Yeast</dt><dd id="out-yeast">0 g</dd></div><div><dt>Total dough</dt><dd id="out-total">960 g</dd></div></dl>
+<p class="effective">Effective hydration <strong id="out-effective">72.7%</strong></p>
+<p class="convention">Percentages are of the flour you weigh out, and effective hydration also counts the flour and water inside a starter that is itself 100% hydration.</p>
+<div class="actions">
+<button type="button" id="copy">Copy recipe</button>
+<button type="button" id="print" class="secondary">Print</button>
+</div>
+<textarea id="recipe-text" hidden readonly></textarea>
+</section>
+<script type="application/json" id="labels">{"title":"Salt Percentage for Dough","flour":"Flour","water":"Water","starter":"Starter","salt":"Salt","yeast":"Yeast","total":"Total dough","grams":"g","effective":"Effective hydration","copied":"Copied","copyFail":"Select the recipe text and copy it"}</script>
+<script type="module" src="/assets/calc.js"></script>
+
 </main>
 <footer>
-<nav aria-label="More pages"><a href="/en/">Dough calculator</a><a href="/en/sourdough-hydration/">Sourdough hydration</a><a href="/en/pizza-dough/">Pizza dough</a><a href="/en/bread-dough/">Bread dough</a><a href="/en/starter-percentage/">Starter percentage</a><a href="/en/salt-percentage/">Salt percentage</a></nav>
+<nav aria-label="More pages"><a href="/en/">Dough calculator</a><a href="/en/sourdough-hydration/">Sourdough hydration</a><a href="/en/pizza-dough/">Pizza dough</a><a href="/en/bread-dough/">Bread dough</a><a href="/en/starter-percentage/">Starter percentage</a><a href="/en/salt-percentage/">Salt percentage</a><a href="mailto:alan.chang198807@gmail.com">Feedback</a></nav>
 <p>Ratios for home baking.</p>
 </footer>
 </body>

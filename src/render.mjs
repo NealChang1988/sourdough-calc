@@ -100,6 +100,7 @@ function footer(lang) {
       const hub = pages.find((page) => page.id === `hub-${category}`);
       return `<a href="${pagePath(lang, hub.slug[lang])}">${escapeHtml(ui[lang].categories[category])}</a>`;
     }),
+    `<a href="mailto:alan.chang198807@gmail.com">${escapeHtml(ui[lang].feedback)}</a>`,
   ];
   return `<footer>
 <nav aria-label="${escapeHtml(ui[lang].footerNav)}">${anchors.join("")}</nav>
@@ -179,10 +180,10 @@ ${field("yeast", copy.yeast, "%", String(preset.yeast), copy.yeastHint)}
 </form>
 <section class="card result" aria-live="polite">
 <h2>${escapeHtml(copy.result)}</h2>
+<span id="form-error" class="error" role="alert" hidden>${escapeHtml(copy.error)}</span>
 <dl>${rows}</dl>
 <p class="effective">${escapeHtml(copy.effective)} <strong id="out-effective">${formatAmount(effectiveHydration(recipe))}%</strong></p>
 <p class="convention">${escapeHtml(copy.convention)}</p>
-<p id="form-error" class="error" hidden>${escapeHtml(copy.error)}</p>
 <div class="actions">
 <button type="button" id="copy">${escapeHtml(copy.copy)}</button>
 <button type="button" id="print" class="secondary">${escapeHtml(copy.print)}</button>
@@ -219,12 +220,13 @@ export function renderPage(page, lang) {
   let inner = "";
   if (page.kind === "hub") {
     const groups = hubGroups(page, lang)
+      .filter((group) => group.pages.length > 0)
       .map((group) => {
         const heading = group.title ? `<h2>${escapeHtml(group.title)}</h2>` : "";
         return `<section class="related">${heading}${linkList(group.pages, lang)}</section>`;
       })
       .join("");
-    inner = groups;
+    inner = `${page.preset ? calculator(page, lang) : ""}${groups}`;
   } else {
     inner = calculator(page, lang);
   }

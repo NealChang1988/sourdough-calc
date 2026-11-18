@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>80% 水合酸种计算器</title>
-<meta name="description" content="接近恰巴塔或很湿的乡村面包。筋力靠折叠，不靠在台面上揉。">
+<meta name="description" content="适合恰巴塔或很湿的乡村面包。在台面上揉不起来，筋力靠折叠。用烤模或撒了粉的发酵篮，它才站得住。">
 <link rel="canonical" href="https://doughcalc.app/zh-cn/80-shuihe-suanzhong-jisuanqi/">
 <link rel="alternate" hreflang="en" href="https://doughcalc.app/en/80-hydration-sourdough-calculator/"><link rel="alternate" hreflang="zh-CN" href="https://doughcalc.app/zh-cn/80-shuihe-suanzhong-jisuanqi/"><link rel="alternate" hreflang="zh-TW" href="https://doughcalc.app/zh-tw/80-shuihe-suan-zhong-jisuan/"><link rel="alternate" hreflang="x-default" href="https://doughcalc.app/en/80-hydration-sourdough-calculator/">
 <meta property="og:title" content="80% 水合酸种计算器">
-<meta property="og:description" content="接近恰巴塔或很湿的乡村面包。筋力靠折叠，不靠在台面上揉。">
+<meta property="og:description" content="适合恰巴塔或很湿的乡村面包。在台面上揉不起来，筋力靠折叠。用烤模或撒了粉的发酵篮，它才站得住。">
 <meta property="og:url" content="https://doughcalc.app/zh-cn/80-shuihe-suanzhong-jisuanqi/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="zh_CN">
@@ -26,7 +26,7 @@
 <main id="main">
 <nav class="crumb" aria-label="当前位置"><a href="/zh-cn/">面团计算器</a> / <a href="/zh-cn/suanzhong-shuihe/">酸种水合</a></nav>
 <h1>80% 水合酸种计算器</h1>
-<p>这份 80% 水合的酸种以 500 克面粉为基准，酸种 20%，盐 2%。接近恰巴塔或很湿的乡村面包。筋力靠折叠，不靠在台面上揉。</p>
+<p>从 500 克面粉、水合 80%、酸种 20%、盐 2% 出发。水合仍然可以改。刚拌完是粗糙的，折叠之后才会变光滑，更接近摊开的恰巴塔，而不是紧实的吐司。</p>
 <form id="calc" autocomplete="off">
 <fieldset class="modes">
 <legend>怎么算</legend>
@@ -49,10 +49,10 @@
 </form>
 <section class="card result" aria-live="polite">
 <h2>配方</h2>
+<span id="form-error" class="error" role="alert" hidden>请只填数字，例如 3000，不要加单位</span>
 <dl><div><dt>面粉</dt><dd id="out-flour">500 克</dd></div><div><dt>水</dt><dd id="out-water">400 克</dd></div><div><dt>酸种</dt><dd id="out-starter">100 克</dd></div><div><dt>盐</dt><dd id="out-salt">10 克</dd></div><div><dt>酵母</dt><dd id="out-yeast">0 克</dd></div><div><dt>面团总重</dt><dd id="out-total">1010 克</dd></div></dl>
 <p class="effective">有效水合 <strong id="out-effective">81.8%</strong></p>
 <p class="convention">百分比以你称出的面粉为基准，有效水合则把本身为 100% 水合的酸种里的面粉和水也算进去。</p>
-<p id="form-error" class="error" hidden>面粉重量要大于 0。如果按面团球计算，球数和每球克数也要大于 0。百分比不能为负。</p>
 <div class="actions">
 <button type="button" id="copy">复制配方</button>
 <button type="button" id="print" class="secondary">打印</button>
@@ -61,10 +61,10 @@
 </section>
 <script type="application/json" id="labels">{"title":"80% 水合酸种计算器","flour":"面粉","water":"水","starter":"酸种","salt":"盐","yeast":"酵母","total":"面团总重","grams":"克","effective":"有效水合","copied":"已复制","copyFail":"请选中配方文字再复制"}</script>
 <script type="module" src="/assets/calc.js"></script>
-<section class="related"><h2>相关计算</h2><ul class="link-list"><li><a href="/zh-cn/79-shuihe-suanzhong-jisuanqi/">79% 水合酸种计算器</a></li><li><a href="/zh-cn/81-shuihe-suanzhong-jisuanqi/">81% 水合酸种计算器</a></li><li><a href="/zh-cn/78-shuihe-suanzhong-jisuanqi/">78% 水合酸种计算器</a></li><li><a href="/zh-cn/82-shuihe-suanzhong-jisuanqi/">82% 水合酸种计算器</a></li></ul></section>
+<section class="related"><h2>相关计算</h2><ul class="link-list"><li><a href="/zh-cn/75-shuihe-suanzhong-jisuanqi/">75% 水合酸种计算器</a></li><li><a href="/zh-cn/70-shuihe-suanzhong-jisuanqi/">70% 水合酸种计算器</a></li><li><a href="/zh-cn/65-shuihe-suanzhong-jisuanqi/">65% 水合酸种计算器</a></li></ul></section>
 </main>
 <footer>
-<nav aria-label="更多页面"><a href="/zh-cn/">面团计算器</a><a href="/zh-cn/suanzhong-shuihe/">酸种水合</a><a href="/zh-cn/pisa-fenlei/">披萨面团</a><a href="/zh-cn/mianbao-baifenbi/">面包面团</a><a href="/zh-cn/suanzhong-bili/">酸种比例</a><a href="/zh-cn/yan-bili/">盐的比例</a></nav>
+<nav aria-label="更多页面"><a href="/zh-cn/">面团计算器</a><a href="/zh-cn/suanzhong-shuihe/">酸种水合</a><a href="/zh-cn/pisa-fenlei/">披萨面团</a><a href="/zh-cn/mianbao-baifenbi/">面包面团</a><a href="/zh-cn/suanzhong-bili/">酸种比例</a><a href="/zh-cn/yan-bili/">盐的比例</a><a href="mailto:alan.chang198807@gmail.com">意见反馈</a></nav>
 <p>家庭烘焙用的比例。</p>
 </footer>
 </body>

@@ -1,7 +1,7 @@
 import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { pages, toolCount } from "./src/catalog.mjs";
+import { pages, redirectRules, toolCount } from "./src/catalog.mjs";
 import { LANGS } from "./src/i18n.mjs";
 import {
   pagePath,
@@ -20,6 +20,15 @@ async function writeText(file, contents) {
   await writeFile(file, contents);
 }
 
+export function renderRedirects() {
+  const lines = ["/ /en/ 302"];
+  for (const rule of redirectRules()) {
+    lines.push(`${rule.from} ${rule.to} 301`);
+    lines.push(`${rule.from.replace(/\/$/, "")} ${rule.to} 301`);
+  }
+  return `${lines.join("\n")}\n`;
+}
+
 export async function writeSite(distDir) {
   await rm(distDir, { recursive: true, force: true });
   await mkdir(distDir, { recursive: true });
@@ -34,7 +43,7 @@ export async function writeSite(distDir) {
   await writeText(path.join(distDir, "404.html"), renderNotFound());
   await writeText(path.join(distDir, "robots.txt"), renderRobots());
   await writeText(path.join(distDir, "sitemap.xml"), renderSitemap());
-  await writeText(path.join(distDir, "_redirects"), "/ /en/ 302\n");
+  await writeText(path.join(distDir, "_redirects"), renderRedirects());
   for (const page of pages) {
     for (const lang of LANGS) {
       const pathname = pagePath(lang, page.slug[lang]);

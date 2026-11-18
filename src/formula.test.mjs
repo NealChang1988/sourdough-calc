@@ -48,12 +48,13 @@ test("effective hydration matches the stated hydration when starter is zero", ()
   assert.equal(effectiveHydration(recipe), 65);
 });
 
-test("parseInputs rejects empty flour and negative salt, and accepts a comma decimal", () => {
-  assert.equal(parseInputs({ mode: "flour", flour: "", hydration: 75, starter: 20, salt: 2, yeast: 0 }).ok, false);
-  assert.equal(
-    parseInputs({ mode: "flour", flour: 500, hydration: 75, starter: 20, salt: -1, yeast: 0 }).ok,
-    false,
-  );
+test("parseInputs rejects empty flour and negative salt", () => {
+  const empty = parseInputs({ mode: "flour", flour: "", hydration: 75, starter: 20, salt: 2, yeast: 0 });
+  assert.equal(empty.ok, false);
+  assert.equal(empty.field, "flour");
+  const negative = parseInputs({ mode: "flour", flour: 500, hydration: 75, starter: 20, salt: -1, yeast: 0 });
+  assert.equal(negative.ok, false);
+  assert.equal(negative.field, "salt");
   const parsed = parseInputs({
     mode: "balls",
     balls: "4",
@@ -61,8 +62,24 @@ test("parseInputs rejects empty flour and negative salt, and accepts a comma dec
     hydration: "65",
     starter: "0",
     salt: "3",
-    yeast: "0,2",
+    yeast: "0.2",
   });
   assert.equal(parsed.ok, true);
   assert.equal(formatAmount(recipeFor(parsed.preset).flour), "594.5");
+});
+
+test("parseInputs reads thousands separators, full-width digits, and a trailing unit", () => {
+  const base = { mode: "flour", hydration: "75", starter: "20", salt: "2", yeast: "0" };
+  assert.equal(parseInputs({ ...base, flour: "3,000" }).preset.flour, 3000);
+  assert.equal(parseInputs({ ...base, flour: "１２００" }).preset.flour, 1200);
+  assert.equal(parseInputs({ ...base, flour: "500g" }).preset.flour, 500);
+  assert.equal(parseInputs({ ...base, flour: "500 g" }).preset.flour, 500);
+  assert.equal(parseInputs({ ...base, flour: "1,500.5" }).preset.flour, 1500.5);
+  const kilograms = parseInputs({ ...base, flour: "3kg" });
+  assert.equal(kilograms.ok, false);
+  assert.equal(kilograms.field, "flour");
+  assert.equal(parseInputs({ ...base, flour: "500", hydration: "75%" }).preset.hydration, 75);
+  assert.equal(parseInputs({ ...base, flour: "500 克" }).preset.flour, 500);
+  assert.equal(parseInputs({ ...base, flour: "１．５" }).preset.flour, 1.5);
+  assert.equal(parseInputs({ ...base, flour: "500", yeast: "0,2" }).ok, false);
 });

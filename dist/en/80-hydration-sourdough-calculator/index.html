@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>80% Hydration Sourdough Calculator</title>
-<meta name="description" content="Dough for ciabatta or a very wet country loaf. Strength comes from folds, not from kneading on the counter.">
+<meta name="description" content="Wet dough for ciabatta or a very slack country loaf. It will not knead cleanly on the bench. Strength comes from folds, and a pan or a floured basket helps it hold.">
 <link rel="canonical" href="https://doughcalc.app/en/80-hydration-sourdough-calculator/">
 <link rel="alternate" hreflang="en" href="https://doughcalc.app/en/80-hydration-sourdough-calculator/"><link rel="alternate" hreflang="zh-CN" href="https://doughcalc.app/zh-cn/80-shuihe-suanzhong-jisuanqi/"><link rel="alternate" hreflang="zh-TW" href="https://doughcalc.app/zh-tw/80-shuihe-suan-zhong-jisuan/"><link rel="alternate" hreflang="x-default" href="https://doughcalc.app/en/80-hydration-sourdough-calculator/">
 <meta property="og:title" content="80% Hydration Sourdough Calculator">
-<meta property="og:description" content="Dough for ciabatta or a very wet country loaf. Strength comes from folds, not from kneading on the counter.">
+<meta property="og:description" content="Wet dough for ciabatta or a very slack country loaf. It will not knead cleanly on the bench. Strength comes from folds, and a pan or a floured basket helps it hold.">
 <meta property="og:url" content="https://doughcalc.app/en/80-hydration-sourdough-calculator/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_US">
@@ -26,7 +26,7 @@
 <main id="main">
 <nav class="crumb" aria-label="Breadcrumb"><a href="/en/">Dough calculator</a> / <a href="/en/sourdough-hydration/">Sourdough hydration</a></nav>
 <h1>80% Hydration Sourdough Calculator</h1>
-<p>This 80% hydration sourdough is scaled from 500 g of flour with 20% starter and 2% salt. Dough for ciabatta or a very wet country loaf. Strength comes from folds, not from kneading on the counter.</p>
+<p>Start from 500 g of flour at 80% hydration, with 20% starter and 2% salt. The hydration input still moves. Expect a shaggy mix that smooths out only after folds, closer to a flat ciabatta than to a tight sandwich loaf.</p>
 <form id="calc" autocomplete="off">
 <fieldset class="modes">
 <legend>How to scale</legend>
@@ -49,10 +49,10 @@
 </form>
 <section class="card result" aria-live="polite">
 <h2>Recipe</h2>
+<span id="form-error" class="error" role="alert" hidden>Enter a number only, for example 3000, without units</span>
 <dl><div><dt>Flour</dt><dd id="out-flour">500 g</dd></div><div><dt>Water</dt><dd id="out-water">400 g</dd></div><div><dt>Starter</dt><dd id="out-starter">100 g</dd></div><div><dt>Salt</dt><dd id="out-salt">10 g</dd></div><div><dt>Yeast</dt><dd id="out-yeast">0 g</dd></div><div><dt>Total dough</dt><dd id="out-total">1010 g</dd></div></dl>
 <p class="effective">Effective hydration <strong id="out-effective">81.8%</strong></p>
 <p class="convention">Percentages are of the flour you weigh out, and effective hydration also counts the flour and water inside a starter that is itself 100% hydration.</p>
-<p id="form-error" class="error" hidden>Enter a flour weight above zero, or a ball count and grams per ball above zero. Percentages cannot be negative.</p>
 <div class="actions">
 <button type="button" id="copy">Copy recipe</button>
 <button type="button" id="print" class="secondary">Print</button>
@@ -61,10 +61,10 @@
 </section>
 <script type="application/json" id="labels">{"title":"80% Hydration Sourdough Calculator","flour":"Flour","water":"Water","starter":"Starter","salt":"Salt","yeast":"Yeast","total":"Total dough","grams":"g","effective":"Effective hydration","copied":"Copied","copyFail":"Select the recipe text and copy it"}</script>
 <script type="module" src="/assets/calc.js"></script>
-<section class="related"><h2>Related calculators</h2><ul class="link-list"><li><a href="/en/79-hydration-sourdough-calculator/">79% Hydration Sourdough Calculator</a></li><li><a href="/en/81-hydration-sourdough-calculator/">81% Hydration Sourdough Calculator</a></li><li><a href="/en/78-hydration-sourdough-calculator/">78% Hydration Sourdough Calculator</a></li><li><a href="/en/82-hydration-sourdough-calculator/">82% Hydration Sourdough Calculator</a></li></ul></section>
+<section class="related"><h2>Related calculators</h2><ul class="link-list"><li><a href="/en/75-hydration-sourdough-calculator/">75% Hydration Sourdough Calculator</a></li><li><a href="/en/70-hydration-sourdough-calculator/">70% Hydration Sourdough Calculator</a></li><li><a href="/en/65-hydration-sourdough-calculator/">65% Hydration Sourdough Calculator</a></li></ul></section>
 </main>
 <footer>
-<nav aria-label="More pages"><a href="/en/">Dough calculator</a><a href="/en/sourdough-hydration/">Sourdough hydration</a><a href="/en/pizza-dough/">Pizza dough</a><a href="/en/bread-dough/">Bread dough</a><a href="/en/starter-percentage/">Starter percentage</a><a href="/en/salt-percentage/">Salt percentage</a></nav>
+<nav aria-label="More pages"><a href="/en/">Dough calculator</a><a href="/en/sourdough-hydration/">Sourdough hydration</a><a href="/en/pizza-dough/">Pizza dough</a><a href="/en/bread-dough/">Bread dough</a><a href="/en/starter-percentage/">Starter percentage</a><a href="/en/salt-percentage/">Salt percentage</a><a href="mailto:alan.chang198807@gmail.com">Feedback</a></nav>
 <p>Ratios for home baking.</p>
 </footer>
 </body>

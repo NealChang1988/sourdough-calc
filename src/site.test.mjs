@@ -1,17 +1,23 @@
 import assert from "node:assert/strict";
-import { mkdtemp, readFile } from "node:fs/promises";
+import { mkdtemp, readdir, readFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import test from "node:test";
 import { writeSite } from "../build.mjs";
 import { SITE_URL } from "../site.config.mjs";
-import { pages, toolCount } from "./catalog.mjs";
+import { nearestHydration, pages, redirectRules, toolCount } from "./catalog.mjs";
 import { formatAmount } from "./formula.mjs";
 import { renderPage } from "./render.mjs";
 
-test("each language has 150 to 200 long-tail pages", () => {
-  const count = toolCount();
-  assert.ok(count >= 150 && count <= 200, `long-tail count ${count}`);
+test("long-tail calculators are the kept hydration, pizza, and bread pages", () => {
+  assert.equal(toolCount(), 73);
+  assert.equal(pages.length, 79);
+  assert.deepEqual(
+    pages.filter((page) => page.category === "hydration" && page.kind === "tool").map((page) => page.preset.hydration),
+    [65, 70, 75, 80],
+  );
+  assert.equal(pages.filter((page) => page.category === "pizza" && page.kind === "tool").length, 8);
+  assert.equal(pages.some((page) => page.kind === "tool" && (page.category === "salt" || page.category === "starter")), false);
 });
 
 test("home page shows the 500 g reference recipe", () => {
@@ -30,11 +36,18 @@ test("home page shows the 500 g reference recipe", () => {
 
 test("sample long-tail pages keep their titles and language tags", () => {
   const hydration = pages.find((page) => page.id === "hydration-70");
-  const pizza = pages.find((page) => page.id === "pizza-neapolitan-6");
+  const pizza = pages.find((page) => page.id === "pizza-neapolitan");
   const focaccia = pages.find((page) => page.id === "bread-focaccia");
   assert.equal(hydration.title.en, "70% Hydration Sourdough Calculator");
-  assert.equal(pizza.title.en, "Neapolitan Pizza Dough for 6 Balls");
+  assert.equal(pizza.title.en, "Neapolitan Pizza Dough");
   assert.equal(focaccia.title.en, "Focaccia Baker's Percentage");
+  const pizzaHtml = renderPage(pizza, "en");
+  assert.match(pizzaHtml, /name="balls"/);
+  assert.doesNotMatch(pizzaHtml, /name="balls"[^>]*disabled/);
+  assert.match(pizzaHtml, /name="hydration"/);
+  assert.doesNotMatch(pizzaHtml, /name="hydration"[^>]*readonly/);
+  assert.match(pizzaHtml, /hreflang="zh-CN" href="[^"]+\/zh-cn\/nabulesi-pisa\/"/);
+  assert.doesNotMatch(pizzaHtml, /-\d+-balls/);
   const tw = renderPage(hydration, "zh-tw");
   assert.match(tw, /<html lang="zh-TW">/);
   assert.match(tw, /<h1>70% 水合酸種計算<\/h1>/);
@@ -82,6 +95,53 @@ test("pages do not mention nutrition, brands, or trackers", () => {
   }
 });
 
+test("kept pages describe different doughs and category pages calculate", () => {
+  for (const lang of ["en", "zh-cn", "zh-tw"]) {
+    const hydration = [65, 70, 75, 80].map((n) => pages.find((page) => page.id === `hydration-${n}`).description[lang]);
+    assert.equal(new Set(hydration).size, 4);
+    const pizza = pages.filter((page) => page.category === "pizza" && page.kind === "tool").map((page) => page.description[lang]);
+    assert.equal(new Set(pizza).size, 8);
+  }
+  const salt = renderPage(pages.find((page) => page.id === "hub-salt"), "en");
+  const starter = renderPage(pages.find((page) => page.id === "hub-starter"), "zh-cn");
+  assert.match(salt, /id="calc"/);
+  assert.match(salt, /name="salt"[^>]*value="2"/);
+  assert.match(starter, /id="calc"/);
+  assert.match(starter, /name="starter"[^>]*value="20"/);
+  assert.match(salt, /href="mailto:alan.chang198807@gmail.com"/);
+  assert.match(salt, /Feedback/);
+  assert.match(salt, /Ratios for home baking\./);
+  assert.match(starter, /意见反馈/);
+  assert.match(starter, /家庭烘焙用的比例。/);
+  const tw = renderPage(pages.find((page) => page.id === "home"), "zh-tw");
+  assert.match(tw, /意見回饋/);
+  assert.match(tw, /請只填數字，例如 3000，不要加單位/);
+  assert.match(renderPage(pages.find((page) => page.id === "home"), "en"), /Enter a number only, for example 3000, without units/);
+});
+
+test("removed urls redirect to the nearest kept page", () => {
+  assert.equal(nearestHydration(60), 65);
+  assert.equal(nearestHydration(67), 65);
+  assert.equal(nearestHydration(68), 70);
+  assert.equal(nearestHydration(72), 70);
+  assert.equal(nearestHydration(73), 75);
+  assert.equal(nearestHydration(77), 75);
+  assert.equal(nearestHydration(78), 80);
+  assert.equal(nearestHydration(90), 80);
+  const rules = redirectRules();
+  assert.equal(rules.length, 312);
+  const byFrom = new Map(rules.map((rule) => [rule.from, rule.to]));
+  assert.equal(byFrom.get("/en/64-hydration-sourdough-calculator/"), "/en/65-hydration-sourdough-calculator/");
+  assert.equal(byFrom.get("/en/67-hydration-sourdough-calculator/"), "/en/65-hydration-sourdough-calculator/");
+  assert.equal(byFrom.get("/zh-cn/86-shuihe-suanzhong-jisuanqi/"), "/zh-cn/80-shuihe-suanzhong-jisuanqi/");
+  assert.equal(byFrom.get("/en/neapolitan-pizza-dough-1-ball/"), "/en/neapolitan-pizza-dough/");
+  assert.equal(byFrom.get("/en/neapolitan-pizza-dough-12-balls/"), "/en/neapolitan-pizza-dough/");
+  assert.equal(byFrom.get("/zh-tw/baopi-pisa-6-qiu/"), "/zh-tw/baopi-pisa/");
+  assert.equal(byFrom.get("/en/20-percent-sourdough-starter/"), "/en/starter-percentage/");
+  assert.equal(byFrom.get("/zh-cn/2-5-yan-baifenbi/"), "/zh-cn/yan-bili/");
+  assert.equal(byFrom.get("/zh-tw/1-5-yan-baifenbi/"), "/zh-tw/yan-bili/");
+});
+
 test("writeSite emits sitemap, robots, and a sample page", async () => {
   const dir = await mkdtemp(path.join(tmpdir(), "dough-"));
   await writeSite(dir);
@@ -99,4 +159,46 @@ test("writeSite emits sitemap, robots, and a sample page", async () => {
   assert.match(focaccia, /佛卡夏烘焙百分比/);
   const root = await readFile(path.join(dir, "index.html"), "utf8");
   assert.match(root, /url=\/en\//);
+});
+
+async function htmlFiles(dir) {
+  const found = [];
+  for (const entry of await readdir(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) found.push(...(await htmlFiles(full)));
+    else if (entry.name.endsWith(".html")) found.push(full);
+  }
+  return found;
+}
+
+test("built site drops removed urls and keeps a footer mailto on every page", async () => {
+  const dir = await mkdtemp(path.join(tmpdir(), "dough-"));
+  await writeSite(dir);
+  const rules = redirectRules();
+  const redirects = await readFile(path.join(dir, "_redirects"), "utf8");
+  const sitemap = await readFile(path.join(dir, "sitemap.xml"), "utf8");
+  assert.match(redirects, /^\/ \/en\/ 302$/m);
+  assert.equal(sitemap.split("<loc>").length - 1, pages.length * 3);
+  for (const rule of rules) {
+    assert.ok(redirects.includes(`${rule.from} ${rule.to} 301`), rule.from);
+    assert.equal(sitemap.includes(rule.from), false, rule.from);
+  }
+  const removed = new Set(rules.map((rule) => rule.from));
+  for (const file of await htmlFiles(dir)) {
+    const rel = path.relative(dir, file);
+    const html = await readFile(file, "utf8");
+    for (const from of removed) {
+      assert.equal(html.includes(`href="${from}"`), false, `${rel} -> ${from}`);
+    }
+    if (!/^(en|zh-cn|zh-tw)\//.test(rel)) continue;
+    assert.match(html, /href="mailto:alan.chang198807@gmail.com"/, rel);
+    assert.match(html, /rel="canonical" href="[^"]+"/, rel);
+    assert.match(html, /hreflang="en"/, rel);
+    assert.match(html, /hreflang="zh-CN"/, rel);
+    assert.match(html, /hreflang="zh-TW"/, rel);
+    const canonical = html.match(/rel="canonical" href="([^"]+)"/)[1];
+    assert.equal(removed.has(new URL(canonical).pathname), false, rel);
+    assert.match(html, /class="langs"/, rel);
+    if (!/^(en|zh-cn|zh-tw)\/index\.html$/.test(rel)) assert.match(html, /class="crumb"/, rel);
+  }
 });
