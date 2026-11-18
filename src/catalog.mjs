@@ -1,86 +1,17 @@
+import { breadAbout } from "./data/bread-about.mjs";
 import { breads } from "./data/breads.mjs";
-import { hydrationNotes } from "./data/hydration-notes.mjs";
-import { saltNotes, starterNotes } from "./data/mix-notes.mjs";
-import { BALL_COUNTS, pizzaStyles } from "./data/pizza.mjs";
+import { hydrationCopy, KEPT_HYDRATION } from "./data/hydration-notes.mjs";
+import { OLD_BALL_COUNTS, pizzaStyles } from "./data/pizza.mjs";
 import { FAMILIES, LANGS, ui } from "./i18n.mjs";
 
 const FEATURED_IDS = [
   "hydration-75",
   "hydration-70",
-  "pizza-neapolitan-6",
+  "pizza-neapolitan",
   "bread-focaccia",
   "bread-bagel",
   "bread-country-sourdough",
 ];
-
-function listAnd(parts) {
-  if (parts.length <= 1) return parts[0] ?? "";
-  if (parts.length === 2) return `${parts[0]} and ${parts[1]}`;
-  return `${parts.slice(0, -1).join(", ")}, and ${parts[parts.length - 1]}`;
-}
-
-function ratioParts(lang, spec) {
-  const yeast = spec.yeast ?? 0;
-  if (lang === "en") {
-    return listAnd([
-      `${spec.hydration}% water`,
-      spec.starter > 0 ? `${spec.starter}% starter` : "no starter",
-      `${spec.salt}% salt`,
-      yeast > 0 ? `${yeast}% yeast` : "no added yeast",
-    ]);
-  }
-  const starter = spec.starter > 0 ? `酸种 ${spec.starter}%` : "不加酸种";
-  const salt = lang === "zh-tw" ? `鹽 ${spec.salt}%` : `盐 ${spec.salt}%`;
-  const starterTw = spec.starter > 0 ? `酸種 ${spec.starter}%` : "不加酸種";
-  const yeastText =
-    lang === "zh-tw"
-      ? yeast > 0
-        ? `酵母 ${yeast}%`
-        : "不加酵母"
-      : yeast > 0
-        ? `酵母 ${yeast}%`
-        : "不加酵母";
-  return [`水合 ${spec.hydration}%`, lang === "zh-tw" ? starterTw : starter, salt, yeastText].join("，");
-}
-
-function ballSentence(lang, balls, grams, total) {
-  const en = {
-    1: `One ball at ${grams} g is a single pie, ${total} g of dough.`,
-    2: `Two balls at ${grams} g each come to ${total} g. Cut the dough in half and weigh both pieces.`,
-    3: `Three balls at ${grams} g each come to ${total} g. Weigh every piece so the three pies match.`,
-    4: `Four balls at ${grams} g each come to ${total} g. Divide the dough in half, then divide each half.`,
-    6: `Six balls at ${grams} g each come to ${total} g. Weigh each piece so the pies bake alike.`,
-    8: `Eight balls at ${grams} g each come to ${total} g. Use a large bowl and leave the balls room in the fridge.`,
-    10: `Ten balls at ${grams} g each come to ${total} g. Keep the container covered so the surfaces do not dry.`,
-    12: `Twelve balls at ${grams} g each come to ${total} g. Mix in a bowl with room to fold, then weigh every piece.`,
-  };
-  const zhCn = {
-    1: `一球 ${grams} 克，就是一张饼，面团一共 ${total} 克。`,
-    2: `两球各 ${grams} 克，合计 ${total} 克。对半切开，两块都称一下。`,
-    3: `三球各 ${grams} 克，合计 ${total} 克。每一块都称，三张饼才会一样大。`,
-    4: `四球各 ${grams} 克，合计 ${total} 克。先对半，再把每一半分开。`,
-    6: `六球各 ${grams} 克，合计 ${total} 克。逐块称重，烤出来才一致。`,
-    8: `八球各 ${grams} 克，合计 ${total} 克。用大盆拌，冷藏时给面团球留出空隙。`,
-    10: `十球各 ${grams} 克，合计 ${total} 克。容器要盖严，表面才不会干。`,
-    12: `十二球各 ${grams} 克，合计 ${total} 克。盆要留出折叠的空间，分割时逐块称重。`,
-  };
-  const zhTw = {
-    1: `一球 ${grams} 克，就是一張餅，麵團一共 ${total} 克。`,
-    2: `兩球各 ${grams} 克，合計 ${total} 克。對半切開，兩塊都秤一下。`,
-    3: `三球各 ${grams} 克，合計 ${total} 克。每一塊都秤，三張餅才會一樣大。`,
-    4: `四球各 ${grams} 克，合計 ${total} 克。先對半，再把每一半分開。`,
-    6: `六球各 ${grams} 克，合計 ${total} 克。逐塊秤重，烤出來才一致。`,
-    8: `八球各 ${grams} 克，合計 ${total} 克。用大盆拌，冷藏時給麵團球留出空隙。`,
-    10: `十球各 ${grams} 克，合計 ${total} 克。容器要蓋嚴，表面才不會乾。`,
-    12: `十二球各 ${grams} 克，合計 ${total} 克。盆要留出摺疊的空間，分割時逐塊秤重。`,
-  };
-  const table = lang === "en" ? en : lang === "zh-tw" ? zhTw : zhCn;
-  return table[balls];
-}
-
-function text(lang, value) {
-  return value[lang];
-}
 
 function homePage() {
   const title = {};
@@ -139,42 +70,56 @@ function hubPages() {
       h1,
       description,
       intro,
-      preset: null,
+      preset:
+        category === "starter"
+          ? { mode: "flour", flour: 500, hydration: 75, starter: 20, salt: 2, yeast: 0, balls: 4, gramsPerBall: 250 }
+          : category === "salt"
+            ? { mode: "flour", flour: 500, hydration: 70, starter: 20, salt: 2, yeast: 0, balls: 4, gramsPerBall: 250 }
+            : null,
     };
   });
 }
 
+function hydrationSlug(lang, n) {
+  if (lang === "en") return `${n}-hydration-sourdough-calculator`;
+  if (lang === "zh-cn") return `${n}-shuihe-suanzhong-jisuanqi`;
+  return `${n}-shuihe-suan-zhong-jisuan`;
+}
+
+export function nearestHydration(n) {
+  return KEPT_HYDRATION.reduce((best, candidate) => {
+    const bestDist = Math.abs(n - best);
+    const dist = Math.abs(n - candidate);
+    if (dist < bestDist || (dist === bestDist && candidate < best)) return candidate;
+    return best;
+  });
+}
+
 function hydrationPages() {
-  const pages = [];
-  for (let n = 60; n <= 90; n += 1) {
-    const note = hydrationNotes[n];
+  return KEPT_HYDRATION.map((n) => {
+    const copy = hydrationCopy[n];
     const title = {
       en: `${n}% Hydration Sourdough Calculator`,
       "zh-cn": `${n}% 水合酸种计算器`,
       "zh-tw": `${n}% 水合酸種計算`,
     };
-    const intro = {
-      en: `This ${n}% hydration sourdough is scaled from 500 g of flour with 20% starter and 2% salt. ${note.en}`,
-      "zh-cn": `这份 ${n}% 水合的酸种以 500 克面粉为基准，酸种 20%，盐 2%。${note["zh-cn"]}`,
-      "zh-tw": `這份 ${n}% 水合的酸種以 500 克麵粉為基準，酸種 20%，鹽 2%。${note["zh-tw"]}`,
-    };
-    pages.push({
+    return {
       id: `hydration-${n}`,
       kind: "tool",
       category: "hydration",
       slug: {
-        en: `${n}-hydration-sourdough-calculator`,
-        "zh-cn": `${n}-shuihe-suanzhong-jisuanqi`,
-        "zh-tw": `${n}-shuihe-suan-zhong-jisuan`,
+        en: hydrationSlug("en", n),
+        "zh-cn": hydrationSlug("zh-cn", n),
+        "zh-tw": hydrationSlug("zh-tw", n),
       },
       title,
       h1: title,
-      description: {
-        en: note.en,
-        "zh-cn": note["zh-cn"],
-        "zh-tw": note["zh-tw"],
+      description: copy.description,
+      intro: {
+        en: [copy.intro.en],
+        "zh-cn": [copy.intro["zh-cn"]],
+        "zh-tw": [copy.intro["zh-tw"]],
       },
-      intro: { en: [intro.en], "zh-cn": [intro["zh-cn"]], "zh-tw": [intro["zh-tw"]] },
       preset: {
         mode: "flour",
         flour: 500,
@@ -186,70 +131,57 @@ function hydrationPages() {
         gramsPerBall: 250,
       },
       neighbor: n,
-    });
-  }
-  return pages;
+    };
+  });
+}
+
+function pizzaSlug(lang, style) {
+  return lang === "en" ? style.slug.en : style.slug.zh;
+}
+
+function pizzaBallSlug(lang, style, balls) {
+  if (lang === "en") return `${style.slug.en}-${balls}-${balls === 1 ? "ball" : "balls"}`;
+  return `${style.slug.zh}-${balls}-qiu`;
 }
 
 function pizzaPages() {
-  const pages = [];
-  for (const style of pizzaStyles) {
-    for (const balls of BALL_COUNTS) {
-      const total = balls * style.ballGrams;
-      const spec = style;
-      const title = {
-        en: balls === 1 ? `${style.name.en} for 1 Ball` : `${style.name.en} for ${balls} Balls`,
-        "zh-cn": `${balls} 球${style.name["zh-cn"]}`,
-        "zh-tw": `${balls} 球${style.name["zh-tw"]}`,
-      };
-      const intro = {};
-      const description = {};
-      for (const lang of LANGS) {
-        const lead =
-          lang === "en"
-            ? `${style.name.en} for ${balls === 1 ? "1 ball" : `${balls} balls`} uses ${ratioParts(lang, spec)}.`
-            : `${style.name[lang]}，${balls} 球，${ratioParts(lang, spec)}。`;
-        const countLine = ballSentence(lang, balls, style.ballGrams, total);
-        intro[lang] = [
-          lang === "en" ? `${lead} ${countLine} ${style.method[lang]}` : `${lead}${countLine}${style.method[lang]}`,
-        ];
-        description[lang] =
-          lang === "en"
-            ? `${balls} ${balls === 1 ? "ball" : "balls"} at ${style.ballGrams} g. Total dough is ${total} g, at ${ratioParts(lang, spec)}.`
-            : `${balls} 球，每球 ${style.ballGrams} 克，面团合计 ${total} 克，${ratioParts(lang, spec)}。`;
-        if (lang === "zh-tw") {
-          description[lang] = `${balls} 球，每球 ${style.ballGrams} 克，麵團合計 ${total} 克，${ratioParts(lang, spec)}。`;
-        }
-      }
-      pages.push({
-        id: `pizza-${style.id}-${balls}`,
-        kind: "tool",
-        category: "pizza",
-        styleId: style.id,
-        slug: {
-          en: `${style.slug.en}-${balls}-${balls === 1 ? "ball" : "balls"}`,
-          "zh-cn": `${style.slug.zh}-${balls}-qiu`,
-          "zh-tw": `${style.slug.zh}-${balls}-qiu`,
-        },
-        title,
-        h1: title,
-        description,
-        intro,
-        preset: {
-          mode: "balls",
-          flour: 500,
-          hydration: style.hydration,
-          starter: style.starter,
-          salt: style.salt,
-          yeast: style.yeast,
-          balls,
-          gramsPerBall: style.ballGrams,
-        },
-        neighbor: balls,
-      });
+  return pizzaStyles.map((style) => {
+    const title = {
+      en: style.name.en,
+      "zh-cn": style.name["zh-cn"],
+      "zh-tw": style.name["zh-tw"],
+    };
+    const intro = {};
+    for (const lang of LANGS) {
+      const gap = lang === "en" ? " " : "";
+      intro[lang] = [`${style.method[lang]}${gap}${style.ballsNote[lang]}`];
     }
-  }
-  return pages;
+    return {
+      id: `pizza-${style.id}`,
+      kind: "tool",
+      category: "pizza",
+      styleId: style.id,
+      slug: {
+        en: pizzaSlug("en", style),
+        "zh-cn": pizzaSlug("zh-cn", style),
+        "zh-tw": pizzaSlug("zh-tw", style),
+      },
+      title,
+      h1: title,
+      description: style.about,
+      intro,
+      preset: {
+        mode: "balls",
+        flour: 500,
+        hydration: style.hydration,
+        starter: style.starter,
+        salt: style.salt,
+        yeast: style.yeast,
+        balls: 4,
+        gramsPerBall: style.ballGrams,
+      },
+    };
+  });
 }
 
 function breadPages() {
@@ -259,23 +191,14 @@ function breadPages() {
       "zh-cn": `${item.name["zh-cn"]}烘焙百分比`,
       "zh-tw": `${item.name["zh-tw"]}烘焙百分比`,
     };
-    const description = {};
-    const intro = {};
-    for (const lang of LANGS) {
-      const ratios = ratioParts(lang, item);
-      if (lang === "en") {
-        description[lang] = `${item.name.en} from ${item.flour} g of flour at ${ratios}.`;
-        intro[lang] = [
-          `${item.name.en} is mixed from ${item.flour} g of flour at ${ratios}. ${item.clause.en}`,
-        ];
-      } else if (lang === "zh-cn") {
-        description[lang] = `${item.name["zh-cn"]}以 ${item.flour} 克面粉为基准，${ratios}。`;
-        intro[lang] = [`${description[lang]}${item.clause["zh-cn"]}`];
-      } else {
-        description[lang] = `${item.name["zh-tw"]}以 ${item.flour} 克麵粉為基準，${ratios}。`;
-        intro[lang] = [`${description[lang]}${item.clause["zh-tw"]}`];
-      }
-    }
+    const about = breadAbout[item.id];
+    if (!about?.en || !about["zh-cn"] || !about["zh-tw"]) throw new Error(`missing bread description ${item.id}`);
+    const description = { en: about.en, "zh-cn": about["zh-cn"], "zh-tw": about["zh-tw"] };
+    const intro = {
+      en: [about.en],
+      "zh-cn": [about["zh-cn"]],
+      "zh-tw": [about["zh-tw"]],
+    };
     return {
       id: `bread-${item.id}`,
       kind: "tool",
@@ -304,97 +227,6 @@ function breadPages() {
   });
 }
 
-function starterPages() {
-  return Object.keys(starterNotes)
-    .map(Number)
-    .sort((a, b) => a - b)
-    .map((n) => {
-      const note = starterNotes[n];
-      const title = {
-        en: `${n}% Sourdough Starter Calculator`,
-        "zh-cn": `${n}% 酸种比例计算器`,
-        "zh-tw": `${n}% 酸種比例計算`,
-      };
-      return {
-        id: `starter-${n}`,
-        kind: "tool",
-        category: "starter",
-        slug: {
-          en: `${n}-percent-sourdough-starter`,
-          "zh-cn": `${n}-suanzhong-bili`,
-          "zh-tw": `${n}-suan-zhong-bili`,
-        },
-        title,
-        h1: title,
-        description: { en: note.en, "zh-cn": note["zh-cn"], "zh-tw": note["zh-tw"] },
-        intro: {
-          en: [
-            `A ${n}% starter on 500 g of flour at 75% hydration and 2% salt. ${note.en}`,
-          ],
-          "zh-cn": [`以 500 克面粉为基准，水合 75%，盐 2%，酸种 ${n}%。${note["zh-cn"]}`],
-          "zh-tw": [`以 500 克麵粉為基準，水合 75%，鹽 2%，酸種 ${n}%。${note["zh-tw"]}`],
-        },
-        preset: {
-          mode: "flour",
-          flour: 500,
-          hydration: 75,
-          starter: n,
-          salt: 2,
-          yeast: 0,
-          balls: 4,
-          gramsPerBall: 250,
-        },
-        neighbor: n,
-      };
-    });
-}
-
-function saltPages() {
-  return Object.keys(saltNotes)
-    .map(Number)
-    .sort((a, b) => a - b)
-    .map((n) => {
-      const note = saltNotes[n];
-      const slugBit = String(n).replace(".", "-");
-      const title = {
-        en: `${n}% Salt Baker's Percentage`,
-        "zh-cn": `${n}% 盐的烘焙百分比`,
-        "zh-tw": `${n}% 鹽的烘焙百分比`,
-      };
-      return {
-        id: `salt-${slugBit}`,
-        kind: "tool",
-        category: "salt",
-        slug: {
-          en: `${slugBit}-salt-bakers-percentage`,
-          "zh-cn": `${slugBit}-yan-baifenbi`,
-          "zh-tw": `${slugBit}-yan-baifenbi`,
-        },
-        title,
-        h1: title,
-        description: { en: note.en, "zh-cn": note["zh-cn"], "zh-tw": note["zh-tw"] },
-        intro: {
-          en: [
-            `Salt at ${n}% of flour weight, on 500 g of flour with 70% hydration and 20% starter. ${note.en}`,
-          ],
-          "zh-cn": [`以 500 克面粉为基准，水合 70%，酸种 20%，盐 ${n}%。${note["zh-cn"]}`],
-          "zh-tw": [`以 500 克麵粉為基準，水合 70%，酸種 20%，鹽 ${n}%。${note["zh-tw"]}`],
-        },
-        preset: {
-          mode: "flour",
-          flour: 500,
-          hydration: 70,
-          starter: 20,
-          salt: n,
-          yeast: 0,
-          balls: 4,
-          gramsPerBall: 250,
-        },
-        neighbor: n,
-      };
-    });
-}
-
 function assertPages(list) {
   const ids = new Set();
   const slugs = { en: new Set(), "zh-cn": new Set(), "zh-tw": new Set() };
@@ -417,7 +249,11 @@ function assertPages(list) {
       }
       if (titles[lang].has(page.title[lang])) throw new Error(`duplicate title ${lang} ${page.title[lang]}`);
       titles[lang].add(page.title[lang]);
-      if (page.kind !== "hub" && page.description[lang] === page.intro[lang].join(" ")) {
+      if (
+        page.kind !== "hub" &&
+        page.category !== "bread" &&
+        page.description[lang] === page.intro[lang].join(" ")
+      ) {
         throw new Error(`description copies intro ${page.id} ${lang}`);
       }
     }
@@ -433,7 +269,8 @@ function assertPages(list) {
     }
   }
   const tools = list.filter((page) => page.kind === "tool");
-  if (tools.length < 150 || tools.length > 200) throw new Error(`long-tail count ${tools.length}`);
+  const expectedTools = KEPT_HYDRATION.length + pizzaStyles.length + breads.length;
+  if (tools.length !== expectedTools) throw new Error(`long-tail count ${tools.length}`);
   for (const id of FEATURED_IDS) {
     if (!ids.has(id)) throw new Error(`missing featured ${id}`);
   }
@@ -445,8 +282,6 @@ export const pages = [
   ...hydrationPages(),
   ...pizzaPages(),
   ...breadPages(),
-  ...starterPages(),
-  ...saltPages(),
 ];
 
 assertPages(pages);
@@ -460,10 +295,7 @@ export function featuredPages() {
 export function hubGroups(hub, lang) {
   const tools = pages.filter((page) => page.kind === "tool" && page.category === hub.category);
   if (hub.category === "pizza") {
-    return pizzaStyles.map((style) => ({
-      title: style.name[lang],
-      pages: tools.filter((page) => page.styleId === style.id),
-    }));
+    return [{ title: "", pages: tools }];
   }
   if (hub.category === "bread") {
     return FAMILIES.map((family) => ({
@@ -483,8 +315,9 @@ function nearest(page, candidates, limit) {
 
 export function relatedPages(page) {
   if (page.kind === "home") return featuredPages();
+  if (page.kind !== "tool") return [];
   const tools = pages.filter((item) => item.kind === "tool");
-  if (page.category === "hydration" || page.category === "starter" || page.category === "salt") {
+  if (page.category === "hydration") {
     return nearest(
       page,
       tools.filter((item) => item.category === page.category),
@@ -492,11 +325,10 @@ export function relatedPages(page) {
     );
   }
   if (page.category === "pizza") {
-    return nearest(
-      page,
-      tools.filter((item) => item.styleId === page.styleId),
-      4,
-    );
+    const styles = tools.filter((item) => item.category === "pizza" && item.id !== page.id);
+    const index = styles.findIndex((item) => item.id > page.id);
+    const start = index === -1 ? 0 : index;
+    return styles.slice(start).concat(styles.slice(0, start)).slice(0, 4);
   }
   if (page.category === "bread") {
     const family = tools.filter((item) => item.family === page.family && item.id !== page.id);
@@ -511,3 +343,74 @@ export function relatedPages(page) {
 export function toolCount() {
   return pages.filter((page) => page.kind === "tool").length;
 }
+
+function langPath(lang, slug) {
+  if (!slug) return `/${lang}/`;
+  return `/${lang}/${slug}/`;
+}
+
+const STARTER_PERCENTS = [10, 15, 20, 25, 30, 35, 40];
+const SALT_PERCENTS = [1.5, 1.8, 2, 2.2, 2.5, 3];
+
+function starterSlug(lang, n) {
+  if (lang === "en") return `${n}-percent-sourdough-starter`;
+  if (lang === "zh-cn") return `${n}-suanzhong-bili`;
+  return `${n}-suan-zhong-bili`;
+}
+
+function saltSlug(lang, n) {
+  const bit = String(n).replace(".", "-");
+  return lang === "en" ? `${bit}-salt-bakers-percentage` : `${bit}-yan-baifenbi`;
+}
+
+export function redirectRules() {
+  const rules = [];
+  for (const lang of LANGS) {
+    for (let n = 60; n <= 90; n += 1) {
+      const target = nearestHydration(n);
+      if (target === n) continue;
+      rules.push({
+        from: langPath(lang, hydrationSlug(lang, n)),
+        to: langPath(lang, hydrationSlug(lang, target)),
+      });
+    }
+    for (const style of pizzaStyles) {
+      for (const balls of OLD_BALL_COUNTS) {
+        rules.push({
+          from: langPath(lang, pizzaBallSlug(lang, style, balls)),
+          to: langPath(lang, pizzaSlug(lang, style)),
+        });
+      }
+    }
+    for (const n of STARTER_PERCENTS) {
+      rules.push({
+        from: langPath(lang, starterSlug(lang, n)),
+        to: langPath(lang, ui[lang].hubs.starter.slug),
+      });
+    }
+    for (const n of SALT_PERCENTS) {
+      rules.push({
+        from: langPath(lang, saltSlug(lang, n)),
+        to: langPath(lang, ui[lang].hubs.salt.slug),
+      });
+    }
+  }
+  return rules;
+}
+
+function assertRedirects() {
+  const live = new Set();
+  for (const page of pages) {
+    for (const lang of LANGS) live.add(langPath(lang, page.slug[lang] || ""));
+  }
+  const seen = new Set();
+  for (const rule of redirectRules()) {
+    if (rule.from === rule.to) throw new Error(`redirect loop ${rule.from}`);
+    if (seen.has(rule.from)) throw new Error(`duplicate redirect ${rule.from}`);
+    seen.add(rule.from);
+    if (!live.has(rule.to)) throw new Error(`redirect target missing ${rule.to}`);
+    if (live.has(rule.from)) throw new Error(`redirect source is still a page ${rule.from}`);
+  }
+}
+
+assertRedirects();

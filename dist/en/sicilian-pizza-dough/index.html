@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sicilian Pizza Dough</title>
+<meta name="description" content="A thick, square pan dough, softer than a Neapolitan ball but not as wet as ciabatta. It proofs in oil until it jiggles, then bakes into a tall, airy crumb.">
+<link rel="canonical" href="https://doughcalc.app/en/sicilian-pizza-dough/">
+<link rel="alternate" hreflang="en" href="https://doughcalc.app/en/sicilian-pizza-dough/"><link rel="alternate" hreflang="zh-CN" href="https://doughcalc.app/zh-cn/xixili-pisa/"><link rel="alternate" hreflang="zh-TW" href="https://doughcalc.app/zh-tw/xixili-pisa/"><link rel="alternate" hreflang="x-default" href="https://doughcalc.app/en/sicilian-pizza-dough/">
+<meta property="og:title" content="Sicilian Pizza Dough">
+<meta property="og:description" content="A thick, square pan dough, softer than a Neapolitan ball but not as wet as ciabatta. It proofs in oil until it jiggles, then bakes into a tall, airy crumb.">
+<meta property="og:url" content="https://doughcalc.app/en/sicilian-pizza-dough/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="zh_CN"><meta property="og:locale:alternate" content="zh_TW">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to the calculator</a>
+<header>
+<a class="brand" href="/en/">Dough calculator</a>
+<nav class="langs" aria-label="Language"><a href="/en/sicilian-pizza-dough/" hreflang="en" lang="en" aria-current="page">EN</a><a href="/zh-cn/xixili-pisa/" hreflang="zh-CN" lang="zh-CN">简体</a><a href="/zh-tw/xixili-pisa/" hreflang="zh-TW" lang="zh-TW">繁體</a></nav>
+</header>
+<main id="main">
+<nav class="crumb" aria-label="Breadcrumb"><a href="/en/">Dough calculator</a> / <a href="/en/pizza-dough/">Pizza dough</a></nav>
+<h1>Sicilian Pizza Dough</h1>
+<p>Press the dough into a well-oiled square pan and proof it until it looks jiggly before you top it. A ball starts at 450 g, enough for one square pan. Increase the count for another pan.</p>
+<form id="calc" autocomplete="off">
+<fieldset class="modes">
+<legend>How to scale</legend>
+<label><input type="radio" name="mode" value="flour"> From flour weight</label>
+<label><input type="radio" name="mode" value="balls" checked> From dough balls</label>
+</fieldset>
+<div class="fields" data-panel="flour" hidden>
+<label class="field"><span class="label">Flour <span class="unit">g</span></span><input name="flour" inputmode="decimal" min="0" step="any" value="1042.3"></label>
+</div>
+<div class="fields grid-2" data-panel="balls">
+<label class="field"><span class="label">Dough balls</span><input name="balls" inputmode="decimal" min="0" step="any" value="4"></label>
+<label class="field"><span class="label">Grams per ball <span class="unit">g</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="450"></label>
+</div>
+<div class="fields grid-2">
+<label class="field"><span class="label">Hydration <span class="unit">%</span></span><input name="hydration" inputmode="decimal" min="0" step="any" value="70"></label>
+<label class="field"><span class="label">Starter <span class="unit">%</span></span><input name="starter" inputmode="decimal" min="0" step="any" value="0"></label>
+<label class="field"><span class="label">Salt <span class="unit">%</span></span><input name="salt" inputmode="decimal" min="0" step="any" value="2.2"></label>
+<label class="field"><span class="label">Yeast <span class="unit">%</span></span><input name="yeast" inputmode="decimal" min="0" step="any" value="0.5"><span class="hint">Optional. Use 0 when the dough has no added yeast.</span></label>
+</div>
+</form>
+<section class="card result" aria-live="polite">
+<h2>Recipe</h2>
+<span id="form-error" class="error" role="alert" hidden>Enter a number only, for example 3000, without units</span>
+<dl><div><dt>Flour</dt><dd id="out-flour">1042.3 g</dd></div><div><dt>Water</dt><dd id="out-water">729.6 g</dd></div><div><dt>Starter</dt><dd id="out-starter">0 g</dd></div><div><dt>Salt</dt><dd id="out-salt">22.9 g</dd></div><div><dt>Yeast</dt><dd id="out-yeast">5.2 g</dd></div><div><dt>Total dough</dt><dd id="out-total">1800 g</dd></div></dl>
+<p class="effective">Effective hydration <strong id="out-effective">70%</strong></p>
+<p class="convention">Percentages are of the flour you weigh out, and effective hydration also counts the flour and water inside a starter that is itself 100% hydration.</p>
+<div class="actions">
+<button type="button" id="copy">Copy recipe</button>
+<button type="button" id="print" class="secondary">Print</button>
+</div>
+<textarea id="recipe-text" hidden readonly></textarea>
+</section>
+<script type="application/json" id="labels">{"title":"Sicilian Pizza Dough","flour":"Flour","water":"Water","starter":"Starter","salt":"Salt","yeast":"Yeast","total":"Total dough","grams":"g","effective":"Effective hydration","copied":"Copied","copyFail":"Select the recipe text and copy it"}</script>
+<script type="module" src="/assets/calc.js"></script>
+<section class="related"><h2>Related calculators</h2><ul class="link-list"><li><a href="/en/thin-crust-pizza-dough/">Thin-Crust Pizza Dough</a></li><li><a href="/en/sourdough-pizza-dough/">Sourdough Pizza Dough</a></li><li><a href="/en/same-day-pizza-dough/">Same-Day Pizza Dough</a></li><li><a href="/en/cold-ferment-pizza-dough/">Cold-Fermented Pizza Dough</a></li></ul></section>
+</main>
+<footer>
+<nav aria-label="More pages"><a href="/en/">Dough calculator</a><a href="/en/sourdough-hydration/">Sourdough hydration</a><a href="/en/pizza-dough/">Pizza dough</a><a href="/en/bread-dough/">Bread dough</a><a href="/en/starter-percentage/">Starter percentage</a><a href="/en/salt-percentage/">Salt percentage</a><a href="mailto:alan.chang198807@gmail.com">Feedback</a></nav>
+<p>Ratios for home baking.</p>
+</footer>
+</body>
+</html>

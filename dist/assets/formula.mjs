@@ -39,37 +39,51 @@ export function formatAmount(n) {
   return rounded.toFixed(1);
 }
 
+function halfWidth(text) {
+  return text
+    .replaceAll("\u3000", " ")
+    .replace(/[\uFF10-\uFF19]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) - 0xfee0))
+    .replaceAll("\uFF0E", ".")
+    .replaceAll("\uFF0C", ",")
+    .replaceAll("\uFF05", "%")
+    .replaceAll("\uFF47", "g")
+    .replaceAll("\uFF27", "G");
+}
+
 function numberFrom(value) {
   if (typeof value === "number") return value;
   if (typeof value !== "string") return Number.NaN;
-  const trimmed = value.trim().replace(",", ".");
-  if (trimmed === "") return Number.NaN;
-  return Number(trimmed);
+  const text = halfWidth(value)
+    .trim()
+    .replace(/\s*(?:g|克|%)\s*$/iu, "")
+    .trim();
+  if (!/^-?\d+(?:\.\d+)?$/.test(text) && !/^-?\d{1,3}(?:,\d{3})+(?:\.\d+)?$/.test(text)) {
+    return Number.NaN;
+  }
+  return Number(text.replaceAll(",", ""));
 }
 
 export function parseInputs(raw) {
   const mode = raw.mode === "balls" ? "balls" : "flour";
-  const hydration = numberFrom(raw.hydration);
-  const starter = numberFrom(raw.starter);
-  const salt = numberFrom(raw.salt);
-  const yeast = numberFrom(raw.yeast);
-  const flour = numberFrom(raw.flour);
-  const balls = numberFrom(raw.balls);
-  const gramsPerBall = numberFrom(raw.gramsPerBall);
-  const percents = [hydration, starter, salt, yeast];
-  if (!percents.every(Number.isFinite) || percents.some((n) => n < 0)) {
-    return { ok: false };
-  }
-  if (mode === "flour") {
-    if (!(flour > 0)) return { ok: false };
-    return {
-      ok: true,
-      preset: { mode, flour, hydration, starter, salt, yeast, balls, gramsPerBall },
-    };
-  }
-  if (!(balls > 0) || !(gramsPerBall > 0)) return { ok: false };
-  return {
-    ok: true,
-    preset: { mode, flour, hydration, starter, salt, yeast, balls, gramsPerBall },
+  const values = {
+    hydration: numberFrom(raw.hydration),
+    starter: numberFrom(raw.starter),
+    salt: numberFrom(raw.salt),
+    yeast: numberFrom(raw.yeast),
+    flour: numberFrom(raw.flour),
+    balls: numberFrom(raw.balls),
+    gramsPerBall: numberFrom(raw.gramsPerBall),
   };
+  const order =
+    mode === "balls"
+      ? ["balls", "gramsPerBall", "hydration", "starter", "salt", "yeast"]
+      : ["flour", "hydration", "starter", "salt", "yeast"];
+  for (const name of order) {
+    const value = values[name];
+    const weight = name === "flour" || name === "balls" || name === "gramsPerBall";
+    if (!Number.isFinite(value) || value < 0 || (weight && !(value > 0))) {
+      return { ok: false, field: name };
+    }
+  }
+  return { ok: true, preset: { mode, ...values } };
 }

@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>麵團鹽的比例</title>
-<meta name="description" content="鹽從麵粉重量的 1.5% 到 3%，麵團為水合 70%、酸種 20% 的酸種麵團。">
+<meta name="description" content="鹽可以從麵粉重量的大約 1.5% 調到 3%。鹽少，發酵更快。鹽多，麵團更緊、發酵更慢，一些披薩會用到這個範圍。">
 <link rel="canonical" href="https://doughcalc.app/zh-tw/yan-bili/">
 <link rel="alternate" hreflang="en" href="https://doughcalc.app/en/salt-percentage/"><link rel="alternate" hreflang="zh-CN" href="https://doughcalc.app/zh-cn/yan-bili/"><link rel="alternate" hreflang="zh-TW" href="https://doughcalc.app/zh-tw/yan-bili/"><link rel="alternate" hreflang="x-default" href="https://doughcalc.app/en/salt-percentage/">
 <meta property="og:title" content="麵團鹽的比例">
-<meta property="og:description" content="鹽從麵粉重量的 1.5% 到 3%，麵團為水合 70%、酸種 20% 的酸種麵團。">
+<meta property="og:description" content="鹽可以從麵粉重量的大約 1.5% 調到 3%。鹽少，發酵更快。鹽多，麵團更緊、發酵更慢，一些披薩會用到這個範圍。">
 <meta property="og:url" content="https://doughcalc.app/zh-tw/yan-bili/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="zh_TW">
@@ -26,12 +26,45 @@
 <main id="main">
 <nav class="crumb" aria-label="目前位置"><a href="/zh-tw/">麵團計算器</a></nav>
 <h1>麵團鹽的比例</h1>
-<p>鹽是你秤出的麵粉的百分比。鄉村麵包常見大約 2%。鹽少，發酵更快。鹽多，麵團更緊、更慢，一些披薩會用到這個範圍。</p>
-<section class="related"><ul class="link-list"><li><a href="/zh-tw/1-5-yan-baifenbi/">1.5% 鹽的烘焙百分比</a></li><li><a href="/zh-tw/1-8-yan-baifenbi/">1.8% 鹽的烘焙百分比</a></li><li><a href="/zh-tw/2-yan-baifenbi/">2% 鹽的烘焙百分比</a></li><li><a href="/zh-tw/2-2-yan-baifenbi/">2.2% 鹽的烘焙百分比</a></li><li><a href="/zh-tw/2-5-yan-baifenbi/">2.5% 鹽的烘焙百分比</a></li><li><a href="/zh-tw/3-yan-baifenbi/">3% 鹽的烘焙百分比</a></li></ul></section>
-<section class="related"><h2>相關計算</h2><ul class="link-list"><li><a href="/zh-tw/1-5-yan-baifenbi/">1.5% 鹽的烘焙百分比</a></li><li><a href="/zh-tw/1-8-yan-baifenbi/">1.8% 鹽的烘焙百分比</a></li><li><a href="/zh-tw/2-yan-baifenbi/">2% 鹽的烘焙百分比</a></li><li><a href="/zh-tw/2-2-yan-baifenbi/">2.2% 鹽的烘焙百分比</a></li></ul></section>
+<p>鹽是你秤出的麵粉的百分比。大約 2% 能給鄉村麵包調味，也會讓發酵稍微變慢。1.5% 時發酵更快，麵包心味道更淡。到了 2.5% 或 3%，手上會感到麵團更緊。這個範圍對一些披薩很普通，對多數麵包偏高，要多給一點時間，發到蓬鬆再烤。本頁從 500 克麵粉、水合 70%、酸種 20% 開始。改鹽的百分比，就能看到克數。</p>
+<form id="calc" autocomplete="off">
+<fieldset class="modes">
+<legend>怎麼算</legend>
+<label><input type="radio" name="mode" value="flour" checked> 按麵粉重量</label>
+<label><input type="radio" name="mode" value="balls"> 按麵團球</label>
+</fieldset>
+<div class="fields" data-panel="flour">
+<label class="field"><span class="label">麵粉 <span class="unit">克</span></span><input name="flour" inputmode="decimal" min="0" step="any" value="500"></label>
+</div>
+<div class="fields grid-2" data-panel="balls" hidden>
+<label class="field"><span class="label">麵團球數</span><input name="balls" inputmode="decimal" min="0" step="any" value="4"></label>
+<label class="field"><span class="label">每球克數 <span class="unit">克</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="250"></label>
+</div>
+<div class="fields grid-2">
+<label class="field"><span class="label">水合 <span class="unit">%</span></span><input name="hydration" inputmode="decimal" min="0" step="any" value="70"></label>
+<label class="field"><span class="label">酸種 <span class="unit">%</span></span><input name="starter" inputmode="decimal" min="0" step="any" value="20"></label>
+<label class="field"><span class="label">鹽 <span class="unit">%</span></span><input name="salt" inputmode="decimal" min="0" step="any" value="2"></label>
+<label class="field"><span class="label">酵母 <span class="unit">%</span></span><input name="yeast" inputmode="decimal" min="0" step="any" value="0"><span class="hint">可選。不加酵母就填 0。</span></label>
+</div>
+</form>
+<section class="card result" aria-live="polite">
+<h2>配方</h2>
+<span id="form-error" class="error" role="alert" hidden>請只填數字，例如 3000，不要加單位</span>
+<dl><div><dt>麵粉</dt><dd id="out-flour">500 克</dd></div><div><dt>水</dt><dd id="out-water">350 克</dd></div><div><dt>酸種</dt><dd id="out-starter">100 克</dd></div><div><dt>鹽</dt><dd id="out-salt">10 克</dd></div><div><dt>酵母</dt><dd id="out-yeast">0 克</dd></div><div><dt>麵團總重</dt><dd id="out-total">960 克</dd></div></dl>
+<p class="effective">有效水合 <strong id="out-effective">72.7%</strong></p>
+<p class="convention">百分比以你秤出的麵粉為基準，有效水合則把本身為 100% 水合的酸種裡的麵粉和水也算進去。</p>
+<div class="actions">
+<button type="button" id="copy">複製配方</button>
+<button type="button" id="print" class="secondary">列印</button>
+</div>
+<textarea id="recipe-text" hidden readonly></textarea>
+</section>
+<script type="application/json" id="labels">{"title":"麵團鹽的比例","flour":"麵粉","water":"水","starter":"酸種","salt":"鹽","yeast":"酵母","total":"麵團總重","grams":"克","effective":"有效水合","copied":"已複製","copyFail":"請選中配方文字再複製"}</script>
+<script type="module" src="/assets/calc.js"></script>
+
 </main>
 <footer>
-<nav aria-label="更多頁面"><a href="/zh-tw/">麵團計算器</a><a href="/zh-tw/suan-zhong-han-shuai/">酸種水合</a><a href="/zh-tw/pisa-fenlei/">披薩麵團</a><a href="/zh-tw/mianbao-baifenbi/">麵包麵團</a><a href="/zh-tw/suan-zhong-bili/">酸種比例</a><a href="/zh-tw/yan-bili/">鹽的比例</a></nav>
+<nav aria-label="更多頁面"><a href="/zh-tw/">麵團計算器</a><a href="/zh-tw/suan-zhong-han-shuai/">酸種水合</a><a href="/zh-tw/pisa-fenlei/">披薩麵團</a><a href="/zh-tw/mianbao-baifenbi/">麵包麵團</a><a href="/zh-tw/suan-zhong-bili/">酸種比例</a><a href="/zh-tw/yan-bili/">鹽的比例</a><a href="mailto:alan.chang198807@gmail.com">意見回饋</a></nav>
 <p>家庭烘焙用的比例。</p>
 </footer>
 </body>

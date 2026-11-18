@@ -129,7 +129,12 @@ dl div {
 dt { color: var(--muted); }
 dd { margin: 0; font-variant-numeric: tabular-nums; font-weight: 700; }
 .convention { color: var(--muted); font-size: 0.95rem; }
-.error { color: var(--error); }
+.error {
+  color: var(--error);
+  display: block;
+  font-weight: 650;
+  margin: 0.25rem 0 0;
+}
 .actions { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 button {
   font: inherit;

@@ -64,11 +64,27 @@ function syncPanels() {
   form.querySelector("[data-panel=balls]").hidden = mode !== "balls";
 }
 
+function clearRecipe() {
+  for (const key of Object.keys(outs)) outs[key].textContent = "—";
+}
+
+function showError(field) {
+  error.hidden = false;
+  const input = field ? form.querySelector(`[name="${field}"]`) : null;
+  const panel = input?.closest("[data-panel]");
+  if (input && !panel?.hidden) {
+    input.insertAdjacentElement("afterend", error);
+    return;
+  }
+  document.querySelector(".result h2").insertAdjacentElement("afterend", error);
+}
+
 function update() {
   syncPanels();
   const parsed = readForm();
   if (!parsed.ok) {
-    error.hidden = false;
+    clearRecipe();
+    showError(parsed.field);
     return;
   }
   error.hidden = true;
@@ -85,7 +101,8 @@ form.addEventListener("submit", (event) => {
 copyButton.addEventListener("click", async () => {
   const parsed = readForm();
   if (!parsed.ok) {
-    error.hidden = false;
+    clearRecipe();
+    showError(parsed.field);
     return;
   }
   const text = recipeText(recipeFor(parsed.preset));

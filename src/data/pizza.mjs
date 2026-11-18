@@ -1,4 +1,4 @@
-export const BALL_COUNTS = [1, 2, 3, 4, 6, 8, 10, 12];
+export const OLD_BALL_COUNTS = [1, 2, 3, 4, 6, 8, 10, 12];
 
 export const pizzaStyles = [
   {
@@ -14,10 +14,20 @@ export const pizzaStyles = [
       "zh-cn": "那不勒斯披萨面团",
       "zh-tw": "那不勒斯披薩麵團",
     },
+    about: {
+      en: "Soft dough for a small pizza with a thick, puffy rim and a thin center. It stretches by hand once the ball has rested, and it is still firm enough to hold that rim.",
+      "zh-cn": "适合小张披萨的软面团，边缘厚而蓬松，中心薄。面团球松弛后可以用手拉开，同时又撑得住厚边。",
+      "zh-tw": "適合小張披薩的軟麵團，邊緣厚而蓬鬆，中心薄。麵團球鬆弛後可以用手拉開，同時又撐得住厚邊。",
+    },
     method: {
       en: "Stretch rested balls by hand so the rim stays thick and the center stays thin.",
       "zh-cn": "面团松弛后用手拉开，边缘留厚，中间留薄。",
       "zh-tw": "麵團鬆弛後用手拉開，邊緣留厚，中間留薄。",
+    },
+    ballsNote: {
+      en: "The calculator opens at 4 balls of 250 g, one small pie each. Change the ball count or the weight of each ball and every ingredient updates.",
+      "zh-cn": "计算器先按 4 球、每球 250 克打开，一球一张小饼。改球数或每球重量，面粉和水会一起重算。",
+      "zh-tw": "計算器先按 4 球、每球 250 克打開，一球一張小餅。改球數或每球重量，麵粉和水會一起重算。",
     },
   },
   {
@@ -33,10 +43,20 @@ export const pizzaStyles = [
       "zh-cn": "纽约风披萨面团",
       "zh-tw": "紐約風披薩麵團",
     },
+    about: {
+      en: "A larger, slightly drier round. The center stretches thin, the rim stays modest, and a slice is firm enough to hold. It opens more easily than a wet country loaf.",
+      "zh-cn": "更大、略干的圆饼面团。中间可以拉薄，边缘不会太厚，一片拿得住。比湿的乡村面团更好展开。",
+      "zh-tw": "更大、略乾的圓餅麵團。中間可以拉薄，邊緣不會太厚，一片拿得住。比濕的鄉村麵團更好展開。",
+    },
     method: {
       en: "Stretch a larger ball so the center is thin and the rim is modest. Bake it hot on a stone or steel if you have one.",
       "zh-cn": "把较大的面团拉开，中间薄、边缘不要太厚。有烤石或烤钢就预热后使用。",
       "zh-tw": "把較大的麵團拉開，中間薄、邊緣不要太厚。有烤石或烤鋼就預熱後使用。",
+    },
+    ballsNote: {
+      en: "Start with 4 balls at 400 g, a full New York round each. Type a different count when you want more or fewer pies.",
+      "zh-cn": "先按 4 球、每球 400 克，一球一张纽约风圆饼。要多几张或少几张，直接改球数。",
+      "zh-tw": "先按 4 球、每球 400 克，一球一張紐約風圓餅。要多幾張或少幾張，直接改球數。",
     },
   },
   {
@@ -52,10 +72,20 @@ export const pizzaStyles = [
       "zh-cn": "罗马盘披萨面团",
       "zh-tw": "羅馬盤披薩麵團",
     },
+    about: {
+      en: "A wet dough for a rectangular pan pizza. It is slack, spreads toward the corners in oil, and fries on the bottom instead of baking as a free-standing round.",
+      "zh-cn": "偏湿的长方形盘披萨面团。它比较软，在油里铺向四角，锅底会煎脆，而不是烤成能独立站立的圆面包。",
+      "zh-tw": "偏濕的長方形盤披薩麵團。它比較軟，在油裡鋪向四角，鍋底會煎脆，而不是烤成能獨立站立的圓麵包。",
+    },
     method: {
       en: "Oil a pan, spread the dough toward the corners, and bake it until the bottom fries and colors.",
       "zh-cn": "烤盘抹油，把面团铺到四角，烤到锅底上色、边缘发脆。",
       "zh-tw": "烤盤抹油，把麵團鋪到四角，烤到鍋底上色、邊緣發脆。",
+    },
+    ballsNote: {
+      en: "Each portion starts at 350 g. Change the ball count to match how many pans you are filling.",
+      "zh-cn": "每一份先按 350 克。烤几盘，就把球数改成几。",
+      "zh-tw": "每一份先按 350 克。烤幾盤，就把球數改成幾。",
     },
   },
   {
@@ -71,10 +101,20 @@ export const pizzaStyles = [
       "zh-cn": "西西里披萨面团",
       "zh-tw": "西西里披薩麵團",
     },
+    about: {
+      en: "A thick, square pan dough, softer than a Neapolitan ball but not as wet as ciabatta. It proofs in oil until it jiggles, then bakes into a tall, airy crumb.",
+      "zh-cn": "厚的方形盘面团，比那不勒斯更软，但没有恰巴塔那么湿。在油里发到轻轻一晃会颤，烤出来组织高而松。",
+      "zh-tw": "厚的方形盤麵團，比那不勒斯更軟，但沒有恰巴塔那麼濕。在油裡發到輕輕一晃會顫，烤出來組織高而鬆。",
+    },
     method: {
       en: "Press the dough into a well-oiled square pan and proof it until it looks jiggly before you top it.",
       "zh-cn": "把面团按进抹足油的方形烤盘，发到轻轻晃会颤，再放配料。",
       "zh-tw": "把麵團按進抹足油的方形烤盤，發到輕輕晃會顫，再放配料。",
+    },
+    ballsNote: {
+      en: "A ball starts at 450 g, enough for one square pan. Increase the count for another pan.",
+      "zh-cn": "一球先按 450 克，够一个方盘。再加一盘就把球数加上去。",
+      "zh-tw": "一球先按 450 克，夠一個方盤。再加一盤就把球數加上去。",
     },
   },
   {
@@ -90,10 +130,20 @@ export const pizzaStyles = [
       "zh-cn": "薄皮披萨面团",
       "zh-tw": "薄皮披薩麵團",
     },
+    about: {
+      en: "A stiff dough that rolls thin with a pin. It is drier than the other pizzas here, holds a round shape, and stays crisp instead of stretching into a puffy rim.",
+      "zh-cn": "偏硬的面团，用擀面杖擀薄。比这里其他披萨更干，能保持圆形，烤出来是脆皮，不是蓬松的厚边。",
+      "zh-tw": "偏硬的麵團，用擀麵杖擀薄。比這裡其他披薩更乾，能保持圓形，烤出來是脆皮，不是蓬鬆的厚邊。",
+    },
     method: {
       en: "This stiffer dough rolls thin. Dock it with a fork if a bubble would lift the toppings.",
       "zh-cn": "面团偏硬，可以擀薄。若气泡会把配料顶起来，就用叉子扎几个小孔。",
       "zh-tw": "麵團偏硬，可以擀薄。若氣泡會把配料頂起來，就用叉子扎幾個小孔。",
+    },
+    ballsNote: {
+      en: "Balls start at 200 g. Add to the count when you are rolling more than one thin round.",
+      "zh-cn": "每球先按 200 克。要擀好几张薄饼，就把球数加大。",
+      "zh-tw": "每球先按 200 克。要擀好幾張薄餅，就把球數加大。",
     },
   },
   {
@@ -109,10 +159,20 @@ export const pizzaStyles = [
       "zh-cn": "酸种披萨面团",
       "zh-tw": "酸種披薩麵團",
     },
+    about: {
+      en: "Pizza dough leavened with starter instead of added yeast. It is a bit wetter than the Neapolitan dough, likes a long cool rise, and stretches once the balls have warmed up.",
+      "zh-cn": "用酸种发酵、不加酵母的披萨面团。比那不勒斯略湿，适合长时间冷藏，面团球回温之后再拉开。",
+      "zh-tw": "用酸種發酵、不加酵母的披薩麵團。比那不勒斯略濕，適合長時間冷藏，麵團球回溫之後再拉開。",
+    },
     method: {
       en: "Use starter instead of yeast and give the balls a long, cool rise. Let them warm up before you stretch.",
       "zh-cn": "用酸种代替酵母，冷藏慢慢发酵。拉开之前先回温。",
       "zh-tw": "用酸種代替酵母，冷藏慢慢發酵。拉開之前先回溫。",
+    },
+    ballsNote: {
+      en: "Each ball starts at 270 g. Change the count before a long ferment so every piece is weighed from the start.",
+      "zh-cn": "每球先按 270 克。长时间发酵前先把球数改好，每一块从一开始就称准。",
+      "zh-tw": "每球先按 270 克。長時間發酵前先把球數改好，每一塊從一開始就秤準。",
     },
   },
   {
@@ -128,10 +188,20 @@ export const pizzaStyles = [
       "zh-cn": "当日披萨面团",
       "zh-tw": "當日披薩麵團",
     },
+    about: {
+      en: "A straightforward dough for pies you mix and bake a few hours later. Extra yeast keeps the schedule short, and the dough is smooth enough to stretch the same day.",
+      "zh-cn": "当天拌、几小时后就烤的面团。酵母多一些，时间短；面团光滑，当天拉得开。",
+      "zh-tw": "當天拌、幾小時後就烤的麵團。酵母多一些，時間短；麵團光滑，當天拉得開。",
+    },
     method: {
       en: "The higher yeast amount is for a dough you mix and bake a few hours later at room temperature.",
       "zh-cn": "酵母偏多，适合室温发酵几小时后就烤。",
       "zh-tw": "酵母偏多，適合室溫發酵幾小時後就烤。",
+    },
+    ballsNote: {
+      en: "The page opens at 4 balls of 250 g. Raise or lower the count for the number of pies you want this afternoon.",
+      "zh-cn": "页面先按 4 球、每球 250 克。今天下午要几张饼，就改成几球。",
+      "zh-tw": "頁面先按 4 球、每球 250 克。今天下午要幾張餅，就改成幾球。",
     },
   },
   {
@@ -147,10 +217,20 @@ export const pizzaStyles = [
       "zh-cn": "冷藏发酵披萨面团",
       "zh-tw": "冷藏發酵披薩麵團",
     },
+    about: {
+      en: "A slow dough with very little yeast, meant to sit in the refrigerator for a day or two. It feels firm when cold and stretches cleanly after it warms, without tearing.",
+      "zh-cn": "酵母很少、放冰箱一天到两天的慢发酵面团。冷的时候偏紧，回温后可以拉开，不容易撕裂。",
+      "zh-tw": "酵母很少、放冰箱一天到兩天的慢發酵麵團。冷的時候偏緊，回溫後可以拉開，不容易撕裂。",
+    },
     method: {
       en: "Very little yeast and a day or two in the refrigerator. Warm the balls until they stretch without tearing.",
       "zh-cn": "酵母很少，放冰箱一天到两天。回温到能拉开、不会回缩撕裂再整形。",
       "zh-tw": "酵母很少，放冰箱一天到兩天。回溫到能拉開、不會回縮撕裂再整形。",
+    },
+    ballsNote: {
+      en: "Balls start at 250 g. Set the count before the dough goes into the fridge.",
+      "zh-cn": "每球先按 250 克。进冰箱之前把球数定下来。",
+      "zh-tw": "每球先按 250 克。進冰箱之前把球數定下來。",
     },
   },
 ];
