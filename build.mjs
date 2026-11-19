@@ -1,7 +1,7 @@
 import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { pages, redirectRules, toolCount } from "./src/catalog.mjs";
+import { pages, staticRedirects, toolCount } from "./src/catalog.mjs";
 import { LANGS } from "./src/i18n.mjs";
 import {
   pagePath,
@@ -21,11 +21,7 @@ async function writeText(file, contents) {
 }
 
 export function renderRedirects() {
-  const lines = ["/ /en/ 302"];
-  for (const rule of redirectRules()) {
-    lines.push(`${rule.from} ${rule.to} 301`);
-    lines.push(`${rule.from.replace(/\/$/, "")} ${rule.to} 301`);
-  }
+  const lines = staticRedirects().map((rule) => `${rule.from} ${rule.to} ${rule.status}`);
   return `${lines.join("\n")}\n`;
 }
 

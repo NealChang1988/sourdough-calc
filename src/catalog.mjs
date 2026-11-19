@@ -363,6 +363,26 @@ function saltSlug(lang, n) {
   return lang === "en" ? `${bit}-salt-bakers-percentage` : `${bit}-yan-baifenbi`;
 }
 
+// Each pair was the same dough on two URLs. The kept id is the stronger search phrase.
+const MERGED_BREADS = [
+  {
+    to: "bread-sourdough-sandwich",
+    from: {
+      en: "sandwich-sourdough-bakers-percentage",
+      "zh-cn": "suanzhong-tusi",
+      "zh-tw": "suanzhong-tusi",
+    },
+  },
+  {
+    to: "bread-country-sourdough",
+    from: {
+      en: "boule-bakers-percentage",
+      "zh-cn": "yuanxing-suanzhong",
+      "zh-tw": "yuanxing-suanzhong",
+    },
+  },
+];
+
 export function redirectRules() {
   const rules = [];
   for (const lang of LANGS) {
@@ -394,6 +414,23 @@ export function redirectRules() {
         to: langPath(lang, ui[lang].hubs.salt.slug),
       });
     }
+    for (const merged of MERGED_BREADS) {
+      const target = byId.get(merged.to);
+      rules.push({
+        from: langPath(lang, merged.from[lang]),
+        to: langPath(lang, target.slug[lang]),
+      });
+    }
+  }
+  return rules;
+}
+
+export function staticRedirects() {
+  const rules = [{ from: "/", to: "/en/", status: 302 }];
+  for (const rule of redirectRules()) {
+    rules.push({ from: rule.from, to: rule.to, status: 301 });
+    const bare = rule.from.replace(/\/$/, "");
+    if (bare !== rule.from) rules.push({ from: bare, to: rule.to, status: 301 });
   }
   return rules;
 }

@@ -11,8 +11,8 @@ import { formatAmount } from "./formula.mjs";
 import { renderPage } from "./render.mjs";
 
 test("long-tail calculators are the kept hydration, pizza, and bread pages", () => {
-  assert.equal(toolCount(), 73);
-  assert.equal(pages.length, 79);
+  assert.equal(toolCount(), 71);
+  assert.equal(pages.length, 77);
   assert.deepEqual(
     pages.filter((page) => page.category === "hydration" && page.kind === "tool").map((page) => page.preset.hydration),
     [65, 70, 75, 80],
@@ -159,7 +159,7 @@ test("removed urls redirect to the nearest kept page", () => {
   assert.equal(nearestHydration(78), 80);
   assert.equal(nearestHydration(90), 80);
   const rules = redirectRules();
-  assert.equal(rules.length, 312);
+  assert.equal(rules.length, 318);
   const byFrom = new Map(rules.map((rule) => [rule.from, rule.to]));
   assert.equal(byFrom.get("/en/64-hydration-sourdough-calculator/"), "/en/65-hydration-sourdough-calculator/");
   assert.equal(byFrom.get("/en/67-hydration-sourdough-calculator/"), "/en/65-hydration-sourdough-calculator/");
@@ -170,6 +170,53 @@ test("removed urls redirect to the nearest kept page", () => {
   assert.equal(byFrom.get("/en/20-percent-sourdough-starter/"), "/en/starter-percentage/");
   assert.equal(byFrom.get("/zh-cn/2-5-yan-baifenbi/"), "/zh-cn/yan-bili/");
   assert.equal(byFrom.get("/zh-tw/1-5-yan-baifenbi/"), "/zh-tw/yan-bili/");
+  assert.equal(byFrom.get("/en/sandwich-sourdough-bakers-percentage/"), "/en/sourdough-sandwich-loaf-bakers-percentage/");
+  assert.equal(byFrom.get("/zh-cn/suanzhong-tusi/"), "/zh-cn/suanzhong-sanmingzhi/");
+  assert.equal(byFrom.get("/zh-tw/suanzhong-tusi/"), "/zh-tw/suanzhong-sanmingzhi/");
+  assert.equal(byFrom.get("/en/boule-bakers-percentage/"), "/en/country-sourdough-bakers-percentage/");
+  assert.equal(byFrom.get("/zh-cn/yuanxing-suanzhong/"), "/zh-cn/xiangcun-suanzhong/");
+  assert.equal(byFrom.get("/zh-tw/yuanxing-suanzhong/"), "/zh-tw/xiangcun-suanzhong/");
+});
+
+test("merged bread pages keep their own title, description, and calculator", () => {
+  assert.equal(pages.some((page) => page.id === "bread-boule" || page.id === "bread-sandwich-sourdough"), false);
+  const country = pages.find((page) => page.id === "bread-country-sourdough");
+  const loaf = pages.find((page) => page.id === "bread-sourdough-sandwich");
+  assert.equal(country.title.en, "Country Sourdough Baker's Percentage");
+  assert.equal(country.title["zh-cn"], "乡村酸种面包烘焙百分比");
+  assert.equal(country.title["zh-tw"], "鄉村酸種麵包烘焙百分比");
+  assert.equal(
+    country.description.en,
+    "An everyday round or oval with a crackling crust and an irregular, open crumb. Sticky enough to want folds, then a taut skin when you shape it.",
+  );
+  assert.equal(country.slug.en, "country-sourdough-bakers-percentage");
+  assert.equal(country.slug["zh-cn"], "xiangcun-suanzhong");
+  assert.equal(country.slug["zh-tw"], "xiangcun-suanzhong");
+  assert.equal(country.preset.flour, 500);
+  assert.equal(country.preset.hydration, 75);
+  assert.equal(country.preset.starter, 20);
+  assert.equal(country.preset.salt, 2);
+  assert.equal(loaf.title.en, "Sourdough Sandwich Loaf Baker's Percentage");
+  assert.equal(loaf.title["zh-cn"], "酸种三明治吐司烘焙百分比");
+  assert.equal(loaf.title["zh-tw"], "酸種三明治吐司烘焙百分比");
+  assert.equal(
+    loaf.description.en,
+    "Keep a lid on the tin for the first part of the bake if you want a thinner, paler roof. Slice it once the loaf has cooled.",
+  );
+  assert.equal(loaf.slug.en, "sourdough-sandwich-loaf-bakers-percentage");
+  assert.equal(loaf.slug["zh-cn"], "suanzhong-sanmingzhi");
+  assert.equal(loaf.slug["zh-tw"], "suanzhong-sanmingzhi");
+  assert.equal(loaf.preset.flour, 500);
+  assert.equal(loaf.preset.hydration, 68);
+  assert.equal(loaf.preset.starter, 18);
+  assert.equal(loaf.preset.salt, 2);
+  const countryHtml = renderPage(country, "en");
+  assert.match(countryHtml, /rel="canonical" href="[^"]+\/en\/country-sourdough-bakers-percentage\/"/);
+  assert.doesNotMatch(countryHtml, /boule-bakers-percentage/);
+  const loafHtml = renderPage(loaf, "zh-cn");
+  assert.match(loafHtml, /rel="canonical" href="[^"]+\/zh-cn\/suanzhong-sanmingzhi\/"/);
+  assert.match(loafHtml, /hreflang="zh-TW" href="[^"]+\/zh-tw\/suanzhong-sanmingzhi\/"/);
+  assert.doesNotMatch(loafHtml, /suanzhong-tusi/);
 });
 
 test("writeSite emits sitemap, robots, and a sample page", async () => {
