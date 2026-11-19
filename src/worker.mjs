@@ -17,6 +17,11 @@ export function requestHost(requestUrl) {
   return new URL(requestUrl).hostname.toLowerCase().replace(/\.$/, "");
 }
 
+export function isCanonicalOrigin(requestUrl) {
+  const url = new URL(requestUrl);
+  return url.protocol === "https:" && url.hostname === CANONICAL_HOST && url.port === "";
+}
+
 export function canonicalUrl(requestUrl) {
   const url = new URL(requestUrl);
   url.protocol = "https:";
@@ -52,7 +57,7 @@ function withNoindex(response) {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    if (enforcesCanonicalHost(env) && requestHost(request.url) !== CANONICAL_HOST) {
+    if (enforcesCanonicalHost(env) && !isCanonicalOrigin(request.url)) {
       return new Response(null, {
         status: 301,
         headers: { Location: canonicalUrl(request.url) },

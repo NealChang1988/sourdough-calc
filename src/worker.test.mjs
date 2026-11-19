@@ -1,6 +1,13 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import worker, { CANONICAL_HOST, NOINDEX, PREVIEW_ROBOTS, canonicalUrl, requestHost } from "./worker.mjs";
+import worker, {
+  CANONICAL_HOST,
+  NOINDEX,
+  PREVIEW_ROBOTS,
+  canonicalUrl,
+  isCanonicalOrigin,
+  requestHost,
+} from "./worker.mjs";
 
 const PRODUCTION = { ENFORCE_CANONICAL_HOST: "1" };
 const PREVIEW = { NOINDEX: "1" };
@@ -31,6 +38,17 @@ test("request host ignores case and a trailing dot", () => {
   assert.equal(requestHost("https://WWW.DOUGHCALC.APP/en/"), "www.doughcalc.app");
 });
 
+test("the canonical origin is https on doughcalc.app with no explicit port", () => {
+  assert.equal(isCanonicalOrigin("https://doughcalc.app/en/"), true);
+  assert.equal(isCanonicalOrigin("https://DoughCalc.app/en/"), true);
+  assert.equal(isCanonicalOrigin("https://doughcalc.app:443/en/"), true);
+  assert.equal(isCanonicalOrigin("http://doughcalc.app/en/?a=1"), false);
+  assert.equal(isCanonicalOrigin("http://doughcalc.app:80/robots.txt"), false);
+  assert.equal(isCanonicalOrigin("https://doughcalc.app:8443/en/"), false);
+  assert.equal(isCanonicalOrigin("https://doughcalc.app./en/"), false);
+  assert.equal(isCanonicalOrigin("https://www.doughcalc.app/en/"), false);
+});
+
 test("canonical url keeps the path and query and forces https", () => {
   assert.equal(
     canonicalUrl("http://www.doughcalc.app:8443/zh-cn/suanzhong-tusi/?b=2"),
@@ -57,6 +75,19 @@ test("production redirects every non-canonical host and leaves the path alone", 
       "https://doughcalc.app/robots.txt",
     ],
     ["https://example.com/en/?x=1", "https://doughcalc.app/en/?x=1"],
+    [
+      "http://doughcalc.app/en/country-sourdough-bakers-percentage/?a=1",
+      "https://doughcalc.app/en/country-sourdough-bakers-percentage/?a=1",
+    ],
+    ["http://doughcalc.app:80/robots.txt", "https://doughcalc.app/robots.txt"],
+    [
+      "https://doughcalc.app:8443/zh-tw/xiangcun-suanzhong/?x=1",
+      "https://doughcalc.app/zh-tw/xiangcun-suanzhong/?x=1",
+    ],
+    [
+      "http://doughcalc.app/en/boule-bakers-percentage/?a=1",
+      "https://doughcalc.app/en/boule-bakers-percentage/?a=1",
+    ],
   ];
   for (const [from, location] of cases) {
     const assets = assetBinding();
@@ -147,6 +178,12 @@ test("preview does not redirect hosts and marks every response noindex", async (
   assert.equal(onWww.headers.get("x-robots-tag"), NOINDEX);
   assert.equal(www.calls.length, 1);
 
+  const httpApex = assetBinding();
+  const onHttp = await page("http://doughcalc.app:8080/en/", PREVIEW, httpApex);
+  assert.equal(onHttp.status, 200);
+  assert.equal(onHttp.headers.get("location"), null);
+  assert.equal(httpApex.calls.length, 1);
+
   const moved = await page(
     "https://sourdough-calc-preview.nealchang1988.workers.dev/en/sandwich-sourdough-bakers-percentage/?a=1",
     PREVIEW,
@@ -177,8 +214,9 @@ test("preview does not redirect hosts and marks every response noindex", async (
 
 test("a worker without the production flag does not redirect hosts", async () => {
   const assets = assetBinding();
-  const response = await page("https://www.doughcalc.app/en/", {}, assets);
+  const response = await page("http://doughcalc.app:8080/en/", {}, assets);
   assert.equal(response.status, 200);
   assert.equal(response.headers.get("x-robots-tag"), null);
+  assert.equal(response.headers.get("location"), null);
   assert.equal(assets.calls.length, 1);
 });
