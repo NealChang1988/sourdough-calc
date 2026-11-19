@@ -39,11 +39,6 @@ export const breadAbout = {
     "zh-cn": "等面团已经有一点筋力，再拌入切碎的橄榄，果肉才是一块一块的，而不是搅成泥。晚拌才保得住颗粒。",
     "zh-tw": "等麵團已經有一點筋力，再拌入切碎的橄欖，果肉才是一塊一塊的，而不是攪成泥。晚拌才保得住顆粒。",
   },
-  "sandwich-sourdough": {
-    en: "Baked in a tin for slices that stack. The interior is fairly even, and the dough is easier to handle than a slack country round.",
-    "zh-cn": "用吐司模烤成可以叠放的方片。内部比较均匀，比松塌的乡村圆面包好操作，用来夹馅，方片好叠。",
-    "zh-tw": "用吐司模烤成可以疊放的方片。內部比較均勻，比鬆塌的鄉村圓麵包好操作，用來夾餡，方片好疊。",
-  },
   miche: {
     en: "One very large round, often from a kilo of flour, that needs a wide basket and a slow rise so it does not spill over.",
     "zh-cn": "常常用到一公斤面粉的大圆面包。篮子要宽，发酵要慢，不然会从篮沿漫出来，一次就是一整锅。",
@@ -53,11 +48,6 @@ export const breadAbout = {
     en: "Shape an oval, pull the skin tight, and make one cut down the center. It fits a home baking stone more easily than a huge round.",
     "zh-cn": "整成椭圆，把外皮拉紧，中间只划一刀。比巨大的圆形更容易放进家用烤石，一条刚好放下。",
     "zh-tw": "整成橢圓，把外皮拉緊，中間只劃一刀。比巨大的圓形更容易放進家用烤石，一條剛好放下。",
-  },
-  boule: {
-    en: "Tighten a ball on the counter, set the seam down in a round basket, and score a cross or a square so the crust opens along those lines.",
-    "zh-cn": "在台面上收成球，接缝朝下坐进圆篮，表面划十字或方框，裂口会沿着刀痕张开，烤出来是圆顶。",
-    "zh-tw": "在檯面上收成球，接縫朝下坐進圓籃，表面劃十字或方框，裂口會沿著刀痕張開，烤出來是圓頂。",
   },
   "pain-de-campagne": {
     en: "A rustic loaf that often hides a little whole grain inside mostly white flour. A bit more levain keeps a home bake from taking all day.",
