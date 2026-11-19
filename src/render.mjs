@@ -105,6 +105,7 @@ function footer(lang) {
   return `<footer>
 <nav aria-label="${escapeHtml(ui[lang].footerNav)}">${anchors.join("")}</nav>
 <p>${escapeHtml(ui[lang].footer)}</p>
+<p class="privacy">${escapeHtml(ui[lang].privacy)}</p>
 </footer>`;
 }
 
@@ -263,9 +264,20 @@ export function renderRoot() {
 <p><a href="/zh-cn/" lang="zh-CN">简体中文面团计算器</a></p>
 <p><a href="/zh-tw/" lang="zh-TW">繁體中文麵團計算器</a></p>
 </main>
+${sharedPrivacyFooter()}
 </body>
 </html>
 `;
+}
+
+function sharedPrivacyFooter() {
+  const notes = LANGS.map((lang) => {
+    const langAttr = lang === "en" ? "" : ` lang="${HTML_LANG[lang]}"`;
+    return `<p class="privacy"${langAttr}>${escapeHtml(ui[lang].privacy)}</p>`;
+  }).join("\n");
+  return `<footer>
+${notes}
+</footer>`;
 }
 
 export function renderNotFound() {
@@ -287,6 +299,7 @@ export function renderNotFound() {
 <p><a href="/zh-cn/" lang="zh-CN">简体中文面团计算器</a></p>
 <p><a href="/zh-tw/" lang="zh-TW">繁體中文麵團計算器</a></p>
 </main>
+${sharedPrivacyFooter()}
 </body>
 </html>
 `;

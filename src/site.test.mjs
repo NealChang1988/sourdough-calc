@@ -8,6 +8,7 @@ import { writeSite } from "../build.mjs";
 import { SITE_URL } from "../site.config.mjs";
 import { nearestHydration, pages, redirectRules, toolCount } from "./catalog.mjs";
 import { formatAmount } from "./formula.mjs";
+import { ui } from "./i18n.mjs";
 import { renderPage } from "./render.mjs";
 
 test("long-tail calculators are the kept hydration, pizza, and bread pages", () => {
@@ -277,5 +278,53 @@ test("built site drops removed urls and keeps a footer mailto on every page", as
     assert.equal(removed.has(new URL(canonical).pathname), false, rel);
     assert.match(html, /class="langs"/, rel);
     if (!/^(en|zh-cn|zh-tw)\/index\.html$/.test(rel)) assert.match(html, /class="crumb"/, rel);
+  }
+});
+
+test("every page discloses anonymous analytics and none claim there is none", async () => {
+  const dir = await mkdtemp(path.join(tmpdir(), "dough-"));
+  await writeSite(dir);
+  const denied = [
+    /no analytics/i,
+    /without analytics/i,
+    /does not use analytics/i,
+    /doesn't use analytics/i,
+    /do not use analytics/i,
+    /不使用分析/,
+    /没有分析/,
+    /沒有分析/,
+    /无分析/,
+    /無分析/,
+    /不追踪/,
+    /不追蹤/,
+    /不跟踪/,
+  ];
+  const robots = await readFile(path.join(dir, "robots.txt"), "utf8");
+  const sitemap = await readFile(path.join(dir, "sitemap.xml"), "utf8");
+  const redirects = await readFile(path.join(dir, "_redirects"), "utf8");
+  for (const text of [robots, sitemap, redirects]) {
+    assert.equal(text.includes("Cloudflare"), false);
+    assert.equal(text.includes(ui.en.privacy), false);
+  }
+  const files = await htmlFiles(dir);
+  assert.ok(files.some((file) => file.endsWith(`${path.sep}404.html`)));
+  for (const file of files) {
+    const rel = path.relative(dir, file);
+    const html = await readFile(file, "utf8");
+    for (const pattern of denied) {
+      assert.equal(pattern.test(html), false, `${rel} ${pattern}`);
+    }
+    const head = html.slice(0, html.indexOf("</head>"));
+    assert.equal(head.includes("Cloudflare"), false, rel);
+    assert.equal(head.includes(ui.en.privacy), false, rel);
+    if (rel === "404.html" || rel === "index.html") {
+      assert.ok(html.includes(`<p class="privacy">${ui.en.privacy}</p>`), rel);
+      assert.ok(html.includes(`<p class="privacy" lang="zh-CN">${ui["zh-cn"].privacy}</p>`), rel);
+      assert.ok(html.includes(`<p class="privacy" lang="zh-TW">${ui["zh-tw"].privacy}</p>`), rel);
+      continue;
+    }
+    const lang = rel.split(path.sep)[0];
+    assert.ok(ui[lang], rel);
+    assert.ok(html.includes(`<p class="privacy">${ui[lang].privacy}</p>`), rel);
   }
 });
