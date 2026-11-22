@@ -212,7 +212,7 @@ const PDF_BUTTON = {
   en: {
     label: "Download PDF",
     busy: "Preparing PDF…",
-    fail: "PDF could not be created. Please tap again.",
+    fail: "PDF could not be created. Please try again.",
   },
   "zh-cn": { label: "下载 PDF", busy: "正在生成 PDF…", fail: "PDF 生成失败，请再按一次。" },
   "zh-tw": { label: "下載 PDF", busy: "正在產生 PDF…", fail: "PDF 產生失敗，請再按一次。" },
