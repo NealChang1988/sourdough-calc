@@ -130,4 +130,41 @@ document.querySelector("#print").addEventListener("click", () => {
   window.print();
 });
 
+const pdfButton = document.querySelector("#download-pdf");
+if (pdfButton) {
+  const pdfLabel = pdfButton.textContent;
+  pdfButton.addEventListener("click", async () => {
+    const parsed = readForm();
+    if (!parsed.ok) {
+      clearRecipe();
+      showError(parsed.field);
+      return;
+    }
+    error.hidden = true;
+    const recipe = recipeFor(parsed.preset);
+    showRecipe(recipe);
+    pdfButton.disabled = true;
+    pdfButton.textContent = pdfButton.dataset.busy;
+    try {
+      const meta = JSON.parse(document.querySelector("#pdf-meta").textContent);
+      const pdf = await import("./pdf-doc.js");
+      const bytes = await pdf.buildRecipePdf({
+        title: meta.title,
+        url: meta.url,
+        lang: meta.lang,
+        labels: meta.labels,
+        method: meta.method,
+        inputs: parsed.preset,
+        recipe,
+      });
+      pdf.downloadPdf(bytes, meta.filename);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      pdfButton.disabled = false;
+      pdfButton.textContent = pdfLabel;
+    }
+  });
+}
+
 update();

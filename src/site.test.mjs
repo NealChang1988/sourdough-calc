@@ -303,9 +303,21 @@ test("country sourdough page adds a method and photo without touching other page
     assert.match(html, /href="https:\/\/www\.pexels\.com\/photo\/artisan-sourdough-bread-freshly-baked-33735154\/"/);
     assert.match(html, /375/);
     assert.match(html, /100 g|100 克/);
+    assert.match(html, /id="download-pdf"/);
+    assert.doesNotMatch(html, /pdf-lib/);
+    assert.doesNotMatch(html, /noto-sans/);
     assert.equal(renderPage(focaccia, lang).includes("country-sourdough.webp"), false, lang);
+    assert.equal(renderPage(focaccia, lang).includes("download-pdf"), false, lang);
     assert.equal(renderPage(focaccia, lang).includes(expected[lang]), false, lang);
   }
+  assert.match(renderPage(country, "en"), /Download PDF/);
+  assert.match(renderPage(country, "en"), /data-busy="Preparing PDF…"/);
+  assert.match(renderPage(country, "en"), /doughcalc-country-sourdough-recipe\.pdf/);
+  assert.match(renderPage(country, "zh-cn"), /下载 PDF/);
+  assert.match(renderPage(country, "zh-cn"), /data-busy="正在生成 PDF…"/);
+  assert.match(renderPage(country, "zh-tw"), /下載 PDF/);
+  assert.match(renderPage(country, "zh-tw"), /data-busy="正在產生 PDF…"/);
+  assert.match(renderPage(country, "zh-tw"), /doughcalc-xiangcun-suanzhong-zh-tw-recipe\.pdf/);
   const tw = renderPage(country, "zh-tw");
   const method = tw.slice(tw.indexOf('<section class="method">'), tw.indexOf('<section class="related">'));
   const visible = method

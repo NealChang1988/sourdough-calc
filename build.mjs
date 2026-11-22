@@ -37,6 +37,21 @@ export async function writeSite(distDir) {
     await readFile(path.join(root, "src", "country-sourdough.webp")),
   );
   await writeFile(path.join(assets, "formula.mjs"), await readFile(path.join(root, "src", "formula.mjs")));
+  await writeFile(path.join(assets, "pdf-doc.js"), await readFile(path.join(root, "src", "pdf-doc.js")));
+  await mkdir(path.join(assets, "vendor"), { recursive: true });
+  await writeFile(
+    path.join(assets, "vendor", "pdf-lib.esm.min.js"),
+    await readFile(path.join(root, "src", "vendor", "pdf-lib.esm.min.js")),
+  );
+  await writeFile(
+    path.join(assets, "vendor", "fontkit.esm.min.js"),
+    await readFile(path.join(root, "src", "vendor", "fontkit.esm.min.js")),
+  );
+  await mkdir(path.join(assets, "fonts"), { recursive: true });
+  await writeFile(
+    path.join(assets, "fonts", "noto-sans-subset.ttf"),
+    await readFile(path.join(root, "src", "fonts", "noto-sans-subset.ttf")),
+  );
   await writeFile(path.join(distDir, "favicon.svg"), await readFile(path.join(root, "src", "favicon.svg")));
   await writeFile(path.join(distDir, "favicon.ico"), await readFile(path.join(root, "src", "favicon.ico")));
   await writeText(path.join(distDir, "index.html"), renderRoot());
