@@ -37,8 +37,8 @@
 <label class="field"><span class="label">Flour <span class="unit">g</span></span><input name="flour" inputmode="decimal" min="0" step="any" value="450"></label>
 </div>
 <div class="fields grid-2" data-panel="balls" hidden>
-<label class="field"><span class="label">Dough balls</span><input name="balls" inputmode="decimal" min="0" step="any" value="4"></label>
-<label class="field"><span class="label">Grams per ball <span class="unit">g</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="250"></label>
+<label class="field"><span class="label">Dough balls</span><input name="balls" inputmode="decimal" min="0" step="any" value="1"></label>
+<label class="field"><span class="label">Grams per ball <span class="unit">g</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="825.3"></label>
 </div>
 <div class="fields grid-2">
 <label class="field"><span class="label">Hydration <span class="unit">%</span></span><input name="hydration" inputmode="decimal" min="0" step="any" value="80"></label>
@@ -56,11 +56,22 @@
 <div class="actions">
 <button type="button" id="copy">Copy recipe</button>
 <button type="button" id="print" class="secondary">Print</button>
+<button type="button" id="download-pdf" data-busy="Preparing PDF…">Download PDF</button>
 </div>
+<p id="pdf-error" class="error" role="alert" hidden>PDF could not be created. Please try again.</p>
 <textarea id="recipe-text" hidden readonly></textarea>
 </section>
 <script type="application/json" id="labels">{"title":"Rye Loaf Baker's Percentage","flour":"Flour","water":"Water","starter":"Starter","salt":"Salt","yeast":"Yeast","total":"Total dough","grams":"g","effective":"Effective hydration","copied":"Copied","copyFail":"Select the recipe text and copy it"}</script>
-<script type="module" src="/assets/calc.js"></script>
+<script type="application/json" id="pdf-meta">{"title":"Rye Loaf Baker's Percentage","url":"https://doughcalc.app/en/rye-loaf-bakers-percentage/","filename":"doughcalc-rye-loaf-bakers-percentage-en-recipe.pdf","lang":"en","fontUrl":"/assets/fonts/noto-sans-sc-subset.ttf","labels":{"result":"Recipe","flour":"Flour","water":"Water","starter":"Starter","salt":"Salt","yeast":"Yeast","total":"Total dough","grams":"g","effective":"Effective hydration","hydration":"Hydration","modeFlour":"From flour weight","modeBalls":"From dough balls","balls":"Dough balls","perBall":"Grams per ball"},"method":{"heading":"Detailed method","lead":"The calculator opens at 450 g flour, 80% hydration, 2.2% salt, and 1.2% yeast. Rye will not feel like a stretchy wheat dough. Mix it, pan it, and bake it through. Seeds pressed on the top, if you add them, are extra and are not in the gram total. The balls fields open at 1 loaf of 825.3 g. These times assume you only change the flour amount and keep the percentages the same. Still judge the dough by how it looks and feels.","steps":[{"title":"Mix","body":"Stir the flour, water, salt, and yeast until no dry flour remains. The dough is sticky and will not pull a windowpane. Aim for about 26°C (79°F)."},{"title":"Rest","body":"Cover the bowl for 20 minutes so the flour drinks the water."},{"title":"Pan","body":"Oil a loaf pan. Scrape the dough in and smooth the top with a wet hand. Do not try to shape a tight ball."},{"title":"Seeds","body":"Press seeds onto the wet top if you want them. They are not part of the gram total."},{"title":"Proof","body":"Cover the pan at about 26°C (79°F) for 45 to 70 minutes. With 1.2% yeast it should rise to just under the rim. It will not double like white dough."},{"title":"Bake","body":"Heat the oven to 200°C (390°F). Bake 20 minutes, then lower to 180°C (355°F) and bake 30 to 40 minutes more, until the sides are firm. If you check the center, look for about 96°C (205°F)."},{"title":"Cool","body":"Turn it out and cool it on a rack for at least 8 hours before you slice. Cut earlier and the crumb smears."}]},"messages":{"label":"Download PDF","busy":"Preparing PDF…","fail":"PDF could not be created. Please try again."}}</script>
+<script type="module" src="/assets/calc.js"></script><section class="method">
+<h2>Detailed method</h2>
+<p>The calculator opens at 450 g flour, 80% hydration, 2.2% salt, and 1.2% yeast. Rye will not feel like a stretchy wheat dough. Mix it, pan it, and bake it through. Seeds pressed on the top, if you add them, are extra and are not in the gram total. The balls fields open at 1 loaf of 825.3 g. These times assume you only change the flour amount and keep the percentages the same. Still judge the dough by how it looks and feels.</p>
+<ol><li><strong>Mix</strong> Stir the flour, water, salt, and yeast until no dry flour remains. The dough is sticky and will not pull a windowpane. Aim for about 26°C (79°F).</li><li><strong>Rest</strong> Cover the bowl for 20 minutes so the flour drinks the water.</li><li><strong>Pan</strong> Oil a loaf pan. Scrape the dough in and smooth the top with a wet hand. Do not try to shape a tight ball.</li><li><strong>Seeds</strong> Press seeds onto the wet top if you want them. They are not part of the gram total.</li><li><strong>Proof</strong> Cover the pan at about 26°C (79°F) for 45 to 70 minutes. With 1.2% yeast it should rise to just under the rim. It will not double like white dough.</li><li><strong>Bake</strong> Heat the oven to 200°C (390°F). Bake 20 minutes, then lower to 180°C (355°F) and bake 30 to 40 minutes more, until the sides are firm. If you check the center, look for about 96°C (205°F).</li><li><strong>Cool</strong> Turn it out and cool it on a rack for at least 8 hours before you slice. Cut earlier and the crumb smears.</li></ol>
+<figure>
+<img src="/assets/rye-loaf.webp" width="1200" height="800" alt="A dark rectangular loaf with a tight brown crumb and seeds on top, and a cut slice on a wooden board." loading="lazy">
+<figcaption>Photo by Jana Ohajdova on <a href="https://www.pexels.com/photo/whole-grain-seeded-rye-bread-on-wooden-surface-33988117/">Pexels</a></figcaption>
+</figure>
+</section>
 <section class="related"><h2>Related calculators</h2><ul class="link-list"><li><a href="/en/sandwich-loaf-bakers-percentage/">Sandwich Loaf Baker's Percentage</a></li><li><a href="/en/pullman-loaf-bakers-percentage/">Pullman Loaf Baker's Percentage</a></li><li><a href="/en/no-knead-bread-bakers-percentage/">No-Knead Bread Baker's Percentage</a></li><li><a href="/en/overnight-white-bread-bakers-percentage/">Overnight White Bread Baker's Percentage</a></li></ul></section>
 </main>
 <footer>

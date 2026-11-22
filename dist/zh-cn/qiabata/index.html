@@ -38,7 +38,7 @@
 </div>
 <div class="fields grid-2" data-panel="balls" hidden>
 <label class="field"><span class="label">面团球数</span><input name="balls" inputmode="decimal" min="0" step="any" value="4"></label>
-<label class="field"><span class="label">每球克数 <span class="unit">克</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="250"></label>
+<label class="field"><span class="label">每球克数 <span class="unit">克</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="228.25"></label>
 </div>
 <div class="fields grid-2">
 <label class="field"><span class="label">水合 <span class="unit">%</span></span><input name="hydration" inputmode="decimal" min="0" step="any" value="80"></label>
@@ -56,11 +56,22 @@
 <div class="actions">
 <button type="button" id="copy">复制配方</button>
 <button type="button" id="print" class="secondary">打印</button>
+<button type="button" id="download-pdf" data-busy="正在生成 PDF…">下载 PDF</button>
 </div>
+<p id="pdf-error" class="error" role="alert" hidden>PDF 生成失败，请再按一次。</p>
 <textarea id="recipe-text" hidden readonly></textarea>
 </section>
 <script type="application/json" id="labels">{"title":"恰巴塔烘焙百分比","flour":"面粉","water":"水","starter":"酸种","salt":"盐","yeast":"酵母","total":"面团总重","grams":"克","effective":"有效水合","copied":"已复制","copyFail":"请选中配方文字再复制"}</script>
-<script type="module" src="/assets/calc.js"></script>
+<script type="application/json" id="pdf-meta">{"title":"恰巴塔烘焙百分比","url":"https://doughcalc.app/zh-cn/qiabata/","filename":"doughcalc-qiabata-zh-cn-recipe.pdf","lang":"zh-CN","fontUrl":"/assets/fonts/noto-sans-sc-subset.ttf","labels":{"result":"配方","flour":"面粉","water":"水","starter":"酸种","salt":"盐","yeast":"酵母","total":"面团总重","grams":"克","effective":"有效水合","hydration":"水合","modeFlour":"按面粉重量","modeBalls":"按面团球","balls":"面团球数","perBall":"每球克数"},"method":{"heading":"详细做法","lead":"计算器打开时是面粉 500 克，水合 80%，盐 2.2%，酵母 0.4%。面团球那一栏打开是 4 块、每块 228.25 克，就是这一团切成四块。面团非常湿，折叠、切开，按原样烤。下面的时间按只改面粉的量、百分比不变来估。发酵还是看面团的样子和手感。","steps":[{"title":"搅拌","body":"把面粉、水、盐和酵母拌到没有干粉。80% 水合又黏又软，更像糊，不像能收紧的面包。面团温度大约 24°C。"},{"title":"折叠","body":"盖上，放在大约 24°C，2.5 到 3 小时。前 90 分钟做三轮拉伸折叠，大约每 30 分钟一轮。面团要变得光亮、起泡。酵母只有 0.4%，胀得慢。"},{"title":"倒出","body":"台面和刮板薄薄撒粉。把面团倒出来。不要揉，也不要收成圆球。"},{"title":"切开","body":"用刮板切成四块，松散即可。每块就是面团球栏上的 228.25 克。形状不用整齐。"},{"title":"松弛","body":"表面再撒一层粉，盖上，静置 30 到 40 分钟。它会摊开、略微鼓起。不要把边塞回去。"},{"title":"烘烤","body":"烤箱 230°C，另放一个盘子准备蒸汽。带蒸汽烤 10 分钟，再调到 210°C 烤 12 到 14 分钟，直到表皮金黄、底部定住。表面自己裂开就让它裂，不用划刀。"},{"title":"放凉","body":"放到架子上至少 30 分钟，大孔洞才定得住。"}]},"messages":{"label":"下载 PDF","busy":"正在生成 PDF…","fail":"PDF 生成失败，请再按一次。"}}</script>
+<script type="module" src="/assets/calc.js"></script><section class="method">
+<h2>详细做法</h2>
+<p>计算器打开时是面粉 500 克，水合 80%，盐 2.2%，酵母 0.4%。面团球那一栏打开是 4 块、每块 228.25 克，就是这一团切成四块。面团非常湿，折叠、切开，按原样烤。下面的时间按只改面粉的量、百分比不变来估。发酵还是看面团的样子和手感。</p>
+<ol><li><strong>搅拌</strong> 把面粉、水、盐和酵母拌到没有干粉。80% 水合又黏又软，更像糊，不像能收紧的面包。面团温度大约 24°C。</li><li><strong>折叠</strong> 盖上，放在大约 24°C，2.5 到 3 小时。前 90 分钟做三轮拉伸折叠，大约每 30 分钟一轮。面团要变得光亮、起泡。酵母只有 0.4%，胀得慢。</li><li><strong>倒出</strong> 台面和刮板薄薄撒粉。把面团倒出来。不要揉，也不要收成圆球。</li><li><strong>切开</strong> 用刮板切成四块，松散即可。每块就是面团球栏上的 228.25 克。形状不用整齐。</li><li><strong>松弛</strong> 表面再撒一层粉，盖上，静置 30 到 40 分钟。它会摊开、略微鼓起。不要把边塞回去。</li><li><strong>烘烤</strong> 烤箱 230°C，另放一个盘子准备蒸汽。带蒸汽烤 10 分钟，再调到 210°C 烤 12 到 14 分钟，直到表皮金黄、底部定住。表面自己裂开就让它裂，不用划刀。</li><li><strong>放凉</strong> 放到架子上至少 30 分钟，大孔洞才定得住。</li></ol>
+<figure>
+<img src="/assets/ciabatta.webp" width="1200" height="800" alt="烘焙纸上撒了粉的扁面包，上沿有几条被画面切掉了一部分。" loading="lazy">
+<figcaption>摄影：Alla Zhuk，来自 <a href="https://www.pexels.com/photo/overhead-shot-of-loaves-of-bread-9678751/">Pexels</a></figcaption>
+</figure>
+</section>
 <section class="related"><h2>相关计算</h2><ul class="link-list"><li><a href="/zh-cn/sanmingzhi/">三明治面包烘焙百分比</a></li><li><a href="/zh-cn/daigai-tusi/">带盖吐司烘焙百分比</a></li><li><a href="/zh-cn/mianrou/">免揉面包烘焙百分比</a></li><li><a href="/zh-cn/geye-baimianbao/">隔夜白面包烘焙百分比</a></li></ul></section>
 </main>
 <footer>

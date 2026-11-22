@@ -93,4 +93,23 @@ test("Chinese units stay attached to the number in front of them", async () => {
     assert.match(joined, /24°C/);
     assert.match(joined, /65%/);
   }
+
+  const guideUnits = /^(?:分钟|小時|小时|分鐘|公分|厘米|克|minutes|minute|hours|hour|cm|g)/;
+  for (const [id, guide] of Object.entries(doughGuides)) {
+    for (const lang of ["en", "zh-cn", "zh-tw"]) {
+      const bytes = lang === "zh-tw" ? fonts.tc : fonts.sc;
+      const font = await pdf.embedFont(bytes);
+      const bodies = [guide[lang].lead, ...guide[lang].steps.map((step) => step.body)];
+      for (const body of bodies) {
+        const filler = "dough notes ".repeat(40);
+        const lines = wrapText(`${filler}${body}`, font, 11, 160).map((line) => line.trim()).filter(Boolean);
+        for (let i = 0; i < lines.length - 1; i += 1) {
+          assert.equal(/\d$/.test(lines[i]) && guideUnits.test(lines[i + 1]), false, `${id} ${lang} ${lines[i]} / ${lines[i + 1]}`);
+          assert.equal(/°$/.test(lines[i]) && /^[CF]/.test(lines[i + 1]), false, `${id} ${lang} ${lines[i]} / ${lines[i + 1]}`);
+        }
+        const joined = lines.join("\n");
+        assert.equal(lines.some((line) => /(?:^|\D)\d\.$/.test(line)), false, `${id} ${lang} ${joined}`);
+      }
+    }
+  }
 });

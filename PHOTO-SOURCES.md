@@ -10,5 +10,10 @@ Each guide photo is a free Pexels image, used under the [Pexels License](https:/
 | Pain de mie | `src/pain-de-mie.webp` | https://www.pexels.com/photo/close-up-photo-of-sliced-loaf-8811604/ | Cats Coming | Pexels License |
 | Baguette | `src/baguette.webp` | https://www.pexels.com/photo/baguettes-on-wooden-chopping-board-6432074/ | Skylar Kang | Pexels License |
 | Focaccia | `src/focaccia.webp` | https://www.pexels.com/photo/focaccia-on-paper-in-overhead-view-18453899/ | Lucie Liz | Pexels License |
+| Ciabatta | `src/ciabatta.webp` | https://www.pexels.com/photo/overhead-shot-of-loaves-of-bread-9678751/ | Alla Zhuk | Pexels License |
+| Brioche | `src/brioche.webp` | https://www.pexels.com/photo/a-loaf-of-bread-7884507/ | Ilaria M | Pexels License |
+| Rye loaf | `src/rye-loaf.webp` | https://www.pexels.com/photo/whole-grain-seeded-rye-bread-on-wooden-surface-33988117/ | Jana Ohajdova | Pexels License |
+| Pita | `src/pita.webp` | https://www.pexels.com/photo/rustic-stack-of-pita-bread-on-wooden-board-33079981/ | Kevin Kap | Pexels License |
+| Dinner rolls | `src/dinner-rolls.webp` | https://www.pexels.com/photo/baking-bread-in-tray-19987059/ | juliane Monari | Pexels License |
 
 The photo pages listed each image as free when the file was downloaded. The pictures show the finished bread, with no people and no visible brand, logo, or packaging.
