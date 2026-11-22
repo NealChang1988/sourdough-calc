@@ -1,13 +1,15 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
+import { inflateSync } from "node:zlib";
 import path from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 import { pages } from "./catalog.mjs";
 import { doughGuides } from "./data/dough-guides.mjs";
+import { recipeFor } from "./formula.mjs";
 import fontkit from "./vendor/fontkit.esm.min.js";
 import { PDFDocument } from "./vendor/pdf-lib.esm.min.js";
-import { fontUrlFor, wrapText } from "./pdf-doc.js";
+import { buildRecipePdf, fontUrlFor, wrapText } from "./pdf-doc.js";
 import { pdfPayload } from "./render.mjs";
 
 const root = path.dirname(fileURLToPath(import.meta.url));
@@ -35,6 +37,151 @@ function missingGlyphs(fontBytes, text) {
 function payloadText(payload) {
   return JSON.stringify(payload);
 }
+
+function readU16(buf, offset) {
+  return buf.readUInt16BE(offset);
+}
+
+function tableSlice(font, tag) {
+  const numTables = readU16(font, 4);
+  for (let i = 0; i < numTables; i += 1) {
+    const at = 12 + i * 16;
+    if (font.toString("latin1", at, at + 4) !== tag) continue;
+    const offset = font.readUInt32BE(at + 8);
+    const length = font.readUInt32BE(at + 12);
+    return font.subarray(offset, offset + length);
+  }
+  return null;
+}
+
+function locaOffsets(font) {
+  const head = tableSlice(font, "head");
+  const maxp = tableSlice(font, "maxp");
+  const loca = tableSlice(font, "loca");
+  const format = head.readInt16BE(50);
+  const glyphs = readU16(maxp, 4);
+  const offsets = [];
+  for (let i = 0; i <= glyphs; i += 1) {
+    offsets.push(format === 0 ? readU16(loca, i * 2) * 2 : loca.readUInt32BE(i * 4));
+  }
+  return offsets;
+}
+
+function glyphOutline(font, gid) {
+  const glyf = tableSlice(font, "glyf");
+  const offsets = locaOffsets(font);
+  const start = offsets[gid];
+  const end = offsets[gid + 1];
+  if (end <= start) return { contours: 0, points: 0 };
+  const contours = glyf.readInt16BE(start);
+  const box = [
+    glyf.readInt16BE(start + 2),
+    glyf.readInt16BE(start + 4),
+    glyf.readInt16BE(start + 6),
+    glyf.readInt16BE(start + 8),
+  ];
+  if (contours <= 0) return { contours, points: contours < 0 ? -1 : 0, box };
+  const last = glyf.readUInt16BE(start + 10 + (contours - 1) * 2);
+  return { contours, points: last + 1, box };
+}
+
+function inflated(bytes) {
+  return bytes[0] === 0x78 ? inflateSync(bytes) : bytes;
+}
+
+function isFont(bytes) {
+  const sig = bytes.toString("latin1", 0, 4);
+  return sig === "true" || sig === "OTTO" || (bytes[0] === 0 && bytes[1] === 1);
+}
+
+async function pdfParts(pdfBytes) {
+  const doc = await PDFDocument.load(pdfBytes);
+  let font = null;
+  let cmap = "";
+  for (const [, obj] of doc.context.enumerateIndirectObjects()) {
+    if (!obj.contents) continue;
+    const data = inflated(obj.contents);
+    if (!font && isFont(data)) font = data;
+    const text = data.toString("latin1");
+    if (text.includes("beginbfchar") || text.includes("beginbfrange")) cmap = text;
+  }
+  return { font, cmap };
+}
+
+function decodeUtf16Hex(hex) {
+  const units = [];
+  for (let i = 0; i + 4 <= hex.length; i += 4) units.push(Number.parseInt(hex.slice(i, i + 4), 16));
+  return String.fromCharCode(...units);
+}
+
+function unicodePairs(cmap) {
+  const pairs = [];
+  let mode = "";
+  for (const part of cmap.split(/(beginbfchar|endbfchar|beginbfrange|endbfrange)/)) {
+    if (part === "beginbfchar" || part === "endbfchar" || part === "beginbfrange" || part === "endbfrange") {
+      mode = part;
+      continue;
+    }
+    if (mode === "beginbfchar") {
+      for (const match of part.matchAll(/<([0-9A-Fa-f]+)>\s*<([0-9A-Fa-f]+)>/g)) {
+        pairs.push([Number.parseInt(match[1], 16), decodeUtf16Hex(match[2])]);
+      }
+    }
+    if (mode === "beginbfrange") {
+      for (const match of part.matchAll(/<([0-9A-Fa-f]+)>\s*<([0-9A-Fa-f]+)>\s*<([0-9A-Fa-f]+)>/g)) {
+        const start = Number.parseInt(match[1], 16);
+        const end = Number.parseInt(match[2], 16);
+        const first = decodeUtf16Hex(match[3]);
+        if (end < start || end - start > 500 || [...first].length !== 1) continue;
+        const unicode = first.codePointAt(0);
+        for (let gid = start; gid <= end; gid += 1) pairs.push([gid, String.fromCodePoint(unicode + gid - start)]);
+      }
+    }
+  }
+  return pairs;
+}
+
+test("committed font subsets pad every glyph to a multiple of 4 bytes", () => {
+  for (const [name, bytes] of Object.entries(fonts)) {
+    const offsets = locaOffsets(bytes);
+    for (let i = 0; i < offsets.length - 1; i += 1) {
+      const length = offsets[i + 1] - offsets[i];
+      assert.equal(length % 2, 0, `${name} glyph ${i} has odd length ${length}`);
+      assert.equal(length % 4, 0, `${name} glyph ${i} length ${length} is not padded to 4 bytes`);
+    }
+  }
+});
+
+test("every non-space character in a guide PDF keeps a non-empty outline", async () => {
+  for (const page of pages) {
+    if (!doughGuides[page.id]) continue;
+    for (const lang of ["en", "zh-cn", "zh-tw"]) {
+      const payload = pdfPayload(page, lang);
+      const pdfBytes = await buildRecipePdf({
+        ...payload,
+        inputs: page.preset,
+        recipe: recipeFor(page.preset),
+        fontBytes: lang === "zh-tw" ? fonts.tc : fonts.sc,
+      });
+      const { font, cmap } = await pdfParts(pdfBytes);
+      assert.ok(font, `${page.id} ${lang} embedded font`);
+      const pairs = unicodePairs(cmap);
+      assert.ok(pairs.length > 30, `${page.id} ${lang} mapped ${pairs.length}`);
+      const source = fontkit.create(lang === "zh-tw" ? fonts.tc : fonts.sc);
+      for (const [gid, text] of pairs) {
+        const chars = [...text];
+        if (chars.length === 1 && /\s/.test(chars[0])) continue;
+        const drawn = glyphOutline(font, gid);
+        const label = `${page.id} ${lang} ${text}`;
+        assert.ok(drawn.contours > 0 && drawn.points > 0, `${label} drew blank`);
+        if (chars.length === 1) {
+          const expected = source.glyphForCodePoint(chars[0].codePointAt(0))._decode();
+          assert.equal(drawn.contours, expected.numberOfContours, label);
+        }
+      }
+    }
+  }
+});
 
 test("guide text uses ASCII decimals and no full-width digits in numbers", () => {
   for (const [id, guide] of Object.entries(doughGuides)) {

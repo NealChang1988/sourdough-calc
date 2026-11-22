@@ -185,11 +185,11 @@ function pizzaPages() {
 }
 
 const BALL_PRESET = {
-  ciabatta: [4, 228.25],
-  brioche: [1, 613.6],
-  "rye-loaf": [1, 825.3],
-  pita: [8, 82.25],
-  "dinner-rolls": [10, 83.5],
+  ciabatta: [4, 228],
+  brioche: [1, 614],
+  "rye-loaf": [1, 825],
+  pita: [8, 82],
+  "dinner-rolls": [10, 84],
 };
 
 function breadPages() {
