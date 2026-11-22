@@ -56,11 +56,22 @@
 <div class="actions">
 <button type="button" id="copy">複製配方</button>
 <button type="button" id="print" class="secondary">列印</button>
+<button type="button" id="download-pdf" data-busy="正在產生 PDF…">下載 PDF</button>
 </div>
+<p id="pdf-error" class="error" role="alert" hidden>PDF 產生失敗，請再按一次。</p>
 <textarea id="recipe-text" hidden readonly></textarea>
 </section>
 <script type="application/json" id="labels">{"title":"白吐司烘焙百分比","flour":"麵粉","water":"水","starter":"酸種","salt":"鹽","yeast":"酵母","total":"麵團總重","grams":"克","effective":"有效水合","copied":"已複製","copyFail":"請選中配方文字再複製"}</script>
-<script type="module" src="/assets/calc.js"></script>
+<script type="application/json" id="pdf-meta">{"title":"白吐司烘焙百分比","url":"https://doughcalc.app/zh-tw/bai-tusi/","filename":"doughcalc-bai-tusi-zh-tw-recipe.pdf","lang":"zh-TW","fontUrl":"/assets/fonts/noto-sans-tc-subset.ttf","labels":{"result":"配方","flour":"麵粉","water":"水","starter":"酸種","salt":"鹽","yeast":"酵母","total":"麵團總重","grams":"克","effective":"有效水合","hydration":"水合","modeFlour":"按麵粉重量","modeBalls":"按麵團球","balls":"麵團球數","perBall":"每球克數"},"method":{"heading":"詳細做法","lead":"計算器打開時是麵粉 500 克，水合 64%，鹽 1．8%，酵母 1%。如果另外加牛奶或奶油，那些重量不在合計裡。用直角吐司模，有蓋更好。下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。","steps":[{"title":"攪拌","body":"把麵粉、水、鹽和酵母拌勻，再揉大約 8 分鐘，直到麵團光滑。64% 水合柔軟，但能成團。麵團溫度大約 24°C。"},{"title":"基本發酵","body":"蓋上，放在大約 24°C，60 到 90 分鐘。酵母有 1%，差不多發到兩倍。中途輕輕折一次就夠。"},{"title":"整形","body":"把麵團壓成片，捲成和模具一樣寬的條，捏住接縫。縫朝下，放進薄薄抹了油的吐司模。"},{"title":"最後發酵","body":"蓋著，放在大約 24°C，40 到 70 分鐘。有蓋的話，發到離模沿大約 2 公分就停。沒有蓋，鼓出模沿一點點就停。"},{"title":"加蓋烘烤","body":"烤箱 190°C。有蓋就先蓋著烤 20 分鐘，頂面才會平、表皮才軟。"},{"title":"打開蓋子","body":"打開蓋子再烤 15 到 20 分鐘，側面呈金黃。沒有蓋就全程敞開，大約 35 到 40 分鐘。"},{"title":"放涼","body":"倒出來，放到架上至少 1 小時再切。溫的麵包心容易撕爛。"}]},"messages":{"label":"下載 PDF","busy":"正在產生 PDF…","fail":"PDF 產生失敗，請再按一次。"}}</script>
+<script type="module" src="/assets/calc.js"></script><section class="method">
+<h2>詳細做法</h2>
+<p>計算器打開時是麵粉 500 克，水合 64%，鹽 1．8%，酵母 1%。如果另外加牛奶或奶油，那些重量不在合計裡。用直角吐司模，有蓋更好。下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。</p>
+<ol><li><strong>攪拌</strong> 把麵粉、水、鹽和酵母拌勻，再揉大約 8 分鐘，直到麵團光滑。64% 水合柔軟，但能成團。麵團溫度大約 24°C。</li><li><strong>基本發酵</strong> 蓋上，放在大約 24°C，60 到 90 分鐘。酵母有 1%，差不多發到兩倍。中途輕輕折一次就夠。</li><li><strong>整形</strong> 把麵團壓成片，捲成和模具一樣寬的條，捏住接縫。縫朝下，放進薄薄抹了油的吐司模。</li><li><strong>最後發酵</strong> 蓋著，放在大約 24°C，40 到 70 分鐘。有蓋的話，發到離模沿大約 2 公分就停。沒有蓋，鼓出模沿一點點就停。</li><li><strong>加蓋烘烤</strong> 烤箱 190°C。有蓋就先蓋著烤 20 分鐘，頂面才會平、表皮才軟。</li><li><strong>打開蓋子</strong> 打開蓋子再烤 15 到 20 分鐘，側面呈金黃。沒有蓋就全程敞開，大約 35 到 40 分鐘。</li><li><strong>放涼</strong> 倒出來，放到架上至少 1 小時再切。溫的麵包心容易撕爛。</li></ol>
+<figure>
+<img src="/assets/pain-de-mie.webp" width="1200" height="801" alt="切開的白吐司，心柔軟，表皮薄而金黃。" loading="lazy">
+<figcaption>攝影：Cats Coming，來自 <a href="https://www.pexels.com/photo/close-up-photo-of-sliced-loaf-8811604/">Pexels</a></figcaption>
+</figure>
+</section>
 <section class="related"><h2>相關計算</h2><ul class="link-list"><li><a href="/zh-tw/sanmingzhi/">三明治吐司烘焙百分比</a></li><li><a href="/zh-tw/daigai-tusi/">帶蓋吐司烘焙百分比</a></li><li><a href="/zh-tw/mianrou/">免揉麵包烘焙百分比</a></li><li><a href="/zh-tw/geye-baimianbao/">隔夜白麵包烘焙百分比</a></li></ul></section>
 </main>
 <footer>

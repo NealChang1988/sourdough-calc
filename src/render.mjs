@@ -1,6 +1,6 @@
 import { SITE_URL } from "../site.config.mjs";
 import { pages, hubGroups, relatedPages, featuredPages } from "./catalog.mjs";
-import { COUNTRY_PHOTO, countryMethod } from "./data/country-method.mjs";
+import { doughGuides } from "./data/dough-guides.mjs";
 import { effectiveHydration, formatAmount, recipeFor } from "./formula.mjs";
 import { HTML_LANG, HREFLANG, LANGS, OG_LOCALE, ui } from "./i18n.mjs";
 
@@ -196,12 +196,6 @@ ${field("yeast", copy.yeast, "%", String(preset.yeast), copy.yeastHint)}
 <script type="module" src="/assets/calc.js"></script>`;
 }
 
-const PDF_FILENAME = {
-  en: "doughcalc-country-sourdough-en-recipe.pdf",
-  "zh-cn": "doughcalc-xiangcun-suanzhong-zh-cn-recipe.pdf",
-  "zh-tw": "doughcalc-xiangcun-suanzhong-zh-tw-recipe.pdf",
-};
-
 const PDF_FONT = {
   en: "/assets/fonts/noto-sans-sc-subset.ttf",
   "zh-cn": "/assets/fonts/noto-sans-sc-subset.ttf",
@@ -218,25 +212,26 @@ const PDF_BUTTON = {
   "zh-tw": { label: "下載 PDF", busy: "正在產生 PDF…", fail: "PDF 產生失敗，請再按一次。" },
 };
 
-function pdfButton(page, lang) {
-  if (page.id !== "bread-country-sourdough") return "";
-  const copy = PDF_BUTTON[lang];
-  return `\n<button type="button" id="download-pdf" data-busy="${escapeHtml(copy.busy)}">${escapeHtml(copy.label)}</button>`;
+const COUNTRY_PDF_FILENAME = {
+  en: "doughcalc-country-sourdough-en-recipe.pdf",
+  "zh-cn": "doughcalc-xiangcun-suanzhong-zh-cn-recipe.pdf",
+  "zh-tw": "doughcalc-xiangcun-suanzhong-zh-tw-recipe.pdf",
+};
+
+export function pdfFilename(page, lang) {
+  if (page.id === "bread-country-sourdough") return COUNTRY_PDF_FILENAME[lang];
+  return `doughcalc-${page.slug[lang]}-${lang}-recipe.pdf`;
 }
 
-function pdfFail(page, lang) {
-  if (page.id !== "bread-country-sourdough") return "";
-  return `\n<p id="pdf-error" class="error" role="alert" hidden>${escapeHtml(PDF_BUTTON[lang].fail)}</p>`;
-}
-
-function pdfMeta(page, lang) {
-  if (page.id !== "bread-country-sourdough") return "";
+export function pdfPayload(page, lang) {
+  const guide = doughGuides[page.id];
+  if (!guide) return null;
   const copy = ui[lang];
-  const method = countryMethod[lang];
-  const payload = {
+  const method = guide[lang];
+  return {
     title: page.h1[lang],
     url: absoluteUrl(pagePath(lang, page.slug[lang])),
-    filename: PDF_FILENAME[lang],
+    filename: pdfFilename(page, lang),
     lang: HTML_LANG[lang],
     fontUrl: PDF_FONT[lang],
     labels: {
@@ -260,21 +255,43 @@ function pdfMeta(page, lang) {
       lead: method.lead,
       steps: method.steps.map((step) => ({ title: step.title, body: step.body })),
     },
+    messages: {
+      label: PDF_BUTTON[lang].label,
+      busy: PDF_BUTTON[lang].busy,
+      fail: PDF_BUTTON[lang].fail,
+    },
   };
+}
+
+function pdfButton(page, lang) {
+  if (!doughGuides[page.id]) return "";
+  const copy = PDF_BUTTON[lang];
+  return `\n<button type="button" id="download-pdf" data-busy="${escapeHtml(copy.busy)}">${escapeHtml(copy.label)}</button>`;
+}
+
+function pdfFail(page, lang) {
+  if (!doughGuides[page.id]) return "";
+  return `\n<p id="pdf-error" class="error" role="alert" hidden>${escapeHtml(PDF_BUTTON[lang].fail)}</p>`;
+}
+
+function pdfMeta(page, lang) {
+  const payload = pdfPayload(page, lang);
+  if (!payload) return "";
   const json = JSON.stringify(payload).replaceAll("<", "\\u003c");
   return `\n<script type="application/json" id="pdf-meta">${json}</script>`;
 }
 
 function methodSection(page, lang) {
-  if (page.id !== "bread-country-sourdough") return "";
-  const copy = countryMethod[lang];
+  const guide = doughGuides[page.id];
+  if (!guide) return "";
+  const copy = guide[lang];
   const steps = copy.steps
     .map(
       (step) =>
         `<li><strong>${escapeHtml(step.title)}</strong> ${escapeHtml(step.body)}</li>`,
     )
     .join("");
-  const photo = COUNTRY_PHOTO;
+  const photo = guide.photo;
   return `<section class="method">
 <h2>${escapeHtml(copy.heading)}</h2>
 <p>${escapeHtml(copy.lead)}</p>

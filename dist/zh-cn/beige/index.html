@@ -56,11 +56,22 @@
 <div class="actions">
 <button type="button" id="copy">复制配方</button>
 <button type="button" id="print" class="secondary">打印</button>
+<button type="button" id="download-pdf" data-busy="正在生成 PDF…">下载 PDF</button>
 </div>
+<p id="pdf-error" class="error" role="alert" hidden>PDF 生成失败，请再按一次。</p>
 <textarea id="recipe-text" hidden readonly></textarea>
 </section>
 <script type="application/json" id="labels">{"title":"贝果烘焙百分比","flour":"面粉","water":"水","starter":"酸种","salt":"盐","yeast":"酵母","total":"面团总重","grams":"克","effective":"有效水合","copied":"已复制","copyFail":"请选中配方文字再复制"}</script>
-<script type="module" src="/assets/calc.js"></script>
+<script type="application/json" id="pdf-meta">{"title":"贝果烘焙百分比","url":"https://doughcalc.app/zh-cn/beige/","filename":"doughcalc-beige-zh-cn-recipe.pdf","lang":"zh-CN","fontUrl":"/assets/fonts/noto-sans-sc-subset.ttf","labels":{"result":"配方","flour":"面粉","water":"水","starter":"酸种","salt":"盐","yeast":"酵母","total":"面团总重","grams":"克","effective":"有效水合","hydration":"水合","modeFlour":"按面粉重量","modeBalls":"按面团球","balls":"面团球数","perBall":"每球克数"},"method":{"heading":"详细做法","lead":"计算器打开时是面粉 500 克，水合 52%，盐 2%，酵母 1%。这个面团本来就该偏硬。煮的时候如果加一点麦芽或小苏打，那些不在合计克数里。下面的时间按只改面粉的量、百分比不变来估。发酵还是看面团的样子和手感。","steps":[{"title":"搅拌","body":"把面粉、水、盐和酵母拌成结实的一团。52% 水合摸起来不像柔软的面包。面团温度大约 24°C。"},{"title":"揉","body":"揉 8 到 10 分钟，直到表面光滑，按下去会回弹。开始扯裂就停。"},{"title":"基本发酵","body":"盖上，放在大约 24°C，60 到 90 分钟。酵母有 1%，大约胀起一半即可，不要发成气球。"},{"title":"分割整形","body":"分成大小相近的剂子，小环大约 100 克一个。搓成条，两端叠上，把接缝压住。如果条缩回去，松弛 10 分钟再搓。"},{"title":"最后发酵","body":"盖着发 20 到 40 分钟，只要略微蓬松。拿一个放进一碗水里，浮起来就可以煮。沉下去就再等一会儿。"},{"title":"水煮","body":"宽锅里的水保持小沸，大约 95°C。每面煮 30 到 45 秒，捞出沥水。"},{"title":"烘烤","body":"以 220°C 烤 16 到 20 分钟，直到表皮深金黄并且定住。"},{"title":"放凉","body":"放到架子上至少 20 分钟再切。太热的贝果一切就糊。"}]},"messages":{"label":"下载 PDF","busy":"正在生成 PDF…","fail":"PDF 生成失败，请再按一次。"}}</script>
+<script type="module" src="/assets/calc.js"></script><section class="method">
+<h2>详细做法</h2>
+<p>计算器打开时是面粉 500 克，水合 52%，盐 2%，酵母 1%。这个面团本来就该偏硬。煮的时候如果加一点麦芽或小苏打，那些不在合计克数里。下面的时间按只改面粉的量、百分比不变来估。发酵还是看面团的样子和手感。</p>
+<ol><li><strong>搅拌</strong> 把面粉、水、盐和酵母拌成结实的一团。52% 水合摸起来不像柔软的面包。面团温度大约 24°C。</li><li><strong>揉</strong> 揉 8 到 10 分钟，直到表面光滑，按下去会回弹。开始扯裂就停。</li><li><strong>基本发酵</strong> 盖上，放在大约 24°C，60 到 90 分钟。酵母有 1%，大约胀起一半即可，不要发成气球。</li><li><strong>分割整形</strong> 分成大小相近的剂子，小环大约 100 克一个。搓成条，两端叠上，把接缝压住。如果条缩回去，松弛 10 分钟再搓。</li><li><strong>最后发酵</strong> 盖着发 20 到 40 分钟，只要略微蓬松。拿一个放进一碗水里，浮起来就可以煮。沉下去就再等一会儿。</li><li><strong>水煮</strong> 宽锅里的水保持小沸，大约 95°C。每面煮 30 到 45 秒，捞出沥水。</li><li><strong>烘烤</strong> 以 220°C 烤 16 到 20 分钟，直到表皮深金黄并且定住。</li><li><strong>放凉</strong> 放到架子上至少 20 分钟再切。太热的贝果一切就糊。</li></ol>
+<figure>
+<img src="/assets/bagel.webp" width="1200" height="1801" alt="芝麻贝果，其中一个已经切开，放在木板上。" loading="lazy">
+<figcaption>摄影：Anna Tarazevich，来自 <a href="https://www.pexels.com/photo/close-up-shot-of-buns-and-bagels-6937426/">Pexels</a></figcaption>
+</figure>
+</section>
 <section class="related"><h2>相关计算</h2><ul class="link-list"><li><a href="/zh-cn/biyali/">比亚利面包烘焙百分比</a></li><li><a href="/zh-cn/wancan-canbao/">晚餐小餐包烘焙百分比</a></li><li><a href="/zh-cn/hanbao/">汉堡面包烘焙百分比</a></li><li><a href="/zh-cn/regou/">热狗面包烘焙百分比</a></li></ul></section>
 </main>
 <footer>

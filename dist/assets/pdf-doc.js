@@ -11,7 +11,7 @@ const PAGE = [595.28, 841.89];
 const MARGIN = 48;
 const CLOSING = new Set("，。、：；）)」』】》,.;:!?%％".split(""));
 const GLUED =
-  /^((?:\d+(?:\.\d+)?(?:(?:–|-)\d+(?:\.\d+)?)?½?|½)(?:°[CF])?%?)(?:[ \u00A0]+(個半小時|分鐘|小時|公分|厘米|水合|minutes|minute|hours|hour|cm|g|克))?/;
+  /^((?:\d+(?:\.\d+)?(?:(?:–|-)\d+(?:\.\d+)?)?½?|½)(?:°[CF])?%?)(?:[ \u00A0]+(個半小時|分鐘|分钟|小時|小时|公分|厘米|水合|minutes|minute|hours|hour|cm|g|克))?/;
 
 const fontBytesPromises = new Map();
 
@@ -88,7 +88,7 @@ function tokenize(text) {
   return tokens;
 }
 
-function wrapText(text, font, size, maxWidth) {
+export function wrapText(text, font, size, maxWidth) {
   const lines = [];
   const widthOf = (value) => font.widthOfTextAtSize(value, size);
   for (const paragraph of String(text).split("\n")) {

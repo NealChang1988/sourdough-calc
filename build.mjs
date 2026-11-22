@@ -32,10 +32,16 @@ export async function writeSite(distDir) {
   await mkdir(assets, { recursive: true });
   await writeFile(path.join(assets, "site.css"), await readFile(path.join(root, "src", "site.css")));
   await writeFile(path.join(assets, "calc.js"), await readFile(path.join(root, "src", "calc.js")));
-  await writeFile(
-    path.join(assets, "country-sourdough.webp"),
-    await readFile(path.join(root, "src", "country-sourdough.webp")),
-  );
+  for (const name of [
+    "country-sourdough.webp",
+    "neapolitan-pizza.webp",
+    "bagel.webp",
+    "pain-de-mie.webp",
+    "baguette.webp",
+    "focaccia.webp",
+  ]) {
+    await writeFile(path.join(assets, name), await readFile(path.join(root, "src", name)));
+  }
   await writeFile(path.join(assets, "formula.mjs"), await readFile(path.join(root, "src", "formula.mjs")));
   await writeFile(path.join(assets, "pdf-doc.js"), await readFile(path.join(root, "src", "pdf-doc.js")));
   await mkdir(path.join(assets, "vendor"), { recursive: true });

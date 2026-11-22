@@ -56,11 +56,22 @@
 <div class="actions">
 <button type="button" id="copy">複製配方</button>
 <button type="button" id="print" class="secondary">列印</button>
+<button type="button" id="download-pdf" data-busy="正在產生 PDF…">下載 PDF</button>
 </div>
+<p id="pdf-error" class="error" role="alert" hidden>PDF 產生失敗，請再按一次。</p>
 <textarea id="recipe-text" hidden readonly></textarea>
 </section>
 <script type="application/json" id="labels">{"title":"那不勒斯披薩麵團","flour":"麵粉","water":"水","starter":"酸種","salt":"鹽","yeast":"酵母","total":"麵團總重","grams":"克","effective":"有效水合","copied":"已複製","copyFail":"請選中配方文字再複製"}</script>
-<script type="module" src="/assets/calc.js"></script>
+<script type="application/json" id="pdf-meta">{"title":"那不勒斯披薩麵團","url":"https://doughcalc.app/zh-tw/nabulesi-pisa/","filename":"doughcalc-nabulesi-pisa-zh-tw-recipe.pdf","lang":"zh-TW","fontUrl":"/assets/fonts/noto-sans-tc-subset.ttf","labels":{"result":"配方","flour":"麵粉","water":"水","starter":"酸種","salt":"鹽","yeast":"酵母","total":"麵團總重","grams":"克","effective":"有效水合","hydration":"水合","modeFlour":"按麵粉重量","modeBalls":"按麵團球","balls":"麵團球數","perBall":"每球克數"},"method":{"heading":"詳細做法","lead":"計算器打開時是 4 個麵團球、每球 250 克，水合 65%，鹽 2．8%，酵母 0．2%。酵母這麼少，是為了長時間冷藏，不是為了當天下午就烤。下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。","steps":[{"title":"攪拌","body":"把麵粉、水和酵母拌到沒有乾粉，再把鹽揉進去。按頁面上的初始配方，麵團柔軟但不稀。麵團溫度大約 24°C。"},{"title":"鬆弛","body":"蓋上，靜置 20 分鐘。65% 水合的麵團會變得比較順，摺疊時不容易扯破。"},{"title":"基本發酵","body":"蓋著，放在大約 24°C，1 小時。中途做一輪拉伸摺疊。只要略微發起來，不必發到兩倍。酵母只有 0．2%，大部分發酵要留到冷藏裡。"},{"title":"分球","body":"按計算器上的球數分割。頁面打開時是 4 球、每球 250 克。每個都收成表面光滑的圓球，蓋好，球和球之間留一點空隙。"},{"title":"冷藏","body":"放進大約 4°C 的冰箱，16 到 24 小時。麵團球會稍微攤開，氣味溫和，不要發到刺鼻。"},{"title":"回溫並拉開","body":"烤前 60 到 90 分鐘取出。在撒了粉的板上用手拉開：邊緣留厚，中間拉薄。擀麵杖會把厚邊壓沒。"},{"title":"烘烤","body":"烤石或烤鋼以 250°C 預熱 45 分鐘，烤箱能到更高就用更高的溫度。披薩放上去烤 6 到 8 分鐘，邊緣出現焦斑、中心定住即可。如果烤箱能到大約 430°C，60 到 90 秒就夠。"},{"title":"靜置","body":"放到架上 2 分鐘再切，中心才不會淌開。"}]},"messages":{"label":"下載 PDF","busy":"正在產生 PDF…","fail":"PDF 產生失敗，請再按一次。"}}</script>
+<script type="module" src="/assets/calc.js"></script><section class="method">
+<h2>詳細做法</h2>
+<p>計算器打開時是 4 個麵團球、每球 250 克，水合 65%，鹽 2．8%，酵母 0．2%。酵母這麼少，是為了長時間冷藏，不是為了當天下午就烤。下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。</p>
+<ol><li><strong>攪拌</strong> 把麵粉、水和酵母拌到沒有乾粉，再把鹽揉進去。按頁面上的初始配方，麵團柔軟但不稀。麵團溫度大約 24°C。</li><li><strong>鬆弛</strong> 蓋上，靜置 20 分鐘。65% 水合的麵團會變得比較順，摺疊時不容易扯破。</li><li><strong>基本發酵</strong> 蓋著，放在大約 24°C，1 小時。中途做一輪拉伸摺疊。只要略微發起來，不必發到兩倍。酵母只有 0．2%，大部分發酵要留到冷藏裡。</li><li><strong>分球</strong> 按計算器上的球數分割。頁面打開時是 4 球、每球 250 克。每個都收成表面光滑的圓球，蓋好，球和球之間留一點空隙。</li><li><strong>冷藏</strong> 放進大約 4°C 的冰箱，16 到 24 小時。麵團球會稍微攤開，氣味溫和，不要發到刺鼻。</li><li><strong>回溫並拉開</strong> 烤前 60 到 90 分鐘取出。在撒了粉的板上用手拉開：邊緣留厚，中間拉薄。擀麵杖會把厚邊壓沒。</li><li><strong>烘烤</strong> 烤石或烤鋼以 250°C 預熱 45 分鐘，烤箱能到更高就用更高的溫度。披薩放上去烤 6 到 8 分鐘，邊緣出現焦斑、中心定住即可。如果烤箱能到大約 430°C，60 到 90 秒就夠。</li><li><strong>靜置</strong> 放到架上 2 分鐘再切，中心才不會淌開。</li></ol>
+<figure>
+<img src="/assets/neapolitan-pizza.webp" width="1200" height="676" alt="烤好的那不勒斯披薩，邊緣焦香蓬鬆，鋪著番茄和羅勒，放在木板上。" loading="lazy">
+<figcaption>攝影：Anna Guerrero，來自 <a href="https://www.pexels.com/photo/pizza-with-green-leaf-vegetable-on-wooden-surface-10802332/">Pexels</a></figcaption>
+</figure>
+</section>
 <section class="related"><h2>相關計算</h2><ul class="link-list"><li><a href="/zh-tw/niuyue-pisa/">紐約風披薩麵團</a></li><li><a href="/zh-tw/luoma-pan-pisa/">羅馬盤披薩麵團</a></li><li><a href="/zh-tw/xixili-pisa/">西西里披薩麵團</a></li><li><a href="/zh-tw/baopi-pisa/">薄皮披薩麵團</a></li></ul></section>
 </main>
 <footer>
