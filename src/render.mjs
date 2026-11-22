@@ -1,5 +1,6 @@
 import { SITE_URL } from "../site.config.mjs";
 import { pages, hubGroups, relatedPages, featuredPages } from "./catalog.mjs";
+import { COUNTRY_PHOTO, countryMethod } from "./data/country-method.mjs";
 import { effectiveHydration, formatAmount, recipeFor } from "./formula.mjs";
 import { HTML_LANG, HREFLANG, LANGS, OG_LOCALE, ui } from "./i18n.mjs";
 
@@ -195,6 +196,27 @@ ${field("yeast", copy.yeast, "%", String(preset.yeast), copy.yeastHint)}
 <script type="module" src="/assets/calc.js"></script>`;
 }
 
+function methodSection(page, lang) {
+  if (page.id !== "bread-country-sourdough") return "";
+  const copy = countryMethod[lang];
+  const steps = copy.steps
+    .map(
+      (step) =>
+        `<li><strong>${escapeHtml(step.title)}</strong> ${escapeHtml(step.body)}</li>`,
+    )
+    .join("");
+  const photo = COUNTRY_PHOTO;
+  return `<section class="method">
+<h2>${escapeHtml(copy.heading)}</h2>
+<p>${escapeHtml(copy.lead)}</p>
+<ol>${steps}</ol>
+<figure>
+<img src="${photo.src}" width="${photo.width}" height="${photo.height}" alt="${escapeHtml(copy.alt)}" loading="lazy">
+<figcaption>${escapeHtml(copy.creditBefore)}<a href="${photo.pageUrl}">${escapeHtml(copy.creditLink)}</a></figcaption>
+</figure>
+</section>`;
+}
+
 function relatedBlock(page, lang) {
   const items = page.kind === "home" ? featuredPages() : relatedPages(page);
   if (!items.length) return "";
@@ -229,7 +251,7 @@ export function renderPage(page, lang) {
       .join("");
     inner = `${page.preset ? calculator(page, lang) : ""}${groups}`;
   } else {
-    inner = calculator(page, lang);
+    inner = `${calculator(page, lang)}${methodSection(page, lang)}`;
   }
   return `${head({
     lang,
