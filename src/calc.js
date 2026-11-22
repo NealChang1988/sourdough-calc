@@ -41,6 +41,7 @@ function showRecipe(recipe) {
 }
 
 function recipeText(recipe) {
+  const sep = document.documentElement.lang.toLowerCase().startsWith("zh") ? "：" : ": ";
   const lines = [labels.title];
   const rows = [
     ["flour", true],
@@ -52,9 +53,9 @@ function recipeText(recipe) {
   ];
   for (const [key, show] of rows) {
     if (!show) continue;
-    lines.push(`${labels[key]}: ${formatAmount(recipe[key])} ${labels.grams}`);
+    lines.push(`${labels[key]}${sep}${formatAmount(recipe[key])} ${labels.grams}`);
   }
-  lines.push(`${labels.effective}: ${formatAmount(effectiveHydration(recipe))}%`);
+  lines.push(`${labels.effective}${sep}${formatAmount(effectiveHydration(recipe))}%`);
   return lines.join("\n");
 }
 
@@ -131,6 +132,7 @@ document.querySelector("#print").addEventListener("click", () => {
 });
 
 const pdfButton = document.querySelector("#download-pdf");
+const pdfError = document.querySelector("#pdf-error");
 if (pdfButton) {
   const pdfLabel = pdfButton.textContent;
   pdfButton.addEventListener("click", async () => {
@@ -152,14 +154,17 @@ if (pdfButton) {
         title: meta.title,
         url: meta.url,
         lang: meta.lang,
+        fontUrl: meta.fontUrl,
         labels: meta.labels,
         method: meta.method,
         inputs: parsed.preset,
         recipe,
       });
       pdf.downloadPdf(bytes, meta.filename);
+      if (pdfError) pdfError.hidden = true;
     } catch (err) {
       console.error(err);
+      if (pdfError) pdfError.hidden = false;
     } finally {
       pdfButton.disabled = false;
       pdfButton.textContent = pdfLabel;

@@ -182,7 +182,7 @@ footer nav { display: flex; flex-wrap: wrap; gap: 0.7rem 1rem; margin-bottom: 0.
   h1 { font-size: 2rem; }
 }
 @media print {
-  header, footer, form, .actions, .related, .crumb, .skip, #recipe-text { display: none !important; }
+  header, footer, form, .actions, .related, .crumb, .skip, #recipe-text, .method figure, #pdf-error { display: none !important; }
   body { background: #fff; color: #000; }
   main { width: auto; }
   .card { border: 0; padding: 0; }

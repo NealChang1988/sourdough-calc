@@ -49,8 +49,12 @@ export async function writeSite(distDir) {
   );
   await mkdir(path.join(assets, "fonts"), { recursive: true });
   await writeFile(
-    path.join(assets, "fonts", "noto-sans-subset.ttf"),
-    await readFile(path.join(root, "src", "fonts", "noto-sans-subset.ttf")),
+    path.join(assets, "fonts", "noto-sans-sc-subset.ttf"),
+    await readFile(path.join(root, "src", "fonts", "noto-sans-sc-subset.ttf")),
+  );
+  await writeFile(
+    path.join(assets, "fonts", "noto-sans-tc-subset.ttf"),
+    await readFile(path.join(root, "src", "fonts", "noto-sans-tc-subset.ttf")),
   );
   await writeFile(path.join(distDir, "favicon.svg"), await readFile(path.join(root, "src", "favicon.svg")));
   await writeFile(path.join(distDir, "favicon.ico"), await readFile(path.join(root, "src", "favicon.ico")));

@@ -9,7 +9,7 @@ export const COUNTRY_PHOTO = {
 export const countryMethod = {
   en: {
     heading: "Detailed method",
-    lead: "The times below follow the recipe this calculator opens with: 500 g flour, 75% water, 20% starter, 2% salt, and no added yeast. That is 375 g water, 100 g starter, and 10 g salt. The starter is itself 100% hydration, the same assumption used for effective hydration. A warm kitchen finishes sooner, and a cool kitchen needs longer. If you change the fields, keep these percentages and judge the dough rather than the clock.",
+    lead: "The times below follow the recipe this calculator opens with: 500 g flour, 75% hydration, 20% starter, 2% salt, and no added yeast. That is 375 g water, 100 g starter, and 10 g salt. The starter is itself 100% hydration, the same assumption used for effective hydration. A warm kitchen finishes sooner, and a cool kitchen needs longer. These times assume you only change the flour amount and keep the percentages the same. Still judge the dough by how it looks and feels.",
     alt: "Finished oval country sourdough loaf with a floury, crackled crust and an opened score, on parchment.",
     creditBefore: "Photo by Chance Agrella on ",
     creditLink: "Pexels",
@@ -50,7 +50,7 @@ export const countryMethod = {
   },
   "zh-cn": {
     heading: "详细做法",
-    lead: "时间按这个计算器一打开的默认值来排：面粉 500 克，水合 75%，酸种 20%，盐 2%，酵母 0。换算下来是水 375 克、酸种 100 克、盐 10 克。酸种按 100% 水合计，和结果里的有效水合用的是同一种假设。屋子暖，发酵就快；屋子凉，就得多等。改了上面的数字以后，百分比照着走，发酵看面团，不要只看钟点。",
+    lead: "时间按这个计算器一打开的默认值来排：面粉 500 克，水合 75%，酸种 20%，盐 2%，酵母 0。换算下来是水 375 克、酸种 100 克、盐 10 克。酸种按 100% 水合计，和结果里的有效水合用的是同一种假设。屋子暖，发酵就快；屋子凉，就得多等。下面的时间按只改面粉的量、百分比不变来估。发酵还是看面团的样子和手感。",
     alt: "烤好的椭圆乡村酸种面包，表皮洒了粉、已经裂开，划口张开，垫在烘焙纸上。",
     creditBefore: "摄影：Chance Agrella，来自 ",
     creditLink: "Pexels",
@@ -91,8 +91,8 @@ export const countryMethod = {
   },
   "zh-tw": {
     heading: "詳細做法",
-    lead: "時間照這台計算器預設的數字來排：麵粉 500 克、水合 75%、酸種 20%、鹽 2%、酵母 0。換算是水 375 克、酸種 100 克、鹽 10 克。酸種以 100% 水合計算，和結果下方的有效水合是同一種假設。房間暖，發酵比較快；房間涼，就要多等。如果改了上面的欄位，百分比維持這樣，發酵看麵團本身，不要只盯著時鐘。",
-    alt: "烤好的橢圓鄉村酸種麵包，表皮灑了粉、已經裂開，劃口張開，墊在烘焙紙上。",
+    lead: "時間照這台計算器預設的數字來排：麵粉 500 克、水合 75%、酸種 20%、鹽 2%、酵母 0。換算是水 375 克、酸種 100 克、鹽 10 克。酸種以 100% 水合計算，和結果下方的有效水合是同一種假設。房間暖，發酵比較快；房間涼，就要多等。下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。",
+    alt: "烤好的橢圓鄉村酸種麵包，表皮撒了粉、已經裂開，劃口張開，墊在烘焙紙上。",
     creditBefore: "攝影：Chance Agrella，來自 ",
     creditLink: "Pexels",
     steps: [
@@ -114,7 +114,7 @@ export const countryMethod = {
       },
       {
         title: "整形",
-        body: "把麵團倒在薄薄灑了粉的檯面上，輕輕收成圓形，鬆弛 20 到 30 分鐘。接著整成圓形或橢圓，把表皮繃緊。縫朝上放進灑了粉的發酵籃。若是墊光滑的布，縫要朝下，等一下才好倒出來。",
+        body: "把麵團倒在薄薄撒了粉的檯面上，輕輕收成圓形，鬆弛 20 到 30 分鐘。接著整成圓形或橢圓，把表皮繃緊。縫朝上放進撒了粉的發酵籃。若是墊光滑的布，縫要朝下，等一下才好倒出來。",
       },
       {
         title: "冷藏",
