@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
-import { mkdtemp, readdir, readFile } from "node:fs/promises";
+import { mkdtemp, readdir, readFile, stat } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import test from "node:test";
@@ -279,6 +279,59 @@ test("built site drops removed urls and keeps a footer mailto on every page", as
     assert.match(html, /class="langs"/, rel);
     if (!/^(en|zh-cn|zh-tw)\/index\.html$/.test(rel)) assert.match(html, /class="crumb"/, rel);
   }
+});
+
+test("country sourdough page adds a method and photo without touching other pages", async () => {
+  const country = pages.find((page) => page.id === "bread-country-sourdough");
+  const focaccia = pages.find((page) => page.id === "bread-focaccia");
+  const expected = {
+    en: "Detailed method",
+    "zh-cn": "详细做法",
+    "zh-tw": "詳細做法",
+  };
+  for (const lang of ["en", "zh-cn", "zh-tw"]) {
+    const html = renderPage(country, lang);
+    assert.ok(html.indexOf('id="calc"') < html.indexOf('class="method"'), lang);
+    assert.ok(html.indexOf('class="method"') < html.indexOf('class="related"'), lang);
+    assert.match(html, new RegExp(`<h2>${expected[lang]}</h2>`));
+    assert.match(html, /src="\/assets\/country-sourdough\.webp"/);
+    assert.match(html, /width="1200"/);
+    assert.match(html, /height="1601"/);
+    assert.match(html, /loading="lazy"/);
+    assert.match(html, /alt="[^"]+"/);
+    assert.match(html, /Chance Agrella/);
+    assert.match(html, /href="https:\/\/www\.pexels\.com\/photo\/artisan-sourdough-bread-freshly-baked-33735154\/"/);
+    assert.match(html, /375/);
+    assert.match(html, /100 g|100 克/);
+    assert.match(html, /id="download-pdf"/);
+    assert.doesNotMatch(html, /pdf-lib/);
+    assert.doesNotMatch(html, /noto-sans/);
+    assert.equal(renderPage(focaccia, lang).includes("country-sourdough.webp"), false, lang);
+    assert.equal(renderPage(focaccia, lang).includes("download-pdf"), false, lang);
+    assert.equal(renderPage(focaccia, lang).includes(expected[lang]), false, lang);
+  }
+  assert.match(renderPage(country, "en"), /Download PDF/);
+  assert.match(renderPage(country, "en"), /data-busy="Preparing PDF…"/);
+  assert.match(renderPage(country, "en"), /doughcalc-country-sourdough-recipe\.pdf/);
+  assert.match(renderPage(country, "zh-cn"), /下载 PDF/);
+  assert.match(renderPage(country, "zh-cn"), /data-busy="正在生成 PDF…"/);
+  assert.match(renderPage(country, "zh-tw"), /下載 PDF/);
+  assert.match(renderPage(country, "zh-tw"), /data-busy="正在產生 PDF…"/);
+  assert.match(renderPage(country, "zh-tw"), /doughcalc-xiangcun-suanzhong-zh-tw-recipe\.pdf/);
+  const tw = renderPage(country, "zh-tw");
+  const method = tw.slice(tw.indexOf('<section class="method">'), tw.indexOf('<section class="related">'));
+  const visible = method
+    .replace(/<[^>]+>/g, "")
+    .replaceAll("Chance Agrella", "")
+    .replaceAll("Pexels", "");
+  assert.equal(/[,.:;!?()]/.test(visible), false, visible);
+  const dir = await mkdtemp(path.join(tmpdir(), "dough-"));
+  await writeSite(dir);
+  const photo = await stat(path.join(dir, "assets", "country-sourdough.webp"));
+  assert.ok(photo.size > 0 && photo.size < 150 * 1024, photo.size);
+  const built = await readFile(path.join(dir, "zh-tw", "xiangcun-suanzhong", "index.html"), "utf8");
+  assert.match(built, /詳細做法/);
+  assert.match(built, /country-sourdough\.webp/);
 });
 
 test("every page discloses anonymous analytics and none claim there is none", async () => {

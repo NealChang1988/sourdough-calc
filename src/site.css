@@ -148,6 +148,20 @@ button {
   cursor: pointer;
 }
 button.secondary { background: transparent; color: var(--accent); }
+button:disabled { cursor: wait; opacity: 0.65; }
+.method { margin: 1.25rem 0 0.25rem; }
+.method ol { margin: 0.2rem 0 0.4rem; padding-left: 1.35rem; }
+.method li { margin: 0.85rem 0; }
+.method li strong { display: block; }
+.method figure { margin: 1rem 0 0.2rem; }
+.method img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.9rem;
+}
+.method figcaption { margin-top: 0.4rem; color: var(--muted); font-size: 0.85rem; }
 .link-list { padding-left: 1.15rem; margin: 0.2rem 0 1rem; }
 .link-list li { margin: 0.35rem 0; }
 footer { padding: 0.5rem 0 2.5rem; color: var(--muted); font-size: 0.95rem; }

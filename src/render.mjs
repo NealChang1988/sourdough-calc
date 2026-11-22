@@ -1,5 +1,6 @@
 import { SITE_URL } from "../site.config.mjs";
 import { pages, hubGroups, relatedPages, featuredPages } from "./catalog.mjs";
+import { COUNTRY_PHOTO, countryMethod } from "./data/country-method.mjs";
 import { effectiveHydration, formatAmount, recipeFor } from "./formula.mjs";
 import { HTML_LANG, HREFLANG, LANGS, OG_LOCALE, ui } from "./i18n.mjs";
 
@@ -187,12 +188,86 @@ ${field("yeast", copy.yeast, "%", String(preset.yeast), copy.yeastHint)}
 <p class="convention">${escapeHtml(copy.convention)}</p>
 <div class="actions">
 <button type="button" id="copy">${escapeHtml(copy.copy)}</button>
-<button type="button" id="print" class="secondary">${escapeHtml(copy.print)}</button>
+<button type="button" id="print" class="secondary">${escapeHtml(copy.print)}</button>${pdfButton(page, lang)}
 </div>
 <textarea id="recipe-text" hidden readonly></textarea>
 </section>
-<script type="application/json" id="labels">${json}</script>
+<script type="application/json" id="labels">${json}</script>${pdfMeta(page, lang)}
 <script type="module" src="/assets/calc.js"></script>`;
+}
+
+const PDF_FILENAME = {
+  en: "doughcalc-country-sourdough-recipe.pdf",
+  "zh-cn": "doughcalc-xiangcun-suanzhong-recipe.pdf",
+  "zh-tw": "doughcalc-xiangcun-suanzhong-zh-tw-recipe.pdf",
+};
+
+const PDF_BUTTON = {
+  en: { label: "Download PDF", busy: "Preparing PDF…" },
+  "zh-cn": { label: "下载 PDF", busy: "正在生成 PDF…" },
+  "zh-tw": { label: "下載 PDF", busy: "正在產生 PDF…" },
+};
+
+function pdfButton(page, lang) {
+  if (page.id !== "bread-country-sourdough") return "";
+  const copy = PDF_BUTTON[lang];
+  return `\n<button type="button" id="download-pdf" data-busy="${escapeHtml(copy.busy)}">${escapeHtml(copy.label)}</button>`;
+}
+
+function pdfMeta(page, lang) {
+  if (page.id !== "bread-country-sourdough") return "";
+  const copy = ui[lang];
+  const method = countryMethod[lang];
+  const payload = {
+    title: page.h1[lang],
+    url: absoluteUrl(pagePath(lang, page.slug[lang])),
+    filename: PDF_FILENAME[lang],
+    lang: HTML_LANG[lang],
+    labels: {
+      result: copy.result,
+      flour: copy.flour,
+      water: copy.water,
+      starter: copy.starter,
+      salt: copy.salt,
+      yeast: copy.yeast,
+      total: copy.total,
+      grams: copy.grams,
+      effective: copy.effective,
+      hydration: copy.hydration,
+      modeFlour: copy.modeFlour,
+      modeBalls: copy.modeBalls,
+      balls: copy.balls,
+      perBall: copy.perBall,
+    },
+    method: {
+      heading: method.heading,
+      lead: method.lead,
+      steps: method.steps.map((step) => ({ title: step.title, body: step.body })),
+    },
+  };
+  const json = JSON.stringify(payload).replaceAll("<", "\\u003c");
+  return `\n<script type="application/json" id="pdf-meta">${json}</script>`;
+}
+
+function methodSection(page, lang) {
+  if (page.id !== "bread-country-sourdough") return "";
+  const copy = countryMethod[lang];
+  const steps = copy.steps
+    .map(
+      (step) =>
+        `<li><strong>${escapeHtml(step.title)}</strong> ${escapeHtml(step.body)}</li>`,
+    )
+    .join("");
+  const photo = COUNTRY_PHOTO;
+  return `<section class="method">
+<h2>${escapeHtml(copy.heading)}</h2>
+<p>${escapeHtml(copy.lead)}</p>
+<ol>${steps}</ol>
+<figure>
+<img src="${photo.src}" width="${photo.width}" height="${photo.height}" alt="${escapeHtml(copy.alt)}" loading="lazy">
+<figcaption>${escapeHtml(copy.creditBefore)}<a href="${photo.pageUrl}">${escapeHtml(copy.creditLink)}</a></figcaption>
+</figure>
+</section>`;
 }
 
 function relatedBlock(page, lang) {
@@ -229,7 +304,7 @@ export function renderPage(page, lang) {
       .join("");
     inner = `${page.preset ? calculator(page, lang) : ""}${groups}`;
   } else {
-    inner = calculator(page, lang);
+    inner = `${calculator(page, lang)}${methodSection(page, lang)}`;
   }
   return `${head({
     lang,
