@@ -70,12 +70,12 @@ export const doughGuides = {
       },
       "zh-tw": {
         heading: "詳細做法",
-        lead: `計算器打開時是 4 個麵團球、每球 250 克，水合 65%，鹽 2．8%，酵母 0．2%。酵母這麼少，是為了長時間冷藏，不是為了當天下午就烤。${tail["zh-tw"]}`,
+        lead: `計算器打開時是 4 個麵團球、每球 250 克，水合 65%，鹽 2.8%，酵母 0.2%。酵母這麼少，是為了長時間冷藏，不是為了當天下午就烤。${tail["zh-tw"]}`,
         alt: "烤好的那不勒斯披薩，邊緣焦香蓬鬆，鋪著番茄和羅勒，放在木板上。",
         steps: [
           { title: "攪拌", body: "把麵粉、水和酵母拌到沒有乾粉，再把鹽揉進去。按頁面上的初始配方，麵團柔軟但不稀。麵團溫度大約 24°C。" },
           { title: "鬆弛", body: "蓋上，靜置 20 分鐘。65% 水合的麵團會變得比較順，摺疊時不容易扯破。" },
-          { title: "基本發酵", body: "蓋著，放在大約 24°C，1 小時。中途做一輪拉伸摺疊。只要略微發起來，不必發到兩倍。酵母只有 0．2%，大部分發酵要留到冷藏裡。" },
+          { title: "基本發酵", body: "蓋著，放在大約 24°C，1 小時。中途做一輪拉伸摺疊。只要略微發起來，不必發到兩倍。酵母只有 0.2%，大部分發酵要留到冷藏裡。" },
           { title: "分球", body: "按計算器上的球數分割。頁面打開時是 4 球、每球 250 克。每個都收成表面光滑的圓球，蓋好，球和球之間留一點空隙。" },
           { title: "冷藏", body: "放進大約 4°C 的冰箱，16 到 24 小時。麵團球會稍微攤開，氣味溫和，不要發到刺鼻。" },
           { title: "回溫並拉開", body: "烤前 60 到 90 分鐘取出。在撒了粉的板上用手拉開：邊緣留厚，中間拉薄。擀麵杖會把厚邊壓沒。" },
@@ -89,15 +89,15 @@ export const doughGuides = {
     {
       src: "/assets/bagel.webp",
       width: 1200,
-      height: 1801,
-      pageUrl: "https://www.pexels.com/photo/close-up-shot-of-buns-and-bagels-6937426/",
-      photographer: "Anna Tarazevich",
+      height: 800,
+      pageUrl: "https://www.pexels.com/photo/bagels-in-plate-with-flowers-and-coriander-garnish-7771657/",
+      photographer: "Brenna Bieniek",
     },
     {
       en: {
         heading: "Detailed method",
         lead: `The calculator opens at 500 g flour, 52% hydration, 2% salt, and 1% yeast. The dough is supposed to feel stiff. A spoon of malt or baking soda in the boil, if you use one, is extra and is not in the gram total. ${tail.en}`,
-        alt: "Sesame bagels, one of them sliced, on a wooden board.",
+        alt: "Three seeded bagels on a white plate.",
         steps: [
           { title: "Mix", body: "Stir the flour, water, salt, and yeast into a stiff mass. At 52% hydration it will not feel like a soft loaf. Aim for about 24°C (75°F)." },
           { title: "Knead", body: "Knead for 8 to 10 minutes, until the dough is smooth and springs back when you press it. Stop before it tears." },
@@ -112,7 +112,7 @@ export const doughGuides = {
       "zh-cn": {
         heading: "详细做法",
         lead: `计算器打开时是面粉 500 克，水合 52%，盐 2%，酵母 1%。这个面团本来就该偏硬。煮的时候如果加一点麦芽或小苏打，那些不在合计克数里。${tail["zh-cn"]}`,
-        alt: "芝麻贝果，其中一个已经切开，放在木板上。",
+        alt: "三个撒了籽的贝果，放在白盘子上。",
         steps: [
           { title: "搅拌", body: "把面粉、水、盐和酵母拌成结实的一团。52% 水合摸起来不像柔软的面包。面团温度大约 24°C。" },
           { title: "揉", body: "揉 8 到 10 分钟，直到表面光滑，按下去会回弹。开始扯裂就停。" },
@@ -127,12 +127,12 @@ export const doughGuides = {
       "zh-tw": {
         heading: "詳細做法",
         lead: `計算器打開時是麵粉 500 克，水合 52%，鹽 2%，酵母 1%。這個麵團本來就該偏硬。煮的時候如果加一點麥芽或小蘇打，那些不在合計克數裡。${tail["zh-tw"]}`,
-        alt: "芝麻貝果，其中一個已經切開，放在木板上。",
+        alt: "三個撒了籽的貝果，放在白盤子上。",
         steps: [
           { title: "攪拌", body: "把麵粉、水、鹽和酵母拌成結實的一團。52% 水合摸起來不像柔軟的麵包。麵團溫度大約 24°C。" },
           { title: "揉", body: "揉 8 到 10 分鐘，直到表面光滑，按下去會回彈。開始扯裂就停。" },
           { title: "基本發酵", body: "蓋上，放在大約 24°C，60 到 90 分鐘。酵母有 1%，大約脹起一半即可，不要發成氣球。" },
-          { title: "分割整形", body: "分成大小相近的劑子，小環大約 100 克一個。搓成條，兩端疊上，把接縫壓住。如果條縮回去，鬆弛 10 分鐘再搓。" },
+          { title: "分割整形", body: "分成大小相近的小麵團，小環大約 100 克一個。搓成條，兩端疊上，把接縫壓住。如果條縮回去，鬆弛 10 分鐘再搓。" },
           { title: "最後發酵", body: "蓋著發 20 到 40 分鐘，只要略微蓬鬆。拿一個放進一碗水裡，浮起來就可以煮。沉下去就再等一會兒。" },
           { title: "水煮", body: "寬鍋裡的水保持小滾，大約 95°C。每面煮 30 到 45 秒，撈出瀝水。" },
           { title: "烘烤", body: "以 220°C 烤 16 到 20 分鐘，直到表皮深金黃並且定住。" },
@@ -180,11 +180,11 @@ export const doughGuides = {
       },
       "zh-tw": {
         heading: "詳細做法",
-        lead: `計算器打開時是麵粉 500 克，水合 64%，鹽 1．8%，酵母 1%。如果另外加牛奶或奶油，那些重量不在合計裡。用直角吐司模，有蓋更好。${tail["zh-tw"]}`,
-        alt: "切開的白吐司，心柔軟，表皮薄而金黃。",
+        lead: `計算器打開時是麵粉 500 克，水合 64%，鹽 1.8%，酵母 1%。如果另外加牛奶或奶油，那些重量不在合計裡。用直角吐司模，有蓋更好。${tail["zh-tw"]}`,
+        alt: "切開的白吐司，內裡柔軟，表皮薄而金黃。",
         steps: [
           { title: "攪拌", body: "把麵粉、水、鹽和酵母拌勻，再揉大約 8 分鐘，直到麵團光滑。64% 水合柔軟，但能成團。麵團溫度大約 24°C。" },
-          { title: "基本發酵", body: "蓋上，放在大約 24°C，60 到 90 分鐘。酵母有 1%，差不多發到兩倍。中途輕輕折一次就夠。" },
+          { title: "基本發酵", body: "蓋上，放在大約 24°C，60 到 90 分鐘。酵母有 1%，差不多發到兩倍。中途輕輕摺一次就夠。" },
           { title: "整形", body: "把麵團壓成片，捲成和模具一樣寬的條，捏住接縫。縫朝下，放進薄薄抹了油的吐司模。" },
           { title: "最後發酵", body: "蓋著，放在大約 24°C，40 到 70 分鐘。有蓋的話，發到離模沿大約 2 公分就停。沒有蓋，鼓出模沿一點點就停。" },
           { title: "加蓋烘烤", body: "烤箱 190°C。有蓋就先蓋著烤 20 分鐘，頂面才會平、表皮才軟。" },
@@ -206,7 +206,7 @@ export const doughGuides = {
       en: {
         heading: "Detailed method",
         lead: `The calculator opens at 500 g flour, 66% hydration, 2% salt, and 0.8% yeast. The dough wants folds and steam, not a tight sandwich loaf. ${tail.en}`,
-        alt: "Three flour-dusted baguettes with split scores on a round wooden board.",
+        alt: "Baguettes on a wooden board.",
         steps: [
           { title: "Mix", body: "Stir the flour, water, salt, and yeast until no dry flour remains. At 66% hydration the dough is soft and a bit sticky. Aim for about 24°C (75°F)." },
           { title: "Bulk with folds", body: "Cover it at about 24°C (75°F) for 2 to 2.5 hours. During the first 90 minutes, give it three stretch-and-folds, about 30 minutes apart. It is ready when it has grown by about half and looks bubbly." },
@@ -221,7 +221,7 @@ export const doughGuides = {
       "zh-cn": {
         heading: "详细做法",
         lead: `计算器打开时是面粉 500 克，水合 66%，盐 2%，酵母 0.8%。这个面团靠折叠和蒸汽，不是做成紧实的吐司。${tail["zh-cn"]}`,
-        alt: "三根撒了粉的法棍，划口已经裂开，放在圆木板上。",
+        alt: "木板上的法棍。",
         steps: [
           { title: "搅拌", body: "把面粉、水、盐和酵母拌到没有干粉。66% 水合柔软，略黏。面团温度大约 24°C。" },
           { title: "折叠发酵", body: "盖上，放在大约 24°C，2 到 2.5 小时。前 90 分钟做三轮拉伸折叠，大约每 30 分钟一轮。大约胀起一半、能看见气泡就可以。" },
@@ -235,11 +235,11 @@ export const doughGuides = {
       },
       "zh-tw": {
         heading: "詳細做法",
-        lead: `計算器打開時是麵粉 500 克，水合 66%，鹽 2%，酵母 0．8%。這個麵團靠摺疊和蒸汽，不是做成緊實的吐司。${tail["zh-tw"]}`,
-        alt: "三根撒了粉的法國長棍，劃口已經裂開，放在圓木板上。",
+        lead: `計算器打開時是麵粉 500 克，水合 66%，鹽 2%，酵母 0.8%。這個麵團靠摺疊和蒸汽，不是做成緊實的吐司。${tail["zh-tw"]}`,
+        alt: "木板上的法國長棍。",
         steps: [
           { title: "攪拌", body: "把麵粉、水、鹽和酵母拌到沒有乾粉。66% 水合柔軟，略黏。麵團溫度大約 24°C。" },
-          { title: "摺疊發酵", body: "蓋上，放在大約 24°C，2 到 2．5 小時。前 90 分鐘做三輪拉伸摺疊，大約每 30 分鐘一輪。大約脹起一半、能看見氣泡就可以。" },
+          { title: "摺疊發酵", body: "蓋上，放在大約 24°C，2 到 2.5 小時。前 90 分鐘做三輪拉伸摺疊，大約每 30 分鐘一輪。大約脹起一半、能看見氣泡就可以。" },
           { title: "分割", body: "倒在薄薄撒了粉的檯面上，切成 3 或 4 條。500 克麵粉是一批家用長度的長棍，不是一根巨大的麵包。" },
           { title: "預整形", body: "每條輕輕收成短粗的卷，蓋上鬆弛 20 到 30 分鐘，讓它不再猛地縮回去。" },
           { title: "整形", body: "把短卷壓扁，兩邊向中間折，再搓到烤盤或布的長度。縫朝下。表皮繃緊，劃口才會張開。" },
@@ -291,15 +291,15 @@ export const doughGuides = {
       },
       "zh-tw": {
         heading: "詳細做法",
-        lead: `計算器打開時是麵粉 500 克，水合 78%，鹽 2．5%，酵母 0．5%。烤盤裡的油是另外加的，不在合計克數裡。它應該是一張餅，不是高麵包。${tail["zh-tw"]}`,
+        lead: `計算器打開時是麵粉 500 克，水合 78%，鹽 2.5%，酵母 0.5%。烤盤裡的油是另外加的，不在合計克數裡。它應該是一張餅，不是高麵包。${tail["zh-tw"]}`,
         alt: "戳了坑的佛卡夏，上面有橄欖和香草，墊在烘焙紙上。",
         steps: [
           { title: "攪拌", body: "把麵粉、水、鹽和酵母拌到沒有乾粉。78% 水合又黏又軟。麵團溫度大約 24°C。" },
           { title: "摺疊", body: "蓋上，放在大約 24°C，2 到 3 小時。前 90 分鐘做三輪拉伸摺疊，大約每 30 分鐘一輪。麵團要發到起泡、輕輕一晃會顫。" },
           { title: "入盤", body: "烤盤多抹油。把麵團倒進去。先不要硬拉到四角。" },
           { title: "鋪開", body: "20 分鐘後，手指沾油，把麵團慢慢推向四角。如果縮回去，再等 10 分鐘鋪完。" },
-          { title: "盤中發酵", body: "蓋著，放在大約 24°C，45 到 75 分鐘，直到蓬鬆、滿是氣泡。酵母只有 0．5%，需要這段時間。" },
-          { title: "戳坑", body: "手指再沾油，垂直戳到盤底，整個表面都戳到。坑要留得住。鹽已經按 2．5% 在麵團裡。" },
+          { title: "盤中發酵", body: "蓋著，放在大約 24°C，45 到 75 分鐘，直到蓬鬆、滿是氣泡。酵母只有 0.5%，需要這段時間。" },
+          { title: "戳坑", body: "手指再沾油，垂直戳到盤底，整個表面都戳到。坑要留得住。鹽已經按 2.5% 在麵團裡。" },
           { title: "烘烤", body: "以 230°C 烤 20 到 25 分鐘，鼓起的地方呈深金黃，底部發脆。" },
           { title: "放涼", body: "在盤裡停 10 分鐘，再移到架上。蒸汽散掉後、還溫熱時切開。" },
         ],

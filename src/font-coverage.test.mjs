@@ -36,6 +36,17 @@ function payloadText(payload) {
   return JSON.stringify(payload);
 }
 
+test("guide text uses ASCII decimals and no full-width digits in numbers", () => {
+  for (const [id, guide] of Object.entries(doughGuides)) {
+    for (const lang of ["en", "zh-cn", "zh-tw"]) {
+      const block = guide[lang];
+      const text = [block.heading, block.lead, block.alt, block.creditBefore, ...block.steps.flatMap((step) => [step.title, step.body])].join("\n");
+      assert.equal(text.includes("．"), false, `${id} ${lang}`);
+      assert.equal(/[０-９][0-9０-９]|[0-9][０-９]/.test(text), false, `${id} ${lang}`);
+    }
+  }
+});
+
 test("every PDF character is in the font subset for that language", () => {
   const buckets = { sc: "0123456789.%°CF", tc: "0123456789.%°CF" };
   for (const page of pages) {
@@ -58,8 +69,8 @@ test("Chinese units stay attached to the number in front of them", async () => {
   const pdf = await PDFDocument.create();
   pdf.registerFontkit(fontkit);
   const samples = [
-    [fonts.sc, "这里写很长的说明把行撑开静置 30 分钟然后再等 2 小时加入 10 克深度 1 厘米温度 24°C 水合 65%。"],
-    [fonts.tc, "這裡寫很長的說明把行撐開靜置 30 分鐘然後再等 2 小時加入 10 克深度 1 公分溫度 24°C 水合 65%。"],
+    [fonts.sc, "这里写很长的说明把行撑开静置 30 分钟然后再等 2 小时加入 10 克深度 1 厘米温度 24°C 水合 65% 发酵 2 到 2.5 小时盐 2.5%。"],
+    [fonts.tc, "這裡寫很長的說明把行撐開靜置 30 分鐘然後再等 2 小時加入 10 克深度 1 公分溫度 24°C 水合 65% 發酵 2 到 2.5 小時鹽 2.5%。"],
   ];
   const units = /^(?:分钟|小時|小时|分鐘|公分|厘米|克)/;
   for (const [bytes, sample] of samples) {
@@ -72,6 +83,9 @@ test("Chinese units stay attached to the number in front of them", async () => {
       assert.equal(/%$/.test(lines[i]) && /^水合/.test(lines[i + 1]), false, `${lines[i]} / ${lines[i + 1]}`);
     }
     const joined = lines.join("\n");
+    assert.ok(lines.some((line) => line.includes("2 到 2.5")), joined);
+    assert.ok(lines.some((line) => line.includes("2.5%")), joined);
+    assert.equal(lines.some((line) => /(?:^|\D)\d\.$/.test(line)), false, joined);
     assert.match(joined, /30 分钟|30 分鐘/);
     assert.match(joined, /2 小时|2 小時/);
     assert.match(joined, /10 克/);

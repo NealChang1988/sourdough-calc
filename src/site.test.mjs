@@ -335,7 +335,7 @@ test("country sourdough page adds a method and photo without touching other page
     const page = pages.find((item) => item.id === id);
     const tw = renderPage(page, "zh-tw");
     const method = tw.slice(tw.indexOf('<section class="method">'), tw.indexOf('<section class="related">'));
-    const visible = method.replace(/<[^>]+>/g, "").replace(/[A-Za-z]+/g, "");
+    const visible = method.replace(/<[^>]+>/g, "").replace(/[A-Za-z]+/g, "").replace(/\d\.\d/g, "0");
     assert.equal(/[,.:;!?()]/.test(visible), false, `${id} ${visible}`);
     assert.match(tw, /id="download-pdf"/);
     assert.match(tw, /class="method"/);
