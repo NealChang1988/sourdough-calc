@@ -7,6 +7,7 @@ import test from "node:test";
 import { writeSite } from "../build.mjs";
 import { SITE_URL } from "../site.config.mjs";
 import { nearestHydration, pages, redirectRules, toolCount } from "./catalog.mjs";
+import { doughGuides } from "./data/dough-guides.mjs";
 import { formatAmount } from "./formula.mjs";
 import { ui } from "./i18n.mjs";
 import { renderPage } from "./render.mjs";
@@ -283,7 +284,7 @@ test("built site drops removed urls and keeps a footer mailto on every page", as
 
 test("country sourdough page adds a method and photo without touching other pages", async () => {
   const country = pages.find((page) => page.id === "bread-country-sourdough");
-  const focaccia = pages.find((page) => page.id === "bread-focaccia");
+  const plain = pages.find((page) => page.id === "bread-ciabatta");
   const expected = {
     en: "Detailed method",
     "zh-cn": "详细做法",
@@ -307,9 +308,9 @@ test("country sourdough page adds a method and photo without touching other page
     assert.match(html, /id="pdf-error"/);
     assert.doesNotMatch(html, /src="[^"]*pdf-lib/);
     assert.doesNotMatch(html, /src="[^"]*noto-sans/);
-    assert.equal(renderPage(focaccia, lang).includes("country-sourdough.webp"), false, lang);
-    assert.equal(renderPage(focaccia, lang).includes("download-pdf"), false, lang);
-    assert.equal(renderPage(focaccia, lang).includes(expected[lang]), false, lang);
+    assert.equal(renderPage(plain, lang).includes("country-sourdough.webp"), false, lang);
+    assert.equal(renderPage(plain, lang).includes("download-pdf"), false, lang);
+    assert.equal(renderPage(plain, lang).includes(expected[lang]), false, lang);
   }
   assert.match(renderPage(country, "en"), /Download PDF/);
   assert.match(renderPage(country, "en"), /data-busy="Preparing PDF…"/);
@@ -330,13 +331,15 @@ test("country sourdough page adds a method and photo without touching other page
   assert.match(renderPage(country, "zh-tw"), /撒了粉的發酵籃/);
   assert.doesNotMatch(renderPage(country, "zh-tw"), /灑/);
   assert.match(renderPage(country, "zh-tw"), /PDF 產生失敗，請再按一次。/);
-  const tw = renderPage(country, "zh-tw");
-  const method = tw.slice(tw.indexOf('<section class="method">'), tw.indexOf('<section class="related">'));
-  const visible = method
-    .replace(/<[^>]+>/g, "")
-    .replaceAll("Chance Agrella", "")
-    .replaceAll("Pexels", "");
-  assert.equal(/[,.:;!?()]/.test(visible), false, visible);
+  for (const id of Object.keys(doughGuides)) {
+    const page = pages.find((item) => item.id === id);
+    const tw = renderPage(page, "zh-tw");
+    const method = tw.slice(tw.indexOf('<section class="method">'), tw.indexOf('<section class="related">'));
+    const visible = method.replace(/<[^>]+>/g, "").replace(/[A-Za-z]+/g, "").replace(/\d\.\d/g, "0");
+    assert.equal(/[,.:;!?()]/.test(visible), false, `${id} ${visible}`);
+    assert.match(tw, /id="download-pdf"/);
+    assert.match(tw, /class="method"/);
+  }
   const dir = await mkdtemp(path.join(tmpdir(), "dough-"));
   await writeSite(dir);
   const photo = await stat(path.join(dir, "assets", "country-sourdough.webp"));
