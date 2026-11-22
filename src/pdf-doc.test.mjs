@@ -8,7 +8,7 @@ import { fileURLToPath } from "node:url";
 import { countryMethod } from "./data/country-method.mjs";
 import { effectiveHydration, formatAmount, recipeFor } from "./formula.mjs";
 import { ui } from "./i18n.mjs";
-import { buildRecipePdf, fontUrlFor } from "./pdf-doc.js";
+import { buildRecipePdf, fontUrlFor, formatEntered } from "./pdf-doc.js";
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 const fontBytes = {
@@ -123,4 +123,74 @@ test("recipe pdf uses the current numbers and the full method in each language",
   assert.equal(fontUrlFor("zh-TW"), "/assets/fonts/noto-sans-tc-subset.ttf");
   assert.equal(fontUrlFor("zh-cn"), "/assets/fonts/noto-sans-sc-subset.ttf");
   assert.equal(fontUrlFor("en"), "/assets/fonts/noto-sans-sc-subset.ttf");
+});
+
+test("PDF input lines keep two decimals instead of rounding to one", async () => {
+  assert.equal(formatEntered(2.15), "2.15");
+  assert.equal(formatEntered(0.25), "0.25");
+  assert.equal(formatEntered(0.15), "0.15");
+  assert.equal(formatEntered(0.05), "0.05");
+  assert.equal(formatEntered(18.75), "18.75");
+  assert.equal(formatEntered(72.45), "72.45");
+  assert.equal(formatEntered(2), "2");
+  assert.equal(formatEntered(1.8), "1.8");
+  assert.equal(formatAmount(2.15), "2.2");
+  const inputs = {
+    mode: "flour",
+    flour: 500,
+    hydration: 72.45,
+    starter: 18.75,
+    salt: 2.15,
+    yeast: 0.25,
+    balls: 4,
+    gramsPerBall: 250,
+  };
+  const recipe = recipeFor(inputs);
+  const method = countryMethod["zh-tw"];
+  const bytes = await buildRecipePdf({
+    title: "鄉村酸種麵包烘焙百分比",
+    url: "https://doughcalc.app/zh-tw/xiangcun-suanzhong/",
+    lang: "zh-TW",
+    labels: labelsFor("zh-tw"),
+    method,
+    inputs,
+    recipe,
+    fontBytes: fontBytes["zh-tw"],
+  });
+  const dir = await mkdtemp(path.join(tmpdir(), "dough-pdf-"));
+  const file = path.join(dir, "decimals.pdf");
+  await writeFile(file, bytes);
+  const text = pdfText(file);
+  assert.match(text, /水合：72\.45%/);
+  assert.match(text, /酸種：18\.75%/);
+  assert.match(text, /鹽：2\.15%/);
+  assert.match(text, /酵母：0\.25%/);
+  assert.doesNotMatch(text, /水合：72\.5%/);
+  assert.doesNotMatch(text, /鹽：2\.2%/);
+  assert.doesNotMatch(text, /酵母：0\.3%/);
+  assert.match(text, /水：362\.3 克/);
+  assert.equal(formatAmount(recipe.water), "362.3");
+  const also = [
+    [0.15, "0.15"],
+    [0.05, "0.05"],
+  ];
+  for (const [value, shown] of also) {
+    const other = { ...inputs, salt: value, yeast: 0.05 };
+    const more = await buildRecipePdf({
+      title: "鄉村酸種麵包烘焙百分比",
+      url: "https://doughcalc.app/zh-tw/xiangcun-suanzhong/",
+      lang: "zh-TW",
+      labels: labelsFor("zh-tw"),
+      method,
+      inputs: other,
+      recipe: recipeFor(other),
+      fontBytes: fontBytes["zh-tw"],
+    });
+    const otherFile = path.join(dir, `salt-${shown}.pdf`);
+    await writeFile(otherFile, more);
+    const otherText = pdfText(otherFile);
+    assert.match(otherText, new RegExp(`鹽：${shown}%`));
+  }
+  assert.match(pdfText(path.join(dir, "salt-0.05.pdf")), /酵母：0\.05%/);
+  assert.doesNotMatch(text, /酸種：18\.8%/);
 });

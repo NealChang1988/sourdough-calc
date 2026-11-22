@@ -316,7 +316,7 @@ test("country sourdough page adds a method and photo without touching other page
   assert.match(renderPage(country, "en"), /doughcalc-country-sourdough-en-recipe\.pdf/);
   assert.match(renderPage(country, "en"), /75% hydration/);
   assert.doesNotMatch(renderPage(country, "en"), /75% water/);
-  assert.match(renderPage(country, "en"), /PDF could not be created\. Please tap again\./);
+  assert.match(renderPage(country, "en"), /PDF could not be created\. Please try again\./);
   assert.match(renderPage(country, "zh-cn"), /下载 PDF/);
   assert.match(renderPage(country, "zh-cn"), /data-busy="正在生成 PDF…"/);
   assert.match(renderPage(country, "zh-cn"), /doughcalc-xiangcun-suanzhong-zh-cn-recipe\.pdf/);

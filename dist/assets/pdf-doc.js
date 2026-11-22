@@ -123,18 +123,23 @@ function labelSep(lang) {
   return String(lang || "").toLowerCase().startsWith("zh") ? "：" : ": ";
 }
 
+export function formatEntered(n) {
+  const text = Number(n).toFixed(2);
+  return text.replace(/\.00$/, "").replace(/(\.\d)0$/, "$1");
+}
+
 function inputLines(labels, inputs, sep) {
   const lines = [inputs.mode === "balls" ? labels.modeBalls : labels.modeFlour];
   if (inputs.mode === "balls") {
-    lines.push(`${labels.balls}${sep}${formatAmount(inputs.balls)}`);
-    lines.push(`${labels.perBall}${sep}${formatAmount(inputs.gramsPerBall)} ${labels.grams}`);
+    lines.push(`${labels.balls}${sep}${formatEntered(inputs.balls)}`);
+    lines.push(`${labels.perBall}${sep}${formatEntered(inputs.gramsPerBall)} ${labels.grams}`);
   } else {
-    lines.push(`${labels.flour}${sep}${formatAmount(inputs.flour)} ${labels.grams}`);
+    lines.push(`${labels.flour}${sep}${formatEntered(inputs.flour)} ${labels.grams}`);
   }
-  lines.push(`${labels.hydration}${sep}${formatAmount(inputs.hydration)}%`);
-  lines.push(`${labels.starter}${sep}${formatAmount(inputs.starter)}%`);
-  lines.push(`${labels.salt}${sep}${formatAmount(inputs.salt)}%`);
-  lines.push(`${labels.yeast}${sep}${formatAmount(inputs.yeast)}%`);
+  lines.push(`${labels.hydration}${sep}${formatEntered(inputs.hydration)}%`);
+  lines.push(`${labels.starter}${sep}${formatEntered(inputs.starter)}%`);
+  lines.push(`${labels.salt}${sep}${formatEntered(inputs.salt)}%`);
+  lines.push(`${labels.yeast}${sep}${formatEntered(inputs.yeast)}%`);
   return lines;
 }
 
@@ -181,18 +186,18 @@ export async function buildRecipePdf(data) {
   draw(data.title, 18, ink, 6);
   draw(data.url, 10, muted, 8);
   for (const line of inputLines(data.labels, data.inputs, sep)) draw(line, 11, ink, 3);
-  y -= 8;
+  y -= 6;
   draw(data.labels.result, 14, ink, 5);
   for (const line of resultLines(data.labels, data.recipe, sep)) draw(line, 11, ink, 3);
-  y -= 10;
+  y -= 6;
   draw(data.method.heading, 14, ink, 5);
-  draw(data.method.lead, 11, ink, 4);
-  y -= 4;
+  draw(data.method.lead, 11, ink, 3);
+  y -= 2;
   data.method.steps.forEach((step, index) => {
     if (y - (12 + 3 + 11 + 3) < MARGIN) nextPage();
     draw(`${index + 1}. ${step.title}`, 12, ink, 3);
     draw(step.body, 11, ink, 3);
-    y -= 6;
+    y -= 3;
   });
   return pdf.save();
 }
