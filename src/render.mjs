@@ -189,7 +189,7 @@ ${field("yeast", copy.yeast, "%", String(preset.yeast), copy.yeastHint)}
 <div class="actions">
 <button type="button" id="copy">${escapeHtml(copy.copy)}</button>
 <button type="button" id="print" class="secondary">${escapeHtml(copy.print)}</button>${pdfButton(page, lang)}
-</div>
+</div>${pdfFail(page, lang)}
 <textarea id="recipe-text" hidden readonly></textarea>
 </section>
 <script type="application/json" id="labels">${json}</script>${pdfMeta(page, lang)}
@@ -197,21 +197,36 @@ ${field("yeast", copy.yeast, "%", String(preset.yeast), copy.yeastHint)}
 }
 
 const PDF_FILENAME = {
-  en: "doughcalc-country-sourdough-recipe.pdf",
-  "zh-cn": "doughcalc-xiangcun-suanzhong-recipe.pdf",
+  en: "doughcalc-country-sourdough-en-recipe.pdf",
+  "zh-cn": "doughcalc-xiangcun-suanzhong-zh-cn-recipe.pdf",
   "zh-tw": "doughcalc-xiangcun-suanzhong-zh-tw-recipe.pdf",
 };
 
+const PDF_FONT = {
+  en: "/assets/fonts/noto-sans-sc-subset.ttf",
+  "zh-cn": "/assets/fonts/noto-sans-sc-subset.ttf",
+  "zh-tw": "/assets/fonts/noto-sans-tc-subset.ttf",
+};
+
 const PDF_BUTTON = {
-  en: { label: "Download PDF", busy: "Preparing PDF…" },
-  "zh-cn": { label: "下载 PDF", busy: "正在生成 PDF…" },
-  "zh-tw": { label: "下載 PDF", busy: "正在產生 PDF…" },
+  en: {
+    label: "Download PDF",
+    busy: "Preparing PDF…",
+    fail: "PDF could not be created. Please tap again.",
+  },
+  "zh-cn": { label: "下载 PDF", busy: "正在生成 PDF…", fail: "PDF 生成失败，请再按一次。" },
+  "zh-tw": { label: "下載 PDF", busy: "正在產生 PDF…", fail: "PDF 產生失敗，請再按一次。" },
 };
 
 function pdfButton(page, lang) {
   if (page.id !== "bread-country-sourdough") return "";
   const copy = PDF_BUTTON[lang];
   return `\n<button type="button" id="download-pdf" data-busy="${escapeHtml(copy.busy)}">${escapeHtml(copy.label)}</button>`;
+}
+
+function pdfFail(page, lang) {
+  if (page.id !== "bread-country-sourdough") return "";
+  return `\n<p id="pdf-error" class="error" role="alert" hidden>${escapeHtml(PDF_BUTTON[lang].fail)}</p>`;
 }
 
 function pdfMeta(page, lang) {
@@ -223,6 +238,7 @@ function pdfMeta(page, lang) {
     url: absoluteUrl(pagePath(lang, page.slug[lang])),
     filename: PDF_FILENAME[lang],
     lang: HTML_LANG[lang],
+    fontUrl: PDF_FONT[lang],
     labels: {
       result: copy.result,
       flour: copy.flour,

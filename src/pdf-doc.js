@@ -2,89 +2,152 @@ import fontkit from "./vendor/fontkit.esm.min.js";
 import { PDFDocument, rgb } from "./vendor/pdf-lib.esm.min.js";
 import { effectiveHydration, formatAmount } from "./formula.mjs";
 
-const FONT_URL = "/assets/fonts/noto-sans-subset.ttf";
+const FONT_URL = {
+  "zh-tw": "/assets/fonts/noto-sans-tc-subset.ttf",
+  "zh-TW": "/assets/fonts/noto-sans-tc-subset.ttf",
+};
+const DEFAULT_FONT_URL = "/assets/fonts/noto-sans-sc-subset.ttf";
 const PAGE = [595.28, 841.89];
 const MARGIN = 48;
+const CLOSING = new Set("，。、：；）)」』】》,.;:!?%％".split(""));
+const GLUED =
+  /^((?:\d+(?:\.\d+)?(?:(?:–|-)\d+(?:\.\d+)?)?½?|½)(?:°[CF])?%?)(?:[ \u00A0]+(個半小時|分鐘|小時|公分|厘米|水合|minutes|minute|hours|hour|cm|g|克))?/;
 
-let fontBytesPromise;
+const fontBytesPromises = new Map();
 
-export function loadPdfFont(url = FONT_URL) {
-  if (!fontBytesPromise) {
-    fontBytesPromise = fetch(url)
-      .then(async (response) => {
-        if (!response.ok) throw new Error("Could not load the PDF font");
-        return response.arrayBuffer();
-      })
-      .catch((error) => {
-        fontBytesPromise = undefined;
-        throw error;
-      });
+export function fontUrlFor(lang) {
+  return FONT_URL[lang] ?? DEFAULT_FONT_URL;
+}
+
+export function loadPdfFont(url = DEFAULT_FONT_URL) {
+  if (!fontBytesPromises.has(url)) {
+    fontBytesPromises.set(
+      url,
+      fetch(url)
+        .then(async (response) => {
+          if (!response.ok) throw new Error("Could not load the PDF font");
+          return response.arrayBuffer();
+        })
+        .catch((error) => {
+          fontBytesPromises.delete(url);
+          throw error;
+        }),
+    );
   }
-  return fontBytesPromise;
+  return fontBytesPromises.get(url);
+}
+
+function isCjk(ch) {
+  const code = ch.codePointAt(0);
+  return (
+    (code >= 0x3400 && code <= 0x9fff) ||
+    (code >= 0xf900 && code <= 0xfaff) ||
+    (code >= 0x3000 && code <= 0x303f) ||
+    (code >= 0xff00 && code <= 0xffef)
+  );
+}
+
+function tokenize(text) {
+  const tokens = [];
+  const chars = [...text];
+  let i = 0;
+  while (i < chars.length) {
+    const rest = chars.slice(i).join("");
+    const glued = GLUED.exec(rest);
+    if (glued) {
+      tokens.push(glued[0]);
+      i += [...glued[0]].length;
+      continue;
+    }
+    const ch = chars[i];
+    if (CLOSING.has(ch) && tokens.length) {
+      tokens[tokens.length - 1] += ch;
+      i += 1;
+      continue;
+    }
+    if (ch === " " || ch === "\u00A0") {
+      tokens.push(" ");
+      i += 1;
+      continue;
+    }
+    if (isCjk(ch)) {
+      tokens.push(ch);
+      i += 1;
+      continue;
+    }
+    let word = ch;
+    i += 1;
+    while (i < chars.length) {
+      const next = chars[i];
+      if (next === " " || next === "\u00A0" || isCjk(next) || CLOSING.has(next) || /\d/.test(next)) break;
+      word += next;
+      i += 1;
+    }
+    tokens.push(word);
+  }
+  return tokens;
 }
 
 function wrapText(text, font, size, maxWidth) {
   const lines = [];
+  const widthOf = (value) => font.widthOfTextAtSize(value, size);
   for (const paragraph of String(text).split("\n")) {
     if (!paragraph) {
       lines.push("");
       continue;
     }
-    let current = "";
-    for (const part of paragraph.split(/(\s+)/)) {
-      if (!part) continue;
-      if (font.widthOfTextAtSize(part, size) > maxWidth) {
-        if (current.trim()) lines.push(current.trimEnd());
-        current = "";
-        let buf = "";
-        for (const ch of part) {
-          if (font.widthOfTextAtSize(buf + ch, size) > maxWidth && buf) {
-            lines.push(buf);
-            buf = ch;
-          } else {
-            buf += ch;
-          }
+    let line = "";
+    for (const token of tokenize(paragraph)) {
+      if (token === " ") {
+        if (!line) continue;
+        if (widthOf(`${line} `) <= maxWidth) line += " ";
+        else {
+          lines.push(line.trimEnd());
+          line = "";
         }
-        current = buf;
         continue;
       }
-      if (font.widthOfTextAtSize(current + part, size) <= maxWidth) {
-        current += part;
-      } else {
-        if (current.trim()) lines.push(current.trimEnd());
-        current = part.trimStart();
+      if (!line || widthOf(line + token) <= maxWidth) {
+        line += token;
+        continue;
       }
+      lines.push(line.trimEnd());
+      line = token;
     }
-    lines.push(current.trimEnd());
+    if (line.trim()) lines.push(line.trimEnd());
   }
   return lines;
 }
 
-function inputLines(labels, inputs) {
+function labelSep(lang) {
+  return String(lang || "").toLowerCase().startsWith("zh") ? "：" : ": ";
+}
+
+function inputLines(labels, inputs, sep) {
   const lines = [inputs.mode === "balls" ? labels.modeBalls : labels.modeFlour];
   if (inputs.mode === "balls") {
-    lines.push(`${labels.balls}: ${formatAmount(inputs.balls)}`);
-    lines.push(`${labels.perBall}: ${formatAmount(inputs.gramsPerBall)} ${labels.grams}`);
+    lines.push(`${labels.balls}${sep}${formatAmount(inputs.balls)}`);
+    lines.push(`${labels.perBall}${sep}${formatAmount(inputs.gramsPerBall)} ${labels.grams}`);
   } else {
-    lines.push(`${labels.flour}: ${formatAmount(inputs.flour)} ${labels.grams}`);
+    lines.push(`${labels.flour}${sep}${formatAmount(inputs.flour)} ${labels.grams}`);
   }
-  lines.push(`${labels.hydration}: ${formatAmount(inputs.hydration)}%`);
-  lines.push(`${labels.starter}: ${formatAmount(inputs.starter)}%`);
-  lines.push(`${labels.salt}: ${formatAmount(inputs.salt)}%`);
-  lines.push(`${labels.yeast}: ${formatAmount(inputs.yeast)}%`);
+  lines.push(`${labels.hydration}${sep}${formatAmount(inputs.hydration)}%`);
+  lines.push(`${labels.starter}${sep}${formatAmount(inputs.starter)}%`);
+  lines.push(`${labels.salt}${sep}${formatAmount(inputs.salt)}%`);
+  lines.push(`${labels.yeast}${sep}${formatAmount(inputs.yeast)}%`);
   return lines;
 }
 
-function resultLines(labels, recipe) {
+function resultLines(labels, recipe, sep) {
   const lines = ["flour", "water", "starter", "salt", "yeast", "total"].map(
-    (key) => `${labels[key]}: ${formatAmount(recipe[key])} ${labels.grams}`,
+    (key) => `${labels[key]}${sep}${formatAmount(recipe[key])} ${labels.grams}`,
   );
-  lines.push(`${labels.effective}: ${formatAmount(effectiveHydration(recipe))}%`);
+  lines.push(`${labels.effective}${sep}${formatAmount(effectiveHydration(recipe))}%`);
   return lines;
 }
 
 export async function buildRecipePdf(data) {
-  const fontBytes = data.fontBytes ?? (await loadPdfFont());
+  const fontBytes = data.fontBytes ?? (await loadPdfFont(data.fontUrl ?? fontUrlFor(data.lang)));
   const pdf = await PDFDocument.create();
   pdf.registerFontkit(fontkit);
   pdf.setTitle(data.title);
@@ -114,12 +177,13 @@ export async function buildRecipePdf(data) {
     }
   }
 
+  const sep = labelSep(data.lang);
   draw(data.title, 18, ink, 6);
   draw(data.url, 10, muted, 8);
-  for (const line of inputLines(data.labels, data.inputs)) draw(line, 11, ink, 3);
+  for (const line of inputLines(data.labels, data.inputs, sep)) draw(line, 11, ink, 3);
   y -= 8;
   draw(data.labels.result, 14, ink, 5);
-  for (const line of resultLines(data.labels, data.recipe)) draw(line, 11, ink, 3);
+  for (const line of resultLines(data.labels, data.recipe, sep)) draw(line, 11, ink, 3);
   y -= 10;
   draw(data.method.heading, 14, ink, 5);
   draw(data.method.lead, 11, ink, 4);

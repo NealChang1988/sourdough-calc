@@ -304,20 +304,32 @@ test("country sourdough page adds a method and photo without touching other page
     assert.match(html, /375/);
     assert.match(html, /100 g|100 克/);
     assert.match(html, /id="download-pdf"/);
-    assert.doesNotMatch(html, /pdf-lib/);
-    assert.doesNotMatch(html, /noto-sans/);
+    assert.match(html, /id="pdf-error"/);
+    assert.doesNotMatch(html, /src="[^"]*pdf-lib/);
+    assert.doesNotMatch(html, /src="[^"]*noto-sans/);
     assert.equal(renderPage(focaccia, lang).includes("country-sourdough.webp"), false, lang);
     assert.equal(renderPage(focaccia, lang).includes("download-pdf"), false, lang);
     assert.equal(renderPage(focaccia, lang).includes(expected[lang]), false, lang);
   }
   assert.match(renderPage(country, "en"), /Download PDF/);
   assert.match(renderPage(country, "en"), /data-busy="Preparing PDF…"/);
-  assert.match(renderPage(country, "en"), /doughcalc-country-sourdough-recipe\.pdf/);
+  assert.match(renderPage(country, "en"), /doughcalc-country-sourdough-en-recipe\.pdf/);
+  assert.match(renderPage(country, "en"), /75% hydration/);
+  assert.doesNotMatch(renderPage(country, "en"), /75% water/);
+  assert.match(renderPage(country, "en"), /PDF could not be created\. Please tap again\./);
   assert.match(renderPage(country, "zh-cn"), /下载 PDF/);
   assert.match(renderPage(country, "zh-cn"), /data-busy="正在生成 PDF…"/);
+  assert.match(renderPage(country, "zh-cn"), /doughcalc-xiangcun-suanzhong-zh-cn-recipe\.pdf/);
+  assert.match(renderPage(country, "zh-cn"), /noto-sans-sc-subset\.ttf/);
+  assert.match(renderPage(country, "zh-cn"), /PDF 生成失败，请再按一次。/);
   assert.match(renderPage(country, "zh-tw"), /下載 PDF/);
   assert.match(renderPage(country, "zh-tw"), /data-busy="正在產生 PDF…"/);
   assert.match(renderPage(country, "zh-tw"), /doughcalc-xiangcun-suanzhong-zh-tw-recipe\.pdf/);
+  assert.match(renderPage(country, "zh-tw"), /noto-sans-tc-subset\.ttf/);
+  assert.match(renderPage(country, "zh-tw"), /薄薄撒了粉/);
+  assert.match(renderPage(country, "zh-tw"), /撒了粉的發酵籃/);
+  assert.doesNotMatch(renderPage(country, "zh-tw"), /灑/);
+  assert.match(renderPage(country, "zh-tw"), /PDF 產生失敗，請再按一次。/);
   const tw = renderPage(country, "zh-tw");
   const method = tw.slice(tw.indexOf('<section class="method">'), tw.indexOf('<section class="related">'));
   const visible = method

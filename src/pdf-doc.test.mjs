@@ -8,10 +8,14 @@ import { fileURLToPath } from "node:url";
 import { countryMethod } from "./data/country-method.mjs";
 import { effectiveHydration, formatAmount, recipeFor } from "./formula.mjs";
 import { ui } from "./i18n.mjs";
-import { buildRecipePdf } from "./pdf-doc.js";
+import { buildRecipePdf, fontUrlFor } from "./pdf-doc.js";
 
 const root = path.dirname(fileURLToPath(import.meta.url));
-const fontBytes = await readFile(path.join(root, "fonts", "noto-sans-subset.ttf"));
+const fontBytes = {
+  en: await readFile(path.join(root, "fonts", "noto-sans-sc-subset.ttf")),
+  "zh-cn": await readFile(path.join(root, "fonts", "noto-sans-sc-subset.ttf")),
+  "zh-tw": await readFile(path.join(root, "fonts", "noto-sans-tc-subset.ttf")),
+};
 
 const changed = {
   mode: "flour",
@@ -80,7 +84,7 @@ test("recipe pdf uses the current numbers and the full method in each language",
       },
       inputs: changed,
       recipe,
-      fontBytes,
+      fontBytes: fontBytes[lang],
     });
     const file = path.join(dir, `${lang}.pdf`);
     await writeFile(file, bytes);
@@ -101,5 +105,22 @@ test("recipe pdf uses the current numbers and the full method in each language",
       assert.ok(compact.includes(step.body.replace(/\s+/g, "").slice(0, 12)), `${lang} ${step.title}`);
     }
     assert.equal(text.includes("\uFFFD"), false, lang);
+    const lines = text.split("\n").map((line) => line.trim()).filter(Boolean);
+    for (let i = 0; i < lines.length - 1; i += 1) {
+      const next = lines[i + 1];
+      if (/\d$/.test(lines[i]) && /^(?:minutes|minute|hours|hour|g\b|cm\b|克|分鐘|小時|公分|厘米|個半小時)/.test(next)) {
+        assert.fail(`${lang} split a number from its unit: ${lines[i]} / ${next}`);
+      }
+      if (/%$/.test(lines[i]) && /^水合/.test(next)) {
+        assert.fail(`${lang} split a percentage from 水合: ${lines[i]} / ${next}`);
+      }
+    }
+    if (lang === "en") assert.match(text, /Flour: 800 g/);
+    if (lang === "zh-cn") assert.match(text, /面粉：800 克/);
+    if (lang === "zh-tw") assert.match(text, /麵粉：800 克/);
   }
+  assert.equal(fontUrlFor("zh-tw"), "/assets/fonts/noto-sans-tc-subset.ttf");
+  assert.equal(fontUrlFor("zh-TW"), "/assets/fonts/noto-sans-tc-subset.ttf");
+  assert.equal(fontUrlFor("zh-cn"), "/assets/fonts/noto-sans-sc-subset.ttf");
+  assert.equal(fontUrlFor("en"), "/assets/fonts/noto-sans-sc-subset.ttf");
 });
