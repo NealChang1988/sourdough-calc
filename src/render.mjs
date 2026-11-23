@@ -284,7 +284,11 @@ function pdfMeta(page, lang) {
 function adjustSection(page, lang) {
   const block = page.adjust;
   if (!block) return "";
-  const paragraphs = block.paragraphs[lang].map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("");
+  const country = pages.find((item) => item.id === "bread-country-sourdough");
+  const link = `<a href="${escapeHtml(pagePath(lang, country.slug[lang]))}">${escapeHtml(block.countryLink[lang])}</a>`;
+  const paragraphs = block.paragraphs[lang]
+    .map((paragraph) => `<p>${escapeHtml(paragraph).replaceAll("{country}", link)}</p>`)
+    .join("");
   return `\n<section class="adjust"><h2>${escapeHtml(block.heading[lang])}</h2>${paragraphs}</section>`;
 }
 
