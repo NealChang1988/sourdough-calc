@@ -642,7 +642,7 @@ export const doughGuides = {
       en: {
         heading: "Detailed method",
         lead: `The calculator opens at 400 g flour, 62% hydration, 1.5% salt, and 0.7% yeast. The balls fields open at 8 muffins of about 82 g each. Dust them and the pan with about 20 g of cornmeal. The cornmeal is extra and is not in the gram total. ${tail.en}`,
-        alt: "A round, flat English muffin dusted with cornmeal, split, with both halves in the frame.",
+        alt: "An English muffin dusted with cornmeal, split and filled with egg, bacon and cheese, on a wooden tray.",
         steps: [
           { title: "Mix", body: "Stir the flour, water, salt, and yeast, then knead for 6 to 8 minutes until smooth. At 62% it is soft but not sticky. Aim for about 24°C (75°F)." },
           { title: "Bulk", body: "Cover the bowl at about 24°C (75°F) for 75 to 100 minutes. Yeast is only 0.7%, so wait until it has nearly doubled." },
@@ -656,7 +656,7 @@ export const doughGuides = {
       "zh-cn": {
         heading: "详细做法",
         lead: `计算器打开时是面粉 400 克，水合 62%，盐 1.5%，酵母 0.7%。面团球那一栏打开是 8 个、每个大约 82 克。饼和锅上撒大约 20 克玉米粉。玉米粉是另外加的，不在合计克数里。${tail["zh-cn"]}`,
-        alt: "一个圆而扁的英式马芬，表面有玉米粉，上下两半都在画面里。",
+        alt: "一个英式马芬，表面有玉米粉，切开，里面是蛋、培根和奶酪，放在木盘上。",
         steps: [
           { title: "搅拌", body: "把面粉、水、盐和酵母拌匀，再揉 6 到 8 分钟，直到光滑。水合 62%，柔软但不黏手。面团温度大约 24°C。" },
           { title: "基本发酵", body: "盖着，放在大约 24°C，75 到 100 分钟。酵母只有 0.7%，等到差不多发到两倍。" },
@@ -670,7 +670,7 @@ export const doughGuides = {
       "zh-tw": {
         heading: "詳細做法",
         lead: `計算器打開時是麵粉 400 克，水合 62%，鹽 1.5%，酵母 0.7%。麵團球那一欄打開是 8 個、每個大約 82 克。餅和鍋上撒大約 20 克玉米粉。玉米粉是另外加的，不在合計克數裡。${tail["zh-tw"]}`,
-        alt: "一個圓而扁的英式瑪芬，表面有玉米粉，上下兩半都在畫面裡。",
+        alt: "一個英式瑪芬，表面有玉米粉，切開，裡面是蛋、培根和乳酪，放在木盤上。",
         steps: [
           { title: "攪拌", body: "把麵粉、水、鹽和酵母拌勻，再揉 6 到 8 分鐘，直到光滑。水合 62%，柔軟但不黏手。麵團溫度大約 24°C。" },
           { title: "基本發酵", body: "蓋著，放在大約 24°C，75 到 100 分鐘。酵母只有 0.7%，等到差不多發到兩倍。" },
@@ -687,7 +687,7 @@ export const doughGuides = {
     {
       src: "/assets/cinnamon-rolls.webp",
       width: 1200,
-      height: 926,
+      height: 1060,
       pageUrl: "https://www.pexels.com/photo/delicious-cinnamon-rolls-20449473/",
       photographer: "Danique Veldhuis",
     },
@@ -695,7 +695,7 @@ export const doughGuides = {
       en: {
         heading: "Detailed method",
         lead: `The calculator opens at 500 g flour, 58% hydration, 1.6% salt, and 1.4% yeast. The balls fields open at 8 rolls of about 101 g each. The filling is about 50 g soft butter, 80 g sugar, and 8 g cinnamon. That filling is extra and is not in the gram total. ${tail.en}`,
-        alt: "Cinnamon rolls baked close together, with the swirl and cinnamon sugar showing on top.",
+        alt: "Cinnamon rolls on parchment, the front one showing the full swirl and cinnamon sugar.",
         steps: [
           { title: "Mix", body: "Stir the flour, water, salt, and yeast, then knead for about 8 minutes until smooth. At 58% it is soft. Aim for about 24°C (75°F)." },
           { title: "Bulk", body: "Cover the bowl at about 24°C (75°F) for 70 to 90 minutes. With 1.4% yeast it should nearly double." },
@@ -709,7 +709,7 @@ export const doughGuides = {
       "zh-cn": {
         heading: "详细做法",
         lead: `计算器打开时是面粉 500 克，水合 58%，盐 1.6%，酵母 1.4%。面团球那一栏打开是 8 个、每个大约 101 克。馅大约是 50 克软黄油、80 克糖、8 克肉桂。馅是另外加的，不在合计克数里。${tail["zh-cn"]}`,
-        alt: "肉桂卷紧挨着烤在一起，顶上能看见螺旋和肉桂糖。",
+        alt: "烤盘纸上的肉桂卷，前面那个能看见完整的圈和肉桂糖。",
         steps: [
           { title: "搅拌", body: "把面粉、水、盐和酵母拌匀，再揉大约 8 分钟，直到光滑。水合 58%，面团柔软。面团温度大约 24°C。" },
           { title: "基本发酵", body: "盖着，放在大约 24°C，70 到 90 分钟。酵母有 1.4%，差不多发到两倍。" },
@@ -723,7 +723,7 @@ export const doughGuides = {
       "zh-tw": {
         heading: "詳細做法",
         lead: `計算器打開時是麵粉 500 克，水合 58%，鹽 1.6%，酵母 1.4%。麵團球那一欄打開是 8 個、每個大約 101 克。餡大約是 50 克軟奶油、80 克糖、8 克肉桂。餡是另外加的，不在合計克數裡。${tail["zh-tw"]}`,
-        alt: "肉桂捲緊挨著烤在一起，頂上能看見螺旋和肉桂糖。",
+        alt: "烤盤紙上的肉桂捲，前面那個能看見完整的圈和肉桂糖。",
         steps: [
           { title: "攪拌", body: "把麵粉、水、鹽和酵母拌勻，再揉大約 8 分鐘，直到光滑。水合 58%，麵團柔軟。麵團溫度大約 24°C。" },
           { title: "基本發酵", body: "蓋著，放在大約 24°C，70 到 90 分鐘。酵母有 1.4%，差不多發到兩倍。" },
@@ -796,7 +796,7 @@ export const doughGuides = {
     {
       src: "/assets/croissant.webp",
       width: 1200,
-      height: 800,
+      height: 900,
       pageUrl: "https://www.pexels.com/photo/golden-croissant-on-white-plate-minimalist-food-photography-30110688/",
       photographer: "Mathias Reding",
     },
