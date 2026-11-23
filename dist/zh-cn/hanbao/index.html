@@ -37,8 +37,8 @@
 <label class="field"><span class="label">面粉 <span class="unit">克</span></span><input name="flour" inputmode="decimal" min="0" step="any" value="500"></label>
 </div>
 <div class="fields grid-2" data-panel="balls" hidden>
-<label class="field"><span class="label">面团球数</span><input name="balls" inputmode="decimal" min="0" step="any" value="4"></label>
-<label class="field"><span class="label">每球克数 <span class="unit">克</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="250"></label>
+<label class="field"><span class="label">面团球数</span><input name="balls" inputmode="decimal" min="0" step="any" value="9"></label>
+<label class="field"><span class="label">每球克数 <span class="unit">克</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="92"></label>
 </div>
 <div class="fields grid-2">
 <label class="field"><span class="label">水合 <span class="unit">%</span></span><input name="hydration" inputmode="decimal" min="0" step="any" value="62"></label>
@@ -56,11 +56,22 @@
 <div class="actions">
 <button type="button" id="copy">复制配方</button>
 <button type="button" id="print" class="secondary">打印</button>
+<button type="button" id="download-pdf" data-busy="正在生成 PDF…">下载 PDF</button>
 </div>
+<p id="pdf-error" class="error" role="alert" hidden>PDF 生成失败，请再按一次。</p>
 <textarea id="recipe-text" hidden readonly></textarea>
 </section>
 <script type="application/json" id="labels">{"title":"汉堡面包烘焙百分比","flour":"面粉","water":"水","starter":"酸种","salt":"盐","yeast":"酵母","total":"面团总重","grams":"克","effective":"有效水合","copied":"已复制","copyFail":"请选中配方文字再复制"}</script>
-<script type="module" src="/assets/calc.js"></script>
+<script type="application/json" id="pdf-meta">{"title":"汉堡面包烘焙百分比","url":"https://doughcalc.app/zh-cn/hanbao/","filename":"doughcalc-hanbao-zh-cn-recipe.pdf","lang":"zh-CN","fontUrl":"/assets/fonts/noto-sans-sc-subset.ttf","labels":{"result":"配方","flour":"面粉","water":"水","starter":"酸种","salt":"盐","yeast":"酵母","total":"面团总重","grams":"克","effective":"有效水合","hydration":"水合","modeFlour":"按面粉重量","modeBalls":"按面团球","balls":"面团球数","perBall":"每球克数"},"method":{"heading":"详细做法","lead":"计算器打开时是面粉 500 克，水合 62%，盐 2%，酵母 1.1%。面团球那一栏打开是 9 个、每个大约 92 克。表面刷 1 个打散的鸡蛋，再撒大约 15 克芝麻。蛋液和芝麻是另外加的，不在合计克数里。下面的时间按只改面粉的量、百分比不变来估。发酵还是看面团的样子和手感。","steps":[{"title":"搅拌","body":"把面粉、水、盐和酵母拌匀，再揉大约 8 分钟，直到光滑。水合 62%，面团柔软。面团温度大约 24°C。"},{"title":"基本发酵","body":"盖着，放在大约 24°C，60 到 90 分钟。酵母有 1.1%，差不多发到两倍。"},{"title":"分割","body":"分成 9 份，每份大约 92 克。收圆，盖上放 10 分钟。"},{"title":"压扁","body":"每个压成大约 10 厘米宽的圆饼。如果保持圆球，烤出来是鼓的，不是汉堡面包。"},{"title":"最后发酵","body":"摆在烤盘上，彼此留一点空隙。盖着，大约 24°C，30 到 45 分钟，发到蓬松。"},{"title":"刷面","body":"刷 1 个打散的鸡蛋，再撒大约 15 克芝麻。蛋液和芝麻是另外加的，不在合计克数里。"},{"title":"烘烤","body":"烤箱 190°C，烤 14 到 16 分钟，直到顶上金黄、侧面定住。"},{"title":"放凉","body":"移到架子上至少 20 分钟，再切开。"}]},"messages":{"label":"下载 PDF","busy":"正在生成 PDF…","fail":"PDF 生成失败，请再按一次。"}}</script>
+<script type="module" src="/assets/calc.js"></script><section class="method">
+<h2>详细做法</h2>
+<p>计算器打开时是面粉 500 克，水合 62%，盐 2%，酵母 1.1%。面团球那一栏打开是 9 个、每个大约 92 克。表面刷 1 个打散的鸡蛋，再撒大约 15 克芝麻。蛋液和芝麻是另外加的，不在合计克数里。下面的时间按只改面粉的量、百分比不变来估。发酵还是看面团的样子和手感。</p>
+<ol><li><strong>搅拌</strong> 把面粉、水、盐和酵母拌匀，再揉大约 8 分钟，直到光滑。水合 62%，面团柔软。面团温度大约 24°C。</li><li><strong>基本发酵</strong> 盖着，放在大约 24°C，60 到 90 分钟。酵母有 1.1%，差不多发到两倍。</li><li><strong>分割</strong> 分成 9 份，每份大约 92 克。收圆，盖上放 10 分钟。</li><li><strong>压扁</strong> 每个压成大约 10 厘米宽的圆饼。如果保持圆球，烤出来是鼓的，不是汉堡面包。</li><li><strong>最后发酵</strong> 摆在烤盘上，彼此留一点空隙。盖着，大约 24°C，30 到 45 分钟，发到蓬松。</li><li><strong>刷面</strong> 刷 1 个打散的鸡蛋，再撒大约 15 克芝麻。蛋液和芝麻是另外加的，不在合计克数里。</li><li><strong>烘烤</strong> 烤箱 190°C，烤 14 到 16 分钟，直到顶上金黄、侧面定住。</li><li><strong>放凉</strong> 移到架子上至少 20 分钟，再切开。</li></ol>
+<figure>
+<img src="/assets/hamburger-buns.webp" width="1200" height="985" alt="一叠圆汉堡面包，表面有芝麻，放在纸盘上。" loading="lazy">
+<figcaption>摄影：RDNE Stock project，来自 <a href="https://www.pexels.com/photo/close-up-shot-of-buns-8522684/">Pexels</a></figcaption>
+</figure>
+</section>
 <section class="related"><h2>相关计算</h2><ul class="link-list"><li><a href="/zh-cn/regou/">热狗面包烘焙百分比</a></li><li><a href="/zh-cn/ruan-canbao/">软餐包烘焙百分比</a></li><li><a href="/zh-cn/ying-canbao/">硬餐包烘焙百分比</a></li><li><a href="/zh-cn/kaisa-canbao/">凯撒餐包烘焙百分比</a></li></ul></section>
 </main>
 <footer>

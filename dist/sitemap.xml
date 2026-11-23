@@ -1617,4 +1617,25 @@
     <xhtml:link rel="alternate" hreflang="zh-TW" href="https://doughcalc.app/zh-tw/buliou/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://doughcalc.app/en/brioche-base-bakers-percentage/"/>
   </url>
+  <url>
+    <loc>https://doughcalc.app/en/croissants-bakers-percentage/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doughcalc.app/en/croissants-bakers-percentage/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://doughcalc.app/zh-cn/kesong/"/>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://doughcalc.app/zh-tw/kesong/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doughcalc.app/en/croissants-bakers-percentage/"/>
+  </url>
+  <url>
+    <loc>https://doughcalc.app/zh-cn/kesong/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doughcalc.app/en/croissants-bakers-percentage/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://doughcalc.app/zh-cn/kesong/"/>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://doughcalc.app/zh-tw/kesong/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doughcalc.app/en/croissants-bakers-percentage/"/>
+  </url>
+  <url>
+    <loc>https://doughcalc.app/zh-tw/kesong/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doughcalc.app/en/croissants-bakers-percentage/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://doughcalc.app/zh-cn/kesong/"/>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://doughcalc.app/zh-tw/kesong/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doughcalc.app/en/croissants-bakers-percentage/"/>
+  </url>
 </urlset>

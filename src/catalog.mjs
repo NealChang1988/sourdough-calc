@@ -190,7 +190,15 @@ const BALL_PRESET = {
   "rye-loaf": [1, 825],
   pita: [8, 82],
   "dinner-rolls": [10, 84],
+  "whole-wheat-loaf": [1, 896],
+  "english-muffins": [8, 82],
+  "cinnamon-rolls": [8, 101],
+  "hamburger-buns": [9, 92],
+  croissant: [8, 97],
 };
+
+// New breads stay out of older pages' related lists so those pages keep the same four links.
+const ADDED_BREADS = new Set(["bread-croissant"]);
 
 function breadPages() {
   return breads.map((item) => {
@@ -339,7 +347,12 @@ export function relatedPages(page) {
     return styles.slice(start).concat(styles.slice(0, start)).slice(0, 4);
   }
   if (page.category === "bread") {
-    const family = tools.filter((item) => item.family === page.family && item.id !== page.id);
+    const family = tools.filter(
+      (item) =>
+        item.family === page.family &&
+        item.id !== page.id &&
+        (ADDED_BREADS.has(page.id) || !ADDED_BREADS.has(item.id)),
+    );
     const index = family.findIndex((item) => item.id > page.id);
     const start = index === -1 ? 0 : index;
     const ordered = family.slice(start).concat(family.slice(0, start));

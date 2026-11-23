@@ -37,8 +37,8 @@
 <label class="field"><span class="label">Flour <span class="unit">g</span></span><input name="flour" inputmode="decimal" min="0" step="any" value="400"></label>
 </div>
 <div class="fields grid-2" data-panel="balls" hidden>
-<label class="field"><span class="label">Dough balls</span><input name="balls" inputmode="decimal" min="0" step="any" value="4"></label>
-<label class="field"><span class="label">Grams per ball <span class="unit">g</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="250"></label>
+<label class="field"><span class="label">Dough balls</span><input name="balls" inputmode="decimal" min="0" step="any" value="8"></label>
+<label class="field"><span class="label">Grams per ball <span class="unit">g</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="82"></label>
 </div>
 <div class="fields grid-2">
 <label class="field"><span class="label">Hydration <span class="unit">%</span></span><input name="hydration" inputmode="decimal" min="0" step="any" value="62"></label>
@@ -56,11 +56,22 @@
 <div class="actions">
 <button type="button" id="copy">Copy recipe</button>
 <button type="button" id="print" class="secondary">Print</button>
+<button type="button" id="download-pdf" data-busy="Preparing PDF…">Download PDF</button>
 </div>
+<p id="pdf-error" class="error" role="alert" hidden>PDF could not be created. Please try again.</p>
 <textarea id="recipe-text" hidden readonly></textarea>
 </section>
 <script type="application/json" id="labels">{"title":"English Muffins Baker's Percentage","flour":"Flour","water":"Water","starter":"Starter","salt":"Salt","yeast":"Yeast","total":"Total dough","grams":"g","effective":"Effective hydration","copied":"Copied","copyFail":"Select the recipe text and copy it"}</script>
-<script type="module" src="/assets/calc.js"></script>
+<script type="application/json" id="pdf-meta">{"title":"English Muffins Baker's Percentage","url":"https://doughcalc.app/en/english-muffins-bakers-percentage/","filename":"doughcalc-english-muffins-bakers-percentage-en-recipe.pdf","lang":"en","fontUrl":"/assets/fonts/noto-sans-sc-subset.ttf","labels":{"result":"Recipe","flour":"Flour","water":"Water","starter":"Starter","salt":"Salt","yeast":"Yeast","total":"Total dough","grams":"g","effective":"Effective hydration","hydration":"Hydration","modeFlour":"From flour weight","modeBalls":"From dough balls","balls":"Dough balls","perBall":"Grams per ball"},"method":{"heading":"Detailed method","lead":"The calculator opens at 400 g flour, 62% hydration, 1.5% salt, and 0.7% yeast. The balls fields open at 8 muffins of about 82 g each. Dust them and the pan with about 20 g of cornmeal. The cornmeal is extra and is not in the gram total. These times assume you only change the flour amount and keep the percentages the same. Still judge the dough by how it looks and feels.","steps":[{"title":"Mix","body":"Stir the flour, water, salt, and yeast, then knead for 6 to 8 minutes until smooth. At 62% it is soft but not sticky. Aim for about 24°C (75°F)."},{"title":"Bulk","body":"Cover the bowl at about 24°C (75°F) for 75 to 100 minutes. Yeast is only 0.7%, so wait until it has nearly doubled."},{"title":"Divide","body":"Cut eight pieces of about 82 g. Round each one and rest them, covered, for 10 minutes."},{"title":"Flatten","body":"Press each round to about 9 cm across and about 2 cm thick. Dust both sides with cornmeal. Use about 20 g for the batch. That cornmeal is extra."},{"title":"Proof","body":"Set them on a cornmeal-dusted tray. Cover them at about 24°C (75°F) for 20 to 30 minutes, until they look puffy."},{"title":"Griddle","body":"Heat a covered pan over medium heat, about 170°C (340°F) if the pan shows a temperature. Cook 6 to 8 minutes per side with the lid on, until the sides are set and both faces are browned in spots."},{"title":"Cool","body":"Move them to a rack. Split them with a fork once they are cool if you want the rough inside."}]},"messages":{"label":"Download PDF","busy":"Preparing PDF…","fail":"PDF could not be created. Please try again."}}</script>
+<script type="module" src="/assets/calc.js"></script><section class="method">
+<h2>Detailed method</h2>
+<p>The calculator opens at 400 g flour, 62% hydration, 1.5% salt, and 0.7% yeast. The balls fields open at 8 muffins of about 82 g each. Dust them and the pan with about 20 g of cornmeal. The cornmeal is extra and is not in the gram total. These times assume you only change the flour amount and keep the percentages the same. Still judge the dough by how it looks and feels.</p>
+<ol><li><strong>Mix</strong> Stir the flour, water, salt, and yeast, then knead for 6 to 8 minutes until smooth. At 62% it is soft but not sticky. Aim for about 24°C (75°F).</li><li><strong>Bulk</strong> Cover the bowl at about 24°C (75°F) for 75 to 100 minutes. Yeast is only 0.7%, so wait until it has nearly doubled.</li><li><strong>Divide</strong> Cut eight pieces of about 82 g. Round each one and rest them, covered, for 10 minutes.</li><li><strong>Flatten</strong> Press each round to about 9 cm across and about 2 cm thick. Dust both sides with cornmeal. Use about 20 g for the batch. That cornmeal is extra.</li><li><strong>Proof</strong> Set them on a cornmeal-dusted tray. Cover them at about 24°C (75°F) for 20 to 30 minutes, until they look puffy.</li><li><strong>Griddle</strong> Heat a covered pan over medium heat, about 170°C (340°F) if the pan shows a temperature. Cook 6 to 8 minutes per side with the lid on, until the sides are set and both faces are browned in spots.</li><li><strong>Cool</strong> Move them to a rack. Split them with a fork once they are cool if you want the rough inside.</li></ol>
+<figure>
+<img src="/assets/english-muffins.webp" width="1200" height="900" alt="An English muffin dusted with cornmeal, split and filled with egg, bacon and cheese, on a wooden tray." loading="lazy">
+<figcaption>Photo by Su La Pyae on <a href="https://www.pexels.com/photo/english-muffin-on-cutting-board-19471374/">Pexels</a></figcaption>
+</figure>
+</section>
 <section class="related"><h2>Related calculators</h2><ul class="link-list"><li><a href="/en/hamburger-buns-bakers-percentage/">Hamburger Buns Baker's Percentage</a></li><li><a href="/en/hot-dog-buns-bakers-percentage/">Hot Dog Buns Baker's Percentage</a></li><li><a href="/en/soft-rolls-bakers-percentage/">Soft Rolls Baker's Percentage</a></li><li><a href="/en/hard-rolls-bakers-percentage/">Hard Rolls Baker's Percentage</a></li></ul></section>
 </main>
 <footer>

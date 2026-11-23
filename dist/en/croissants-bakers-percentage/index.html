@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Croissants Baker's Percentage</title>
+<meta name="description" content="Fold a cool, firm dough around a butter block, then cut crescents. The butter block and the egg wash sit outside the weights on this page.">
+<link rel="canonical" href="https://doughcalc.app/en/croissants-bakers-percentage/">
+<link rel="alternate" hreflang="en" href="https://doughcalc.app/en/croissants-bakers-percentage/"><link rel="alternate" hreflang="zh-CN" href="https://doughcalc.app/zh-cn/kesong/"><link rel="alternate" hreflang="zh-TW" href="https://doughcalc.app/zh-tw/kesong/"><link rel="alternate" hreflang="x-default" href="https://doughcalc.app/en/croissants-bakers-percentage/">
+<meta property="og:title" content="Croissants Baker's Percentage">
+<meta property="og:description" content="Fold a cool, firm dough around a butter block, then cut crescents. The butter block and the egg wash sit outside the weights on this page.">
+<meta property="og:url" content="https://doughcalc.app/en/croissants-bakers-percentage/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="zh_CN"><meta property="og:locale:alternate" content="zh_TW">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to the calculator</a>
+<header>
+<a class="brand" href="/en/">Dough calculator</a>
+<nav class="langs" aria-label="Language"><a href="/en/croissants-bakers-percentage/" hreflang="en" lang="en" aria-current="page">EN</a><a href="/zh-cn/kesong/" hreflang="zh-CN" lang="zh-CN">简体</a><a href="/zh-tw/kesong/" hreflang="zh-TW" lang="zh-TW">繁體</a></nav>
+</header>
+<main id="main">
+<nav class="crumb" aria-label="Breadcrumb"><a href="/en/">Dough calculator</a> / <a href="/en/bread-dough/">Bread dough</a></nav>
+<h1>Croissants Baker's Percentage</h1>
+<p>Fold a cool, firm dough around a butter block, then cut crescents. The butter block and the egg wash sit outside the weights on this page.</p>
+<form id="calc" autocomplete="off">
+<fieldset class="modes">
+<legend>How to scale</legend>
+<label><input type="radio" name="mode" value="flour" checked> From flour weight</label>
+<label><input type="radio" name="mode" value="balls"> From dough balls</label>
+</fieldset>
+<div class="fields" data-panel="flour">
+<label class="field"><span class="label">Flour <span class="unit">g</span></span><input name="flour" inputmode="decimal" min="0" step="any" value="500"></label>
+</div>
+<div class="fields grid-2" data-panel="balls" hidden>
+<label class="field"><span class="label">Dough balls</span><input name="balls" inputmode="decimal" min="0" step="any" value="8"></label>
+<label class="field"><span class="label">Grams per ball <span class="unit">g</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="97"></label>
+</div>
+<div class="fields grid-2">
+<label class="field"><span class="label">Hydration <span class="unit">%</span></span><input name="hydration" inputmode="decimal" min="0" step="any" value="52"></label>
+<label class="field"><span class="label">Starter <span class="unit">%</span></span><input name="starter" inputmode="decimal" min="0" step="any" value="0"></label>
+<label class="field"><span class="label">Salt <span class="unit">%</span></span><input name="salt" inputmode="decimal" min="0" step="any" value="2"></label>
+<label class="field"><span class="label">Yeast <span class="unit">%</span></span><input name="yeast" inputmode="decimal" min="0" step="any" value="1"><span class="hint">Optional. Use 0 when the dough has no added yeast.</span></label>
+</div>
+</form>
+<section class="card result" aria-live="polite">
+<h2>Recipe</h2>
+<span id="form-error" class="error" role="alert" hidden>Enter a number only, for example 3000, without units</span>
+<dl><div><dt>Flour</dt><dd id="out-flour">500 g</dd></div><div><dt>Water</dt><dd id="out-water">260 g</dd></div><div><dt>Starter</dt><dd id="out-starter">0 g</dd></div><div><dt>Salt</dt><dd id="out-salt">10 g</dd></div><div><dt>Yeast</dt><dd id="out-yeast">5 g</dd></div><div><dt>Total dough</dt><dd id="out-total">775 g</dd></div></dl>
+<p class="effective">Effective hydration <strong id="out-effective">52%</strong></p>
+<p class="convention">Percentages are of the flour you weigh out, and effective hydration also counts the flour and water inside a starter that is itself 100% hydration.</p>
+<div class="actions">
+<button type="button" id="copy">Copy recipe</button>
+<button type="button" id="print" class="secondary">Print</button>
+<button type="button" id="download-pdf" data-busy="Preparing PDF…">Download PDF</button>
+</div>
+<p id="pdf-error" class="error" role="alert" hidden>PDF could not be created. Please try again.</p>
+<textarea id="recipe-text" hidden readonly></textarea>
+</section>
+<script type="application/json" id="labels">{"title":"Croissants Baker's Percentage","flour":"Flour","water":"Water","starter":"Starter","salt":"Salt","yeast":"Yeast","total":"Total dough","grams":"g","effective":"Effective hydration","copied":"Copied","copyFail":"Select the recipe text and copy it"}</script>
+<script type="application/json" id="pdf-meta">{"title":"Croissants Baker's Percentage","url":"https://doughcalc.app/en/croissants-bakers-percentage/","filename":"doughcalc-croissants-bakers-percentage-en-recipe.pdf","lang":"en","fontUrl":"/assets/fonts/noto-sans-sc-subset.ttf","labels":{"result":"Recipe","flour":"Flour","water":"Water","starter":"Starter","salt":"Salt","yeast":"Yeast","total":"Total dough","grams":"g","effective":"Effective hydration","hydration":"Hydration","modeFlour":"From flour weight","modeBalls":"From dough balls","balls":"Dough balls","perBall":"Grams per ball"},"method":{"heading":"Detailed method","lead":"The calculator opens at 500 g flour, 52% hydration, 2% salt, and 1% yeast. The balls fields open at 8 pieces of about 97 g. That weight is this dough, before the butter. Roll in a 250 g butter block, about half the flour weight. Brush with 1 beaten egg. The butter and the egg are extra and are not in the gram total. These times assume you only change the flour amount and keep the percentages the same. Still judge the dough by how it looks and feels.","steps":[{"title":"Mix","body":"Stir the flour, water, salt, and yeast, then knead for about 4 minutes until smooth. At 52% the dough is firm. Keep it cool, about 20°C (68°F)."},{"title":"Chill","body":"Wrap the dough and chill it for 45 minutes. It should be cold but still bend without cracking."},{"title":"Butter","body":"Pound 250 g of butter into a square about 15 cm across, cool but pliable, about 15°C (59°F). Roll the dough, lock the butter in the center, and seal the edges. The butter is extra and is not in the gram total."},{"title":"Folds","body":"Roll it to a long rectangle and fold it in three. Chill 25 minutes. Repeat that letter fold two more times, with 25 minutes in the fridge between folds."},{"title":"Shape","body":"Roll the dough to about 4 mm thick. Cut eight triangles and roll each one into a crescent, with the tip tucked under. Each piece of the original dough was about 97 g before the butter went in."},{"title":"Proof","body":"Cover them at about 24°C (75°F) for 2 to 2.5 hours, until they jiggle and the layers look swollen. Brush with 1 beaten egg. The egg is extra."},{"title":"Bake","body":"Heat the oven to 200°C (390°F). Bake 16 to 20 minutes, until they are deep gold and the layers have set."},{"title":"Cool","body":"Move them to a rack for at least 20 minutes. The inside is still soft right out of the oven."}]},"messages":{"label":"Download PDF","busy":"Preparing PDF…","fail":"PDF could not be created. Please try again."}}</script>
+<script type="module" src="/assets/calc.js"></script><section class="method">
+<h2>Detailed method</h2>
+<p>The calculator opens at 500 g flour, 52% hydration, 2% salt, and 1% yeast. The balls fields open at 8 pieces of about 97 g. That weight is this dough, before the butter. Roll in a 250 g butter block, about half the flour weight. Brush with 1 beaten egg. The butter and the egg are extra and are not in the gram total. These times assume you only change the flour amount and keep the percentages the same. Still judge the dough by how it looks and feels.</p>
+<ol><li><strong>Mix</strong> Stir the flour, water, salt, and yeast, then knead for about 4 minutes until smooth. At 52% the dough is firm. Keep it cool, about 20°C (68°F).</li><li><strong>Chill</strong> Wrap the dough and chill it for 45 minutes. It should be cold but still bend without cracking.</li><li><strong>Butter</strong> Pound 250 g of butter into a square about 15 cm across, cool but pliable, about 15°C (59°F). Roll the dough, lock the butter in the center, and seal the edges. The butter is extra and is not in the gram total.</li><li><strong>Folds</strong> Roll it to a long rectangle and fold it in three. Chill 25 minutes. Repeat that letter fold two more times, with 25 minutes in the fridge between folds.</li><li><strong>Shape</strong> Roll the dough to about 4 mm thick. Cut eight triangles and roll each one into a crescent, with the tip tucked under. Each piece of the original dough was about 97 g before the butter went in.</li><li><strong>Proof</strong> Cover them at about 24°C (75°F) for 2 to 2.5 hours, until they jiggle and the layers look swollen. Brush with 1 beaten egg. The egg is extra.</li><li><strong>Bake</strong> Heat the oven to 200°C (390°F). Bake 16 to 20 minutes, until they are deep gold and the layers have set.</li><li><strong>Cool</strong> Move them to a rack for at least 20 minutes. The inside is still soft right out of the oven.</li></ol>
+<figure>
+<img src="/assets/croissant.webp" width="1200" height="900" alt="One glossy laminated croissant on a white plate." loading="lazy">
+<figcaption>Photo by Mathias Reding on <a href="https://www.pexels.com/photo/golden-croissant-on-white-plate-minimalist-food-photography-30110688/">Pexels</a></figcaption>
+</figure>
+</section>
+<section class="related"><h2>Related calculators</h2><ul class="link-list"><li><a href="/en/sandwich-loaf-bakers-percentage/">Sandwich Loaf Baker's Percentage</a></li><li><a href="/en/pullman-loaf-bakers-percentage/">Pullman Loaf Baker's Percentage</a></li><li><a href="/en/no-knead-bread-bakers-percentage/">No-Knead Bread Baker's Percentage</a></li><li><a href="/en/overnight-white-bread-bakers-percentage/">Overnight White Bread Baker's Percentage</a></li></ul></section>
+</main>
+<footer>
+<nav aria-label="More pages"><a href="/en/">Dough calculator</a><a href="/en/sourdough-hydration/">Sourdough hydration</a><a href="/en/pizza-dough/">Pizza dough</a><a href="/en/bread-dough/">Bread dough</a><a href="/en/starter-percentage/">Starter percentage</a><a href="/en/salt-percentage/">Salt percentage</a><a href="mailto:alan.chang198807@gmail.com">Feedback</a></nav>
+<p>Ratios for home baking.</p>
+<p class="privacy">This site uses Cloudflare's anonymous analytics to count page views. What you type into the calculator stays in your browser and is never sent. URL query strings are not kept.</p>
+</footer>
+</body>
+</html>

@@ -13,8 +13,8 @@ import { ui } from "./i18n.mjs";
 import { renderPage } from "./render.mjs";
 
 test("long-tail calculators are the kept hydration, pizza, and bread pages", () => {
-  assert.equal(toolCount(), 71);
-  assert.equal(pages.length, 77);
+  assert.equal(toolCount(), 72);
+  assert.equal(pages.length, 78);
   assert.deepEqual(
     pages.filter((page) => page.category === "hydration" && page.kind === "tool").map((page) => page.preset.hydration),
     [65, 70, 75, 80],
