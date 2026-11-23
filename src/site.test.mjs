@@ -175,9 +175,37 @@ test("removed urls redirect to the nearest kept page", () => {
   assert.equal(byFrom.get("/en/sandwich-sourdough-bakers-percentage/"), "/en/sourdough-sandwich-loaf-bakers-percentage/");
   assert.equal(byFrom.get("/zh-cn/suanzhong-tusi/"), "/zh-cn/suanzhong-sanmingzhi/");
   assert.equal(byFrom.get("/zh-tw/suanzhong-tusi/"), "/zh-tw/suanzhong-sanmingzhi/");
+  assert.equal(byFrom.get("/en/73-hydration-sourdough-calculator/"), "/en/75-hydration-sourdough-calculator/");
+  assert.equal(byFrom.get("/zh-cn/73-shuihe-suanzhong-jisuanqi/"), "/zh-cn/75-shuihe-suanzhong-jisuanqi/");
+  assert.equal(byFrom.get("/zh-tw/73-shuihe-suan-zhong-jisuan/"), "/zh-tw/75-shuihe-suan-zhong-jisuan/");
+  assert.equal(byFrom.get("/en/66-hydration-sourdough-calculator/"), "/en/65-hydration-sourdough-calculator/");
+  assert.equal(byFrom.get("/en/72-hydration-sourdough-calculator/"), "/en/70-hydration-sourdough-calculator/");
+  assert.equal(byFrom.get("/en/74-hydration-sourdough-calculator/"), "/en/75-hydration-sourdough-calculator/");
   assert.equal(byFrom.get("/en/boule-bakers-percentage/"), "/en/country-sourdough-bakers-percentage/");
   assert.equal(byFrom.get("/zh-cn/yuanxing-suanzhong/"), "/zh-cn/xiangcun-suanzhong/");
   assert.equal(byFrom.get("/zh-tw/yuanxing-suanzhong/"), "/zh-tw/xiangcun-suanzhong/");
+});
+
+test("the 75% page tells you how to mix the same dough at 73%", () => {
+  const page = pages.find((item) => item.id === "hydration-75");
+  assert.equal(page.preset.hydration, 75);
+  assert.equal(page.title.en, "75% Hydration Sourdough Calculator");
+  const headings = {
+    en: "How to adjust to 73%",
+    "zh-cn": "怎么调成 73%",
+    "zh-tw": "怎麼調成 73%",
+  };
+  for (const lang of ["en", "zh-cn", "zh-tw"]) {
+    const html = renderPage(page, lang);
+    assert.match(html, new RegExp(`<h2>${headings[lang]}</h2>`));
+    assert.match(html, /365/);
+    assert.match(html, /975/);
+    assert.match(html, /id="out-water">375 /);
+    assert.match(html, /id="out-starter">100 /);
+    assert.match(html, /id="out-salt">10 /);
+    assert.match(html, new RegExp(`rel="canonical" href="${SITE_URL}/${lang}/${page.slug[lang]}/"`));
+  }
+  assert.equal(renderPage(pages.find((item) => item.id === "hydration-70"), "en").includes("How to adjust to 73%"), false);
 });
 
 test("merged bread pages keep their own title, description, and calculator", () => {

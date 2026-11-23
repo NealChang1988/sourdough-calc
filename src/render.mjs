@@ -281,6 +281,13 @@ function pdfMeta(page, lang) {
   return `\n<script type="application/json" id="pdf-meta">${json}</script>`;
 }
 
+function adjustSection(page, lang) {
+  const block = page.adjust;
+  if (!block) return "";
+  const paragraphs = block.paragraphs[lang].map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("");
+  return `\n<section class="adjust"><h2>${escapeHtml(block.heading[lang])}</h2>${paragraphs}</section>`;
+}
+
 function methodSection(page, lang) {
   const guide = doughGuides[page.id];
   if (!guide) return "";
@@ -337,7 +344,7 @@ export function renderPage(page, lang) {
       .join("");
     inner = `${page.preset ? calculator(page, lang) : ""}${groups}`;
   } else {
-    inner = `${calculator(page, lang)}${methodSection(page, lang)}`;
+    inner = `${calculator(page, lang)}${adjustSection(page, lang)}${methodSection(page, lang)}`;
   }
   return `${head({
     lang,
