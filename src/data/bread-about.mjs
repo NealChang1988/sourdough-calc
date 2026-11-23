@@ -256,8 +256,8 @@ export const breadAbout = {
   },
   "multigrain-loaf": {
     en: "Soak the cracked grains first or they stay like pebbles in the crumb. The loaf around them is a straightforward tin bread.",
-    "zh-cn": "碎谷物要先泡软，不然会像小石子留在心里。包在外面的是普通的模具面包，颗粒要先泡开。",
-    "zh-tw": "碎穀物要先泡軟，不然會像小石子留在心裡。包在外面的是普通的模具麵包，顆粒要先泡開。",
+    "zh-cn": "碎谷物要先泡软，不然会像小石子留在面包心。包在外面的是普通的模具面包，颗粒要先泡开。",
+    "zh-tw": "碎穀物要先泡軟，不然會像小石子留在麵包心。包在外面的是普通的模具麵包，顆粒要先泡開。",
   },
   schiacciata: {
     en: "Thinner than focaccia and pressed flatter, with dimples that should take color. A snack sheet, not a tall pan bread.",
