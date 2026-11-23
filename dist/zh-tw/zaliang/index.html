@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>雜糧麵包烘焙百分比</title>
-<meta name="description" content="碎穀物要先泡軟，不然會像小石子留在心裡。包在外面的是普通的模具麵包，顆粒要先泡開。">
+<meta name="description" content="碎穀物要先泡軟，不然會像小石子留在麵包心。包在外面的是普通的模具麵包，顆粒要先泡開。">
 <link rel="canonical" href="https://doughcalc.app/zh-tw/zaliang/">
 <link rel="alternate" hreflang="en" href="https://doughcalc.app/en/multigrain-loaf-bakers-percentage/"><link rel="alternate" hreflang="zh-CN" href="https://doughcalc.app/zh-cn/zaliang/"><link rel="alternate" hreflang="zh-TW" href="https://doughcalc.app/zh-tw/zaliang/"><link rel="alternate" hreflang="x-default" href="https://doughcalc.app/en/multigrain-loaf-bakers-percentage/">
 <meta property="og:title" content="雜糧麵包烘焙百分比">
-<meta property="og:description" content="碎穀物要先泡軟，不然會像小石子留在心裡。包在外面的是普通的模具麵包，顆粒要先泡開。">
+<meta property="og:description" content="碎穀物要先泡軟，不然會像小石子留在麵包心。包在外面的是普通的模具麵包，顆粒要先泡開。">
 <meta property="og:url" content="https://doughcalc.app/zh-tw/zaliang/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="zh_TW">
@@ -26,7 +26,7 @@
 <main id="main">
 <nav class="crumb" aria-label="目前位置"><a href="/zh-tw/">麵團計算器</a> / <a href="/zh-tw/mianbao-baifenbi/">麵包麵團</a></nav>
 <h1>雜糧麵包烘焙百分比</h1>
-<p>碎穀物要先泡軟，不然會像小石子留在心裡。包在外面的是普通的模具麵包，顆粒要先泡開。</p>
+<p>碎穀物要先泡軟，不然會像小石子留在麵包心。包在外面的是普通的模具麵包，顆粒要先泡開。</p>
 <form id="calc" autocomplete="off">
 <fieldset class="modes">
 <legend>怎麼算</legend>
@@ -37,8 +37,8 @@
 <label class="field"><span class="label">麵粉 <span class="unit">克</span></span><input name="flour" inputmode="decimal" min="0" step="any" value="500"></label>
 </div>
 <div class="fields grid-2" data-panel="balls" hidden>
-<label class="field"><span class="label">麵團球數</span><input name="balls" inputmode="decimal" min="0" step="any" value="4"></label>
-<label class="field"><span class="label">每球克數 <span class="unit">克</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="250"></label>
+<label class="field"><span class="label">麵團球數</span><input name="balls" inputmode="decimal" min="0" step="any" value="1"></label>
+<label class="field"><span class="label">每球克數 <span class="unit">克</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="907"></label>
 </div>
 <div class="fields grid-2">
 <label class="field"><span class="label">水合 <span class="unit">%</span></span><input name="hydration" inputmode="decimal" min="0" step="any" value="78"></label>
@@ -56,11 +56,22 @@
 <div class="actions">
 <button type="button" id="copy">複製配方</button>
 <button type="button" id="print" class="secondary">列印</button>
+<button type="button" id="download-pdf" data-busy="正在產生 PDF…">下載 PDF</button>
 </div>
+<p id="pdf-error" class="error" role="alert" hidden>PDF 產生失敗，請再按一次。</p>
 <textarea id="recipe-text" hidden readonly></textarea>
 </section>
 <script type="application/json" id="labels">{"title":"雜糧麵包烘焙百分比","flour":"麵粉","water":"水","starter":"酸種","salt":"鹽","yeast":"酵母","total":"麵團總重","grams":"克","effective":"有效水合","copied":"已複製","copyFail":"請選中配方文字再複製"}</script>
-<script type="module" src="/assets/calc.js"></script>
+<script type="application/json" id="pdf-meta">{"title":"雜糧麵包烘焙百分比","url":"https://doughcalc.app/zh-tw/zaliang/","filename":"doughcalc-zaliang-zh-tw-recipe.pdf","lang":"zh-TW","fontUrl":"/assets/fonts/noto-sans-tc-subset.ttf","labels":{"result":"配方","flour":"麵粉","water":"水","starter":"酸種","salt":"鹽","yeast":"酵母","total":"麵團總重","grams":"克","effective":"有效水合","hydration":"水合","modeFlour":"按麵粉重量","modeBalls":"按麵團球","balls":"麵團球數","perBall":"每球克數"},"method":{"heading":"詳細做法","lead":"計算器打開時是麵粉 500 克，水合 78%，鹽 2.2%，酵母 1.1%。麵團球那一欄打開是 1 個、大約 907 克，放進一個烤模。大約 80 克碎穀物和種子，先用 80 克水泡軟；這份泡料不在合計克數裡。下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。","steps":[{"title":"泡料","body":"大約 80 克碎小麥、燕麥片，再加葵花籽或亞麻籽，和 80 克水拌在一起。蓋上，至少泡 4 小時，泡到顆粒發軟。泡料是另外加的。"},{"title":"攪拌","body":"把 500 克麵粉、390 克水、11 克鹽、5.5 克速發酵母和整份泡料拌到沒有乾粉，再揉大約 6 分鐘。麵團偏軟。麵團溫度大約 24°C。這 390 克水不算泡料裡的水。"},{"title":"發酵","body":"蓋上，放在大約 24°C，60 到 90 分鐘，發到大約兩倍。"},{"title":"整形","body":"檯面薄薄撒粉。壓成長方形，捲成一條，捏住接口。頁面上大約 907 克是沒加泡料的麵團。泡料揉進去以後這一爐會更重，仍然只做一個。"},{"title":"入模","body":"接口朝下，放進大約 23 公分長的烤模，模子先抹一層油。蓋上，再發 40 到 60 分鐘，發到接近模口。"},{"title":"烘烤","body":"烤箱 190°C，烤 40 到 48 分鐘，直到表皮上色，底部敲上去是實的。"},{"title":"放涼","body":"扣出來，在架子上至少放 1 小時再切，麵包心的穀物才定得住。"}]},"messages":{"label":"下載 PDF","busy":"正在產生 PDF…","fail":"PDF 產生失敗，請再按一次。"}}</script>
+<script type="module" src="/assets/calc.js"></script><section class="method">
+<h2>詳細做法</h2>
+<p>計算器打開時是麵粉 500 克，水合 78%，鹽 2.2%，酵母 1.1%。麵團球那一欄打開是 1 個、大約 907 克，放進一個烤模。大約 80 克碎穀物和種子，先用 80 克水泡軟；這份泡料不在合計克數裡。下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。</p>
+<ol><li><strong>泡料</strong> 大約 80 克碎小麥、燕麥片，再加葵花籽或亞麻籽，和 80 克水拌在一起。蓋上，至少泡 4 小時，泡到顆粒發軟。泡料是另外加的。</li><li><strong>攪拌</strong> 把 500 克麵粉、390 克水、11 克鹽、5.5 克速發酵母和整份泡料拌到沒有乾粉，再揉大約 6 分鐘。麵團偏軟。麵團溫度大約 24°C。這 390 克水不算泡料裡的水。</li><li><strong>發酵</strong> 蓋上，放在大約 24°C，60 到 90 分鐘，發到大約兩倍。</li><li><strong>整形</strong> 檯面薄薄撒粉。壓成長方形，捲成一條，捏住接口。頁面上大約 907 克是沒加泡料的麵團。泡料揉進去以後這一爐會更重，仍然只做一個。</li><li><strong>入模</strong> 接口朝下，放進大約 23 公分長的烤模，模子先抹一層油。蓋上，再發 40 到 60 分鐘，發到接近模口。</li><li><strong>烘烤</strong> 烤箱 190°C，烤 40 到 48 分鐘，直到表皮上色，底部敲上去是實的。</li><li><strong>放涼</strong> 扣出來，在架子上至少放 1 小時再切，麵包心的穀物才定得住。</li></ol>
+<figure>
+<img src="/assets/multigrain-loaf.webp" width="1200" height="735" alt="一疊淺色模具麵包的切片，表皮和淺色麵包心都能看見混合種子。後面還留著半條。" loading="lazy">
+<figcaption>攝影：Natalia Olivera，來自 <a href="https://www.pexels.com/photo/sliced-multigrain-bread-on-rustic-table-30632213/">Pexels</a></figcaption>
+</figure>
+</section>
 <section class="related"><h2>相關計算</h2><ul class="link-list"><li><a href="/zh-tw/sanmingzhi/">三明治吐司烘焙百分比</a></li><li><a href="/zh-tw/daigai-tusi/">帶蓋吐司烘焙百分比</a></li><li><a href="/zh-tw/mianrou/">免揉麵包烘焙百分比</a></li><li><a href="/zh-tw/geye-baimianbao/">隔夜白麵包烘焙百分比</a></li></ul></section>
 </main>
 <footer>
