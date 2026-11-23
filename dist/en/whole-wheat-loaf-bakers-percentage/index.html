@@ -37,8 +37,8 @@
 <label class="field"><span class="label">Flour <span class="unit">g</span></span><input name="flour" inputmode="decimal" min="0" step="any" value="500"></label>
 </div>
 <div class="fields grid-2" data-panel="balls" hidden>
-<label class="field"><span class="label">Dough balls</span><input name="balls" inputmode="decimal" min="0" step="any" value="4"></label>
-<label class="field"><span class="label">Grams per ball <span class="unit">g</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="250"></label>
+<label class="field"><span class="label">Dough balls</span><input name="balls" inputmode="decimal" min="0" step="any" value="1"></label>
+<label class="field"><span class="label">Grams per ball <span class="unit">g</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="896"></label>
 </div>
 <div class="fields grid-2">
 <label class="field"><span class="label">Hydration <span class="unit">%</span></span><input name="hydration" inputmode="decimal" min="0" step="any" value="76"></label>
@@ -56,11 +56,22 @@
 <div class="actions">
 <button type="button" id="copy">Copy recipe</button>
 <button type="button" id="print" class="secondary">Print</button>
+<button type="button" id="download-pdf" data-busy="Preparing PDF…">Download PDF</button>
 </div>
+<p id="pdf-error" class="error" role="alert" hidden>PDF could not be created. Please try again.</p>
 <textarea id="recipe-text" hidden readonly></textarea>
 </section>
 <script type="application/json" id="labels">{"title":"Whole Wheat Loaf Baker's Percentage","flour":"Flour","water":"Water","starter":"Starter","salt":"Salt","yeast":"Yeast","total":"Total dough","grams":"g","effective":"Effective hydration","copied":"Copied","copyFail":"Select the recipe text and copy it"}</script>
-<script type="module" src="/assets/calc.js"></script>
+<script type="application/json" id="pdf-meta">{"title":"Whole Wheat Loaf Baker's Percentage","url":"https://doughcalc.app/en/whole-wheat-loaf-bakers-percentage/","filename":"doughcalc-whole-wheat-loaf-bakers-percentage-en-recipe.pdf","lang":"en","fontUrl":"/assets/fonts/noto-sans-sc-subset.ttf","labels":{"result":"Recipe","flour":"Flour","water":"Water","starter":"Starter","salt":"Salt","yeast":"Yeast","total":"Total dough","grams":"g","effective":"Effective hydration","hydration":"Hydration","modeFlour":"From flour weight","modeBalls":"From dough balls","balls":"Dough balls","perBall":"Grams per ball"},"method":{"heading":"Detailed method","lead":"The calculator opens at 500 g flour, 76% hydration, 2% salt, and 1.1% yeast. The balls fields open at 1 loaf of about 896 g. Bake it in a tin. Press about 25 g of mixed seeds on the top if you want them. Those seeds are extra and are not in the gram total. These times assume you only change the flour amount and keep the percentages the same. Still judge the dough by how it looks and feels.","steps":[{"title":"Mix","body":"Stir the flour, water, salt, and yeast until no dry flour remains. At 76% the bran makes it feel stiffer than white dough. Aim for about 24°C (75°F)."},{"title":"Rest","body":"Cover the bowl for 25 minutes so the bran drinks the water."},{"title":"Knead","body":"Knead for about 8 minutes. If it still tears instead of coming together, work in about 15 g more water. That splash is extra and is not in the gram total."},{"title":"Bulk","body":"Cover it at about 24°C (75°F) for 70 to 90 minutes. With 1.1% yeast, fold it once at 30 minutes. It should rise by about half, not double."},{"title":"Pan","body":"Oil a loaf pan. Shape a log that fits the tin and put it in seam side down. Press about 25 g of seeds onto the damp top. The seeds are extra."},{"title":"Proof","body":"Cover the pan at about 24°C (75°F) for 45 to 70 minutes, until the dome is just under the rim."},{"title":"Bake","body":"Heat the oven to 190°C (375°F). Bake 35 to 40 minutes, until the sides are firm. If you check the center, look for about 96°C (205°F)."},{"title":"Cool","body":"Turn it out and cool it on a rack for at least 1 hour before you slice."}]},"messages":{"label":"Download PDF","busy":"Preparing PDF…","fail":"PDF could not be created. Please try again."}}</script>
+<script type="module" src="/assets/calc.js"></script><section class="method">
+<h2>Detailed method</h2>
+<p>The calculator opens at 500 g flour, 76% hydration, 2% salt, and 1.1% yeast. The balls fields open at 1 loaf of about 896 g. Bake it in a tin. Press about 25 g of mixed seeds on the top if you want them. Those seeds are extra and are not in the gram total. These times assume you only change the flour amount and keep the percentages the same. Still judge the dough by how it looks and feels.</p>
+<ol><li><strong>Mix</strong> Stir the flour, water, salt, and yeast until no dry flour remains. At 76% the bran makes it feel stiffer than white dough. Aim for about 24°C (75°F).</li><li><strong>Rest</strong> Cover the bowl for 25 minutes so the bran drinks the water.</li><li><strong>Knead</strong> Knead for about 8 minutes. If it still tears instead of coming together, work in about 15 g more water. That splash is extra and is not in the gram total.</li><li><strong>Bulk</strong> Cover it at about 24°C (75°F) for 70 to 90 minutes. With 1.1% yeast, fold it once at 30 minutes. It should rise by about half, not double.</li><li><strong>Pan</strong> Oil a loaf pan. Shape a log that fits the tin and put it in seam side down. Press about 25 g of seeds onto the damp top. The seeds are extra.</li><li><strong>Proof</strong> Cover the pan at about 24°C (75°F) for 45 to 70 minutes, until the dome is just under the rim.</li><li><strong>Bake</strong> Heat the oven to 190°C (375°F). Bake 35 to 40 minutes, until the sides are firm. If you check the center, look for about 96°C (205°F).</li><li><strong>Cool</strong> Turn it out and cool it on a rack for at least 1 hour before you slice.</li></ol>
+<figure>
+<img src="/assets/whole-wheat-loaf.webp" width="1200" height="800" alt="A dark brown rectangular loaf covered with seeds, with several slices beside it on a white surface." loading="lazy">
+<figcaption>Photo by Polina Tankilevitch on <a href="https://www.pexels.com/photo/brown-bread-on-white-surface-8599720/">Pexels</a></figcaption>
+</figure>
+</section>
 <section class="related"><h2>Related calculators</h2><ul class="link-list"><li><a href="/en/baguette-bakers-percentage/">Baguette Baker's Percentage</a></li><li><a href="/en/ciabatta-bakers-percentage/">Ciabatta Baker's Percentage</a></li><li><a href="/en/sandwich-loaf-bakers-percentage/">Sandwich Loaf Baker's Percentage</a></li><li><a href="/en/pullman-loaf-bakers-percentage/">Pullman Loaf Baker's Percentage</a></li></ul></section>
 </main>
 <footer>

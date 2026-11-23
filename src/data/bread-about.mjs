@@ -294,4 +294,14 @@ export const breadAbout = {
     "zh-cn": "页面上的水只是另外倒进去的那部分。成团之后再加入软化黄油和鸡蛋，总重故意没算上它们。",
     "zh-tw": "頁面上的水只是另外倒進去的那部分。成團之後再加入軟化奶油和雞蛋，總重故意沒算上它們。",
   },
+  "cinnamon-roll": {
+    en: "Eight spirals bake side by side in one pan until they touch, then get a thin icing while they are warm. The cinnamon filling and the icing are weighed apart from the dough.",
+    "zh-cn": "把软面片卷上肉桂糖，切成八个螺旋，趁热淋糖霜。黄油、糖、肉桂和糖霜都没有写进显示的总重。",
+    "zh-tw": "把軟麵片捲上肉桂糖，切成八個螺旋，趁熱淋糖霜。奶油、糖、肉桂和糖霜都沒有寫進顯示的總重。",
+  },
+  croissant: {
+    en: "Fold a cool, firm dough around a butter block, then cut crescents. The butter block and the egg wash sit outside the weights on this page.",
+    "zh-cn": "把凉而硬的面团包住黄油块，折好再切成月牙。黄油块和刷表面的蛋液都不在页面的克数里。",
+    "zh-tw": "把涼而硬的麵團包住奶油塊，折好再切成月牙。奶油塊和刷表面的蛋液都不在頁面的克數裡。",
+  },
 };

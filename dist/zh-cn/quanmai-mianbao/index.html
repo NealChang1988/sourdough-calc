@@ -37,8 +37,8 @@
 <label class="field"><span class="label">面粉 <span class="unit">克</span></span><input name="flour" inputmode="decimal" min="0" step="any" value="500"></label>
 </div>
 <div class="fields grid-2" data-panel="balls" hidden>
-<label class="field"><span class="label">面团球数</span><input name="balls" inputmode="decimal" min="0" step="any" value="4"></label>
-<label class="field"><span class="label">每球克数 <span class="unit">克</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="250"></label>
+<label class="field"><span class="label">面团球数</span><input name="balls" inputmode="decimal" min="0" step="any" value="1"></label>
+<label class="field"><span class="label">每球克数 <span class="unit">克</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="896"></label>
 </div>
 <div class="fields grid-2">
 <label class="field"><span class="label">水合 <span class="unit">%</span></span><input name="hydration" inputmode="decimal" min="0" step="any" value="76"></label>
@@ -56,11 +56,22 @@
 <div class="actions">
 <button type="button" id="copy">复制配方</button>
 <button type="button" id="print" class="secondary">打印</button>
+<button type="button" id="download-pdf" data-busy="正在生成 PDF…">下载 PDF</button>
 </div>
+<p id="pdf-error" class="error" role="alert" hidden>PDF 生成失败，请再按一次。</p>
 <textarea id="recipe-text" hidden readonly></textarea>
 </section>
 <script type="application/json" id="labels">{"title":"全麦面包烘焙百分比","flour":"面粉","water":"水","starter":"酸种","salt":"盐","yeast":"酵母","total":"面团总重","grams":"克","effective":"有效水合","copied":"已复制","copyFail":"请选中配方文字再复制"}</script>
-<script type="module" src="/assets/calc.js"></script>
+<script type="application/json" id="pdf-meta">{"title":"全麦面包烘焙百分比","url":"https://doughcalc.app/zh-cn/quanmai-mianbao/","filename":"doughcalc-quanmai-mianbao-zh-cn-recipe.pdf","lang":"zh-CN","fontUrl":"/assets/fonts/noto-sans-sc-subset.ttf","labels":{"result":"配方","flour":"面粉","water":"水","starter":"酸种","salt":"盐","yeast":"酵母","total":"面团总重","grams":"克","effective":"有效水合","hydration":"水合","modeFlour":"按面粉重量","modeBalls":"按面团球","balls":"面团球数","perBall":"每球克数"},"method":{"heading":"详细做法","lead":"计算器打开时是面粉 500 克，水合 76%，盐 2%，酵母 1.1%。面团球那一栏打开是 1 条、大约 896 克。放在烤模里烤。想要表面有籽，就按上大约 25 克籽。这些籽是另外加的，不在合计克数里。下面的时间按只改面粉的量、百分比不变来估。发酵还是看面团的样子和手感。","steps":[{"title":"搅拌","body":"把面粉、水、盐和酵母拌到没有干粉。水合 76%，全麦粉会让它比白面团更硬。面团温度大约 24°C。"},{"title":"静置","body":"盖上 25 分钟，让全麦粉把水吃进去。"},{"title":"揉面","body":"揉大约 8 分钟。如果还是揉不成团，就再揉进大约 15 克水。这点水是另外加的，不在合计克数里。"},{"title":"基本发酵","body":"盖着，放在大约 24°C，70 到 90 分钟。酵母有 1.1%，30 分钟时折一次。大约胀起一半即可，不必发到两倍。"},{"title":"入模","body":"烤模抹油。整成一条能放进模子的面团，接缝朝下。湿的顶上按大约 25 克籽。这些籽是另外加的。"},{"title":"最后发酵","body":"盖着，放在大约 24°C，45 到 70 分钟，发到接近模沿。"},{"title":"烘烤","body":"烤箱 190°C，烤 35 到 40 分钟，直到侧面定住。如果量中心，大约 96°C 就可以。"},{"title":"放凉","body":"倒出来，放到架子上至少 1 小时再切。"}]},"messages":{"label":"下载 PDF","busy":"正在生成 PDF…","fail":"PDF 生成失败，请再按一次。"}}</script>
+<script type="module" src="/assets/calc.js"></script><section class="method">
+<h2>详细做法</h2>
+<p>计算器打开时是面粉 500 克，水合 76%，盐 2%，酵母 1.1%。面团球那一栏打开是 1 条、大约 896 克。放在烤模里烤。想要表面有籽，就按上大约 25 克籽。这些籽是另外加的，不在合计克数里。下面的时间按只改面粉的量、百分比不变来估。发酵还是看面团的样子和手感。</p>
+<ol><li><strong>搅拌</strong> 把面粉、水、盐和酵母拌到没有干粉。水合 76%，全麦粉会让它比白面团更硬。面团温度大约 24°C。</li><li><strong>静置</strong> 盖上 25 分钟，让全麦粉把水吃进去。</li><li><strong>揉面</strong> 揉大约 8 分钟。如果还是揉不成团，就再揉进大约 15 克水。这点水是另外加的，不在合计克数里。</li><li><strong>基本发酵</strong> 盖着，放在大约 24°C，70 到 90 分钟。酵母有 1.1%，30 分钟时折一次。大约胀起一半即可，不必发到两倍。</li><li><strong>入模</strong> 烤模抹油。整成一条能放进模子的面团，接缝朝下。湿的顶上按大约 25 克籽。这些籽是另外加的。</li><li><strong>最后发酵</strong> 盖着，放在大约 24°C，45 到 70 分钟，发到接近模沿。</li><li><strong>烘烤</strong> 烤箱 190°C，烤 35 到 40 分钟，直到侧面定住。如果量中心，大约 96°C 就可以。</li><li><strong>放凉</strong> 倒出来，放到架子上至少 1 小时再切。</li></ol>
+<figure>
+<img src="/assets/whole-wheat-loaf.webp" width="1200" height="800" alt="深褐色长方面包，表面铺满籽，旁边有几片切下来的面包，放在白色台面上。" loading="lazy">
+<figcaption>摄影：Polina Tankilevitch，来自 <a href="https://www.pexels.com/photo/brown-bread-on-white-surface-8599720/">Pexels</a></figcaption>
+</figure>
+</section>
 <section class="related"><h2>相关计算</h2><ul class="link-list"><li><a href="/zh-cn/fa-gun/">法棍烘焙百分比</a></li><li><a href="/zh-cn/qiabata/">恰巴塔烘焙百分比</a></li><li><a href="/zh-cn/sanmingzhi/">三明治面包烘焙百分比</a></li><li><a href="/zh-cn/daigai-tusi/">带盖吐司烘焙百分比</a></li></ul></section>
 </main>
 <footer>

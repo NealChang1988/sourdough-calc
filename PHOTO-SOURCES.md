@@ -15,5 +15,10 @@ Each guide photo is a free Pexels image, used under the [Pexels License](https:/
 | Rye loaf | `src/rye-loaf.webp` | https://www.pexels.com/photo/whole-grain-seeded-rye-bread-on-wooden-surface-33988117/ | Jana Ohajdova | Pexels License |
 | Pita | `src/pita.webp` | https://www.pexels.com/photo/rustic-stack-of-pita-bread-on-wooden-board-33079981/ | Kevin Kap | Pexels License |
 | Dinner rolls | `src/dinner-rolls.webp` | https://www.pexels.com/photo/baking-bread-in-tray-19987059/ | juliane Monari | Pexels License |
+| Whole wheat loaf | `src/whole-wheat-loaf.webp` | https://www.pexels.com/photo/brown-bread-on-white-surface-8599720/ | Polina Tankilevitch | Pexels License |
+| English muffins | `src/english-muffins.webp` | https://www.pexels.com/photo/english-muffins-on-plates-8382666/ | Pelageia Zelenina | Pexels License |
+| Cinnamon rolls | `src/cinnamon-rolls.webp` | https://www.pexels.com/photo/cinnamon-rolls-with-icing-5507698/ | Jess Loiterton | Pexels License |
+| Hamburger buns | `src/hamburger-buns.webp` | https://www.pexels.com/photo/close-up-shot-of-buns-8522684/ | RDNE Stock project | Pexels License |
+| Croissants | `src/croissant.webp` | https://www.pexels.com/photo/golden-croissant-on-white-plate-minimalist-food-photography-30110688/ | Mathias Reding | Pexels License |
 
 The photo pages listed each image as free when the file was downloaded. The pictures show the finished bread, with no people and no visible brand, logo, or packaging.

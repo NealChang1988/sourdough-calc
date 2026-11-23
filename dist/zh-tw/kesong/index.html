@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>可頌烘焙百分比</title>
+<meta name="description" content="把涼而硬的麵團包住奶油塊，折好再切成月牙。奶油塊和刷表面的蛋液都不在頁面的克數裡。">
+<link rel="canonical" href="https://doughcalc.app/zh-tw/kesong/">
+<link rel="alternate" hreflang="en" href="https://doughcalc.app/en/croissants-bakers-percentage/"><link rel="alternate" hreflang="zh-CN" href="https://doughcalc.app/zh-cn/kesong/"><link rel="alternate" hreflang="zh-TW" href="https://doughcalc.app/zh-tw/kesong/"><link rel="alternate" hreflang="x-default" href="https://doughcalc.app/en/croissants-bakers-percentage/">
+<meta property="og:title" content="可頌烘焙百分比">
+<meta property="og:description" content="把涼而硬的麵團包住奶油塊，折好再切成月牙。奶油塊和刷表面的蛋液都不在頁面的克數裡。">
+<meta property="og:url" content="https://doughcalc.app/zh-tw/kesong/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:locale:alternate" content="en_US"><meta property="og:locale:alternate" content="zh_CN">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">跳到計算器</a>
+<header>
+<a class="brand" href="/zh-tw/">麵團計算器</a>
+<nav class="langs" aria-label="語言"><a href="/en/croissants-bakers-percentage/" hreflang="en" lang="en">EN</a><a href="/zh-cn/kesong/" hreflang="zh-CN" lang="zh-CN">简体</a><a href="/zh-tw/kesong/" hreflang="zh-TW" lang="zh-TW" aria-current="page">繁體</a></nav>
+</header>
+<main id="main">
+<nav class="crumb" aria-label="目前位置"><a href="/zh-tw/">麵團計算器</a> / <a href="/zh-tw/mianbao-baifenbi/">麵包麵團</a></nav>
+<h1>可頌烘焙百分比</h1>
+<p>把涼而硬的麵團包住奶油塊，折好再切成月牙。奶油塊和刷表面的蛋液都不在頁面的克數裡。</p>
+<form id="calc" autocomplete="off">
+<fieldset class="modes">
+<legend>怎麼算</legend>
+<label><input type="radio" name="mode" value="flour" checked> 按麵粉重量</label>
+<label><input type="radio" name="mode" value="balls"> 按麵團球</label>
+</fieldset>
+<div class="fields" data-panel="flour">
+<label class="field"><span class="label">麵粉 <span class="unit">克</span></span><input name="flour" inputmode="decimal" min="0" step="any" value="500"></label>
+</div>
+<div class="fields grid-2" data-panel="balls" hidden>
+<label class="field"><span class="label">麵團球數</span><input name="balls" inputmode="decimal" min="0" step="any" value="8"></label>
+<label class="field"><span class="label">每球克數 <span class="unit">克</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="97"></label>
+</div>
+<div class="fields grid-2">
+<label class="field"><span class="label">水合 <span class="unit">%</span></span><input name="hydration" inputmode="decimal" min="0" step="any" value="52"></label>
+<label class="field"><span class="label">酸種 <span class="unit">%</span></span><input name="starter" inputmode="decimal" min="0" step="any" value="0"></label>
+<label class="field"><span class="label">鹽 <span class="unit">%</span></span><input name="salt" inputmode="decimal" min="0" step="any" value="2"></label>
+<label class="field"><span class="label">酵母 <span class="unit">%</span></span><input name="yeast" inputmode="decimal" min="0" step="any" value="1"><span class="hint">可選。不加酵母就填 0。</span></label>
+</div>
+</form>
+<section class="card result" aria-live="polite">
+<h2>配方</h2>
+<span id="form-error" class="error" role="alert" hidden>請只填數字，例如 3000，不要加單位</span>
+<dl><div><dt>麵粉</dt><dd id="out-flour">500 克</dd></div><div><dt>水</dt><dd id="out-water">260 克</dd></div><div><dt>酸種</dt><dd id="out-starter">0 克</dd></div><div><dt>鹽</dt><dd id="out-salt">10 克</dd></div><div><dt>酵母</dt><dd id="out-yeast">5 克</dd></div><div><dt>麵團總重</dt><dd id="out-total">775 克</dd></div></dl>
+<p class="effective">有效水合 <strong id="out-effective">52%</strong></p>
+<p class="convention">百分比以你秤出的麵粉為基準，有效水合則把本身為 100% 水合的酸種裡的麵粉和水也算進去。</p>
+<div class="actions">
+<button type="button" id="copy">複製配方</button>
+<button type="button" id="print" class="secondary">列印</button>
+<button type="button" id="download-pdf" data-busy="正在產生 PDF…">下載 PDF</button>
+</div>
+<p id="pdf-error" class="error" role="alert" hidden>PDF 產生失敗，請再按一次。</p>
+<textarea id="recipe-text" hidden readonly></textarea>
+</section>
+<script type="application/json" id="labels">{"title":"可頌烘焙百分比","flour":"麵粉","water":"水","starter":"酸種","salt":"鹽","yeast":"酵母","total":"麵團總重","grams":"克","effective":"有效水合","copied":"已複製","copyFail":"請選中配方文字再複製"}</script>
+<script type="application/json" id="pdf-meta">{"title":"可頌烘焙百分比","url":"https://doughcalc.app/zh-tw/kesong/","filename":"doughcalc-kesong-zh-tw-recipe.pdf","lang":"zh-TW","fontUrl":"/assets/fonts/noto-sans-tc-subset.ttf","labels":{"result":"配方","flour":"麵粉","water":"水","starter":"酸種","salt":"鹽","yeast":"酵母","total":"麵團總重","grams":"克","effective":"有效水合","hydration":"水合","modeFlour":"按麵粉重量","modeBalls":"按麵團球","balls":"麵團球數","perBall":"每球克數"},"method":{"heading":"詳細做法","lead":"計算器打開時是麵粉 500 克，水合 52%，鹽 2%，酵母 1%。麵團球那一欄打開是 8 個、每個大約 97 克。這個重量只算麵團，還沒算奶油。再捲進 250 克奶油塊，大約是麵粉重量的一半。表面刷 1 個打散的雞蛋。奶油和雞蛋是另外加的，不在合計克數裡。下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。","steps":[{"title":"攪拌","body":"把麵粉、水、鹽和酵母拌勻，再揉大約 4 分鐘，直到光滑。水合 52%，麵團偏硬。保持涼快，大約 20°C。"},{"title":"冷藏","body":"包好，冷藏 45 分鐘。要涼，但壓一壓不會裂開。"},{"title":"包奶油","body":"250 克奶油壓成大約 15 公分的方片，涼，但壓下去不會裂，大約 15°C。把麵團擀開，奶油包在中間，捏住邊。奶油是另外加的，不在合計克數裡。"},{"title":"摺疊","body":"擀成長方形，折成三折。冷藏 25 分鐘。再這樣三折兩次，每次中間冷藏 25 分鐘。"},{"title":"整形","body":"擀到大約 0.4 公分厚。切成八個三角形，捲成可頌，接口壓在下面。包奶油之前，每份麵團大約 97 克。"},{"title":"最後發酵","body":"蓋著，放在大約 24°C，2 到 2.5 小時，發到晃一晃會顫、層次鼓起來。刷 1 個打散的雞蛋。雞蛋是另外加的。"},{"title":"烘烤","body":"烤箱 200°C，烤 16 到 20 分鐘，直到深金黃、層次定住。"},{"title":"放涼","body":"移到架子上至少 20 分鐘。出爐的時候裡面還是軟的。"}]},"messages":{"label":"下載 PDF","busy":"正在產生 PDF…","fail":"PDF 產生失敗，請再按一次。"}}</script>
+<script type="module" src="/assets/calc.js"></script><section class="method">
+<h2>詳細做法</h2>
+<p>計算器打開時是麵粉 500 克，水合 52%，鹽 2%，酵母 1%。麵團球那一欄打開是 8 個、每個大約 97 克。這個重量只算麵團，還沒算奶油。再捲進 250 克奶油塊，大約是麵粉重量的一半。表面刷 1 個打散的雞蛋。奶油和雞蛋是另外加的，不在合計克數裡。下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。</p>
+<ol><li><strong>攪拌</strong> 把麵粉、水、鹽和酵母拌勻，再揉大約 4 分鐘，直到光滑。水合 52%，麵團偏硬。保持涼快，大約 20°C。</li><li><strong>冷藏</strong> 包好，冷藏 45 分鐘。要涼，但壓一壓不會裂開。</li><li><strong>包奶油</strong> 250 克奶油壓成大約 15 公分的方片，涼，但壓下去不會裂，大約 15°C。把麵團擀開，奶油包在中間，捏住邊。奶油是另外加的，不在合計克數裡。</li><li><strong>摺疊</strong> 擀成長方形，折成三折。冷藏 25 分鐘。再這樣三折兩次，每次中間冷藏 25 分鐘。</li><li><strong>整形</strong> 擀到大約 0.4 公分厚。切成八個三角形，捲成可頌，接口壓在下面。包奶油之前，每份麵團大約 97 克。</li><li><strong>最後發酵</strong> 蓋著，放在大約 24°C，2 到 2.5 小時，發到晃一晃會顫、層次鼓起來。刷 1 個打散的雞蛋。雞蛋是另外加的。</li><li><strong>烘烤</strong> 烤箱 200°C，烤 16 到 20 分鐘，直到深金黃、層次定住。</li><li><strong>放涼</strong> 移到架子上至少 20 分鐘。出爐的時候裡面還是軟的。</li></ol>
+<figure>
+<img src="/assets/croissant.webp" width="1200" height="806" alt="一個油亮的可頌，能看見層次，放在白色盤子上。" loading="lazy">
+<figcaption>攝影：Mathias Reding，來自 <a href="https://www.pexels.com/photo/golden-croissant-on-white-plate-minimalist-food-photography-30110688/">Pexels</a></figcaption>
+</figure>
+</section>
+<section class="related"><h2>相關計算</h2><ul class="link-list"><li><a href="/zh-tw/sanmingzhi/">三明治吐司烘焙百分比</a></li><li><a href="/zh-tw/daigai-tusi/">帶蓋吐司烘焙百分比</a></li><li><a href="/zh-tw/mianrou/">免揉麵包烘焙百分比</a></li><li><a href="/zh-tw/geye-baimianbao/">隔夜白麵包烘焙百分比</a></li></ul></section>
+</main>
+<footer>
+<nav aria-label="更多頁面"><a href="/zh-tw/">麵團計算器</a><a href="/zh-tw/suan-zhong-han-shuai/">酸種水合</a><a href="/zh-tw/pisa-fenlei/">披薩麵團</a><a href="/zh-tw/mianbao-baifenbi/">麵包麵團</a><a href="/zh-tw/suan-zhong-bili/">酸種比例</a><a href="/zh-tw/yan-bili/">鹽的比例</a><a href="mailto:alan.chang198807@gmail.com">意見回饋</a></nav>
+<p>家庭烘焙用的比例。</p>
+<p class="privacy">這個網站使用 Cloudflare 的匿名分析來統計頁面瀏覽量。你在計算器裡輸入的內容留在瀏覽器裡，不會送出去。網址裡的查詢字串不會被保留。</p>
+</footer>
+</body>
+</html>
