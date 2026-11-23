@@ -37,8 +37,8 @@
 <label class="field"><span class="label">Flour <span class="unit">g</span></span><input name="flour" inputmode="decimal" min="0" step="any" value="500"></label>
 </div>
 <div class="fields grid-2" data-panel="balls" hidden>
-<label class="field"><span class="label">Dough balls</span><input name="balls" inputmode="decimal" min="0" step="any" value="4"></label>
-<label class="field"><span class="label">Grams per ball <span class="unit">g</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="250"></label>
+<label class="field"><span class="label">Dough balls</span><input name="balls" inputmode="decimal" min="0" step="any" value="10"></label>
+<label class="field"><span class="label">Grams per ball <span class="unit">g</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="84"></label>
 </div>
 <div class="fields grid-2">
 <label class="field"><span class="label">Hydration <span class="unit">%</span></span><input name="hydration" inputmode="decimal" min="0" step="any" value="64"></label>
@@ -56,11 +56,22 @@
 <div class="actions">
 <button type="button" id="copy">Copy recipe</button>
 <button type="button" id="print" class="secondary">Print</button>
+<button type="button" id="download-pdf" data-busy="Preparing PDF…">Download PDF</button>
 </div>
+<p id="pdf-error" class="error" role="alert" hidden>PDF could not be created. Please try again.</p>
 <textarea id="recipe-text" hidden readonly></textarea>
 </section>
 <script type="application/json" id="labels">{"title":"Dinner Rolls Baker's Percentage","flour":"Flour","water":"Water","starter":"Starter","salt":"Salt","yeast":"Yeast","total":"Total dough","grams":"g","effective":"Effective hydration","copied":"Copied","copyFail":"Select the recipe text and copy it"}</script>
-<script type="module" src="/assets/calc.js"></script>
+<script type="application/json" id="pdf-meta">{"title":"Dinner Rolls Baker's Percentage","url":"https://doughcalc.app/en/dinner-rolls-bakers-percentage/","filename":"doughcalc-dinner-rolls-bakers-percentage-en-recipe.pdf","lang":"en","fontUrl":"/assets/fonts/noto-sans-sc-subset.ttf","labels":{"result":"Recipe","flour":"Flour","water":"Water","starter":"Starter","salt":"Salt","yeast":"Yeast","total":"Total dough","grams":"g","effective":"Effective hydration","hydration":"Hydration","modeFlour":"From flour weight","modeBalls":"From dough balls","balls":"Dough balls","perBall":"Grams per ball"},"method":{"heading":"Detailed method","lead":"The calculator opens at 500 g flour, 64% hydration, 1.8% salt, and 1.2% yeast. The balls fields open at 10 rolls of about 84 g. A spoon of oil or milk, if you add one, is extra and is not in the gram total. Shape rounds and proof them until they touch. These times assume you only change the flour amount and keep the percentages the same. Still judge the dough by how it looks and feels.","steps":[{"title":"Mix","body":"Stir the flour, water, salt, and yeast, then knead about 8 minutes until smooth. At 64% hydration the dough is soft and holds a ball. Aim for about 24°C (75°F)."},{"title":"Bulk","body":"Cover it at about 24°C (75°F) for 60 to 90 minutes. With 1.2% yeast it should nearly double."},{"title":"Divide","body":"Divide into ten pieces of about 84 g. Roll each into a smooth round."},{"title":"Pan","body":"Set the rounds close together in a buttered round pan, with a small gap. They should meet as they rise."},{"title":"Proof","body":"Cover the pan at about 24°C (75°F) for 40 to 60 minutes, until the rounds are puffy and joined along the sides."},{"title":"Bake","body":"Bake at 190°C (375°F) for 18 to 22 minutes, until the tops are golden and the sides are set."},{"title":"Cool","body":"Leave them in the pan for 5 minutes, then move them to a rack. Pull them apart after about 15 minutes."}]},"messages":{"label":"Download PDF","busy":"Preparing PDF…","fail":"PDF could not be created. Please try again."}}</script>
+<script type="module" src="/assets/calc.js"></script><section class="method">
+<h2>Detailed method</h2>
+<p>The calculator opens at 500 g flour, 64% hydration, 1.8% salt, and 1.2% yeast. The balls fields open at 10 rolls of about 84 g. A spoon of oil or milk, if you add one, is extra and is not in the gram total. Shape rounds and proof them until they touch. These times assume you only change the flour amount and keep the percentages the same. Still judge the dough by how it looks and feels.</p>
+<ol><li><strong>Mix</strong> Stir the flour, water, salt, and yeast, then knead about 8 minutes until smooth. At 64% hydration the dough is soft and holds a ball. Aim for about 24°C (75°F).</li><li><strong>Bulk</strong> Cover it at about 24°C (75°F) for 60 to 90 minutes. With 1.2% yeast it should nearly double.</li><li><strong>Divide</strong> Divide into ten pieces of about 84 g. Roll each into a smooth round.</li><li><strong>Pan</strong> Set the rounds close together in a buttered round pan, with a small gap. They should meet as they rise.</li><li><strong>Proof</strong> Cover the pan at about 24°C (75°F) for 40 to 60 minutes, until the rounds are puffy and joined along the sides.</li><li><strong>Bake</strong> Bake at 190°C (375°F) for 18 to 22 minutes, until the tops are golden and the sides are set.</li><li><strong>Cool</strong> Leave them in the pan for 5 minutes, then move them to a rack. Pull them apart after about 15 minutes.</li></ol>
+<figure>
+<img src="/assets/dinner-rolls.webp" width="1200" height="800" alt="Golden rolls baked close together in a round metal pan." loading="lazy">
+<figcaption>Photo by juliane Monari on <a href="https://www.pexels.com/photo/baking-bread-in-tray-19987059/">Pexels</a></figcaption>
+</figure>
+</section>
 <section class="related"><h2>Related calculators</h2><ul class="link-list"><li><a href="/en/hamburger-buns-bakers-percentage/">Hamburger Buns Baker's Percentage</a></li><li><a href="/en/hot-dog-buns-bakers-percentage/">Hot Dog Buns Baker's Percentage</a></li><li><a href="/en/soft-rolls-bakers-percentage/">Soft Rolls Baker's Percentage</a></li><li><a href="/en/hard-rolls-bakers-percentage/">Hard Rolls Baker's Percentage</a></li></ul></section>
 </main>
 <footer>

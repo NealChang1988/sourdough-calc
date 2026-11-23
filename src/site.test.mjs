@@ -284,7 +284,7 @@ test("built site drops removed urls and keeps a footer mailto on every page", as
 
 test("country sourdough page adds a method and photo without touching other pages", async () => {
   const country = pages.find((page) => page.id === "bread-country-sourdough");
-  const plain = pages.find((page) => page.id === "bread-ciabatta");
+  const plain = pages.find((page) => page.id === "bread-bialy");
   const expected = {
     en: "Detailed method",
     "zh-cn": "详细做法",

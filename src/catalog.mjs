@@ -184,6 +184,14 @@ function pizzaPages() {
   });
 }
 
+const BALL_PRESET = {
+  ciabatta: [4, 228],
+  brioche: [1, 614],
+  "rye-loaf": [1, 825],
+  pita: [8, 82],
+  "dinner-rolls": [10, 84],
+};
+
 function breadPages() {
   return breads.map((item) => {
     const title = {
@@ -220,8 +228,8 @@ function breadPages() {
         starter: item.starter,
         salt: item.salt,
         yeast: item.yeast,
-        balls: 4,
-        gramsPerBall: 250,
+        balls: BALL_PRESET[item.id]?.[0] ?? 4,
+        gramsPerBall: BALL_PRESET[item.id]?.[1] ?? 250,
       },
     };
   });

@@ -37,8 +37,8 @@
 <label class="field"><span class="label">麵粉 <span class="unit">克</span></span><input name="flour" inputmode="decimal" min="0" step="any" value="500"></label>
 </div>
 <div class="fields grid-2" data-panel="balls" hidden>
-<label class="field"><span class="label">麵團球數</span><input name="balls" inputmode="decimal" min="0" step="any" value="4"></label>
-<label class="field"><span class="label">每球克數 <span class="unit">克</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="250"></label>
+<label class="field"><span class="label">麵團球數</span><input name="balls" inputmode="decimal" min="0" step="any" value="10"></label>
+<label class="field"><span class="label">每球克數 <span class="unit">克</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="84"></label>
 </div>
 <div class="fields grid-2">
 <label class="field"><span class="label">水合 <span class="unit">%</span></span><input name="hydration" inputmode="decimal" min="0" step="any" value="64"></label>
@@ -56,11 +56,22 @@
 <div class="actions">
 <button type="button" id="copy">複製配方</button>
 <button type="button" id="print" class="secondary">列印</button>
+<button type="button" id="download-pdf" data-busy="正在產生 PDF…">下載 PDF</button>
 </div>
+<p id="pdf-error" class="error" role="alert" hidden>PDF 產生失敗，請再按一次。</p>
 <textarea id="recipe-text" hidden readonly></textarea>
 </section>
 <script type="application/json" id="labels">{"title":"晚餐小餐包烘焙百分比","flour":"麵粉","water":"水","starter":"酸種","salt":"鹽","yeast":"酵母","total":"麵團總重","grams":"克","effective":"有效水合","copied":"已複製","copyFail":"請選中配方文字再複製"}</script>
-<script type="module" src="/assets/calc.js"></script>
+<script type="application/json" id="pdf-meta">{"title":"晚餐小餐包烘焙百分比","url":"https://doughcalc.app/zh-tw/wancan-canbao/","filename":"doughcalc-wancan-canbao-zh-tw-recipe.pdf","lang":"zh-TW","fontUrl":"/assets/fonts/noto-sans-tc-subset.ttf","labels":{"result":"配方","flour":"麵粉","water":"水","starter":"酸種","salt":"鹽","yeast":"酵母","total":"麵團總重","grams":"克","effective":"有效水合","hydration":"水合","modeFlour":"按麵粉重量","modeBalls":"按麵團球","balls":"麵團球數","perBall":"每球克數"},"method":{"heading":"詳細做法","lead":"計算器打開時是麵粉 500 克，水合 64%，鹽 1.8%，酵母 1.2%。麵團球那一欄打開是 10 個、每個大約 84 克。如果另外加一匙油或牛奶，那些不在合計克數裡。收成圓球，發到彼此碰上再烤。下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。","steps":[{"title":"攪拌","body":"把麵粉、水、鹽和酵母拌勻，再揉大約 8 分鐘，直到光滑。64% 水合柔軟，能成團。麵團溫度大約 24°C。"},{"title":"基本發酵","body":"蓋上，放在大約 24°C，60 到 90 分鐘。酵母有 1.2%，差不多發到兩倍。"},{"title":"分割","body":"分成十份，每份大約 84 克。每個收成表面光滑的圓球。"},{"title":"入盤","body":"圓烤盤抹一點奶油。圓球緊挨著擺，中間留一條小縫。發酵時它們會靠到一起。"},{"title":"最後發酵","body":"蓋著，放在大約 24°C，40 到 60 分鐘，直到圓球蓬鬆、側面連在一起。"},{"title":"烘烤","body":"以 190°C 烤 18 到 22 分鐘，直到頂上金黃、側面定住。"},{"title":"放涼","body":"在盤裡停 5 分鐘，再移到架子上。大約 15 分鐘後再把它們分開。"}]},"messages":{"label":"下載 PDF","busy":"正在產生 PDF…","fail":"PDF 產生失敗，請再按一次。"}}</script>
+<script type="module" src="/assets/calc.js"></script><section class="method">
+<h2>詳細做法</h2>
+<p>計算器打開時是麵粉 500 克，水合 64%，鹽 1.8%，酵母 1.2%。麵團球那一欄打開是 10 個、每個大約 84 克。如果另外加一匙油或牛奶，那些不在合計克數裡。收成圓球，發到彼此碰上再烤。下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。</p>
+<ol><li><strong>攪拌</strong> 把麵粉、水、鹽和酵母拌勻，再揉大約 8 分鐘，直到光滑。64% 水合柔軟，能成團。麵團溫度大約 24°C。</li><li><strong>基本發酵</strong> 蓋上，放在大約 24°C，60 到 90 分鐘。酵母有 1.2%，差不多發到兩倍。</li><li><strong>分割</strong> 分成十份，每份大約 84 克。每個收成表面光滑的圓球。</li><li><strong>入盤</strong> 圓烤盤抹一點奶油。圓球緊挨著擺，中間留一條小縫。發酵時它們會靠到一起。</li><li><strong>最後發酵</strong> 蓋著，放在大約 24°C，40 到 60 分鐘，直到圓球蓬鬆、側面連在一起。</li><li><strong>烘烤</strong> 以 190°C 烤 18 到 22 分鐘，直到頂上金黃、側面定住。</li><li><strong>放涼</strong> 在盤裡停 5 分鐘，再移到架子上。大約 15 分鐘後再把它們分開。</li></ol>
+<figure>
+<img src="/assets/dinner-rolls.webp" width="1200" height="800" alt="金色小餐包緊挨著烤在一個圓金屬盤裡。" loading="lazy">
+<figcaption>攝影：juliane Monari，來自 <a href="https://www.pexels.com/photo/baking-bread-in-tray-19987059/">Pexels</a></figcaption>
+</figure>
+</section>
 <section class="related"><h2>相關計算</h2><ul class="link-list"><li><a href="/zh-tw/hanbao/">漢堡麵包烘焙百分比</a></li><li><a href="/zh-tw/regou/">熱狗麵包烘焙百分比</a></li><li><a href="/zh-tw/ruan-canbao/">軟餐包烘焙百分比</a></li><li><a href="/zh-tw/ying-canbao/">硬餐包烘焙百分比</a></li></ul></section>
 </main>
 <footer>
