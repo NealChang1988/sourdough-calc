@@ -130,6 +130,7 @@ function hydrationPages() {
         balls: 4,
         gramsPerBall: 250,
       },
+      adjust: copy.adjust ?? null,
       neighbor: n,
     };
   });

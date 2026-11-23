@@ -36,6 +36,27 @@ export const hydrationCopy = {
       "zh-cn": "500 克的乡村面包从水合 75%、酸种 20%、盐 2% 开始。觉得太湿或太硬，就改水合。整形前把手沾湿，把表面拉紧，圆面包才站得住。",
       "zh-tw": "500 克的鄉村麵包從水合 75%、酸種 20%、鹽 2% 開始。覺得太濕或太硬，就改水合。整形前把手沾濕，把表面拉緊，圓麵包才站得住。",
     },
+    adjust: {
+      heading: {
+        en: "How to adjust to 73%",
+        "zh-cn": "怎么调成 73%",
+        "zh-tw": "怎麼調成 73%",
+      },
+      paragraphs: {
+        en: [
+          "The fields above open at 75%: 500 g flour, 375 g water, 100 g starter, and 10 g salt. To mix at 73% instead, keep the flour, starter, and salt, and weigh 365 g of water. That dough weighs 975 g.",
+          "It feels a little firmer than the 75% dough, so it is easier to tighten into a round. Fold it a little less often in the first 90 minutes, and start checking the bulk around 4 hours at about 24°C (75°F). Use a lighter dusting of flour on the bench when you shape, and still pull the skin taut before the cold rest.",
+        ],
+        "zh-cn": [
+          "计算器从水合 75% 打开：面粉 500 克，水 375 克，酸种 100 克，盐 10 克。改成 73% 时，面粉、酸种和盐不动，水改成 365 克。面团一共 975 克。",
+          "这团比 75% 稍微硬一点，收成圆形更容易。前 90 分钟少折一轮。室温大约 24°C 时，基本发酵大约 4 小时就可以看是否发到一半。整形时台面上少撒一点粉，表面还是要绷紧，再进冰箱。",
+        ],
+        "zh-tw": [
+          "計算器從水合 75% 打開：麵粉 500 克，水 375 克，酸種 100 克，鹽 10 克。改成 73% 時，麵粉、酸種和鹽不動，水改成 365 克。麵團一共 975 克。",
+          "這團比 75% 稍微硬一點，收成圓形更容易。前 90 分鐘少摺一輪。室溫大約 24°C 時，基本發酵大約 4 小時就可以看是否發到一半。整形時檯面上少撒一點粉，表面還是要繃緊，再進冰箱。",
+        ],
+      },
+    },
   },
   80: {
     description: {
