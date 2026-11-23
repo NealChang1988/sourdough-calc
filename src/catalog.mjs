@@ -192,13 +192,13 @@ const BALL_PRESET = {
   "dinner-rolls": [10, 84],
   "whole-wheat-loaf": [1, 896],
   "english-muffins": [8, 82],
-  "cinnamon-roll": [8, 102],
+  "cinnamon-rolls": [8, 101],
   "hamburger-buns": [9, 92],
   croissant: [8, 97],
 };
 
 // New breads stay out of older pages' related lists so those pages keep the same four links.
-const ADDED_BREADS = new Set(["bread-cinnamon-roll", "bread-croissant"]);
+const ADDED_BREADS = new Set(["bread-croissant"]);
 
 function breadPages() {
   return breads.map((item) => {
