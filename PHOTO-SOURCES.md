@@ -20,5 +20,10 @@ Each guide photo is a free Pexels image, used under the [Pexels License](https:/
 | Cinnamon rolls | `src/cinnamon-rolls.webp` | https://www.pexels.com/photo/delicious-cinnamon-rolls-20449473/ | Danique Veldhuis | Pexels License |
 | Hamburger buns | `src/hamburger-buns.webp` | https://www.pexels.com/photo/close-up-shot-of-buns-8522684/ | RDNE Stock project | Pexels License |
 | Croissants | `src/croissant.webp` | https://www.pexels.com/photo/golden-croissant-on-white-plate-minimalist-food-photography-30110688/ | Mathias Reding | Pexels License |
+| No-knead bread | `src/no-knead.webp` | https://www.pexels.com/photo/freshly-baked-sourdough-bread-in-dutch-oven-31428933/ | Frank Schrader | Pexels License |
+| Challah | `src/challah.webp` | https://www.pexels.com/photo/hand-home-tradition-still-life-4038225/ | cottonbro studio | Pexels License |
+| Soft pretzels | `src/soft-pretzels.webp` | https://www.pexels.com/photo/freshly-baked-salted-pretzels-on-baking-sheet-38975961/ | Amine Kübranur Çakıroğlu | Pexels License |
+| Naan | `src/naan.webp` | https://www.pexels.com/photo/delicious-indian-garlic-naan-with-curry-38579059/ | Prateek Lall | Pexels License |
+| Multigrain loaf | `src/multigrain-loaf.webp` | https://www.pexels.com/photo/close-up-of-artisan-multigrain-bread-loaf-33988124/ | Jana Ohajdova | Pexels License |
 
-The photo pages listed each image as free when the file was downloaded. The pictures show the finished bread, with no people and no visible brand, logo, or packaging.
+The photo pages listed each image as free when the file was downloaded. The pictures show the finished bread, with no people. The naan photo includes a printed paper liner under the breads and no readable brand name.

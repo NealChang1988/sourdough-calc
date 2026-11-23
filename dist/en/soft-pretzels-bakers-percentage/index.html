@@ -37,8 +37,8 @@
 <label class="field"><span class="label">Flour <span class="unit">g</span></span><input name="flour" inputmode="decimal" min="0" step="any" value="500"></label>
 </div>
 <div class="fields grid-2" data-panel="balls" hidden>
-<label class="field"><span class="label">Dough balls</span><input name="balls" inputmode="decimal" min="0" step="any" value="4"></label>
-<label class="field"><span class="label">Grams per ball <span class="unit">g</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="250"></label>
+<label class="field"><span class="label">Dough balls</span><input name="balls" inputmode="decimal" min="0" step="any" value="8"></label>
+<label class="field"><span class="label">Grams per ball <span class="unit">g</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="100"></label>
 </div>
 <div class="fields grid-2">
 <label class="field"><span class="label">Hydration <span class="unit">%</span></span><input name="hydration" inputmode="decimal" min="0" step="any" value="58"></label>
@@ -56,11 +56,22 @@
 <div class="actions">
 <button type="button" id="copy">Copy recipe</button>
 <button type="button" id="print" class="secondary">Print</button>
+<button type="button" id="download-pdf" data-busy="Preparing PDF…">Download PDF</button>
 </div>
+<p id="pdf-error" class="error" role="alert" hidden>PDF could not be created. Please try again.</p>
 <textarea id="recipe-text" hidden readonly></textarea>
 </section>
 <script type="application/json" id="labels">{"title":"Soft Pretzels Baker's Percentage","flour":"Flour","water":"Water","starter":"Starter","salt":"Salt","yeast":"Yeast","total":"Total dough","grams":"g","effective":"Effective hydration","copied":"Copied","copyFail":"Select the recipe text and copy it"}</script>
-<script type="module" src="/assets/calc.js"></script>
+<script type="application/json" id="pdf-meta">{"title":"Soft Pretzels Baker's Percentage","url":"https://doughcalc.app/en/soft-pretzels-bakers-percentage/","filename":"doughcalc-soft-pretzels-bakers-percentage-en-recipe.pdf","lang":"en","fontUrl":"/assets/fonts/noto-sans-sc-subset.ttf","labels":{"result":"Recipe","flour":"Flour","water":"Water","starter":"Starter","salt":"Salt","yeast":"Yeast","total":"Total dough","grams":"g","effective":"Effective hydration","hydration":"Hydration","modeFlour":"From flour weight","modeBalls":"From dough balls","balls":"Dough balls","perBall":"Grams per ball"},"method":{"heading":"Detailed method","lead":"The calculator opens at 500 g flour, 58% hydration, 2% salt, and 0.8% yeast. The balls fields open at 8 pieces of about 100 g, eight knots from this batch. Dip them in simmering water with baking soda. Coarse salt on top is extra and is not in the gram total. These times assume you only change the flour amount and keep the percentages the same. Still judge the dough by how it looks and feels.","steps":[{"title":"Mix","body":"Stir 500 g flour, 290 g water, 10 g salt, and 4 g instant yeast, then knead about 6 minutes until smooth. At 58% the dough is firm. Aim for about 24°C (75°F)."},{"title":"Rise","body":"Cover it at about 24°C (75°F) for 50 to 70 minutes, until it has about doubled."},{"title":"Knot","body":"Divide into 8 pieces of about 100 g, the weight in the balls fields. Roll each into a rope about 45 cm long. Cross the ends, twist once, and fold them back onto the loop. Rest 10 minutes, uncovered."},{"title":"Bath","body":"Stir 40 g of baking soda into 1 L of water and bring it to a simmer. Dip each knot for 20 to 30 seconds, turning once, then drain it. The baking soda and this water are not in the gram total."},{"title":"Salt","body":"Set the knots on a lined tray and sprinkle coarse salt while they are wet. About 15 g of coarse salt covers the tray. That salt is extra."},{"title":"Bake","body":"Heat the oven to 220°C (425°F). Bake 12 to 16 minutes, until the skin is deep brown."},{"title":"Cool","body":"Move them to a rack for about 10 minutes."}]},"messages":{"label":"Download PDF","busy":"Preparing PDF…","fail":"PDF could not be created. Please try again."}}</script>
+<script type="module" src="/assets/calc.js"></script><section class="method">
+<h2>Detailed method</h2>
+<p>The calculator opens at 500 g flour, 58% hydration, 2% salt, and 0.8% yeast. The balls fields open at 8 pieces of about 100 g, eight knots from this batch. Dip them in simmering water with baking soda. Coarse salt on top is extra and is not in the gram total. These times assume you only change the flour amount and keep the percentages the same. Still judge the dough by how it looks and feels.</p>
+<ol><li><strong>Mix</strong> Stir 500 g flour, 290 g water, 10 g salt, and 4 g instant yeast, then knead about 6 minutes until smooth. At 58% the dough is firm. Aim for about 24°C (75°F).</li><li><strong>Rise</strong> Cover it at about 24°C (75°F) for 50 to 70 minutes, until it has about doubled.</li><li><strong>Knot</strong> Divide into 8 pieces of about 100 g, the weight in the balls fields. Roll each into a rope about 45 cm long. Cross the ends, twist once, and fold them back onto the loop. Rest 10 minutes, uncovered.</li><li><strong>Bath</strong> Stir 40 g of baking soda into 1 L of water and bring it to a simmer. Dip each knot for 20 to 30 seconds, turning once, then drain it. The baking soda and this water are not in the gram total.</li><li><strong>Salt</strong> Set the knots on a lined tray and sprinkle coarse salt while they are wet. About 15 g of coarse salt covers the tray. That salt is extra.</li><li><strong>Bake</strong> Heat the oven to 220°C (425°F). Bake 12 to 16 minutes, until the skin is deep brown.</li><li><strong>Cool</strong> Move them to a rack for about 10 minutes.</li></ol>
+<figure>
+<img src="/assets/soft-pretzels.webp" width="1200" height="800" alt="Knotted pretzels with coarse salt on a baking mat. Two knots in the middle are whole, and pretzels at the edges are cut by the frame." loading="lazy">
+<figcaption>Photo by Amine Kübranur Çakıroğlu on <a href="https://www.pexels.com/photo/freshly-baked-salted-pretzels-on-baking-sheet-38975961/">Pexels</a></figcaption>
+</figure>
+</section>
 <section class="related"><h2>Related calculators</h2><ul class="link-list"><li><a href="/en/soft-rolls-bakers-percentage/">Soft Rolls Baker's Percentage</a></li><li><a href="/en/hard-rolls-bakers-percentage/">Hard Rolls Baker's Percentage</a></li><li><a href="/en/kaiser-rolls-bakers-percentage/">Kaiser Rolls Baker's Percentage</a></li><li><a href="/en/hoagie-rolls-bakers-percentage/">Hoagie Rolls Baker's Percentage</a></li></ul></section>
 </main>
 <footer>

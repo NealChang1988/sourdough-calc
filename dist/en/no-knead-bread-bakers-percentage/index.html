@@ -37,8 +37,8 @@
 <label class="field"><span class="label">Flour <span class="unit">g</span></span><input name="flour" inputmode="decimal" min="0" step="any" value="500"></label>
 </div>
 <div class="fields grid-2" data-panel="balls" hidden>
-<label class="field"><span class="label">Dough balls</span><input name="balls" inputmode="decimal" min="0" step="any" value="4"></label>
-<label class="field"><span class="label">Grams per ball <span class="unit">g</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="250"></label>
+<label class="field"><span class="label">Dough balls</span><input name="balls" inputmode="decimal" min="0" step="any" value="1"></label>
+<label class="field"><span class="label">Grams per ball <span class="unit">g</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="902"></label>
 </div>
 <div class="fields grid-2">
 <label class="field"><span class="label">Hydration <span class="unit">%</span></span><input name="hydration" inputmode="decimal" min="0" step="any" value="78"></label>
@@ -56,11 +56,22 @@
 <div class="actions">
 <button type="button" id="copy">Copy recipe</button>
 <button type="button" id="print" class="secondary">Print</button>
+<button type="button" id="download-pdf" data-busy="Preparing PDF…">Download PDF</button>
 </div>
+<p id="pdf-error" class="error" role="alert" hidden>PDF could not be created. Please try again.</p>
 <textarea id="recipe-text" hidden readonly></textarea>
 </section>
 <script type="application/json" id="labels">{"title":"No-Knead Bread Baker's Percentage","flour":"Flour","water":"Water","starter":"Starter","salt":"Salt","yeast":"Yeast","total":"Total dough","grams":"g","effective":"Effective hydration","copied":"Copied","copyFail":"Select the recipe text and copy it"}</script>
-<script type="module" src="/assets/calc.js"></script>
+<script type="application/json" id="pdf-meta">{"title":"No-Knead Bread Baker's Percentage","url":"https://doughcalc.app/en/no-knead-bread-bakers-percentage/","filename":"doughcalc-no-knead-bread-bakers-percentage-en-recipe.pdf","lang":"en","fontUrl":"/assets/fonts/noto-sans-sc-subset.ttf","labels":{"result":"Recipe","flour":"Flour","water":"Water","starter":"Starter","salt":"Salt","yeast":"Yeast","total":"Total dough","grams":"g","effective":"Effective hydration","hydration":"Hydration","modeFlour":"From flour weight","modeBalls":"From dough balls","balls":"Dough balls","perBall":"Grams per ball"},"method":{"heading":"Detailed method","lead":"The calculator opens at 500 g flour, 78% hydration, 2.2% salt, and 0.2% yeast. The balls fields open at 1 piece of about 902 g, one loaf from this batch. Stir it, leave it, and bake it in a lidded pot. These times assume you only change the flour amount and keep the percentages the same. Still judge the dough by how it looks and feels.","steps":[{"title":"Mix","body":"Stir 500 g flour, 390 g water, 11 g salt, and 1 g instant yeast until no dry flour remains. Do not knead. The dough is shaggy and wet. Aim for about 22°C (72°F)."},{"title":"Long rest","body":"Cover the bowl at room temperature for 12 to 18 hours. At about 21°C (70°F) it wants the longer end. It should be bubbly and about doubled. A warmer room finishes sooner."},{"title":"Shape","body":"Scrape it onto a lightly floured counter. Fold the edges into the center to make one round. Rest 20 minutes, then tighten the round again. Use only enough flour to keep it from sticking. This is the loaf of about 902 g."},{"title":"Heat the pot","body":"About 30 minutes before baking, heat the oven to 230°C (450°F) with a lidded pot inside. A round or oval pot both work. The dough rests, covered, while the pot heats, about 45 to 75 minutes, until it looks puffy."},{"title":"Covered","body":"Turn the dough onto floured parchment, score it once, and lower it into the hot pot. Cover it. Bake 30 minutes."},{"title":"Uncovered","body":"Take the lid off and bake 12 to 18 minutes more, until the crust is deep brown."},{"title":"Cool","body":"Move it to a rack for at least 45 minutes before you slice."}]},"messages":{"label":"Download PDF","busy":"Preparing PDF…","fail":"PDF could not be created. Please try again."}}</script>
+<script type="module" src="/assets/calc.js"></script><section class="method">
+<h2>Detailed method</h2>
+<p>The calculator opens at 500 g flour, 78% hydration, 2.2% salt, and 0.2% yeast. The balls fields open at 1 piece of about 902 g, one loaf from this batch. Stir it, leave it, and bake it in a lidded pot. These times assume you only change the flour amount and keep the percentages the same. Still judge the dough by how it looks and feels.</p>
+<ol><li><strong>Mix</strong> Stir 500 g flour, 390 g water, 11 g salt, and 1 g instant yeast until no dry flour remains. Do not knead. The dough is shaggy and wet. Aim for about 22°C (72°F).</li><li><strong>Long rest</strong> Cover the bowl at room temperature for 12 to 18 hours. At about 21°C (70°F) it wants the longer end. It should be bubbly and about doubled. A warmer room finishes sooner.</li><li><strong>Shape</strong> Scrape it onto a lightly floured counter. Fold the edges into the center to make one round. Rest 20 minutes, then tighten the round again. Use only enough flour to keep it from sticking. This is the loaf of about 902 g.</li><li><strong>Heat the pot</strong> About 30 minutes before baking, heat the oven to 230°C (450°F) with a lidded pot inside. A round or oval pot both work. The dough rests, covered, while the pot heats, about 45 to 75 minutes, until it looks puffy.</li><li><strong>Covered</strong> Turn the dough onto floured parchment, score it once, and lower it into the hot pot. Cover it. Bake 30 minutes.</li><li><strong>Uncovered</strong> Take the lid off and bake 12 to 18 minutes more, until the crust is deep brown.</li><li><strong>Cool</strong> Move it to a rack for at least 45 minutes before you slice.</li></ol>
+<figure>
+<img src="/assets/no-knead.webp" width="1200" height="744" alt="A crackled oval loaf in a black two-handled pot on a pale wooden table." loading="lazy">
+<figcaption>Photo by Frank Schrader on <a href="https://www.pexels.com/photo/freshly-baked-sourdough-bread-in-dutch-oven-31428933/">Pexels</a></figcaption>
+</figure>
+</section>
 <section class="related"><h2>Related calculators</h2><ul class="link-list"><li><a href="/en/sandwich-loaf-bakers-percentage/">Sandwich Loaf Baker's Percentage</a></li><li><a href="/en/pullman-loaf-bakers-percentage/">Pullman Loaf Baker's Percentage</a></li><li><a href="/en/overnight-white-bread-bakers-percentage/">Overnight White Bread Baker's Percentage</a></li><li><a href="/en/poolish-baguette-bakers-percentage/">Poolish Baguette Baker's Percentage</a></li></ul></section>
 </main>
 <footer>
