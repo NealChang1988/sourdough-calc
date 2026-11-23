@@ -200,6 +200,9 @@ test("the 75% page tells you how to mix the same dough at 73%", () => {
     assert.match(html, new RegExp(`<h2>${headings[lang]}</h2>`));
     assert.match(html, /365/);
     assert.match(html, /975/);
+    assert.match(html, /75\.5%/);
+    assert.match(html, /352/);
+    assert.match(html, /73\.1%/);
     assert.match(html, /id="out-water">375 /);
     assert.match(html, /id="out-starter">100 /);
     assert.match(html, /id="out-salt">10 /);
