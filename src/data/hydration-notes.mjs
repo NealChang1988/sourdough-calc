@@ -44,17 +44,22 @@ export const hydrationCopy = {
       },
       paragraphs: {
         en: [
-          "The fields above open at 75%: 500 g flour, 375 g water, 100 g starter, and 10 g salt. To mix at 73% instead, keep the flour, starter, and salt, and weigh 365 g of water. That dough weighs 975 g.",
-          "It feels a little firmer than the 75% dough, so it is easier to tighten into a round. Fold it a little less often in the first 90 minutes, and start checking the bulk around 4 hours at about 24°C (75°F). Use a lighter dusting of flour on the bench when you shape, and still pull the skin taut before the cold rest.",
+          "Here 73% means the water divided by the flour you weigh. It does not count the flour and water already inside the starter. Keep 500 g flour, 100 g starter, and 10 g salt, and use 365 g water. The dough weighs 975 g. If you type 73 in the hydration field, the effective hydration line above shows about 75.5%. That is normal. The calculator treats the 100 g starter as 100% hydration, so it counts 50 g flour and 50 g water inside the starter. If you want the effective hydration itself to be about 73%, the calculator has no field for water grams. Type 70.4 in the hydration field. That gives 352 g water and 962 g of dough, and the effective hydration line shows about 73.1%.",
+          "The dough feels a little firmer than at 75%, so it is easier to tighten into a round. In the first 2 hours, give it three stretch-and-folds instead of the four in the {country}. Start checking the bulk around 4 hours at about 24°C (75°F). Dust the bench more lightly when you shape, and still pull the skin taut before the cold rest.",
         ],
         "zh-cn": [
-          "计算器从水合 75% 打开：面粉 500 克，水 375 克，酸种 100 克，盐 10 克。改成 73% 时，面粉、酸种和盐不动，水改成 365 克。面团一共 975 克。",
-          "这团比 75% 稍微硬一点，收成圆形更容易。前 90 分钟少折一轮。室温大约 24°C 时，基本发酵大约 4 小时就可以看是否发到一半。整形时台面上少撒一点粉，表面还是要绷紧，再进冰箱。",
+          "这里的 73% 是水除以你称出的面粉，不算酸种里已经有的面粉和水。面粉仍是 500 克，酸种 100 克，盐 10 克，水用 365 克。面团一共 975 克。如果在水合栏填 73，上面的有效水合大约显示 75.5%。这是正常的。计算器把这 100 克酸种按 100% 水合来算，所以酸种里算 50 克面粉和 50 克水。如果要的是有效水合本身大约 73%，计算器没有填写水的克数的栏。在水合栏填 70.4。这样水是 352 克，面团一共 962 克，有效水合大约显示 73.1%。",
+          "这团比 75% 稍微硬一点，收成圆形更容易。前 2 小时做三轮拉伸折叠，而不是{country}里的四轮。大约 4 小时、室温大约 24°C 时开始看发酵情况。整形时台面上少撒一点粉，冷藏前表面还是要绷紧。",
         ],
         "zh-tw": [
-          "計算器從水合 75% 打開：麵粉 500 克，水 375 克，酸種 100 克，鹽 10 克。改成 73% 時，麵粉、酸種和鹽不動，水改成 365 克。麵團一共 975 克。",
-          "這團比 75% 稍微硬一點，收成圓形更容易。前 90 分鐘少摺一輪。室溫大約 24°C 時，基本發酵大約 4 小時就可以看是否發到一半。整形時檯面上少撒一點粉，表面還是要繃緊，再進冰箱。",
+          "這裡的 73% 是水除以你秤出的麵粉，不算酸種裡已經有的麵粉和水。麵粉仍是 500 克，酸種 100 克，鹽 10 克，水用 365 克。麵團一共 975 克。如果在水合欄填 73，上面的有效水合約顯示 75.5%。這是正常的。計算器把這 100 克酸種按 100% 水合來算，所以酸種裡算 50 克麵粉和 50 克水。如果要的是有效水合本身大約 73%，計算器沒有填寫水的克數的欄。在水合欄填 70.4。這樣水是 352 克，麵團一共 962 克，有效水合約顯示 73.1%。",
+          "這團比 75% 稍微硬一點，收成圓形更容易。前 2 小時做三輪拉伸摺疊，而不是{country}裡的四輪。大約 4 小時、室溫大約 24°C 時開始看發酵情況。整形時檯面上少撒一點粉，冷藏前表面還是要繃緊。",
         ],
+      },
+      countryLink: {
+        en: "country loaf method",
+        "zh-cn": "乡村面包做法",
+        "zh-tw": "鄉村麵包做法",
       },
     },
   },
