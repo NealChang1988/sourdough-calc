@@ -1,6 +1,6 @@
 # Photo sources
 
-Each guide photo is a free Pexels image, used under the [Pexels License](https://www.pexels.com/license/). That license allows commercial use, including on a website, and does not require attribution. The page still credits the photographer.
+Pexels photos are free under the [Pexels License](https://www.pexels.com/license/). That license allows commercial use, including on a website, and does not require attribution. The garlic-knots photo is [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/). The page credits the photographer either way.
 
 | Dough | File | Photo page | Photographer | License |
 | --- | --- | --- | --- | --- |
@@ -25,5 +25,10 @@ Each guide photo is a free Pexels image, used under the [Pexels License](https:/
 | Soft pretzels | `src/soft-pretzels.webp` | https://www.pexels.com/photo/freshly-baked-salted-pretzels-on-baking-sheet-38975961/ | Amine Kübranur Çakıroğlu | Pexels License |
 | Naan | `src/naan.webp` | https://www.pexels.com/photo/delicious-indian-garlic-naan-with-curry-38579059/ | Prateek Lall | Pexels License |
 | Multigrain loaf | `src/multigrain-loaf.webp` | https://www.pexels.com/photo/sliced-multigrain-bread-on-rustic-table-30632213/ | Natalia Olivera | Pexels License |
+| Sourdough bagels | `src/sourdough-bagels.webp` | https://www.pexels.com/photo/bagels-on-a-wooden-bucket-10169963/ | Cats Coming | Pexels License |
+| New York pizza | `src/new-york-pizza.webp` | https://www.pexels.com/photo/fresh-new-york-style-pizza-display-36603262/ | Inderpreet Singh | Pexels License |
+| Skillet bread | `src/skillet-bread.webp` | https://www.pexels.com/photo/traditional-homemade-bread-in-a-cast-iron-skillet-38641869/ | Silva Montanis | Pexels License |
+| Garlic knots | `src/garlic-knots.webp` | https://commons.wikimedia.org/wiki/File:Garlic_knots.jpg | Wayne Truong | CC BY 2.0 |
+| Calzone | `src/calzone.webp` | https://www.pexels.com/photo/freshly-baked-calzone-on-decorative-plate-33516204/ | Anya Dunes | Pexels License |
 
-The photo pages listed each image as free when the file was downloaded. The pictures show the finished bread, with no people. The naan photo includes a printed paper liner under the breads and no readable brand name.
+The photo pages listed each image as free when the file was downloaded. The pictures show the finished bread, with no people. The naan photo includes a printed paper liner under the breads and no readable brand name. The garlic-knots photo is the same file, in a paper-lined basket.
