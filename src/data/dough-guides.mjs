@@ -6,18 +6,18 @@ const tail = {
   "zh-tw": "下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。",
 };
 
-function credit(name) {
+function credit(name, source = "Pexels") {
   return {
-    en: { creditBefore: `Photo by ${name} on `, creditLink: "Pexels" },
-    "zh-cn": { creditBefore: `摄影：${name}，来自 `, creditLink: "Pexels" },
-    "zh-tw": { creditBefore: `攝影：${name}，來自 `, creditLink: "Pexels" },
+    en: { creditBefore: `Photo by ${name} on `, creditLink: source },
+    "zh-cn": { creditBefore: `摄影：${name}，来自 `, creditLink: source },
+    "zh-tw": { creditBefore: `攝影：${name}，來自 `, creditLink: source },
   };
 }
 
 function guide(photo, blocks) {
   const out = { photo };
   for (const lang of ["en", "zh-cn", "zh-tw"]) {
-    out[lang] = { ...blocks[lang], ...credit(photo.photographer)[lang] };
+    out[lang] = { ...blocks[lang], ...credit(photo.photographer, photo.source)[lang] };
   }
   return out;
 }
@@ -1109,6 +1109,292 @@ export const doughGuides = {
           { title: "入模", body: "接口朝下，放進大約 23 公分長的烤模，模子先抹一層油。蓋上，再發 40 到 60 分鐘，發到接近模口。" },
           { title: "烘烤", body: "烤箱 190°C，烤 40 到 48 分鐘，直到表皮上色，底部敲上去是實的。" },
           { title: "放涼", body: "扣出來，在架子上至少放 1 小時再切，麵包心的穀物才定得住。" },
+        ],
+      },
+    },
+  ),
+  "bread-sourdough-bagels": guide(
+    {
+      src: "/assets/sourdough-bagels.webp",
+      width: 1200,
+      height: 938,
+      pageUrl: "https://commons.wikimedia.org/wiki/File:Bagel-Plain-Alt.jpg",
+      photographer: "Evan-Amos",
+      source: "Wikimedia Commons",
+    },
+    {
+      en: {
+        heading: "Detailed method",
+        lead: `The calculator opens at 500 g flour, 55% hydration, 15% starter, 2% salt, and no added yeast. That is 275 g water, 75 g starter, and 10 g salt, 860 g of dough. The balls fields open at 8 pieces of 107.5 g. The starter is already in that total. The page shows 58.1% effective hydration, and the dough is still stiff. Divide it into 8 rings of 107.5 g. Poaching water and malt syrup are extra and are not in the gram total. ${tail.en}`,
+        alt: "A plain golden bagel with a smooth crust, no seeds, and no score.",
+        steps: [
+          { title: "Mix", body: "Stir 500 g flour, 275 g water, 75 g starter, and 10 g salt until no dry flour remains. Leave the yeast at 0. At 55% added water the dough is stiff. Aim for about 24°C (75°F). The 75 g of starter is part of the 860 g total." },
+          { title: "Knead", body: "Knead for 8 to 10 minutes, until the dough is smooth and springs back when you press it. It should not feel like a soft loaf. Stop before it tears." },
+          { title: "Bulk", body: "Cover it at about 24°C (75°F) for 3 to 5 hours. With starter and no added yeast it grows slowly. It is ready when it has grown by about half. A warm kitchen finishes sooner." },
+          { title: "Shape", body: "Divide the 860 g dough into 8 rings of 107.5 g. Roll each piece into a rope about 20 cm long, overlap the ends, and roll the seam shut. If the rope snaps back, rest it 10 minutes and try again." },
+          { title: "Proof", body: "Cover the rings for 45 to 80 minutes, until they look slightly puffy. A test ring dropped into a bowl of water should float. If it sinks, give them a little longer." },
+          { title: "Boil", body: "Bring a wide pot of water to a steady simmer, about 95°C (200°F). Stir in 15 g of barley malt syrup if you want a shinier crust. Boil the rings for 30 to 45 seconds on each side, then let the water drip off. The water and the syrup are not in the gram total." },
+          { title: "Bake", body: "Bake at 220°C (425°F) for 16 to 20 minutes, until the crust is deep golden and firm." },
+          { title: "Cool", body: "Set them on a rack for at least 20 minutes before you slice. A hot bagel smears." },
+        ],
+      },
+      "zh-cn": {
+        heading: "详细做法",
+        lead: `计算器打开时是面粉 500 克，水合 55%，酸种 15%，盐 2%，酵母 0。也就是水 275 克、酸种 75 克、盐 10 克，合计 860 克。面团球那一栏打开是 8 个、每个 107.5 克。酸种已经算在这 860 克里。页面上的有效水合是 58.1%，面团仍然偏硬。分成 8 个环，每个 107.5 克。煮贝果的水和麦芽糖浆不在合计克数里。${tail["zh-cn"]}`,
+        alt: "一颗金黄的素贝果，表皮光滑，没有撒籽，也没有划口。",
+        steps: [
+          { title: "搅拌", body: "把 500 克面粉、275 克水、75 克酸种和 10 克盐拌到没有干粉。酵母保持 0。另加的水是 55%，面团偏硬。面团温度大约 24°C。这 75 克酸种算在 860 克合计里。" },
+          { title: "揉", body: "揉 8 到 10 分钟，直到表面光滑，按下去会回弹。手感不像柔软的吐司。开始扯裂就停。" },
+          { title: "基本发酵", body: "盖上，放在大约 24°C，3 到 5 小时。只有酸种、不加酵母，胀得慢。大约胀起一半就可以。厨房更暖就更早完成。" },
+          { title: "整形", body: "把 860 克面团分成 8 个环，每个 107.5 克。搓成大约 20 厘米的条，两端叠上，把接缝压住。如果条缩回去，松弛 10 分钟再搓。" },
+          { title: "最后发酵", body: "盖着发 45 到 80 分钟，只要略微蓬松。拿一个放进一碗水里，浮起来就可以煮。沉下去就再等一会儿。" },
+          { title: "水煮", body: "宽锅里的水保持小沸，大约 95°C。想让表皮更亮，就加 15 克麦芽糖浆。每面煮 30 到 45 秒，捞出沥水。这锅水和糖浆都不在合计克数里。" },
+          { title: "烘烤", body: "以 220°C 烤 16 到 20 分钟，直到表皮深金黄并且定住。" },
+          { title: "放凉", body: "放到架子上至少 20 分钟再切。太热的贝果一切就糊。" },
+        ],
+      },
+      "zh-tw": {
+        heading: "詳細做法",
+        lead: `計算器打開時是麵粉 500 克，水合 55%，酸種 15%，鹽 2%，酵母 0。也就是水 275 克、酸種 75 克、鹽 10 克，合計 860 克。麵團球那一欄打開是 8 個、每個 107.5 克。酸種已經算在這 860 克裡。頁面上的有效水合是 58.1%，麵團仍然偏硬。分成 8 個環，每個 107.5 克。煮貝果的水和麥芽糖漿不在合計克數裡。${tail["zh-tw"]}`,
+        alt: "一顆金黃的素貝果，表皮光滑，沒有撒籽，也沒有劃口。",
+        steps: [
+          { title: "攪拌", body: "把 500 克麵粉、275 克水、75 克酸種和 10 克鹽拌到沒有乾粉。酵母保持 0。另加的水是 55%，麵團偏硬。麵團溫度大約 24°C。這 75 克酸種算在 860 克合計裡。" },
+          { title: "揉", body: "揉 8 到 10 分鐘，直到表面光滑，按下去會回彈。手感不像柔軟的吐司。開始扯裂就停。" },
+          { title: "基本發酵", body: "蓋上，放在大約 24°C，3 到 5 小時。只有酸種、不加酵母，脹得慢。大約脹起一半就可以。廚房更暖就更早完成。" },
+          { title: "整形", body: "把 860 克麵團分成 8 個環，每個 107.5 克。搓成大約 20 公分的條，兩端疊上，把接縫壓住。如果條縮回去，鬆弛 10 分鐘再搓。" },
+          { title: "最後發酵", body: "蓋著發 45 到 80 分鐘，只要略微蓬鬆。拿一個放進一碗水裡，浮起來就可以煮。沉下去就再等一會兒。" },
+          { title: "水煮", body: "寬鍋裡的水保持小滾，大約 95°C。想讓表皮更亮，就加 15 克麥芽糖漿。每面煮 30 到 45 秒，撈出瀝水。這鍋水和糖漿都不在合計克數裡。" },
+          { title: "烘烤", body: "以 220°C 烤 16 到 20 分鐘，直到表皮深金黃並且定住。" },
+          { title: "放涼", body: "放到架上至少 20 分鐘再切。太熱的貝果一切就糊。" },
+        ],
+      },
+    },
+  ),
+  "pizza-new-york": guide(
+    {
+      src: "/assets/new-york-pizza.webp",
+      width: 1200,
+      height: 800,
+      pageUrl: "https://www.pexels.com/photo/pizza-2619967/",
+      photographer: "Engin Akyurt",
+    },
+    {
+      en: {
+        heading: "Detailed method",
+        lead: `The calculator opens at 4 balls of 400 g, with 63% hydration, 2.2% salt, and 0.25% yeast. Each ball is one large round. From those balls the page shows 967.1 g flour, 609.2 g water, 21.3 g salt, and 2.4 g yeast. Sauce and cheese are extra and are not in the gram total. ${tail.en}`,
+        alt: "One round pizza with melted cheese, tomato, peppers, onion, and mushrooms, and a thin modest rim.",
+        steps: [
+          { title: "Mix", body: "Stir 967.1 g flour, 609.2 g water, and 2.4 g instant yeast until no dry flour remains, then work in 21.3 g salt. At 63% the dough is soft, and a little firmer than a wetter pizza dough. Aim for about 24°C (75°F)." },
+          { title: "Rest", body: "Cover the bowl and leave it for 20 minutes so the dough stops tearing when you fold it." },
+          { title: "Bulk", body: "Keep it covered at about 24°C (75°F) for 60 to 90 minutes. Give it one stretch-and-fold halfway through. It should look a little puffier, not doubled. With 0.25% yeast, most of the rise happens later in the cold." },
+          { title: "Ball", body: "Divide into 4 balls of 400 g, the count and the weight the page opens with. Tighten each one so the skin is smooth. Set them in a covered tray with a little space between them." },
+          { title: "Cold ferment", body: "Refrigerate the balls at about 4°C (39°F) for 16 to 24 hours. They should spread slightly and smell mildly yeasty." },
+          { title: "Warm and stretch", body: "Take the balls out 60 to 90 minutes before baking. Stretch each one by hand on a floured peel to about 32 cm. Keep the center thin and the rim modest. Avoid a rolling pin, because it presses out the air bubbles and makes the crust tough." },
+          { title: "Top and bake", body: "Heat a stone or steel at 250°C (480°F), or as hot as the oven will go, for 45 minutes. Spread about 70 g of sauce and 90 g of cheese on each round. Those toppings are extra and are not in the gram total. Bake 8 to 12 minutes, until the rim is spotted and the center is set." },
+          { title: "Rest", body: "Set the pizza on a rack for 2 minutes before you cut it, so a slice can hold." },
+        ],
+      },
+      "zh-cn": {
+        heading: "详细做法",
+        lead: `计算器打开时是 4 个面团球、每球 400 克，水合 63%，盐 2.2%，酵母 0.25%。一球一张大圆饼。按这 4 球，页面上是面粉 967.1 克、水 609.2 克、盐 21.3 克、酵母 2.4 克。酱和奶酪不在合计克数里。${tail["zh-cn"]}`,
+        alt: "一张圆披萨，铺着融化的奶酪、番茄、青椒、洋葱和蘑菇，边缘薄。",
+        steps: [
+          { title: "搅拌", body: "把 967.1 克面粉、609.2 克水和 2.4 克即发酵母拌到没有干粉，再把 21.3 克盐揉进去。水合 63%，柔软，比更湿的披萨面团稍微有劲。面团温度大约 24°C。" },
+          { title: "松弛", body: "盖上，静置 20 分钟，折叠时才不容易扯破。" },
+          { title: "基本发酵", body: "盖着，放在大约 24°C，60 到 90 分钟。中途做一轮拉伸折叠。只要略微发起来，不必发到两倍。酵母只有 0.25%，大部分发酵要留到冷藏里。" },
+          { title: "分球", body: "分成 4 球，每球 400 克，就是页面打开时的球数和重量。每个都收成表面光滑的圆球，盖好，球和球之间留一点空隙。" },
+          { title: "冷藏", body: "放进大约 4°C 的冰箱，16 到 24 小时。面团球会稍微摊开，气味温和。" },
+          { title: "回温并拉开", body: "烤前 60 到 90 分钟取出。在撒了粉的板上用手拉开到大约 32 厘米。中间拉薄，边缘留薄一点，不要做成厚厚的鼓边。不要用擀面杖，会把气泡压掉、饼皮变硬。" },
+          { title: "铺料烘烤", body: "烤石或烤钢以 250°C 预热 45 分钟，烤箱能到更高就用更高的温度。每张铺大约 70 克酱和 90 克奶酪。酱和奶酪是另外加的，不在合计克数里。烤 8 到 12 分钟，边缘出现焦斑、中心定住即可。" },
+          { title: "静置", body: "放到架子上 2 分钟再切，一片才拿得住。" },
+        ],
+      },
+      "zh-tw": {
+        heading: "詳細做法",
+        lead: `計算器打開時是 4 個麵團球、每球 400 克，水合 63%，鹽 2.2%，酵母 0.25%。一球一張大圓餅。按這 4 球，頁面上是麵粉 967.1 克、水 609.2 克、鹽 21.3 克、酵母 2.4 克。醬和起司不在合計克數裡。${tail["zh-tw"]}`,
+        alt: "一張圓披薩，鋪著融化的起司、番茄、青椒、洋蔥和蘑菇，邊緣薄。",
+        steps: [
+          { title: "攪拌", body: "把 967.1 克麵粉、609.2 克水和 2.4 克速發酵母拌到沒有乾粉，再把 21.3 克鹽揉進去。水合 63%，柔軟，比更濕的披薩麵團稍微有勁。麵團溫度大約 24°C。" },
+          { title: "鬆弛", body: "蓋上，靜置 20 分鐘，摺疊時才不容易扯破。" },
+          { title: "基本發酵", body: "蓋著，放在大約 24°C，60 到 90 分鐘。中途做一輪拉伸摺疊。只要略微發起來，不必發到兩倍。酵母只有 0.25%，大部分發酵要留到冷藏裡。" },
+          { title: "分球", body: "分成 4 球，每球 400 克，就是頁面打開時的球數和重量。每個都收成表面光滑的圓球，蓋好，球和球之間留一點空隙。" },
+          { title: "冷藏", body: "放進大約 4°C 的冰箱，16 到 24 小時。麵團球會稍微攤開，氣味溫和。" },
+          { title: "回溫並拉開", body: "烤前 60 到 90 分鐘取出。在撒了粉的板上用手拉開到大約 32 公分。中間拉薄，邊緣留薄一點，不要做成厚厚的鼓邊。不要用擀麵杖，會把氣泡壓掉、餅皮變硬。" },
+          { title: "鋪料烘烤", body: "烤石或烤鋼以 250°C 預熱 45 分鐘，烤箱能到更高就用更高的溫度。每張鋪大約 70 克醬和 90 克起司。醬和起司是另外加的，不在合計克數裡。烤 8 到 12 分鐘，邊緣出現焦斑、中心定住即可。" },
+          { title: "靜置", body: "放到架上 2 分鐘再切，一片才拿得住。" },
+        ],
+      },
+    },
+  ),
+  "bread-skillet-bread": guide(
+    {
+      src: "/assets/skillet-bread.webp",
+      width: 1200,
+      height: 675,
+      pageUrl: "https://www.pexels.com/photo/traditional-homemade-bread-in-a-cast-iron-skillet-38641869/",
+      photographer: "Silva Montanis",
+    },
+    {
+      en: {
+        heading: "Detailed method",
+        lead: `The calculator opens at 400 g flour, 68% hydration, 2% salt, and 1% yeast. That is 272 g water, 8 g salt, and 4 g yeast, one round of 684 g. The balls fields open at 1 piece of 684 g. Bake it in a preheated covered skillet. Oil in the pan is extra and is not in the gram total. ${tail.en}`,
+        alt: "A round loaf with a cross score sitting in a black cast-iron skillet.",
+        steps: [
+          { title: "Mix", body: "Stir 400 g flour, 272 g water, 8 g salt, and 4 g instant yeast, then knead for about 8 minutes until smooth. At 68% the dough is soft and holds a ball. Aim for about 24°C (75°F)." },
+          { title: "Bulk", body: "Cover it at about 24°C (75°F) for 60 to 90 minutes. With 1% yeast it should nearly double." },
+          { title: "Shape", body: "Dust the counter lightly and tighten the whole 684 g into one round. This batch is one loaf, not several rolls. Pinch any seam underneath." },
+          { title: "Proof", body: "Set the round seam-side down on a floured cloth. Cover it for 30 to 45 minutes, until it looks puffy." },
+          { title: "Heat the skillet", body: "Put a covered skillet about 25 cm across in the oven and heat it to 230°C (450°F) for 20 minutes. Use a cast-iron or oven-safe skillet. The handle gets very hot. Take it out carefully and rub the inside with about 5 g of oil. The oil is extra and is not in the gram total." },
+          { title: "Covered", body: "Score a cross on the round, lower it into the hot skillet, and cover it. Bake 20 minutes." },
+          { title: "Uncovered", body: "Take the lid off and bake 12 to 16 minutes more, until the crust is deep brown and the base is firm." },
+          { title: "Cool", body: "Tip the loaf onto a rack and wait at least 30 minutes before you slice." },
+        ],
+      },
+      "zh-cn": {
+        heading: "详细做法",
+        lead: `计算器打开时是面粉 400 克，水合 68%，盐 2%，酵母 1%。也就是水 272 克、盐 8 克、酵母 4 克，一整团 684 克。面团球那一栏打开是 1 个、684 克。放进预热的有盖平底锅里烤。锅里的油不在合计克数里。${tail["zh-cn"]}`,
+        alt: "一个划了十字的圆面包，放在黑色铸铁平底锅里。",
+        steps: [
+          { title: "搅拌", body: "把 400 克面粉、272 克水、8 克盐和 4 克即发酵母拌匀，再揉大约 8 分钟，直到光滑。水合 68%，柔软，但能成团。面团温度大约 24°C。" },
+          { title: "基本发酵", body: "盖上，放在大约 24°C，60 到 90 分钟。酵母有 1%，差不多发到两倍。" },
+          { title: "整形", body: "台面薄薄撒粉，把整团 684 克收成一个圆。这一炉只做一个，不要再分成小餐包。接口捏在底下。" },
+          { title: "最后发酵", body: "缝朝下，放在撒了粉的布上。盖着发 30 到 45 分钟，发到鼓起来。" },
+          { title: "热锅", body: "一口大约 25 厘米、有盖的平底锅放进烤箱，230°C 预热 20 分钟。要用铸铁或可以进烤箱的锅，把手会很烫。小心取出，锅里抹大约 5 克油。油是另外加的，不在合计克数里。" },
+          { title: "加盖", body: "圆面团表面划一个十字，放进热锅，盖上盖。烤 20 分钟。" },
+          { title: "揭盖", body: "拿掉盖子，再烤 12 到 16 分钟，直到表皮深褐、底部定住。" },
+          { title: "放凉", body: "扣到架子上，至少 30 分钟再切。" },
+        ],
+      },
+      "zh-tw": {
+        heading: "詳細做法",
+        lead: `計算器打開時是麵粉 400 克，水合 68%，鹽 2%，酵母 1%。也就是水 272 克、鹽 8 克、酵母 4 克，一整團 684 克。麵團球那一欄打開是 1 個、684 克。放進預熱的有蓋平底鍋裡烤。鍋裡的油不在合計克數裡。${tail["zh-tw"]}`,
+        alt: "一個劃了十字的圓麵包，放在黑色鑄鐵平底鍋裡。",
+        steps: [
+          { title: "攪拌", body: "把 400 克麵粉、272 克水、8 克鹽和 4 克速發酵母拌勻，再揉大約 8 分鐘，直到光滑。水合 68%，柔軟，但能成團。麵團溫度大約 24°C。" },
+          { title: "基本發酵", body: "蓋上，放在大約 24°C，60 到 90 分鐘。酵母有 1%，差不多發到兩倍。" },
+          { title: "整形", body: "檯面薄薄撒粉，把整團 684 克收成一個圓。這一爐只做一個，不要再分成小餐包。接口捏在底下。" },
+          { title: "最後發酵", body: "接口朝下，放在撒了粉的布上。蓋著發 30 到 45 分鐘，發到鼓起來。" },
+          { title: "熱鍋", body: "一口大約 25 公分、有蓋的平底鍋放進烤箱，230°C 預熱 20 分鐘。要用鑄鐵或可以進烤箱的鍋，把手會很燙。小心取出，鍋裡抹大約 5 克油。油是另外加的，不在合計克數裡。" },
+          { title: "加蓋", body: "圓麵團表面劃一個十字，放進熱鍋，蓋上蓋。烤 20 分鐘。" },
+          { title: "揭蓋", body: "拿掉蓋子，再烤 12 到 16 分鐘，直到表皮深褐、底部定住。" },
+          { title: "放涼", body: "扣到架子上，至少 30 分鐘再切。" },
+        ],
+      },
+    },
+  ),
+  "bread-garlic-knots": guide(
+    {
+      src: "/assets/garlic-knots.webp",
+      width: 1024,
+      height: 768,
+      pageUrl: "https://commons.wikimedia.org/wiki/File:Garlic_knots.jpg",
+      photographer: "Wayne Truong",
+      source: "Wikimedia Commons",
+      licenseUrl: "https://creativecommons.org/licenses/by/2.0/",
+    },
+    {
+      en: {
+        heading: "Detailed method",
+        lead: `The calculator opens at 400 g flour, 64% hydration, 2.2% salt, and 0.5% yeast. That is 256 g water, 8.8 g salt, and 2 g yeast, 666.8 g of dough. The balls fields open at 20 pieces of 33.34 g. Tie that dough into 20 knots and bake them before the garlic goes on. Oil, garlic, and parsley are extra and are not in the gram total. ${tail.en}`,
+        alt: "Knotted garlic rolls in a paper-lined basket, with grated cheese and herbs on the crust.",
+        licenseBefore: ", ",
+        licenseLabel: "CC BY 2.0",
+        licenseAfter: ". Compressed.",
+        steps: [
+          { title: "Mix", body: "Stir 400 g flour, 256 g water, 8.8 g salt, and 2 g instant yeast, then knead for about 6 minutes until smooth. At 64% the dough is soft. Aim for about 24°C (75°F)." },
+          { title: "Rise", body: "Cover it at about 24°C (75°F) for 80 to 110 minutes. With 0.5% yeast it should about double." },
+          { title: "Knot", body: "Divide the 666.8 g dough into 20 pieces of 33.34 g, the weight in the balls fields. Roll each one into a rope about 15 cm long and tie a knot. Tuck the ends under. Cover them." },
+          { title: "Proof", body: "Leave the knots covered for 20 to 30 minutes, until they look slightly puffy." },
+          { title: "Bake", body: "Heat the oven to 200°C (390°F). Bake 12 to 15 minutes, until they are golden and the center of a knot is cooked. They should be baked through before you toss them." },
+          { title: "Toss", body: "While they are hot, toss them with 30 g of oil, 2 minced garlic cloves, and about 5 g of chopped parsley. About 15 g of grated cheese can go into the same bowl. Oil, garlic, parsley, and cheese are extra and are not in the gram total." },
+          { title: "Serve", body: "Eat them warm. The garlic stays on the crust instead of baking into the dough." },
+        ],
+      },
+      "zh-cn": {
+        heading: "详细做法",
+        lead: `计算器打开时是面粉 400 克，水合 64%，盐 2.2%，酵母 0.5%。也就是水 256 克、盐 8.8 克、酵母 2 克，合计 666.8 克。面团球那一栏打开是 20 个、每个 33.34 克。这团面打成 20 个结，烤熟后再拌蒜。油、蒜和欧芹不在合计克数里。${tail["zh-cn"]}`,
+        alt: "纸衬篮里的蒜香结，表皮有磨碎的奶酪和香草。",
+        licenseBefore: "，",
+        licenseLabel: "CC BY 2.0",
+        licenseAfter: "。已压缩。",
+        steps: [
+          { title: "搅拌", body: "把 400 克面粉、256 克水、8.8 克盐和 2 克即发酵母拌匀，再揉大约 6 分钟，直到光滑。水合 64%，面团柔软。面团温度大约 24°C。" },
+          { title: "发酵", body: "盖上，放在大约 24°C，80 到 110 分钟。酵母有 0.5%，大约发到两倍。" },
+          { title: "打结", body: "把 666.8 克面团分成 20 份，每份 33.34 克，就是面团球那一栏的重量。每份搓成大约 15 厘米的条，打一个结，把头压在下面。盖上。" },
+          { title: "最后发酵", body: "盖着发 20 到 30 分钟，只要略微蓬松。" },
+          { title: "烘烤", body: "烤箱 200°C，烤 12 到 15 分钟，直到表面金黄、结的中心熟透。先烤熟，再拌蒜。" },
+          { title: "拌匀", body: "趁热和 30 克油、2 瓣切碎的蒜、大约 5 克切碎的欧芹一起拌。同一碗里也可以加大约 15 克磨碎的奶酪。油、蒜、欧芹和奶酪都不在合计克数里。" },
+          { title: "趁热", body: "温热的时候吃。蒜留在表皮上，不是揉进面团里。" },
+        ],
+      },
+      "zh-tw": {
+        heading: "詳細做法",
+        lead: `計算器打開時是麵粉 400 克，水合 64%，鹽 2.2%，酵母 0.5%。也就是水 256 克、鹽 8.8 克、酵母 2 克，合計 666.8 克。麵團球那一欄打開是 20 個、每個 33.34 克。這團麵打成 20 個結，烤熟後再拌蒜。油、蒜和巴西里不在合計克數裡。${tail["zh-tw"]}`,
+        alt: "紙襯籃裡的蒜香結，表皮有磨碎的起司和香草。",
+        licenseBefore: "，",
+        licenseLabel: "CC BY 2.0",
+        licenseAfter: "。已壓縮。",
+        steps: [
+          { title: "攪拌", body: "把 400 克麵粉、256 克水、8.8 克鹽和 2 克速發酵母拌勻，再揉大約 6 分鐘，直到光滑。水合 64%，麵團柔軟。麵團溫度大約 24°C。" },
+          { title: "發酵", body: "蓋上，放在大約 24°C，80 到 110 分鐘。酵母有 0.5%，大約發到兩倍。" },
+          { title: "打結", body: "把 666.8 克麵團分成 20 份，每份 33.34 克，就是麵團球那一欄的重量。每份搓成大約 15 公分的條，打一個結，把頭壓在下面。蓋上。" },
+          { title: "最後發酵", body: "蓋著發 20 到 30 分鐘，只要略微蓬鬆。" },
+          { title: "烘烤", body: "烤箱 200°C，烤 12 到 15 分鐘，直到表面金黃、結的中心熟透。先烤熟，再拌蒜。" },
+          { title: "拌勻", body: "趁熱和 30 克油、2 瓣切碎的蒜、大約 5 克切碎的巴西里一起拌。同一碗裡也可以加大約 15 克磨碎的起司。油、蒜、巴西里和起司都不在合計克數裡。" },
+          { title: "趁熱", body: "溫熱的時候吃。蒜留在表皮上，不是揉進麵團裡。" },
+        ],
+      },
+    },
+  ),
+  "bread-calzone": guide(
+    {
+      src: "/assets/calzone.webp",
+      width: 1200,
+      height: 800,
+      pageUrl: "https://www.pexels.com/photo/calzone-cut-into-pieces-5903094/",
+      photographer: "Roman Odintsov",
+    },
+    {
+      en: {
+        heading: "Detailed method",
+        lead: `The calculator opens at 500 g flour, 62% hydration, 2.2% salt, and 0.4% yeast. That is 310 g water, 11 g salt, and 2 g yeast, 823 g of dough. The balls fields open at 4 pieces of 206 g. Divide it into 4 folded pies. The filling is extra and is not in the gram total. At 62% the dough is a little stiffer than an open round, so the seam can close. ${tail.en}`,
+        alt: "A half-moon calzone cut into wedges on a white plate.",
+        steps: [
+          { title: "Mix", body: "Stir 500 g flour, 310 g water, 11 g salt, and 2 g instant yeast, then knead for about 8 minutes until smooth. At 62% the dough is soft and holds a firm ball. Aim for about 24°C (75°F)." },
+          { title: "Rise", body: "Cover it at about 24°C (75°F) for 80 to 110 minutes. With 0.4% yeast it should grow by about half to nearly double. One fold halfway through is enough." },
+          { title: "Divide", body: "Cut 4 pieces of 206 g, the weight in the balls fields. Cover them and rest 15 minutes." },
+          { title: "Fill", body: "Dust the counter lightly and press each piece into a round about 20 cm across. On one half, add about 80 g of filling, such as cheese and a cooked topping. Leave a bare border. The filling is extra and is not in the gram total. Too much filling tears the seam." },
+          { title: "Seal", body: "Brush the border with water, fold the empty half over, and press the edge shut. Crimp it so it stays closed. Cut one small slit in the top." },
+          { title: "Bake", body: "Heat the oven to 230°C (450°F). Bake 16 to 20 minutes, until the crust is deep golden and the sealed edge is firm." },
+          { title: "Rest", body: "Wait about 5 minutes before you cut. The filling is hotter than the crust." },
+        ],
+      },
+      "zh-cn": {
+        heading: "详细做法",
+        lead: `计算器打开时是面粉 500 克，水合 62%，盐 2.2%，酵母 0.4%。也就是水 310 克、盐 11 克、酵母 2 克，合计 823 克。面团球那一栏打开是 4 个、每个 206 克。分成 4 个对折的饼。馅不在合计克数里。水合 62%，比摊开的圆披萨略硬，封口才合得住。${tail["zh-cn"]}`,
+        alt: "一个半月形的卡尔佐内，切成几块，放在白盘子上。",
+        steps: [
+          { title: "搅拌", body: "把 500 克面粉、310 克水、11 克盐和 2 克即发酵母拌匀，再揉大约 8 分钟，直到光滑。水合 62%，柔软，但能收成结实的一团。面团温度大约 24°C。" },
+          { title: "发酵", body: "盖上，放在大约 24°C，80 到 110 分钟。酵母有 0.4%，大约胀起一半到将近两倍。中途折一次就够。" },
+          { title: "分割", body: "分成 4 份，每份 206 克，就是面团球那一栏的重量。盖上，松弛 15 分钟。" },
+          { title: "包馅", body: "台面薄薄撒粉，每份按成大约 20 厘米的圆片。只在一半铺大约 80 克馅，奶酪和煮熟的配料都可以，边上留出一圈空白。馅是另外加的，不在合计克数里。馅太多，封口会扯破。" },
+          { title: "封口", body: "空白的边刷一点水，对折过来，把边压紧，再捏出花边，免得烤的时候张开。顶上划一个小口。" },
+          { title: "烘烤", body: "烤箱 230°C，烤 16 到 20 分钟，直到表皮深金黄、封口定住。" },
+          { title: "静置", body: "大约等 5 分钟再切。馅比表皮更烫。" },
+        ],
+      },
+      "zh-tw": {
+        heading: "詳細做法",
+        lead: `也叫義式披薩餃。計算器打開時是麵粉 500 克，水合 62%，鹽 2.2%，酵母 0.4%。也就是水 310 克、鹽 11 克、酵母 2 克，合計 823 克。麵團球那一欄打開是 4 個、每個 206 克。分成 4 個對折的餅。餡不在合計克數裡。水合 62%，比攤開的圓披薩略硬，封口才合得住。${tail["zh-tw"]}`,
+        alt: "一個半月形的卡爾佐內，切成幾塊，放在白盤子上。",
+        steps: [
+          { title: "攪拌", body: "把 500 克麵粉、310 克水、11 克鹽和 2 克速發酵母拌勻，再揉大約 8 分鐘，直到光滑。水合 62%，柔軟，但能收成結實的一團。麵團溫度大約 24°C。" },
+          { title: "發酵", body: "蓋上，放在大約 24°C，80 到 110 分鐘。酵母有 0.4%，大約脹起一半到將近兩倍。中途摺一次就夠。" },
+          { title: "分割", body: "分成 4 份，每份 206 克，就是麵團球那一欄的重量。蓋上，鬆弛 15 分鐘。" },
+          { title: "包餡", body: "檯面薄薄撒粉，每份按成大約 20 公分的圓片。只在一半鋪大約 80 克餡，起司和煮熟的配料都可以，邊上留出一圈空白。餡是另外加的，不在合計克數裡。餡太多，封口會扯破。" },
+          { title: "封口", body: "空白的邊刷一點水，對折過來，把邊壓緊，再捏出花邊，免得烤的時候張開。頂上劃一個小口。" },
+          { title: "烘烤", body: "烤箱 230°C，烤 16 到 20 分鐘，直到表皮深金黃、封口定住。" },
+          { title: "靜置", body: "大約等 5 分鐘再切。餡比表皮更燙。" },
         ],
       },
     },

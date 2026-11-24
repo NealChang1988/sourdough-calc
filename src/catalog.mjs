@@ -201,6 +201,10 @@ const BALL_PRESET = {
   "soft-pretzels": [8, 100],
   naan: [4, 168],
   "multigrain-loaf": [1, 907],
+  "sourdough-bagels": [8, 107.5],
+  "skillet-bread": [1, 684],
+  "garlic-knots": [20, 33.34],
+  calzone: [4, 206],
 };
 
 // New breads stay out of older pages' related lists so those pages keep the same four links.

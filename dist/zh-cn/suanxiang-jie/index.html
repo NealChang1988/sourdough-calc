@@ -37,8 +37,8 @@
 <label class="field"><span class="label">面粉 <span class="unit">克</span></span><input name="flour" inputmode="decimal" min="0" step="any" value="400"></label>
 </div>
 <div class="fields grid-2" data-panel="balls" hidden>
-<label class="field"><span class="label">面团球数</span><input name="balls" inputmode="decimal" min="0" step="any" value="4"></label>
-<label class="field"><span class="label">每球克数 <span class="unit">克</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="250"></label>
+<label class="field"><span class="label">面团球数</span><input name="balls" inputmode="decimal" min="0" step="any" value="20"></label>
+<label class="field"><span class="label">每球克数 <span class="unit">克</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="33.34"></label>
 </div>
 <div class="fields grid-2">
 <label class="field"><span class="label">水合 <span class="unit">%</span></span><input name="hydration" inputmode="decimal" min="0" step="any" value="64"></label>
@@ -56,11 +56,22 @@
 <div class="actions">
 <button type="button" id="copy">复制配方</button>
 <button type="button" id="print" class="secondary">打印</button>
+<button type="button" id="download-pdf" data-busy="正在生成 PDF…">下载 PDF</button>
 </div>
+<p id="pdf-error" class="error" role="alert" hidden>PDF 生成失败，请再按一次。</p>
 <textarea id="recipe-text" hidden readonly></textarea>
 </section>
 <script type="application/json" id="labels">{"title":"蒜香结烘焙百分比","flour":"面粉","water":"水","starter":"酸种","salt":"盐","yeast":"酵母","total":"面团总重","grams":"克","effective":"有效水合","copied":"已复制","copyFail":"请选中配方文字再复制"}</script>
-<script type="module" src="/assets/calc.js"></script>
+<script type="application/json" id="pdf-meta">{"title":"蒜香结烘焙百分比","url":"https://doughcalc.app/zh-cn/suanxiang-jie/","filename":"doughcalc-suanxiang-jie-zh-cn-recipe.pdf","lang":"zh-CN","fontUrl":"/assets/fonts/noto-sans-sc-subset.ttf","labels":{"result":"配方","flour":"面粉","water":"水","starter":"酸种","salt":"盐","yeast":"酵母","total":"面团总重","grams":"克","effective":"有效水合","hydration":"水合","modeFlour":"按面粉重量","modeBalls":"按面团球","balls":"面团球数","perBall":"每球克数"},"method":{"heading":"详细做法","lead":"计算器打开时是面粉 400 克，水合 64%，盐 2.2%，酵母 0.5%。也就是水 256 克、盐 8.8 克、酵母 2 克，合计 666.8 克。面团球那一栏打开是 20 个、每个 33.34 克。这团面打成 20 个结，烤熟后再拌蒜。油、蒜和欧芹不在合计克数里。下面的时间按只改面粉的量、百分比不变来估。发酵还是看面团的样子和手感。","steps":[{"title":"搅拌","body":"把 400 克面粉、256 克水、8.8 克盐和 2 克即发酵母拌匀，再揉大约 6 分钟，直到光滑。水合 64%，面团柔软。面团温度大约 24°C。"},{"title":"发酵","body":"盖上，放在大约 24°C，80 到 110 分钟。酵母有 0.5%，大约发到两倍。"},{"title":"打结","body":"把 666.8 克面团分成 20 份，每份 33.34 克，就是面团球那一栏的重量。每份搓成大约 15 厘米的条，打一个结，把头压在下面。盖上。"},{"title":"最后发酵","body":"盖着发 20 到 30 分钟，只要略微蓬松。"},{"title":"烘烤","body":"烤箱 200°C，烤 12 到 15 分钟，直到表面金黄、结的中心熟透。先烤熟，再拌蒜。"},{"title":"拌匀","body":"趁热和 30 克油、2 瓣切碎的蒜、大约 5 克切碎的欧芹一起拌。同一碗里也可以加大约 15 克磨碎的奶酪。油、蒜、欧芹和奶酪都不在合计克数里。"},{"title":"趁热","body":"温热的时候吃。蒜留在表皮上，不是揉进面团里。"}]},"messages":{"label":"下载 PDF","busy":"正在生成 PDF…","fail":"PDF 生成失败，请再按一次。"}}</script>
+<script type="module" src="/assets/calc.js"></script><section class="method">
+<h2>详细做法</h2>
+<p>计算器打开时是面粉 400 克，水合 64%，盐 2.2%，酵母 0.5%。也就是水 256 克、盐 8.8 克、酵母 2 克，合计 666.8 克。面团球那一栏打开是 20 个、每个 33.34 克。这团面打成 20 个结，烤熟后再拌蒜。油、蒜和欧芹不在合计克数里。下面的时间按只改面粉的量、百分比不变来估。发酵还是看面团的样子和手感。</p>
+<ol><li><strong>搅拌</strong> 把 400 克面粉、256 克水、8.8 克盐和 2 克即发酵母拌匀，再揉大约 6 分钟，直到光滑。水合 64%，面团柔软。面团温度大约 24°C。</li><li><strong>发酵</strong> 盖上，放在大约 24°C，80 到 110 分钟。酵母有 0.5%，大约发到两倍。</li><li><strong>打结</strong> 把 666.8 克面团分成 20 份，每份 33.34 克，就是面团球那一栏的重量。每份搓成大约 15 厘米的条，打一个结，把头压在下面。盖上。</li><li><strong>最后发酵</strong> 盖着发 20 到 30 分钟，只要略微蓬松。</li><li><strong>烘烤</strong> 烤箱 200°C，烤 12 到 15 分钟，直到表面金黄、结的中心熟透。先烤熟，再拌蒜。</li><li><strong>拌匀</strong> 趁热和 30 克油、2 瓣切碎的蒜、大约 5 克切碎的欧芹一起拌。同一碗里也可以加大约 15 克磨碎的奶酪。油、蒜、欧芹和奶酪都不在合计克数里。</li><li><strong>趁热</strong> 温热的时候吃。蒜留在表皮上，不是揉进面团里。</li></ol>
+<figure>
+<img src="/assets/garlic-knots.webp" width="1024" height="768" alt="纸衬篮里的蒜香结，表皮有磨碎的奶酪和香草。" loading="lazy">
+<figcaption>摄影：Wayne Truong，来自 <a href="https://commons.wikimedia.org/wiki/File:Garlic_knots.jpg">Wikimedia Commons</a>，<a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a>。已压缩。</figcaption>
+</figure>
+</section>
 <section class="related"><h2>相关计算</h2><ul class="link-list"><li><a href="/zh-cn/pisa-miantuan/">披萨面团烘焙百分比</a></li><li><a href="/zh-cn/kaerzhuonei/">卡尔佐内面团烘焙百分比</a></li><li><a href="/zh-cn/suanzhong-pisa-mian/">酸种披萨面团配方烘焙百分比</a></li><li><a href="/zh-cn/mianbao-bang/">面包棒烘焙百分比</a></li></ul></section>
 </main>
 <footer>

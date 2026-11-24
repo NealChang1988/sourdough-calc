@@ -303,13 +303,16 @@ function methodSection(page, lang) {
     )
     .join("");
   const photo = guide.photo;
+  const license = photo.licenseUrl
+    ? `${escapeHtml(copy.licenseBefore || "")}<a href="${photo.licenseUrl}">${escapeHtml(copy.licenseLabel || "")}</a>${escapeHtml(copy.licenseAfter || "")}`
+    : "";
   return `<section class="method">
 <h2>${escapeHtml(copy.heading)}</h2>
 <p>${escapeHtml(copy.lead)}</p>
 <ol>${steps}</ol>
 <figure>
 <img src="${photo.src}" width="${photo.width}" height="${photo.height}" alt="${escapeHtml(copy.alt)}" loading="lazy">
-<figcaption>${escapeHtml(copy.creditBefore)}<a href="${photo.pageUrl}">${escapeHtml(copy.creditLink)}</a></figcaption>
+<figcaption>${escapeHtml(copy.creditBefore)}<a href="${photo.pageUrl}">${escapeHtml(copy.creditLink)}</a>${license}</figcaption>
 </figure>
 </section>`;
 }
