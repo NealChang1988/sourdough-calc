@@ -349,6 +349,20 @@ test("country sourdough page adds a method and photo without touching other page
   }
   assert.match(renderPage(country, "en"), /Download PDF/);
   assert.match(renderPage(country, "en"), /data-busy="Preparing PDF…"/);
+  assert.match(renderPage(country, "en"), /data-loading="Loading…"/);
+  assert.match(renderPage(country, "zh-cn"), /data-loading="正在加载…"/);
+  assert.match(renderPage(country, "zh-tw"), /data-loading="正在載入…"/);
+  const earlyClick = renderPage(country, "en");
+  const buttonAt = earlyClick.indexOf('id="download-pdf"');
+  const pendingAt = earlyClick.indexOf("window.__pdfPending");
+  const moduleAt = earlyClick.indexOf('type="module" src="/assets/calc.js"');
+  assert.ok(buttonAt > 0 && pendingAt > buttonAt && moduleAt > pendingAt);
+  assert.match(earlyClick, /window\.__pdfReady \|\| window\.__pdfPending/);
+  assert.equal(renderPage(plain, "en").includes("__pdfPending"), false);
+  const calcJs = await readFile(new URL("./calc.js", import.meta.url), "utf8");
+  assert.match(calcJs, /if \(pdfBusy\) return/);
+  assert.match(calcJs, /window\.__pdfPending/);
+  assert.match(calcJs, /window\.__pdfReady = true/);
   assert.match(renderPage(country, "en"), /doughcalc-country-sourdough-en-recipe\.pdf/);
   assert.match(renderPage(country, "en"), /75% hydration/);
   assert.doesNotMatch(renderPage(country, "en"), /75% water/);

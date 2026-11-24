@@ -56,7 +56,19 @@
 <div class="actions">
 <button type="button" id="copy">複製配方</button>
 <button type="button" id="print" class="secondary">列印</button>
-<button type="button" id="download-pdf" data-busy="正在產生 PDF…">下載 PDF</button>
+<button type="button" id="download-pdf" data-label="下載 PDF" data-loading="正在載入…" data-busy="正在產生 PDF…">下載 PDF</button>
+<script>
+(function () {
+  var button = document.getElementById("download-pdf");
+  if (!button) return;
+  button.addEventListener("click", function () {
+    if (window.__pdfReady || window.__pdfPending) return;
+    window.__pdfPending = true;
+    button.disabled = true;
+    button.textContent = button.getAttribute("data-loading");
+  });
+})();
+</script>
 </div>
 <p id="pdf-error" class="error" role="alert" hidden>PDF 產生失敗，請再按一次。</p>
 <textarea id="recipe-text" hidden readonly></textarea>
@@ -68,8 +80,8 @@
 <p>計算器打開時是 4 個麵團球、每球 350 克，水合 80%，鹽 2.5%，酵母 0.4%。一球一個長方形烤盤。按這 4 球，頁面上是麵粉 765.4 克、水 612.4 克、鹽 19.1 克、酵母 3.1 克。麵團偏濕，在油裡鋪向四角，鍋底會煎脆。油和配料不在合計克數裡。下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。</p>
 <ol><li><strong>攪拌</strong> 把 765.4 克麵粉、612.4 克水、19.1 克鹽和 3.1 克速發酵母拌到沒有乾粉。水合 80%，麵團軟、發黏。手沾水，不要再補麵粉。麵團溫度大約 24°C。</li><li><strong>鬆弛</strong> 蓋上，靜置 20 分鐘，摺疊時才不容易扯破。</li><li><strong>基本發酵</strong> 蓋著，放在大約 24°C，70 到 100 分鐘。做兩輪拉伸摺疊。酵母有 0.4%，大約脹起一半即可，不必發到兩倍。麵團還是黏的。</li><li><strong>入盤</strong> 分成 4 份，每份 350 克，就是頁面打開時的球數和重量。每份用一個大約 20 公分寬、30 公分長的長方形烤盤，抹上大約 15 克油。油是另外加的，不在合計克數裡。</li><li><strong>鋪開</strong> 手指沾油，把麵團按向四角。如果縮回去，蓋上 10 分鐘再鋪，直到碰到四個角。不要用擀麵杖。這是盤披薩，不是圓餅。</li><li><strong>最後發酵</strong> 蓋著，放在大約 24°C，30 到 50 分鐘，發到蓬鬆。</li><li><strong>烘烤</strong> 每盤鋪大約 80 克醬和 70 克起司。醬和起司是另外加的，不在合計克數裡。烤箱 230°C，烤 14 到 18 分鐘，直到鍋底煎到金黃、表面出現焦斑。等 2 分鐘，再切成長方塊。</li></ol>
 <figure>
-<img src="/assets/roman-pan-pizza.webp" width="1200" height="970" alt="一張長方形披薩，邊緣金黃，鋪著蝦仁、青椒、洋蔥和豌豆。" loading="lazy">
-<figcaption>攝影：Deacon Medak，來自 <a href="https://www.pexels.com/photo/square-pizza-on-wooden-tray-15550302/">Pexels</a></figcaption>
+<img src="/assets/roman-pan-pizza.webp" width="1200" height="950" alt="烤盤上的長方形披薩，切成長條，邊緣金黃。" loading="lazy">
+<figcaption>攝影：khezez，來自 <a href="https://www.pexels.com/photo/chef-serving-slices-of-pepperoni-pizza-29966769/">Pexels</a></figcaption>
 </figure>
 </section>
 <section class="related"><h2>相關計算</h2><ul class="link-list"><li><a href="/zh-tw/xixili-pisa/">西西里披薩麵團</a></li><li><a href="/zh-tw/baopi-pisa/">薄皮披薩麵團</a></li><li><a href="/zh-tw/suanzhong-pisa/">酸種披薩麵團</a></li><li><a href="/zh-tw/dangri-pisa/">當日披薩麵團</a></li></ul></section>

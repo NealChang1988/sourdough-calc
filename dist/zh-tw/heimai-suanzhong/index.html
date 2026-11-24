@@ -56,7 +56,19 @@
 <div class="actions">
 <button type="button" id="copy">複製配方</button>
 <button type="button" id="print" class="secondary">列印</button>
-<button type="button" id="download-pdf" data-busy="正在產生 PDF…">下載 PDF</button>
+<button type="button" id="download-pdf" data-label="下載 PDF" data-loading="正在載入…" data-busy="正在產生 PDF…">下載 PDF</button>
+<script>
+(function () {
+  var button = document.getElementById("download-pdf");
+  if (!button) return;
+  button.addEventListener("click", function () {
+    if (window.__pdfReady || window.__pdfPending) return;
+    window.__pdfPending = true;
+    button.disabled = true;
+    button.textContent = button.getAttribute("data-loading");
+  });
+})();
+</script>
 </div>
 <p id="pdf-error" class="error" role="alert" hidden>PDF 產生失敗，請再按一次。</p>
 <textarea id="recipe-text" hidden readonly></textarea>
@@ -68,8 +80,8 @@
 <p>這是酸種黑麥，不是酵母黑麥麵包。計算器打開時是麵粉 450 克，水合 85%，酸種 30%，鹽 2.2%，酵母 0。也就是水 382.5 克、酸種 135 克、鹽 9.9 克，合計 977.4 克。酸種按 100% 水合計，和結果裡的有效水合用的是同一種假設。麵團球那一欄打開是 1 條、977.4 克。麵團又黏又軟，用濕手刮進烤模。烤好後要放很久再切。下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。</p>
 <ol><li><strong>酸種</strong> 用 135 克已經發到大約兩倍、表面有氣泡的酸種。這 135 克算在合計裡。這一頁不用速發酵母，酵母就是 0。</li><li><strong>攪拌</strong> 把 450 克黑麥麵粉、382.5 克水、135 克酸種和 9.9 克鹽拌到沒有乾粉。水合 85%，黑麥這麼多，麵團拉不出薄膜，手感也不像小麥。手沾水拌勻即可，不必像揉小麥那樣出力。不要收成緊實的圓球。麵團溫度大約 26°C。</li><li><strong>靜置</strong> 蓋上 20 分鐘。麵粉把水吃進去，糊會稍微變厚。</li><li><strong>入模</strong> 烤模抹油。用濕手把麵團刮進去，再用濕手或濕的刮板把表面抹平。靠烤模撐住形狀。不要整成能自己站著的圓麵包。</li><li><strong>最後發酵</strong> 蓋著，放在大約 26°C，50 到 80 分鐘。酸種有 30%，大約脹起一半，表面可能裂開。不會像白麵團那樣發到兩倍。如果頂上開始塌，就立刻烘烤。</li><li><strong>烘烤</strong> 烤箱 200°C。先烤 20 分鐘，再調到 180°C，烤 35 到 45 分鐘，直到側面定住。如果量中心，大約 98°C 就可以。</li><li><strong>放涼</strong> 倒出來，放到架上至少 12 小時，放到第二天再切更好。切早了，內部會糊。黑麥酸種要這麼放，麵包體才定得住。</li></ol>
 <figure>
-<img src="/assets/rye-sourdough.webp" width="1200" height="960" alt="木板上的深色黑麥麵包，一個切開，內部褐色而密實。" loading="lazy">
-<figcaption>攝影：Burak Baban，來自 <a href="https://www.pexels.com/photo/artisan-rye-bread-display-in-berlin-studio-30969791/">Pexels</a></figcaption>
+<img src="/assets/rye-sourdough.webp" width="1200" height="900" alt="深色長方黑麥麵包和方片，內部褐色而密實。" loading="lazy">
+<figcaption>攝影：Nadin Sh，來自 <a href="https://www.pexels.com/photo/rye-bread-in-close-up-photography-11214698/">Pexels</a></figcaption>
 </figure>
 </section>
 <section class="related"><h2>相關計算</h2><ul class="link-list"><li><a href="/zh-tw/quanmai-suanzhong/">全麥酸種烘焙百分比</a></li><li><a href="/zh-tw/sipeierte-suanzhong/">斯佩爾特酸種烘焙百分比</a></li><li><a href="/zh-tw/zhongzi-suanzhong/">種子酸種麵包烘焙百分比</a></li><li><a href="/zh-tw/ganlan-suanzhong/">橄欖酸種麵包烘焙百分比</a></li></ul></section>

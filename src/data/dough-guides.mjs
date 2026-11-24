@@ -1421,7 +1421,7 @@ export const doughGuides = {
           { title: "Mix", body: "Stir 500 g flour, 290 g water, 10 g salt, and 4.5 g instant yeast, then knead for 8 to 10 minutes until the dough is smooth and firm. At 58% hydration it feels stiff, not soft. Aim for about 24°C (75°F)." },
           { title: "Bulk", body: "Cover it at about 24°C (75°F) for 60 to 90 minutes. With 0.9% yeast it should grow by about half, not double." },
           { title: "Divide", body: "Divide the 804.5 g dough into 10 pieces of 80.45 g, the weight in the balls fields. Roll each into a smooth round, cover, and rest 10 minutes." },
-          { title: "Fold the star", body: "Pat a round flat. Fold five lobes over the center, each one overlapping the last, so they meet in a star. Tuck the last lobe under the first so the pattern holds. If you have a kaiser stamp, press it into the round instead. Either way the top should show five curved sections." },
+          { title: "Fold the star", body: "Pat a round flat. Fold five lobes over the center, each one overlapping the last, so they meet in a star. Tuck the last lobe under the first so the pattern holds. If you have a kaiser stamp, press it into the round instead. Either way the top should show five curved sections. After the star is folded, mist the top with a little water and sprinkle sesame seeds, or dip the top in them. The seeds are extra and are not in the gram total." },
           { title: "Proof", body: "Set the rolls star-side down on a floured cloth so the folds do not open. Cover them for 30 to 45 minutes, until they look puffy. Turn them star-side up before baking." },
           { title: "Bake", body: "Heat the oven to 220°C (425°F). For the first minutes, give the oven steam: a pan of hot water on the bottom rack is enough. Bake 14 to 18 minutes, until the crust is deep golden and the star is still clear." },
           { title: "Cool", body: "Set them on a rack for at least 15 minutes before you split one." },
@@ -1438,7 +1438,7 @@ export const doughGuides = {
           { title: "搅拌", body: "把 500 克面粉、290 克水、10 克盐和 4.5 克即发酵母拌匀，再揉 8 到 10 分钟，直到光滑、结实。水合 58%，面团偏硬，不是软餐包。面团温度大约 24°C。" },
           { title: "基本发酵", body: "盖上，放在大约 24°C，60 到 90 分钟。酵母有 0.9%，大约胀起一半即可，不要发到两倍。" },
           { title: "分割", body: "把 804.5 克面团分成 10 份，每份 80.45 克，就是面团球那一栏的重量。每份收成光滑的圆球，盖上，松弛 10 分钟。" },
-          { title: "折星", body: "把圆面按扁。从边缘折五瓣到中心，一瓣压着一瓣，收成星形。最后一瓣压进第一瓣下面，花纹才不会散开。如果有凯撒印模，在圆面上压一下也行。手折或压模都可以，顶上都要看出五瓣。" },
+          { title: "折星", body: "把圆面按扁。从边缘折五瓣到中心，一瓣压着一瓣，收成星形。最后一瓣压进第一瓣下面，花纹才不会散开。如果有凯撒印模，在圆面上压一下也行。手折或压模都可以，顶上都要看出五瓣。折好后，表面沾一点水，再撒上芝麻。芝麻不在合计克数里。" },
           { title: "最后发酵", body: "星形朝下，放在撒了粉的布上，折痕才不会张开。盖着发 30 到 45 分钟，发到鼓起来。进炉前翻过来，星形朝上。" },
           { title: "烘烤", body: "烤箱 220°C。入炉的前几分钟给蒸汽，底层放一盘热水就够。烤 14 到 18 分钟，直到表皮深金黄，星形还在。" },
           { title: "放凉", body: "放到架子上至少 15 分钟再掰开。" },
@@ -1446,7 +1446,7 @@ export const doughGuides = {
       },
       "zh-tw": {
         heading: "詳細做法",
-        lead: `計算器打開時是麵粉 500 克，水合 58%，鹽 2%，酵母 0.9%。也就是水 290 克、鹽 10 克、酵母 4.5 克，合計 804.5 克。麵團球那一欄打開是 10 個、每個 80.45 克。在偏硬的圓麵上折出星形，再帶蒸汽烘烤，花紋才清楚。表面如果撒芝麻，芝麻不在合計克數裡。${tail["zh-tw"]}`,
+        lead: `計算器打開時是麵粉 500 克，水合 58%，鹽 2%，酵母 0.9%。也就是水 290 克、鹽 10 克、酵母 4.5 克，合計 804.5 克。麵團球那一欄打開是 10 個、每個 80.45 克。在偏硬的圓麵團上折出星形，再帶蒸汽烘烤，花紋才清楚。表面如果撒芝麻，芝麻不在合計克數裡。${tail["zh-tw"]}`,
         alt: "一個金黃的圓餐包，頂部折出五瓣星形。",
         licenseBefore: "，",
         licenseLabel: "CC BY-SA 2.5",
@@ -1455,7 +1455,7 @@ export const doughGuides = {
           { title: "攪拌", body: "把 500 克麵粉、290 克水、10 克鹽和 4.5 克速發酵母拌勻，再揉 8 到 10 分鐘，直到光滑、結實。水合 58%，麵團偏硬，不是軟餐包。麵團溫度大約 24°C。" },
           { title: "基本發酵", body: "蓋上，放在大約 24°C，60 到 90 分鐘。酵母有 0.9%，大約脹起一半即可，不要發到兩倍。" },
           { title: "分割", body: "把 804.5 克麵團分成 10 份，每份 80.45 克，就是麵團球那一欄的重量。每份收成光滑的圓球，蓋上，鬆弛 10 分鐘。" },
-          { title: "折星", body: "把圓面按扁。從邊緣折五瓣到中心，一瓣壓著一瓣，收成星形。最後一瓣壓進第一瓣下面，花紋才不會散開。如果有凱撒印模，在圓面上壓一下也行。手折或壓模都可以，頂上都要看出五瓣。" },
+          { title: "折星", body: "把圓麵團按扁。從邊緣折五瓣到中心，一瓣壓著一瓣，收成星形。最後一瓣壓進第一瓣下面，花紋才不會散開。如果有凱撒印模，在圓麵團上壓一下也行。手折或壓模都可以，頂上都要看出五瓣。折好後，表面沾一點水，再撒上芝麻。芝麻不在合計克數裡。" },
           { title: "最後發酵", body: "星形朝下，放在撒了粉的布上，折痕才不會張開。蓋著發 30 到 45 分鐘，發到鼓起來。進爐前翻過來，星形朝上。" },
           { title: "烘烤", body: "烤箱 220°C。入爐的前幾分鐘給蒸汽，底層放一盤熱水就夠。烤 14 到 18 分鐘，直到表皮深金黃，星形還在。" },
           { title: "放涼", body: "放到架上至少 15 分鐘再掰開。" },
@@ -1467,15 +1467,15 @@ export const doughGuides = {
     {
       src: "/assets/breadsticks.webp",
       width: 1200,
-      height: 1800,
-      pageUrl: "https://www.pexels.com/photo/overhead-shot-of-bread-sticks-and-pumpkin-soup-5605540/",
-      photographer: "Nataliya Vaitkevich",
+      height: 800,
+      pageUrl: "https://www.pexels.com/photo/assortment-of-food-in-the-wooden-plate-7799698/",
+      photographer: "Anna Pyshniuk",
     },
     {
       en: {
         heading: "Detailed method",
-        lead: `The calculator opens at 400 g flour, 62% hydration, 2.2% salt, and 0.6% yeast. That is 248 g water, 8.8 g salt, and 2.4 g yeast, 659.2 g of dough. The balls fields open at 16 sticks of 41.2 g. Roll them long and thin, and bake until the centers are cooked. Oil or extra salt on the outside is not in the gram total. ${tail.en}`,
-        alt: "Two long thin breadsticks on a dark board beside a cup of soup.",
+        lead: `The calculator opens at 400 g flour, 62% hydration, 2.2% salt, and 0.6% yeast. That is 248 g water, 8.8 g salt, and 2.4 g yeast, 659.2 g of dough. The balls fields open at 16 sticks of 41.2 g. After the first rise, divide the dough into those 16 pieces and roll each one long and thin. Bake until the centers are cooked. Oil or extra salt on the outside is not in the gram total. ${tail.en}`,
+        alt: "Long thin sesame breadsticks on a wooden board.",
         steps: [
           { title: "Mix", body: "Stir 400 g flour, 248 g water, 8.8 g salt, and 2.4 g instant yeast, then knead for about 8 minutes until smooth. At 62% the dough is soft and holds a ball. Aim for about 24°C (75°F)." },
           { title: "Rise", body: "Cover it at about 24°C (75°F) for 80 to 110 minutes. With 0.6% yeast it should about double. One fold halfway through is enough." },
@@ -1488,8 +1488,8 @@ export const doughGuides = {
       },
       "zh-cn": {
         heading: "详细做法",
-        lead: `计算器打开时是面粉 400 克，水合 62%，盐 2.2%，酵母 0.6%。也就是水 248 克、盐 8.8 克、酵母 2.4 克，合计 659.2 克。面团球那一栏打开是 16 根、每根 41.2 克。搓成细长的棒，烤到中心没有生面。表面另刷的油或盐不在合计克数里。${tail["zh-cn"]}`,
-        alt: "两根细长的面包棒，放在深色板上，旁边一杯汤。",
+        lead: `计算器打开时是面粉 400 克，水合 62%，盐 2.2%，酵母 0.6%。也就是水 248 克、盐 8.8 克、酵母 2.4 克，合计 659.2 克。面团球那一栏打开是 16 根、每根 41.2 克。第一次发酵后分成这 16 份，再把每份搓成细长的棒，烤到中心没有生面。表面另刷的油或盐不在合计克数里。${tail["zh-cn"]}`,
+        alt: "木板上细长的芝麻面包棒。",
         steps: [
           { title: "搅拌", body: "把 400 克面粉、248 克水、8.8 克盐和 2.4 克即发酵母拌匀，再揉大约 8 分钟，直到光滑。水合 62%，柔软，能成团。面团温度大约 24°C。" },
           { title: "发酵", body: "盖上，放在大约 24°C，80 到 110 分钟。酵母有 0.6%，大约发到两倍。中途折一次就够。" },
@@ -1502,8 +1502,8 @@ export const doughGuides = {
       },
       "zh-tw": {
         heading: "詳細做法",
-        lead: `計算器打開時是麵粉 400 克，水合 62%，鹽 2.2%，酵母 0.6%。也就是水 248 克、鹽 8.8 克、酵母 2.4 克，合計 659.2 克。麵團球那一欄打開是 16 根、每根 41.2 克。搓成細長的棒，烤到中心沒有生麵。表面另刷的油或鹽不在合計克數裡。${tail["zh-tw"]}`,
-        alt: "兩根細長的麵包棒，放在深色板上，旁邊一杯湯。",
+        lead: `計算器打開時是麵粉 400 克，水合 62%，鹽 2.2%，酵母 0.6%。也就是水 248 克、鹽 8.8 克、酵母 2.4 克，合計 659.2 克。麵團球那一欄打開是 16 根、每根 41.2 克。第一次發酵後分成這 16 份，再把每份搓成細長的棒，烤到中心沒有生麵。表面另刷的油或鹽不在合計克數裡。${tail["zh-tw"]}`,
+        alt: "木板上細長的芝麻麵包棒。",
         steps: [
           { title: "攪拌", body: "把 400 克麵粉、248 克水、8.8 克鹽和 2.4 克速發酵母拌勻，再揉大約 8 分鐘，直到光滑。水合 62%，柔軟，能成團。麵團溫度大約 24°C。" },
           { title: "發酵", body: "蓋上，放在大約 24°C，80 到 110 分鐘。酵母有 0.6%，大約發到兩倍。中途摺一次就夠。" },
@@ -1520,15 +1520,15 @@ export const doughGuides = {
     {
       src: "/assets/roman-pan-pizza.webp",
       width: 1200,
-      height: 970,
-      pageUrl: "https://www.pexels.com/photo/square-pizza-on-wooden-tray-15550302/",
-      photographer: "Deacon Medak",
+      height: 950,
+      pageUrl: "https://www.pexels.com/photo/chef-serving-slices-of-pepperoni-pizza-29966769/",
+      photographer: "khezez",
     },
     {
       en: {
         heading: "Detailed method",
         lead: `The calculator opens at 4 balls of 350 g, with 80% hydration, 2.5% salt, and 0.4% yeast. Each ball is one rectangular pan. From those balls the page shows 765.4 g flour, 612.4 g water, 19.1 g salt, and 3.1 g yeast. The dough is wet. It spreads toward the corners in oil and fries on the bottom. Oil and toppings are extra and are not in the gram total. ${tail.en}`,
-        alt: "A rectangular pizza with a golden edge, topped with shrimp, peppers, onion, and peas.",
+        alt: "Rectangular pepperoni pizza cut into strips on a metal pan, with a golden edge.",
         steps: [
           { title: "Mix", body: "Stir 765.4 g flour, 612.4 g water, 19.1 g salt, and 3.1 g instant yeast until no dry flour remains. At 80% the dough is slack and sticky. Wet your hands instead of adding flour. Aim for about 24°C (75°F)." },
           { title: "Rest", body: "Cover the bowl for 20 minutes so the dough stops tearing when you fold it." },
@@ -1542,7 +1542,7 @@ export const doughGuides = {
       "zh-cn": {
         heading: "详细做法",
         lead: `计算器打开时是 4 个面团球、每球 350 克，水合 80%，盐 2.5%，酵母 0.4%。一球一个长方形烤盘。按这 4 球，页面上是面粉 765.4 克、水 612.4 克、盐 19.1 克、酵母 3.1 克。面团偏湿，在油里铺向四角，锅底会煎脆。油和配料不在合计克数里。${tail["zh-cn"]}`,
-        alt: "一张长方形披萨，边缘金黄，铺着虾仁、青椒、洋葱和豌豆。",
+        alt: "烤盘上的长方形披萨，切成长条，边缘金黄。",
         steps: [
           { title: "搅拌", body: "把 765.4 克面粉、612.4 克水、19.1 克盐和 3.1 克即发酵母拌到没有干粉。水合 80%，面团软、发黏。手沾水，不要再补面粉。面团温度大约 24°C。" },
           { title: "松弛", body: "盖上，静置 20 分钟，折叠时才不容易扯破。" },
@@ -1556,7 +1556,7 @@ export const doughGuides = {
       "zh-tw": {
         heading: "詳細做法",
         lead: `計算器打開時是 4 個麵團球、每球 350 克，水合 80%，鹽 2.5%，酵母 0.4%。一球一個長方形烤盤。按這 4 球，頁面上是麵粉 765.4 克、水 612.4 克、鹽 19.1 克、酵母 3.1 克。麵團偏濕，在油裡鋪向四角，鍋底會煎脆。油和配料不在合計克數裡。${tail["zh-tw"]}`,
-        alt: "一張長方形披薩，邊緣金黃，鋪著蝦仁、青椒、洋蔥和豌豆。",
+        alt: "烤盤上的長方形披薩，切成長條，邊緣金黃。",
         steps: [
           { title: "攪拌", body: "把 765.4 克麵粉、612.4 克水、19.1 克鹽和 3.1 克速發酵母拌到沒有乾粉。水合 80%，麵團軟、發黏。手沾水，不要再補麵粉。麵團溫度大約 24°C。" },
           { title: "鬆弛", body: "蓋上，靜置 20 分鐘，摺疊時才不容易扯破。" },
@@ -1580,44 +1580,44 @@ export const doughGuides = {
     {
       en: {
         heading: "Detailed method",
-        lead: `The calculator opens at 400 g flour, 52% hydration, 1.5% salt, and 0.4% yeast. That is 208 g water, 6 g salt, and 1.6 g yeast, 615.6 g of dough. The balls fields open at 4 sheets of 153.9 g. Roll them nearly paper thin and bake them until they are dry and blistered. They keep as brittle sheets, not soft puffs. ${tail.en}`,
-        alt: "A stack of thin, large flatbreads with a few brown blisters.",
+        lead: `The calculator opens at 400 g flour, 52% hydration, 1.5% salt, and 0.4% yeast. That is 208 g water, 6 g salt, and 1.6 g yeast, 615.6 g of dough. The balls fields open at 4 sheets of 153.9 g. Roll them nearly paper thin and bake them until they blister. Stack the sheets while they are warm if you want them soft, or leave them until they dry if you want crisp crackers. ${tail.en}`,
+        alt: "A stack of soft, thin lavash sheets with a few brown blisters.",
         steps: [
           { title: "Mix", body: "Stir 400 g flour, 208 g water, 6 g salt, and 1.6 g instant yeast, then knead for 6 to 8 minutes until smooth. At 52% the dough is stiff. Aim for about 24°C (75°F)." },
           { title: "Bulk", body: "Cover it at about 24°C (75°F) for 90 to 120 minutes. With 0.4% yeast it should grow by about half." },
           { title: "Divide", body: "Divide the 615.6 g dough into 4 pieces of 153.9 g, the weight in the balls fields. Roll each into a smooth ball, cover, and rest 15 minutes." },
           { title: "Roll", body: "Dust the counter lightly. Roll each ball as thin as you can, about 30 cm across, nearly paper thin. If it snaps back, rest 5 minutes and roll again. A thick spot stays pale and soft." },
           { title: "Heat", body: "Heat a stone, steel, or a dry heavy skillet as hot as the oven will go, about 250°C (480°F), for 20 minutes." },
-          { title: "Bake", body: "Bake one sheet at a time for 1 to 3 minutes. Flip it once the first side sets. It is done when the surface is dry and blistered. If it is still soft and pale, bake it longer." },
-          { title: "Cool", body: "Set the sheets on a rack until they are crisp, then stack them. They stay brittle rather than puffing into a pocket." },
+          { title: "Bake", body: "Bake one sheet at a time for 1 to 3 minutes. Flip it once the first side sets. It is ready when the surface blisters. A short bake stays soft. A longer bake dries into a crisp sheet." },
+          { title: "Cool", body: "To keep them soft, stack the sheets while they are warm. To keep them crisp, leave them on a rack until they are dry and brittle." },
         ],
       },
       "zh-cn": {
         heading: "详细做法",
-        lead: `计算器打开时是面粉 400 克，水合 52%，盐 1.5%，酵母 0.4%。也就是水 208 克、盐 6 克、酵母 1.6 克，合计 615.6 克。面团球那一栏打开是 4 张、每张 153.9 克。擀到接近纸那么薄，烤到干燥起泡。收起来是脆片，不是柔软鼓起的饼。${tail["zh-cn"]}`,
-        alt: "一叠又薄又大的扁饼，表面有几处褐色的泡。",
+        lead: `计算器打开时是面粉 400 克，水合 52%，盐 1.5%，酵母 0.4%。也就是水 208 克、盐 6 克、酵母 1.6 克，合计 615.6 克。面团球那一栏打开是 4 张、每张 153.9 克。擀到接近纸那么薄，烤到起泡。趁热叠起来是软饼，放凉到干就是脆片。${tail["zh-cn"]}`,
+        alt: "一叠又薄又软的拉瓦什，表面有几处褐色的泡。",
         steps: [
           { title: "搅拌", body: "把 400 克面粉、208 克水、6 克盐和 1.6 克即发酵母拌匀，再揉 6 到 8 分钟，直到光滑。水合 52%，面团偏硬。面团温度大约 24°C。" },
           { title: "基本发酵", body: "盖上，放在大约 24°C，90 到 120 分钟。酵母有 0.4%，大约胀起一半。" },
           { title: "分割", body: "把 615.6 克面团分成 4 份，每份 153.9 克，就是面团球那一栏的重量。收成光滑的圆球，盖上，松弛 15 分钟。" },
           { title: "擀开", body: "台面薄薄撒粉。每球尽量擀薄，大约 30 厘米宽，接近纸那么薄。如果缩回去，松弛 5 分钟再擀。偏厚的地方会又白又软。" },
           { title: "预热", body: "烤石、烤钢或厚的干锅预热 20 分钟，烤箱能到多高就用多高，大约 250°C。" },
-          { title: "烘烤", body: "一次烤一张，1 到 3 分钟。一面定住就翻面。表面干燥、起了泡，就可以出炉。如果还是又软又白，就再烤一会儿。" },
-          { title: "放凉", body: "放到架子上，脆了再叠起来。它是脆片，不会鼓成口袋。" },
+          { title: "烘烤", body: "一次烤一张，1 到 3 分钟。一面定住就翻面。表面起了泡就可以。烤得短，饼是软的。烤得久，会干成脆片。" },
+          { title: "放凉", body: "想要软饼，趁热叠起来。想要脆片，放在架子上，等到干燥发脆。" },
         ],
       },
       "zh-tw": {
         heading: "詳細做法",
-        lead: `計算器打開時是麵粉 400 克，水合 52%，鹽 1.5%，酵母 0.4%。也就是水 208 克、鹽 6 克、酵母 1.6 克，合計 615.6 克。麵團球那一欄打開是 4 張、每張 153.9 克。擀到接近紙那麼薄，烤到乾燥起泡。收起來是脆片，不是柔軟鼓起的餅。${tail["zh-tw"]}`,
-        alt: "一疊又薄又大的扁餅，表面有幾處褐色的泡。",
+        lead: `計算器打開時是麵粉 400 克，水合 52%，鹽 1.5%，酵母 0.4%。也就是水 208 克、鹽 6 克、酵母 1.6 克，合計 615.6 克。麵團球那一欄打開是 4 張、每張 153.9 克。擀到接近紙那麼薄，烤到起泡。趁熱疊起來是軟餅，放涼到乾就是脆片。${tail["zh-tw"]}`,
+        alt: "一疊又薄又軟的拉瓦什，表面有幾處褐色的泡。",
         steps: [
           { title: "攪拌", body: "把 400 克麵粉、208 克水、6 克鹽和 1.6 克速發酵母拌勻，再揉 6 到 8 分鐘，直到光滑。水合 52%，麵團偏硬。麵團溫度大約 24°C。" },
           { title: "基本發酵", body: "蓋上，放在大約 24°C，90 到 120 分鐘。酵母有 0.4%，大約脹起一半。" },
           { title: "分割", body: "把 615.6 克麵團分成 4 份，每份 153.9 克，就是麵團球那一欄的重量。收成光滑的圓球，蓋上，鬆弛 15 分鐘。" },
           { title: "擀開", body: "檯面薄薄撒粉。每球盡量擀薄，大約 30 公分寬，接近紙那麼薄。如果縮回去，鬆弛 5 分鐘再擀。偏厚的地方會又白又軟。" },
           { title: "預熱", body: "烤石、烤鋼或厚的乾鍋預熱 20 分鐘，烤箱能到多高就用多高，大約 250°C。" },
-          { title: "烘烤", body: "一次烤一張，1 到 3 分鐘。一面定住就翻面。表面乾燥、起了泡，就可以出爐。如果還是又軟又白，就再烤一會兒。" },
-          { title: "放涼", body: "放到架上，脆了再疊起來。它是脆片，不會鼓成口袋。" },
+          { title: "烘烤", body: "一次烤一張，1 到 3 分鐘。一面定住就翻面。表面起了泡就可以。烤得短，餅是軟的。烤得久，會乾成脆片。" },
+          { title: "放涼", body: "想要軟餅，趁熱疊起來。想要脆片，放在架上，等到乾燥發脆。" },
         ],
       },
     },
@@ -1626,15 +1626,15 @@ export const doughGuides = {
     {
       src: "/assets/rye-sourdough.webp",
       width: 1200,
-      height: 960,
-      pageUrl: "https://www.pexels.com/photo/artisan-rye-bread-display-in-berlin-studio-30969791/",
-      photographer: "Burak Baban",
+      height: 900,
+      pageUrl: "https://www.pexels.com/photo/rye-bread-in-close-up-photography-11214698/",
+      photographer: "Nadin Sh",
     },
     {
       en: {
         heading: "Detailed method",
         lead: `This is the sourdough rye, not the yeasted rye loaf. The calculator opens at 450 g flour, 85% hydration, 30% starter, 2.2% salt, and no yeast. That is 382.5 g water, 135 g starter, and 9.9 g salt, 977.4 g of dough. The starter is itself 100% hydration, the same assumption used for effective hydration. The balls fields open at 1 loaf of 977.4 g. The dough is a sticky paste. Scrape it into a pan with wet hands, and let the baked loaf rest a long time before you slice. ${tail.en}`,
-        alt: "Dark rye loaves on a wooden board, one cut open to a dense brown crumb.",
+        alt: "A dark rectangular rye loaf and square slices with a dense brown crumb.",
         steps: [
           { title: "Starter", body: "Use 135 g of starter that is bubbly and has about doubled. That starter is part of the gram total. Do not add instant yeast. The yeast field stays at zero." },
           { title: "Mix", body: "Stir 450 g rye flour, 382.5 g water, the 135 g starter, and 9.9 g salt until no dry flour remains. At 85% this rye dough will not pull a windowpane and will not feel like wheat. Wet your hands or use a spoon. Do not knead it into a tight ball. Aim for about 26°C (79°F)." },
@@ -1648,7 +1648,7 @@ export const doughGuides = {
       "zh-cn": {
         heading: "详细做法",
         lead: `这是酸种黑麦，不是酵母黑麦面包。计算器打开时是面粉 450 克，水合 85%，酸种 30%，盐 2.2%，酵母 0。也就是水 382.5 克、酸种 135 克、盐 9.9 克，合计 977.4 克。酸种按 100% 水合计，和结果里的有效水合用的是同一种假设。面团球那一栏打开是 1 条、977.4 克。面团又黏又软，用湿手刮进烤模。烤好后要放很久再切。${tail["zh-cn"]}`,
-        alt: "木板上的深色黑麦面包，一个切开，内部褐色而密实。",
+        alt: "深色长方黑麦面包和方片，内部褐色而密实。",
         steps: [
           { title: "酸种", body: "用 135 克已经发到大约两倍、表面有气泡的酸种。这 135 克算在合计里。不要再加即发酵母。这一页的酵母就是 0。" },
           { title: "搅拌", body: "把 450 克黑麦面粉、382.5 克水、135 克酸种和 9.9 克盐拌到没有干粉。水合 85%，黑麦这么多，面团拉不出薄膜，手感也不像小麦。手沾水拌匀即可，不必像揉小麦那样出力。不要收成紧实的圆球。面团温度大约 26°C。" },
@@ -1662,7 +1662,7 @@ export const doughGuides = {
       "zh-tw": {
         heading: "詳細做法",
         lead: `這是酸種黑麥，不是酵母黑麥麵包。計算器打開時是麵粉 450 克，水合 85%，酸種 30%，鹽 2.2%，酵母 0。也就是水 382.5 克、酸種 135 克、鹽 9.9 克，合計 977.4 克。酸種按 100% 水合計，和結果裡的有效水合用的是同一種假設。麵團球那一欄打開是 1 條、977.4 克。麵團又黏又軟，用濕手刮進烤模。烤好後要放很久再切。${tail["zh-tw"]}`,
-        alt: "木板上的深色黑麥麵包，一個切開，內部褐色而密實。",
+        alt: "深色長方黑麥麵包和方片，內部褐色而密實。",
         steps: [
           { title: "酸種", body: "用 135 克已經發到大約兩倍、表面有氣泡的酸種。這 135 克算在合計裡。這一頁不用速發酵母，酵母就是 0。" },
           { title: "攪拌", body: "把 450 克黑麥麵粉、382.5 克水、135 克酸種和 9.9 克鹽拌到沒有乾粉。水合 85%，黑麥這麼多，麵團拉不出薄膜，手感也不像小麥。手沾水拌勻即可，不必像揉小麥那樣出力。不要收成緊實的圓球。麵團溫度大約 26°C。" },

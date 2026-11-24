@@ -56,7 +56,19 @@
 <div class="actions">
 <button type="button" id="copy">Copy recipe</button>
 <button type="button" id="print" class="secondary">Print</button>
-<button type="button" id="download-pdf" data-busy="Preparing PDF…">Download PDF</button>
+<button type="button" id="download-pdf" data-label="Download PDF" data-loading="Loading…" data-busy="Preparing PDF…">Download PDF</button>
+<script>
+(function () {
+  var button = document.getElementById("download-pdf");
+  if (!button) return;
+  button.addEventListener("click", function () {
+    if (window.__pdfReady || window.__pdfPending) return;
+    window.__pdfPending = true;
+    button.disabled = true;
+    button.textContent = button.getAttribute("data-loading");
+  });
+})();
+</script>
 </div>
 <p id="pdf-error" class="error" role="alert" hidden>PDF could not be created. Please try again.</p>
 <textarea id="recipe-text" hidden readonly></textarea>
@@ -68,8 +80,8 @@
 <p>The calculator opens at 4 balls of 350 g, with 80% hydration, 2.5% salt, and 0.4% yeast. Each ball is one rectangular pan. From those balls the page shows 765.4 g flour, 612.4 g water, 19.1 g salt, and 3.1 g yeast. The dough is wet. It spreads toward the corners in oil and fries on the bottom. Oil and toppings are extra and are not in the gram total. These times assume you only change the flour amount and keep the percentages the same. Still judge the dough by how it looks and feels.</p>
 <ol><li><strong>Mix</strong> Stir 765.4 g flour, 612.4 g water, 19.1 g salt, and 3.1 g instant yeast until no dry flour remains. At 80% the dough is slack and sticky. Wet your hands instead of adding flour. Aim for about 24°C (75°F).</li><li><strong>Rest</strong> Cover the bowl for 20 minutes so the dough stops tearing when you fold it.</li><li><strong>Bulk</strong> Keep it covered at about 24°C (75°F) for 70 to 100 minutes. Give it two stretch-and-folds. With 0.4% yeast it should grow by about half, not double. It stays sticky.</li><li><strong>Pan</strong> Divide into 4 pieces of 350 g, the count and the weight the page opens with. Oil a rectangular pan about 20 cm by 30 cm for each piece. About 15 g of oil in each pan is extra and is not in the gram total.</li><li><strong>Spread</strong> With oiled fingers, press the dough toward the corners. If it springs back, cover it for 10 minutes and stretch again until it reaches the corners. Skip the rolling pin. This is a pan pizza, not a round pie.</li><li><strong>Proof</strong> Cover the pan at about 24°C (75°F) for 30 to 50 minutes, until the dough looks puffy.</li><li><strong>Bake</strong> Spread about 80 g of sauce and 70 g of cheese on each pan. Those toppings are extra and are not in the gram total. Heat the oven to 230°C (450°F). Bake 14 to 18 minutes, until the bottom is fried and golden and the top is spotted. Wait 2 minutes, then cut rectangles.</li></ol>
 <figure>
-<img src="/assets/roman-pan-pizza.webp" width="1200" height="970" alt="A rectangular pizza with a golden edge, topped with shrimp, peppers, onion, and peas." loading="lazy">
-<figcaption>Photo by Deacon Medak on <a href="https://www.pexels.com/photo/square-pizza-on-wooden-tray-15550302/">Pexels</a></figcaption>
+<img src="/assets/roman-pan-pizza.webp" width="1200" height="950" alt="Rectangular pepperoni pizza cut into strips on a metal pan, with a golden edge." loading="lazy">
+<figcaption>Photo by khezez on <a href="https://www.pexels.com/photo/chef-serving-slices-of-pepperoni-pizza-29966769/">Pexels</a></figcaption>
 </figure>
 </section>
 <section class="related"><h2>Related calculators</h2><ul class="link-list"><li><a href="/en/sicilian-pizza-dough/">Sicilian Pizza Dough</a></li><li><a href="/en/thin-crust-pizza-dough/">Thin-Crust Pizza Dough</a></li><li><a href="/en/sourdough-pizza-dough/">Sourdough Pizza Dough</a></li><li><a href="/en/same-day-pizza-dough/">Same-Day Pizza Dough</a></li></ul></section>
