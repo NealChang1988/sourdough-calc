@@ -56,7 +56,19 @@
 <div class="actions">
 <button type="button" id="copy">複製配方</button>
 <button type="button" id="print" class="secondary">列印</button>
-<button type="button" id="download-pdf" data-busy="正在產生 PDF…">下載 PDF</button>
+<button type="button" id="download-pdf" data-label="下載 PDF" data-loading="正在載入…" data-busy="正在產生 PDF…">下載 PDF</button>
+<script>
+(function () {
+  var button = document.getElementById("download-pdf");
+  if (!button) return;
+  button.addEventListener("click", function () {
+    if (window.__pdfReady || window.__pdfPending) return;
+    window.__pdfPending = true;
+    button.disabled = true;
+    button.textContent = button.getAttribute("data-loading");
+  });
+})();
+</script>
 </div>
 <p id="pdf-error" class="error" role="alert" hidden>PDF 產生失敗，請再按一次。</p>
 <textarea id="recipe-text" hidden readonly></textarea>

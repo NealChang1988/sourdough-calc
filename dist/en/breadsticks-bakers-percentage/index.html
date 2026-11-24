@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Breadsticks Baker's Percentage</title>
-<meta name="description" content="Cut strips after the first rise, roll them thin, and bake until the center is no longer raw. A snack stick, not a loaf.">
+<meta name="description" content="After the first rise, divide the dough into pieces and roll each one into a thin stick. Bake until the center is cooked. A snack stick, not a loaf.">
 <link rel="canonical" href="https://doughcalc.app/en/breadsticks-bakers-percentage/">
 <link rel="alternate" hreflang="en" href="https://doughcalc.app/en/breadsticks-bakers-percentage/"><link rel="alternate" hreflang="zh-CN" href="https://doughcalc.app/zh-cn/mianbao-bang/"><link rel="alternate" hreflang="zh-TW" href="https://doughcalc.app/zh-tw/mianbao-bang/"><link rel="alternate" hreflang="x-default" href="https://doughcalc.app/en/breadsticks-bakers-percentage/">
 <meta property="og:title" content="Breadsticks Baker's Percentage">
-<meta property="og:description" content="Cut strips after the first rise, roll them thin, and bake until the center is no longer raw. A snack stick, not a loaf.">
+<meta property="og:description" content="After the first rise, divide the dough into pieces and roll each one into a thin stick. Bake until the center is cooked. A snack stick, not a loaf.">
 <meta property="og:url" content="https://doughcalc.app/en/breadsticks-bakers-percentage/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_US">
@@ -26,7 +26,7 @@
 <main id="main">
 <nav class="crumb" aria-label="Breadcrumb"><a href="/en/">Dough calculator</a> / <a href="/en/bread-dough/">Bread dough</a></nav>
 <h1>Breadsticks Baker's Percentage</h1>
-<p>Cut strips after the first rise, roll them thin, and bake until the center is no longer raw. A snack stick, not a loaf.</p>
+<p>After the first rise, divide the dough into pieces and roll each one into a thin stick. Bake until the center is cooked. A snack stick, not a loaf.</p>
 <form id="calc" autocomplete="off">
 <fieldset class="modes">
 <legend>How to scale</legend>
@@ -37,8 +37,8 @@
 <label class="field"><span class="label">Flour <span class="unit">g</span></span><input name="flour" inputmode="decimal" min="0" step="any" value="400"></label>
 </div>
 <div class="fields grid-2" data-panel="balls" hidden>
-<label class="field"><span class="label">Dough balls</span><input name="balls" inputmode="decimal" min="0" step="any" value="4"></label>
-<label class="field"><span class="label">Grams per ball <span class="unit">g</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="250"></label>
+<label class="field"><span class="label">Dough balls</span><input name="balls" inputmode="decimal" min="0" step="any" value="16"></label>
+<label class="field"><span class="label">Grams per ball <span class="unit">g</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="41.2"></label>
 </div>
 <div class="fields grid-2">
 <label class="field"><span class="label">Hydration <span class="unit">%</span></span><input name="hydration" inputmode="decimal" min="0" step="any" value="62"></label>
@@ -56,11 +56,34 @@
 <div class="actions">
 <button type="button" id="copy">Copy recipe</button>
 <button type="button" id="print" class="secondary">Print</button>
+<button type="button" id="download-pdf" data-label="Download PDF" data-loading="Loading…" data-busy="Preparing PDF…">Download PDF</button>
+<script>
+(function () {
+  var button = document.getElementById("download-pdf");
+  if (!button) return;
+  button.addEventListener("click", function () {
+    if (window.__pdfReady || window.__pdfPending) return;
+    window.__pdfPending = true;
+    button.disabled = true;
+    button.textContent = button.getAttribute("data-loading");
+  });
+})();
+</script>
 </div>
+<p id="pdf-error" class="error" role="alert" hidden>PDF could not be created. Please try again.</p>
 <textarea id="recipe-text" hidden readonly></textarea>
 </section>
 <script type="application/json" id="labels">{"title":"Breadsticks Baker's Percentage","flour":"Flour","water":"Water","starter":"Starter","salt":"Salt","yeast":"Yeast","total":"Total dough","grams":"g","effective":"Effective hydration","copied":"Copied","copyFail":"Select the recipe text and copy it"}</script>
-<script type="module" src="/assets/calc.js"></script>
+<script type="application/json" id="pdf-meta">{"title":"Breadsticks Baker's Percentage","url":"https://doughcalc.app/en/breadsticks-bakers-percentage/","filename":"doughcalc-breadsticks-bakers-percentage-en-recipe.pdf","lang":"en","fontUrl":"/assets/fonts/noto-sans-sc-subset.ttf","labels":{"result":"Recipe","flour":"Flour","water":"Water","starter":"Starter","salt":"Salt","yeast":"Yeast","total":"Total dough","grams":"g","effective":"Effective hydration","hydration":"Hydration","modeFlour":"From flour weight","modeBalls":"From dough balls","balls":"Dough balls","perBall":"Grams per ball"},"method":{"heading":"Detailed method","lead":"The calculator opens at 400 g flour, 62% hydration, 2.2% salt, and 0.6% yeast. That is 248 g water, 8.8 g salt, and 2.4 g yeast, 659.2 g of dough. The balls fields open at 16 sticks of 41.2 g. After the first rise, divide the dough into those 16 pieces and roll each one long and thin. Bake until the centers are cooked. Oil or extra salt on the outside is not in the gram total. These times assume you only change the flour amount and keep the percentages the same. Still judge the dough by how it looks and feels.","steps":[{"title":"Mix","body":"Stir 400 g flour, 248 g water, 8.8 g salt, and 2.4 g instant yeast, then knead for about 8 minutes until smooth. At 62% the dough is soft and holds a ball. Aim for about 24°C (75°F)."},{"title":"Rise","body":"Cover it at about 24°C (75°F) for 80 to 110 minutes. With 0.6% yeast it should about double. One fold halfway through is enough."},{"title":"Divide","body":"Divide the 659.2 g dough into 16 pieces of 41.2 g, the weight in the balls fields. Cover them and rest 10 minutes."},{"title":"Roll","body":"Dust the counter lightly. Roll each piece into a stick about 28 cm long and about 1 cm thick. If the dough snaps back, rest it 5 minutes and roll again. Lay the sticks on a lightly oiled sheet with a little space between them. The oil is extra and is not in the gram total."},{"title":"Proof","body":"Cover the sticks for 15 to 25 minutes, until they look slightly puffy. They should not touch."},{"title":"Bake","body":"Heat the oven to 200°C (390°F). Bake 12 to 16 minutes, until they are golden and the center of a stick is cooked, with no raw dough."},{"title":"Cool","body":"Move them to a rack. They firm up as they cool. These are sticks, not a loaf."}]},"messages":{"label":"Download PDF","busy":"Preparing PDF…","fail":"PDF could not be created. Please try again."}}</script>
+<script type="module" src="/assets/calc.js"></script><section class="method">
+<h2>Detailed method</h2>
+<p>The calculator opens at 400 g flour, 62% hydration, 2.2% salt, and 0.6% yeast. That is 248 g water, 8.8 g salt, and 2.4 g yeast, 659.2 g of dough. The balls fields open at 16 sticks of 41.2 g. After the first rise, divide the dough into those 16 pieces and roll each one long and thin. Bake until the centers are cooked. Oil or extra salt on the outside is not in the gram total. These times assume you only change the flour amount and keep the percentages the same. Still judge the dough by how it looks and feels.</p>
+<ol><li><strong>Mix</strong> Stir 400 g flour, 248 g water, 8.8 g salt, and 2.4 g instant yeast, then knead for about 8 minutes until smooth. At 62% the dough is soft and holds a ball. Aim for about 24°C (75°F).</li><li><strong>Rise</strong> Cover it at about 24°C (75°F) for 80 to 110 minutes. With 0.6% yeast it should about double. One fold halfway through is enough.</li><li><strong>Divide</strong> Divide the 659.2 g dough into 16 pieces of 41.2 g, the weight in the balls fields. Cover them and rest 10 minutes.</li><li><strong>Roll</strong> Dust the counter lightly. Roll each piece into a stick about 28 cm long and about 1 cm thick. If the dough snaps back, rest it 5 minutes and roll again. Lay the sticks on a lightly oiled sheet with a little space between them. The oil is extra and is not in the gram total.</li><li><strong>Proof</strong> Cover the sticks for 15 to 25 minutes, until they look slightly puffy. They should not touch.</li><li><strong>Bake</strong> Heat the oven to 200°C (390°F). Bake 12 to 16 minutes, until they are golden and the center of a stick is cooked, with no raw dough.</li><li><strong>Cool</strong> Move them to a rack. They firm up as they cool. These are sticks, not a loaf.</li></ol>
+<figure>
+<img src="/assets/breadsticks.webp" width="1200" height="800" alt="Long thin sesame breadsticks on a wooden board." loading="lazy">
+<figcaption>Photo by Anna Pyshniuk on <a href="https://www.pexels.com/photo/assortment-of-food-in-the-wooden-plate-7799698/">Pexels</a></figcaption>
+</figure>
+</section>
 <section class="related"><h2>Related calculators</h2><ul class="link-list"><li><a href="/en/pizza-dough-bakers-percentage/">Pizza Dough Baker's Percentage</a></li><li><a href="/en/calzone-dough-bakers-percentage/">Calzone Dough Baker's Percentage</a></li><li><a href="/en/garlic-knots-bakers-percentage/">Garlic Knots Baker's Percentage</a></li><li><a href="/en/sourdough-pizza-bakers-percentage/">Sourdough Pizza Dough Baker's Percentage</a></li></ul></section>
 </main>
 <footer>

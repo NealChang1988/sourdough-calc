@@ -134,17 +134,22 @@ document.querySelector("#print").addEventListener("click", () => {
 const pdfButton = document.querySelector("#download-pdf");
 const pdfError = document.querySelector("#pdf-error");
 if (pdfButton) {
-  const pdfLabel = pdfButton.textContent;
-  pdfButton.addEventListener("click", async () => {
+  const pdfLabel = pdfButton.dataset.label;
+  let pdfBusy = false;
+  async function runPdf() {
+    if (pdfBusy) return;
     const parsed = readForm();
     if (!parsed.ok) {
       clearRecipe();
       showError(parsed.field);
+      pdfButton.disabled = false;
+      pdfButton.textContent = pdfLabel;
       return;
     }
     error.hidden = true;
     const recipe = recipeFor(parsed.preset);
     showRecipe(recipe);
+    pdfBusy = true;
     pdfButton.disabled = true;
     pdfButton.textContent = pdfButton.dataset.busy;
     try {
@@ -166,10 +171,19 @@ if (pdfButton) {
       console.error(err);
       if (pdfError) pdfError.hidden = false;
     } finally {
+      pdfBusy = false;
       pdfButton.disabled = false;
       pdfButton.textContent = pdfLabel;
     }
+  }
+  window.__pdfReady = true;
+  pdfButton.addEventListener("click", () => {
+    runPdf();
   });
+  if (window.__pdfPending) {
+    window.__pdfPending = false;
+    runPdf();
+  }
 }
 
 update();

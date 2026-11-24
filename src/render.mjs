@@ -205,11 +205,12 @@ const PDF_FONT = {
 const PDF_BUTTON = {
   en: {
     label: "Download PDF",
+    loading: "Loading…",
     busy: "Preparing PDF…",
     fail: "PDF could not be created. Please try again.",
   },
-  "zh-cn": { label: "下载 PDF", busy: "正在生成 PDF…", fail: "PDF 生成失败，请再按一次。" },
-  "zh-tw": { label: "下載 PDF", busy: "正在產生 PDF…", fail: "PDF 產生失敗，請再按一次。" },
+  "zh-cn": { label: "下载 PDF", loading: "正在加载…", busy: "正在生成 PDF…", fail: "PDF 生成失败，请再按一次。" },
+  "zh-tw": { label: "下載 PDF", loading: "正在載入…", busy: "正在產生 PDF…", fail: "PDF 產生失敗，請再按一次。" },
 };
 
 const COUNTRY_PDF_FILENAME = {
@@ -266,7 +267,19 @@ export function pdfPayload(page, lang) {
 function pdfButton(page, lang) {
   if (!doughGuides[page.id]) return "";
   const copy = PDF_BUTTON[lang];
-  return `\n<button type="button" id="download-pdf" data-busy="${escapeHtml(copy.busy)}">${escapeHtml(copy.label)}</button>`;
+  return `\n<button type="button" id="download-pdf" data-label="${escapeHtml(copy.label)}" data-loading="${escapeHtml(copy.loading)}" data-busy="${escapeHtml(copy.busy)}">${escapeHtml(copy.label)}</button>
+<script>
+(function () {
+  var button = document.getElementById("download-pdf");
+  if (!button) return;
+  button.addEventListener("click", function () {
+    if (window.__pdfReady || window.__pdfPending) return;
+    window.__pdfPending = true;
+    button.disabled = true;
+    button.textContent = button.getAttribute("data-loading");
+  });
+})();
+</script>`;
 }
 
 function pdfFail(page, lang) {

@@ -95,9 +95,9 @@ export const breadAbout = {
     "zh-tw": "放在燒熱的乾鍋上烙，表面會突然起泡。趁還柔軟時折起來包東西，起泡就可以離鍋，乾鍋即可。",
   },
   lavash: {
-    en: "Rolled nearly paper thin and baked until dry and blistered. It keeps as a brittle sheet rather than a soft puff.",
-    "zh-cn": "擀到接近纸那么薄，烤到干燥起泡。收起来是脆片，不是柔软鼓起的饼，可以叠着存放，薄而脆。",
-    "zh-tw": "擀到接近紙那麼薄，烤到乾燥起泡。收起來是脆片，不是柔軟鼓起的餅，可以疊著存放，薄而脆。",
+    en: "Roll it paper thin and bake it until it blisters. Stack the sheets while they are warm for a soft bread, or leave them to dry into crisp sheets.",
+    "zh-cn": "擀到接近纸那么薄，烤到起泡。趁热叠起来是软饼，放凉到干就是脆片，两种吃法都可以。",
+    "zh-tw": "擀到接近紙那麼薄，烤到起泡。趁熱疊起來是軟餅，放涼到乾就是脆片，兩種吃法都可以。",
   },
   "dinner-rolls": {
     en: "Divide evenly, proof until the pieces touch, and bake until the crowns color. Pull them apart at the table.",
@@ -145,9 +145,9 @@ export const breadAbout = {
     "zh-tw": "比熱狗包更長，接縫朝下醒發。外皮要撐得住塞滿餡料的三明治，長度夠夾一整份，長條夠用。",
   },
   breadsticks: {
-    en: "Cut strips after the first rise, roll them thin, and bake until the center is no longer raw. A snack stick, not a loaf.",
-    "zh-cn": "第一次发酵后切条、搓细，烤到中心没有生面。是细棍点心，不是一条面包，中间要烤熟。",
-    "zh-tw": "第一次發酵後切條、搓細，烤到中心沒有生麵。是細棍點心，不是一條麵包，中間要烤熟。",
+    en: "After the first rise, divide the dough into pieces and roll each one into a thin stick. Bake until the center is cooked. A snack stick, not a loaf.",
+    "zh-cn": "第一次发酵后分成小份，再把每份搓成细棒。烤到中心没有生面。是细棍点心，不是一条面包，中间要烤熟。",
+    "zh-tw": "第一次發酵後分成小份，再把每份搓成細棒。烤到中心沒有生麵。是細棍點心，不是一條麵包，中間要烤熟。",
   },
   "soft-pretzels": {
     en: "Tie knots, dip them in simmering water with baking soda, and bake to a deep brown skin. Chewier than a plain dinner roll.",

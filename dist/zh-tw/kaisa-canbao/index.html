@@ -37,8 +37,8 @@
 <label class="field"><span class="label">麵粉 <span class="unit">克</span></span><input name="flour" inputmode="decimal" min="0" step="any" value="500"></label>
 </div>
 <div class="fields grid-2" data-panel="balls" hidden>
-<label class="field"><span class="label">麵團球數</span><input name="balls" inputmode="decimal" min="0" step="any" value="4"></label>
-<label class="field"><span class="label">每球克數 <span class="unit">克</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="250"></label>
+<label class="field"><span class="label">麵團球數</span><input name="balls" inputmode="decimal" min="0" step="any" value="10"></label>
+<label class="field"><span class="label">每球克數 <span class="unit">克</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="80.45"></label>
 </div>
 <div class="fields grid-2">
 <label class="field"><span class="label">水合 <span class="unit">%</span></span><input name="hydration" inputmode="decimal" min="0" step="any" value="58"></label>
@@ -56,11 +56,34 @@
 <div class="actions">
 <button type="button" id="copy">複製配方</button>
 <button type="button" id="print" class="secondary">列印</button>
+<button type="button" id="download-pdf" data-label="下載 PDF" data-loading="正在載入…" data-busy="正在產生 PDF…">下載 PDF</button>
+<script>
+(function () {
+  var button = document.getElementById("download-pdf");
+  if (!button) return;
+  button.addEventListener("click", function () {
+    if (window.__pdfReady || window.__pdfPending) return;
+    window.__pdfPending = true;
+    button.disabled = true;
+    button.textContent = button.getAttribute("data-loading");
+  });
+})();
+</script>
 </div>
+<p id="pdf-error" class="error" role="alert" hidden>PDF 產生失敗，請再按一次。</p>
 <textarea id="recipe-text" hidden readonly></textarea>
 </section>
 <script type="application/json" id="labels">{"title":"凱撒餐包烘焙百分比","flour":"麵粉","water":"水","starter":"酸種","salt":"鹽","yeast":"酵母","total":"麵團總重","grams":"克","effective":"有效水合","copied":"已複製","copyFail":"請選中配方文字再複製"}</script>
-<script type="module" src="/assets/calc.js"></script>
+<script type="application/json" id="pdf-meta">{"title":"凱撒餐包烘焙百分比","url":"https://doughcalc.app/zh-tw/kaisa-canbao/","filename":"doughcalc-kaisa-canbao-zh-tw-recipe.pdf","lang":"zh-TW","fontUrl":"/assets/fonts/noto-sans-tc-subset.ttf","labels":{"result":"配方","flour":"麵粉","water":"水","starter":"酸種","salt":"鹽","yeast":"酵母","total":"麵團總重","grams":"克","effective":"有效水合","hydration":"水合","modeFlour":"按麵粉重量","modeBalls":"按麵團球","balls":"麵團球數","perBall":"每球克數"},"method":{"heading":"詳細做法","lead":"計算器打開時是麵粉 500 克，水合 58%，鹽 2%，酵母 0.9%。也就是水 290 克、鹽 10 克、酵母 4.5 克，合計 804.5 克。麵團球那一欄打開是 10 個、每個 80.45 克。在偏硬的圓麵團上折出星形，再帶蒸汽烘烤，花紋才清楚。表面如果撒芝麻，芝麻不在合計克數裡。下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。","steps":[{"title":"攪拌","body":"把 500 克麵粉、290 克水、10 克鹽和 4.5 克速發酵母拌勻，再揉 8 到 10 分鐘，直到光滑、結實。水合 58%，麵團偏硬，不是軟餐包。麵團溫度大約 24°C。"},{"title":"基本發酵","body":"蓋上，放在大約 24°C，60 到 90 分鐘。酵母有 0.9%，大約脹起一半即可，不要發到兩倍。"},{"title":"分割","body":"把 804.5 克麵團分成 10 份，每份 80.45 克，就是麵團球那一欄的重量。每份收成光滑的圓球，蓋上，鬆弛 10 分鐘。"},{"title":"折星","body":"把圓麵團按扁。從邊緣折五瓣到中心，一瓣壓著一瓣，收成星形。最後一瓣壓進第一瓣下面，花紋才不會散開。如果有凱撒印模，在圓麵團上壓一下也行。手折或壓模都可以，頂上都要看出五瓣。折好後，表面沾一點水，再撒上芝麻。芝麻不在合計克數裡。"},{"title":"最後發酵","body":"星形朝下，放在撒了粉的布上，折痕才不會張開。蓋著發 30 到 45 分鐘，發到鼓起來。進爐前翻過來，星形朝上。"},{"title":"烘烤","body":"烤箱 220°C。入爐的前幾分鐘給蒸汽，底層放一盤熱水就夠。烤 14 到 18 分鐘，直到表皮深金黃，星形還在。"},{"title":"放涼","body":"放到架上至少 15 分鐘再掰開。"}]},"messages":{"label":"下載 PDF","busy":"正在產生 PDF…","fail":"PDF 產生失敗，請再按一次。"}}</script>
+<script type="module" src="/assets/calc.js"></script><section class="method">
+<h2>詳細做法</h2>
+<p>計算器打開時是麵粉 500 克，水合 58%，鹽 2%，酵母 0.9%。也就是水 290 克、鹽 10 克、酵母 4.5 克，合計 804.5 克。麵團球那一欄打開是 10 個、每個 80.45 克。在偏硬的圓麵團上折出星形，再帶蒸汽烘烤，花紋才清楚。表面如果撒芝麻，芝麻不在合計克數裡。下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。</p>
+<ol><li><strong>攪拌</strong> 把 500 克麵粉、290 克水、10 克鹽和 4.5 克速發酵母拌勻，再揉 8 到 10 分鐘，直到光滑、結實。水合 58%，麵團偏硬，不是軟餐包。麵團溫度大約 24°C。</li><li><strong>基本發酵</strong> 蓋上，放在大約 24°C，60 到 90 分鐘。酵母有 0.9%，大約脹起一半即可，不要發到兩倍。</li><li><strong>分割</strong> 把 804.5 克麵團分成 10 份，每份 80.45 克，就是麵團球那一欄的重量。每份收成光滑的圓球，蓋上，鬆弛 10 分鐘。</li><li><strong>折星</strong> 把圓麵團按扁。從邊緣折五瓣到中心，一瓣壓著一瓣，收成星形。最後一瓣壓進第一瓣下面，花紋才不會散開。如果有凱撒印模，在圓麵團上壓一下也行。手折或壓模都可以，頂上都要看出五瓣。折好後，表面沾一點水，再撒上芝麻。芝麻不在合計克數裡。</li><li><strong>最後發酵</strong> 星形朝下，放在撒了粉的布上，折痕才不會張開。蓋著發 30 到 45 分鐘，發到鼓起來。進爐前翻過來，星形朝上。</li><li><strong>烘烤</strong> 烤箱 220°C。入爐的前幾分鐘給蒸汽，底層放一盤熱水就夠。烤 14 到 18 分鐘，直到表皮深金黃，星形還在。</li><li><strong>放涼</strong> 放到架上至少 15 分鐘再掰開。</li></ol>
+<figure>
+<img src="/assets/kaiser-rolls.webp" width="1200" height="1089" alt="一個金黃的圓餐包，頂部折出五瓣星形。" loading="lazy">
+<figcaption>攝影：Kobako，來自 <a href="https://commons.wikimedia.org/wiki/File:Kaisersemmel-.jpg">Wikimedia Commons</a>，<a href="https://creativecommons.org/licenses/by-sa/2.5/">CC BY-SA 2.5</a>。已壓縮並轉為 WebP。</figcaption>
+</figure>
+</section>
 <section class="related"><h2>相關計算</h2><ul class="link-list"><li><a href="/zh-tw/ruan-canbao/">軟餐包烘焙百分比</a></li><li><a href="/zh-tw/ying-canbao/">硬餐包烘焙百分比</a></li><li><a href="/zh-tw/qianting/">潛艇堡麵包烘焙百分比</a></li><li><a href="/zh-tw/jiaoyan-jie/">椒鹽結烘焙百分比</a></li></ul></section>
 </main>
 <footer>

@@ -37,8 +37,8 @@
 <label class="field"><span class="label">面粉 <span class="unit">克</span></span><input name="flour" inputmode="decimal" min="0" step="any" value="450"></label>
 </div>
 <div class="fields grid-2" data-panel="balls" hidden>
-<label class="field"><span class="label">面团球数</span><input name="balls" inputmode="decimal" min="0" step="any" value="4"></label>
-<label class="field"><span class="label">每球克数 <span class="unit">克</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="250"></label>
+<label class="field"><span class="label">面团球数</span><input name="balls" inputmode="decimal" min="0" step="any" value="1"></label>
+<label class="field"><span class="label">每球克数 <span class="unit">克</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="977.4"></label>
 </div>
 <div class="fields grid-2">
 <label class="field"><span class="label">水合 <span class="unit">%</span></span><input name="hydration" inputmode="decimal" min="0" step="any" value="85"></label>
@@ -56,11 +56,34 @@
 <div class="actions">
 <button type="button" id="copy">复制配方</button>
 <button type="button" id="print" class="secondary">打印</button>
+<button type="button" id="download-pdf" data-label="下载 PDF" data-loading="正在加载…" data-busy="正在生成 PDF…">下载 PDF</button>
+<script>
+(function () {
+  var button = document.getElementById("download-pdf");
+  if (!button) return;
+  button.addEventListener("click", function () {
+    if (window.__pdfReady || window.__pdfPending) return;
+    window.__pdfPending = true;
+    button.disabled = true;
+    button.textContent = button.getAttribute("data-loading");
+  });
+})();
+</script>
 </div>
+<p id="pdf-error" class="error" role="alert" hidden>PDF 生成失败，请再按一次。</p>
 <textarea id="recipe-text" hidden readonly></textarea>
 </section>
 <script type="application/json" id="labels">{"title":"黑麦酸种烘焙百分比","flour":"面粉","water":"水","starter":"酸种","salt":"盐","yeast":"酵母","total":"面团总重","grams":"克","effective":"有效水合","copied":"已复制","copyFail":"请选中配方文字再复制"}</script>
-<script type="module" src="/assets/calc.js"></script>
+<script type="application/json" id="pdf-meta">{"title":"黑麦酸种烘焙百分比","url":"https://doughcalc.app/zh-cn/heimai-suanzhong/","filename":"doughcalc-heimai-suanzhong-zh-cn-recipe.pdf","lang":"zh-CN","fontUrl":"/assets/fonts/noto-sans-sc-subset.ttf","labels":{"result":"配方","flour":"面粉","water":"水","starter":"酸种","salt":"盐","yeast":"酵母","total":"面团总重","grams":"克","effective":"有效水合","hydration":"水合","modeFlour":"按面粉重量","modeBalls":"按面团球","balls":"面团球数","perBall":"每球克数"},"method":{"heading":"详细做法","lead":"这是酸种黑麦，不是酵母黑麦面包。计算器打开时是面粉 450 克，水合 85%，酸种 30%，盐 2.2%，酵母 0。也就是水 382.5 克、酸种 135 克、盐 9.9 克，合计 977.4 克。酸种按 100% 水合计，和结果里的有效水合用的是同一种假设。面团球那一栏打开是 1 条、977.4 克。面团又黏又软，用湿手刮进烤模。烤好后要放很久再切。下面的时间按只改面粉的量、百分比不变来估。发酵还是看面团的样子和手感。","steps":[{"title":"酸种","body":"用 135 克已经发到大约两倍、表面有气泡的酸种。这 135 克算在合计里。不要再加即发酵母。这一页的酵母就是 0。"},{"title":"搅拌","body":"把 450 克黑麦面粉、382.5 克水、135 克酸种和 9.9 克盐拌到没有干粉。水合 85%，黑麦这么多，面团拉不出薄膜，手感也不像小麦。手沾水拌匀即可，不必像揉小麦那样出力。不要收成紧实的圆球。面团温度大约 26°C。"},{"title":"静置","body":"盖上 20 分钟。面粉把水吃进去，糊会稍微变厚。"},{"title":"入模","body":"烤模抹油。用湿手把面团刮进去，再用湿手或湿的刮板把表面抹平。靠烤模撑住形状。不要整成能自己站着的圆面包。"},{"title":"最后发酵","body":"盖着，放在大约 26°C，50 到 80 分钟。酸种有 30%，大约胀起一半，表面可能裂开。不会像白面团那样发到两倍。如果顶上开始塌，就立刻烘烤。"},{"title":"烘烤","body":"烤箱 200°C。先烤 20 分钟，再调到 180°C，烤 35 到 45 分钟，直到侧面定住。如果量中心，大约 98°C 就可以。"},{"title":"放凉","body":"倒出来，放到架子上至少 12 小时，放到第二天再切更好。切早了，内部会糊。黑麦酸种要这么放，组织才定得住。"}]},"messages":{"label":"下载 PDF","busy":"正在生成 PDF…","fail":"PDF 生成失败，请再按一次。"}}</script>
+<script type="module" src="/assets/calc.js"></script><section class="method">
+<h2>详细做法</h2>
+<p>这是酸种黑麦，不是酵母黑麦面包。计算器打开时是面粉 450 克，水合 85%，酸种 30%，盐 2.2%，酵母 0。也就是水 382.5 克、酸种 135 克、盐 9.9 克，合计 977.4 克。酸种按 100% 水合计，和结果里的有效水合用的是同一种假设。面团球那一栏打开是 1 条、977.4 克。面团又黏又软，用湿手刮进烤模。烤好后要放很久再切。下面的时间按只改面粉的量、百分比不变来估。发酵还是看面团的样子和手感。</p>
+<ol><li><strong>酸种</strong> 用 135 克已经发到大约两倍、表面有气泡的酸种。这 135 克算在合计里。不要再加即发酵母。这一页的酵母就是 0。</li><li><strong>搅拌</strong> 把 450 克黑麦面粉、382.5 克水、135 克酸种和 9.9 克盐拌到没有干粉。水合 85%，黑麦这么多，面团拉不出薄膜，手感也不像小麦。手沾水拌匀即可，不必像揉小麦那样出力。不要收成紧实的圆球。面团温度大约 26°C。</li><li><strong>静置</strong> 盖上 20 分钟。面粉把水吃进去，糊会稍微变厚。</li><li><strong>入模</strong> 烤模抹油。用湿手把面团刮进去，再用湿手或湿的刮板把表面抹平。靠烤模撑住形状。不要整成能自己站着的圆面包。</li><li><strong>最后发酵</strong> 盖着，放在大约 26°C，50 到 80 分钟。酸种有 30%，大约胀起一半，表面可能裂开。不会像白面团那样发到两倍。如果顶上开始塌，就立刻烘烤。</li><li><strong>烘烤</strong> 烤箱 200°C。先烤 20 分钟，再调到 180°C，烤 35 到 45 分钟，直到侧面定住。如果量中心，大约 98°C 就可以。</li><li><strong>放凉</strong> 倒出来，放到架子上至少 12 小时，放到第二天再切更好。切早了，内部会糊。黑麦酸种要这么放，组织才定得住。</li></ol>
+<figure>
+<img src="/assets/rye-sourdough.webp" width="1200" height="900" alt="深色长方黑麦面包和方片，内部褐色而密实。" loading="lazy">
+<figcaption>摄影：Nadin Sh，来自 <a href="https://www.pexels.com/photo/rye-bread-in-close-up-photography-11214698/">Pexels</a></figcaption>
+</figure>
+</section>
 <section class="related"><h2>相关计算</h2><ul class="link-list"><li><a href="/zh-cn/quanmai-suanzhong/">全麦酸种烘焙百分比</a></li><li><a href="/zh-cn/sipeierte-suanzhong/">斯佩尔特酸种烘焙百分比</a></li><li><a href="/zh-cn/zhongzi-suanzhong/">种子酸种面包烘焙百分比</a></li><li><a href="/zh-cn/ganlan-suanzhong/">橄榄酸种面包烘焙百分比</a></li></ul></section>
 </main>
 <footer>

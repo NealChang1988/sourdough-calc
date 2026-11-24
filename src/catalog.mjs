@@ -205,6 +205,10 @@ const BALL_PRESET = {
   "skillet-bread": [1, 684],
   "garlic-knots": [20, 33.34],
   calzone: [4, 206],
+  "kaiser-rolls": [10, 80.45],
+  breadsticks: [16, 41.2],
+  lavash: [4, 153.9],
+  "rye-sourdough": [1, 977.4],
 };
 
 // New breads stay out of older pages' related lists so those pages keep the same four links.

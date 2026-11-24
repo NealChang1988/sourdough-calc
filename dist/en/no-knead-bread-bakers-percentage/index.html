@@ -56,7 +56,19 @@
 <div class="actions">
 <button type="button" id="copy">Copy recipe</button>
 <button type="button" id="print" class="secondary">Print</button>
-<button type="button" id="download-pdf" data-busy="Preparing PDF…">Download PDF</button>
+<button type="button" id="download-pdf" data-label="Download PDF" data-loading="Loading…" data-busy="Preparing PDF…">Download PDF</button>
+<script>
+(function () {
+  var button = document.getElementById("download-pdf");
+  if (!button) return;
+  button.addEventListener("click", function () {
+    if (window.__pdfReady || window.__pdfPending) return;
+    window.__pdfPending = true;
+    button.disabled = true;
+    button.textContent = button.getAttribute("data-loading");
+  });
+})();
+</script>
 </div>
 <p id="pdf-error" class="error" role="alert" hidden>PDF could not be created. Please try again.</p>
 <textarea id="recipe-text" hidden readonly></textarea>
