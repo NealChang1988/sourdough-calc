@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pane Toscano Baker's Percentage</title>
-<meta name="description" content="Salt stays at zero on purpose, so the rise runs fast and the crust tastes plainly of wheat. Do not salt it back if this is the loaf you want.">
+<meta name="description" content="One flour-dusted loaf of 960 g, with the salt left at zero. The rise runs fast and the crust tastes of wheat. Do not salt it back.">
 <link rel="canonical" href="https://doughcalc.app/en/pane-toscano-bakers-percentage/">
 <link rel="alternate" hreflang="en" href="https://doughcalc.app/en/pane-toscano-bakers-percentage/"><link rel="alternate" hreflang="zh-CN" href="https://doughcalc.app/zh-cn/tuosikana/"><link rel="alternate" hreflang="zh-TW" href="https://doughcalc.app/zh-tw/tuosikana/"><link rel="alternate" hreflang="x-default" href="https://doughcalc.app/en/pane-toscano-bakers-percentage/">
 <meta property="og:title" content="Pane Toscano Baker's Percentage">
-<meta property="og:description" content="Salt stays at zero on purpose, so the rise runs fast and the crust tastes plainly of wheat. Do not salt it back if this is the loaf you want.">
+<meta property="og:description" content="One flour-dusted loaf of 960 g, with the salt left at zero. The rise runs fast and the crust tastes of wheat. Do not salt it back.">
 <meta property="og:url" content="https://doughcalc.app/en/pane-toscano-bakers-percentage/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_US">
@@ -26,7 +26,7 @@
 <main id="main">
 <nav class="crumb" aria-label="Breadcrumb"><a href="/en/">Dough calculator</a> / <a href="/en/bread-dough/">Bread dough</a></nav>
 <h1>Pane Toscano Baker's Percentage</h1>
-<p>Salt stays at zero on purpose, so the rise runs fast and the crust tastes plainly of wheat. Do not salt it back if this is the loaf you want.</p>
+<p>One flour-dusted loaf of 960 g, with the salt left at zero. The rise runs fast and the crust tastes of wheat. Do not salt it back.</p>
 <form id="calc" autocomplete="off">
 <fieldset class="modes">
 <legend>How to scale</legend>
@@ -37,8 +37,8 @@
 <label class="field"><span class="label">Flour <span class="unit">g</span></span><input name="flour" inputmode="decimal" min="0" step="any" value="500"></label>
 </div>
 <div class="fields grid-2" data-panel="balls" hidden>
-<label class="field"><span class="label">Dough balls</span><input name="balls" inputmode="decimal" min="0" step="any" value="4"></label>
-<label class="field"><span class="label">Grams per ball <span class="unit">g</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="250"></label>
+<label class="field"><span class="label">Dough balls</span><input name="balls" inputmode="decimal" min="0" step="any" value="1"></label>
+<label class="field"><span class="label">Grams per ball <span class="unit">g</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="960"></label>
 </div>
 <div class="fields grid-2">
 <label class="field"><span class="label">Hydration <span class="unit">%</span></span><input name="hydration" inputmode="decimal" min="0" step="any" value="72"></label>
@@ -56,11 +56,34 @@
 <div class="actions">
 <button type="button" id="copy">Copy recipe</button>
 <button type="button" id="print" class="secondary">Print</button>
+<button type="button" id="download-pdf" data-label="Download PDF" data-loading="Loading…" data-busy="Preparing PDF…">Download PDF</button>
+<script>
+(function () {
+  var button = document.getElementById("download-pdf");
+  if (!button) return;
+  button.addEventListener("click", function () {
+    if (window.__pdfReady || window.__pdfPending) return;
+    window.__pdfPending = true;
+    button.disabled = true;
+    button.textContent = button.getAttribute("data-loading");
+  });
+})();
+</script>
 </div>
+<p id="pdf-error" class="error" role="alert" hidden>PDF could not be created. Please try again.</p>
 <textarea id="recipe-text" hidden readonly></textarea>
 </section>
 <script type="application/json" id="labels">{"title":"Pane Toscano Baker's Percentage","flour":"Flour","water":"Water","starter":"Starter","salt":"Salt","yeast":"Yeast","total":"Total dough","grams":"g","effective":"Effective hydration","copied":"Copied","copyFail":"Select the recipe text and copy it"}</script>
-<script type="module" src="/assets/calc.js"></script>
+<script type="application/json" id="pdf-meta">{"title":"Pane Toscano Baker's Percentage","url":"https://doughcalc.app/en/pane-toscano-bakers-percentage/","filename":"doughcalc-pane-toscano-bakers-percentage-en-recipe.pdf","lang":"en","fontUrl":"/assets/fonts/noto-sans-sc-subset.ttf","labels":{"result":"Recipe","flour":"Flour","water":"Water","starter":"Starter","salt":"Salt","yeast":"Yeast","total":"Total dough","grams":"g","effective":"Effective hydration","hydration":"Hydration","modeFlour":"From flour weight","modeBalls":"From dough balls","balls":"Dough balls","perBall":"Grams per ball"},"method":{"heading":"Detailed method","lead":"Salt is zero on purpose. The calculator opens at 500 g flour, 72% hydration, 20% starter, no salt, and no yeast. That is 360 g water and 100 g starter, 960 g of dough. The starter is itself 100% hydration, the same assumption used for effective hydration. The page shows 74.5% effective hydration. The balls fields open at 1 loaf of 960 g. With no salt the rise runs faster, and the crust tastes of wheat. Leave the salt out. These times assume you only change the flour amount and keep the percentages the same. Still judge the dough by how it looks and feels.","steps":[{"title":"Starter","body":"Use 100 g of starter that is bubbly and has about doubled. That starter is part of the gram total. Do not add instant yeast, and do not add salt. Both fields stay at zero."},{"title":"Mix","body":"Stir 500 g flour, 360 g water, and the 100 g starter until no dry flour remains. At 72% with no salt the dough feels slack. Aim for about 24°C (75°F)."},{"title":"Bulk","body":"Cover it at about 24°C (75°F). With no salt it moves faster than a salted loaf. Give it three gentle folds in the first 90 minutes, then leave it until it has grown by about half, often 2 to 3 hours from the mix. If the top starts to sink, shape it."},{"title":"Shape","body":"Dust the counter and the dough with flour. Tighten the whole 960 g into one oval. This batch is one loaf. The flour on the skin is a light dusting and is not part of the gram total."},{"title":"Proof","body":"Set it seam-side up in a floured basket, or seam-side down on a cloth. Cover it for 40 to 60 minutes, until it looks puffy. Do not let it collapse."},{"title":"Bake","body":"Heat the oven to 230°C (450°F) with a lidded pot, or with a tray of hot water for steam. Score once. Bake 20 minutes with the steam, then 20 to 25 minutes more at 200°C (390°F), until the crust is deep gold and firm."},{"title":"Cool","body":"Set it on a rack for at least 1 hour before you slice. The photo shows that floury crust. It shows two loaves. This batch makes one."}]},"messages":{"label":"Download PDF","busy":"Preparing PDF…","fail":"PDF could not be created. Please try again."}}</script>
+<script type="module" src="/assets/calc.js"></script><section class="method">
+<h2>Detailed method</h2>
+<p>Salt is zero on purpose. The calculator opens at 500 g flour, 72% hydration, 20% starter, no salt, and no yeast. That is 360 g water and 100 g starter, 960 g of dough. The starter is itself 100% hydration, the same assumption used for effective hydration. The page shows 74.5% effective hydration. The balls fields open at 1 loaf of 960 g. With no salt the rise runs faster, and the crust tastes of wheat. Leave the salt out. These times assume you only change the flour amount and keep the percentages the same. Still judge the dough by how it looks and feels.</p>
+<ol><li><strong>Starter</strong> Use 100 g of starter that is bubbly and has about doubled. That starter is part of the gram total. Do not add instant yeast, and do not add salt. Both fields stay at zero.</li><li><strong>Mix</strong> Stir 500 g flour, 360 g water, and the 100 g starter until no dry flour remains. At 72% with no salt the dough feels slack. Aim for about 24°C (75°F).</li><li><strong>Bulk</strong> Cover it at about 24°C (75°F). With no salt it moves faster than a salted loaf. Give it three gentle folds in the first 90 minutes, then leave it until it has grown by about half, often 2 to 3 hours from the mix. If the top starts to sink, shape it.</li><li><strong>Shape</strong> Dust the counter and the dough with flour. Tighten the whole 960 g into one oval. This batch is one loaf. The flour on the skin is a light dusting and is not part of the gram total.</li><li><strong>Proof</strong> Set it seam-side up in a floured basket, or seam-side down on a cloth. Cover it for 40 to 60 minutes, until it looks puffy. Do not let it collapse.</li><li><strong>Bake</strong> Heat the oven to 230°C (450°F) with a lidded pot, or with a tray of hot water for steam. Score once. Bake 20 minutes with the steam, then 20 to 25 minutes more at 200°C (390°F), until the crust is deep gold and firm.</li><li><strong>Cool</strong> Set it on a rack for at least 1 hour before you slice. The photo shows that floury crust. It shows two loaves. This batch makes one.</li></ol>
+<figure>
+<img src="/assets/pane-toscano.webp" width="1200" height="780" alt="Two rustic flour-dusted loaves with a crackled crust." loading="lazy">
+<figcaption>Photo by Anna Massini on <a href="https://commons.wikimedia.org/wiki/File:Bread_of_Florence_(without_salt).jpg">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Converted to WebP.</figcaption>
+</figure>
+</section>
 <section class="related"><h2>Related calculators</h2><ul class="link-list"><li><a href="/en/whole-wheat-sourdough-bakers-percentage/">Whole Wheat Sourdough Baker's Percentage</a></li><li><a href="/en/spelt-sourdough-bakers-percentage/">Spelt Sourdough Baker's Percentage</a></li><li><a href="/en/rye-sourdough-bakers-percentage/">Rye Sourdough Baker's Percentage</a></li><li><a href="/en/seeded-sourdough-bakers-percentage/">Seeded Sourdough Baker's Percentage</a></li></ul></section>
 </main>
 <footer>

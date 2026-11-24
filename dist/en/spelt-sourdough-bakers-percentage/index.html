@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Spelt Sourdough Baker's Percentage</title>
-<meta name="description" content="It stretches, then suddenly tears. Quit folding while the mass still holds as one piece.">
+<meta name="description" content="One tin loaf of 980 g. Spelt stretches and then tears, so fold gently and stop while it still holds together. Seeds, if you add them, are extra.">
 <link rel="canonical" href="https://doughcalc.app/en/spelt-sourdough-bakers-percentage/">
 <link rel="alternate" hreflang="en" href="https://doughcalc.app/en/spelt-sourdough-bakers-percentage/"><link rel="alternate" hreflang="zh-CN" href="https://doughcalc.app/zh-cn/sipeierte-suanzhong/"><link rel="alternate" hreflang="zh-TW" href="https://doughcalc.app/zh-tw/sipeierte-suanzhong/"><link rel="alternate" hreflang="x-default" href="https://doughcalc.app/en/spelt-sourdough-bakers-percentage/">
 <meta property="og:title" content="Spelt Sourdough Baker's Percentage">
-<meta property="og:description" content="It stretches, then suddenly tears. Quit folding while the mass still holds as one piece.">
+<meta property="og:description" content="One tin loaf of 980 g. Spelt stretches and then tears, so fold gently and stop while it still holds together. Seeds, if you add them, are extra.">
 <meta property="og:url" content="https://doughcalc.app/en/spelt-sourdough-bakers-percentage/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_US">
@@ -26,7 +26,7 @@
 <main id="main">
 <nav class="crumb" aria-label="Breadcrumb"><a href="/en/">Dough calculator</a> / <a href="/en/bread-dough/">Bread dough</a></nav>
 <h1>Spelt Sourdough Baker's Percentage</h1>
-<p>It stretches, then suddenly tears. Quit folding while the mass still holds as one piece.</p>
+<p>One tin loaf of 980 g. Spelt stretches and then tears, so fold gently and stop while it still holds together. Seeds, if you add them, are extra.</p>
 <form id="calc" autocomplete="off">
 <fieldset class="modes">
 <legend>How to scale</legend>
@@ -37,8 +37,8 @@
 <label class="field"><span class="label">Flour <span class="unit">g</span></span><input name="flour" inputmode="decimal" min="0" step="any" value="500"></label>
 </div>
 <div class="fields grid-2" data-panel="balls" hidden>
-<label class="field"><span class="label">Dough balls</span><input name="balls" inputmode="decimal" min="0" step="any" value="4"></label>
-<label class="field"><span class="label">Grams per ball <span class="unit">g</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="250"></label>
+<label class="field"><span class="label">Dough balls</span><input name="balls" inputmode="decimal" min="0" step="any" value="1"></label>
+<label class="field"><span class="label">Grams per ball <span class="unit">g</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="980"></label>
 </div>
 <div class="fields grid-2">
 <label class="field"><span class="label">Hydration <span class="unit">%</span></span><input name="hydration" inputmode="decimal" min="0" step="any" value="74"></label>
@@ -56,11 +56,34 @@
 <div class="actions">
 <button type="button" id="copy">Copy recipe</button>
 <button type="button" id="print" class="secondary">Print</button>
+<button type="button" id="download-pdf" data-label="Download PDF" data-loading="Loading…" data-busy="Preparing PDF…">Download PDF</button>
+<script>
+(function () {
+  var button = document.getElementById("download-pdf");
+  if (!button) return;
+  button.addEventListener("click", function () {
+    if (window.__pdfReady || window.__pdfPending) return;
+    window.__pdfPending = true;
+    button.disabled = true;
+    button.textContent = button.getAttribute("data-loading");
+  });
+})();
+</script>
 </div>
+<p id="pdf-error" class="error" role="alert" hidden>PDF could not be created. Please try again.</p>
 <textarea id="recipe-text" hidden readonly></textarea>
 </section>
 <script type="application/json" id="labels">{"title":"Spelt Sourdough Baker's Percentage","flour":"Flour","water":"Water","starter":"Starter","salt":"Salt","yeast":"Yeast","total":"Total dough","grams":"g","effective":"Effective hydration","copied":"Copied","copyFail":"Select the recipe text and copy it"}</script>
-<script type="module" src="/assets/calc.js"></script>
+<script type="application/json" id="pdf-meta">{"title":"Spelt Sourdough Baker's Percentage","url":"https://doughcalc.app/en/spelt-sourdough-bakers-percentage/","filename":"doughcalc-spelt-sourdough-bakers-percentage-en-recipe.pdf","lang":"en","fontUrl":"/assets/fonts/noto-sans-sc-subset.ttf","labels":{"result":"Recipe","flour":"Flour","water":"Water","starter":"Starter","salt":"Salt","yeast":"Yeast","total":"Total dough","grams":"g","effective":"Effective hydration","hydration":"Hydration","modeFlour":"From flour weight","modeBalls":"From dough balls","balls":"Dough balls","perBall":"Grams per ball"},"method":{"heading":"Detailed method","lead":"This is the sourdough spelt, not the yeasted spelt loaf. The calculator opens at 500 g flour, 74% hydration, 20% starter, 2% salt, and no yeast. That is 370 g water, 100 g starter, and 10 g salt, 980 g of dough. The starter is itself 100% hydration, the same assumption used for effective hydration. The page shows 76.4% effective hydration. The balls fields open at 1 loaf of 980 g. Spelt stretches and then tears, so fold it gently and bake one tin loaf. Seeds, if you add them, are extra and are not in the gram total. The photo shows a seeded loaf. These times assume you only change the flour amount and keep the percentages the same. Still judge the dough by how it looks and feels.","steps":[{"title":"Starter","body":"Use 100 g of starter that is bubbly and has about doubled. That starter is part of the gram total. Do not add instant yeast. The yeast field stays at zero."},{"title":"Mix","body":"Stir 500 g spelt flour, 370 g water, the 100 g starter, and 10 g salt until no dry flour remains. Stop once it comes together. A hard knead makes spelt tear and slacken. Aim for about 24°C (75°F)."},{"title":"Bulk","body":"Cover it at about 24°C (75°F) for about 3 to 4 hours. Give it two or three gentle folds in the first 90 minutes. Lift and fold, and stop before it rips. It is ready when it has grown by about half and still holds as one piece."},{"title":"Pan","body":"Oil a loaf pan. Scrape the 980 g dough in and smooth the top with a wet hand. This batch is one tin loaf."},{"title":"Seeds","body":"If you want the loaf in the photo, mix in or scatter about 40 g of seeds. Soak hard seeds first. The seeds are extra and are not in the gram total."},{"title":"Proof","body":"Cover the pan for 45 to 70 minutes, until the dough rises by about half. If the top starts to tear or sink, bake it."},{"title":"Bake","body":"Heat the oven to 210°C (410°F). Bake 20 minutes, then lower to 190°C (375°F) and bake 20 to 25 minutes more, until the sides are firm. Cool on a rack for at least 1 hour before you slice."}]},"messages":{"label":"Download PDF","busy":"Preparing PDF…","fail":"PDF could not be created. Please try again."}}</script>
+<script type="module" src="/assets/calc.js"></script><section class="method">
+<h2>Detailed method</h2>
+<p>This is the sourdough spelt, not the yeasted spelt loaf. The calculator opens at 500 g flour, 74% hydration, 20% starter, 2% salt, and no yeast. That is 370 g water, 100 g starter, and 10 g salt, 980 g of dough. The starter is itself 100% hydration, the same assumption used for effective hydration. The page shows 76.4% effective hydration. The balls fields open at 1 loaf of 980 g. Spelt stretches and then tears, so fold it gently and bake one tin loaf. Seeds, if you add them, are extra and are not in the gram total. The photo shows a seeded loaf. These times assume you only change the flour amount and keep the percentages the same. Still judge the dough by how it looks and feels.</p>
+<ol><li><strong>Starter</strong> Use 100 g of starter that is bubbly and has about doubled. That starter is part of the gram total. Do not add instant yeast. The yeast field stays at zero.</li><li><strong>Mix</strong> Stir 500 g spelt flour, 370 g water, the 100 g starter, and 10 g salt until no dry flour remains. Stop once it comes together. A hard knead makes spelt tear and slacken. Aim for about 24°C (75°F).</li><li><strong>Bulk</strong> Cover it at about 24°C (75°F) for about 3 to 4 hours. Give it two or three gentle folds in the first 90 minutes. Lift and fold, and stop before it rips. It is ready when it has grown by about half and still holds as one piece.</li><li><strong>Pan</strong> Oil a loaf pan. Scrape the 980 g dough in and smooth the top with a wet hand. This batch is one tin loaf.</li><li><strong>Seeds</strong> If you want the loaf in the photo, mix in or scatter about 40 g of seeds. Soak hard seeds first. The seeds are extra and are not in the gram total.</li><li><strong>Proof</strong> Cover the pan for 45 to 70 minutes, until the dough rises by about half. If the top starts to tear or sink, bake it.</li><li><strong>Bake</strong> Heat the oven to 210°C (410°F). Bake 20 minutes, then lower to 190°C (375°F) and bake 20 to 25 minutes more, until the sides are firm. Cool on a rack for at least 1 hour before you slice.</li></ol>
+<figure>
+<img src="/assets/spelt-sourdough.webp" width="1200" height="900" alt="A sliced spelt tin loaf with a tan crumb and seeds in it." loading="lazy">
+<figcaption>Photo by Katrin Gilger on <a href="https://commons.wikimedia.org/wiki/File:Dinkelbrot_(4212924064).jpg">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC BY-SA 2.0</a>. Converted to WebP.</figcaption>
+</figure>
+</section>
 <section class="related"><h2>Related calculators</h2><ul class="link-list"><li><a href="/en/whole-wheat-sourdough-bakers-percentage/">Whole Wheat Sourdough Baker's Percentage</a></li><li><a href="/en/rye-sourdough-bakers-percentage/">Rye Sourdough Baker's Percentage</a></li><li><a href="/en/seeded-sourdough-bakers-percentage/">Seeded Sourdough Baker's Percentage</a></li><li><a href="/en/olive-sourdough-bakers-percentage/">Olive Sourdough Baker's Percentage</a></li></ul></section>
 </main>
 <footer>

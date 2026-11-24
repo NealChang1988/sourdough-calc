@@ -102,19 +102,19 @@ export const pizzaStyles = [
       "zh-tw": "西西里披薩麵團",
     },
     about: {
-      en: "A thick, square pan dough, softer than a Neapolitan ball but not as wet as ciabatta. It proofs in oil until it jiggles, then bakes into a tall, airy crumb.",
-      "zh-cn": "厚的方形盘面团，比那不勒斯更软，但没有恰巴塔那么湿。在油里发到轻轻一晃会颤，烤出来组织高而松。",
-      "zh-tw": "厚的方形盤麵團，比那不勒斯更軟，但沒有恰巴塔那麼濕。在油裡發到輕輕一晃會顫，烤出來組織高而鬆。",
+      en: "A thick square pan dough, softer than a Neapolitan ball. The page opens at 4 balls of 450 g. It proofs in oil until it jiggles, then bakes into a tall crumb.",
+      "zh-cn": "厚的方形盘面团，比那不勒斯更软。页面打开是 4 球、每球 450 克。在油里发到轻轻一晃会颤，烤出来组织又高又厚。",
+      "zh-tw": "厚的方形盤麵團，比那不勒斯更軟。頁面打開是 4 球、每球 450 克。在油裡發到輕輕一晃會顫，烤出來組織又高又厚。",
     },
     method: {
-      en: "Press the dough into a well-oiled square pan and proof it until it looks jiggly before you top it.",
-      "zh-cn": "把面团按进抹足油的方形烤盘，发到轻轻晃会颤，再放配料。",
-      "zh-tw": "把麵團按進抹足油的方形烤盤，發到輕輕晃會顫，再放配料。",
+      en: "Divide into 4 pieces of 450 g. Press each one into a well-oiled square pan and proof it until it jiggles before you top it.",
+      "zh-cn": "分成 4 份，每份 450 克。按进抹足油的方形烤盘，发到轻轻晃会颤，再放配料。",
+      "zh-tw": "分成 4 份，每份 450 克。按進抹足油的方形烤盤，發到輕輕晃會顫，再放配料。",
     },
     ballsNote: {
-      en: "A ball starts at 450 g, enough for one square pan. Increase the count for another pan.",
-      "zh-cn": "一球先按 450 克，够一个方盘。再加一盘就把球数加上去。",
-      "zh-tw": "一球先按 450 克，夠一個方盤。再加一盤就把球數加上去。",
+      en: "Each ball starts at 450 g, one thick square pan. Change the count when you are filling more pans.",
+      "zh-cn": "每一球先按 450 克，一个厚方盘。烤几盘，就把球数改成几。",
+      "zh-tw": "每一球先按 450 克，一個厚方盤。烤幾盤，就把球數改成幾。",
     },
   },
   {

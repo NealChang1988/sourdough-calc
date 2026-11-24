@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>比亞利麵包烘焙百分比</title>
-<meta name="description" content="小圓餅中央用拇指壓一個坑，填上洋蔥。不要下水煮，中間會比邊緣更扁，坑裡才是重點。">
+<meta name="description" content="這一爐分成 10 個小圓餅，每個 79.3 克。中間壓一個坑，填上切碎的洋蔥再烤。不要下水煮。">
 <link rel="canonical" href="https://doughcalc.app/zh-tw/biyali/">
 <link rel="alternate" hreflang="en" href="https://doughcalc.app/en/bialy-bakers-percentage/"><link rel="alternate" hreflang="zh-CN" href="https://doughcalc.app/zh-cn/biyali/"><link rel="alternate" hreflang="zh-TW" href="https://doughcalc.app/zh-tw/biyali/"><link rel="alternate" hreflang="x-default" href="https://doughcalc.app/en/bialy-bakers-percentage/">
 <meta property="og:title" content="比亞利麵包烘焙百分比">
-<meta property="og:description" content="小圓餅中央用拇指壓一個坑，填上洋蔥。不要下水煮，中間會比邊緣更扁，坑裡才是重點。">
+<meta property="og:description" content="這一爐分成 10 個小圓餅，每個 79.3 克。中間壓一個坑，填上切碎的洋蔥再烤。不要下水煮。">
 <meta property="og:url" content="https://doughcalc.app/zh-tw/biyali/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="zh_TW">
@@ -26,7 +26,7 @@
 <main id="main">
 <nav class="crumb" aria-label="目前位置"><a href="/zh-tw/">麵團計算器</a> / <a href="/zh-tw/mianbao-baifenbi/">麵包麵團</a></nav>
 <h1>比亞利麵包烘焙百分比</h1>
-<p>小圓餅中央用拇指壓一個坑，填上洋蔥。不要下水煮，中間會比邊緣更扁，坑裡才是重點。</p>
+<p>這一爐分成 10 個小圓餅，每個 79.3 克。中間壓一個坑，填上切碎的洋蔥再烤。不要下水煮。</p>
 <form id="calc" autocomplete="off">
 <fieldset class="modes">
 <legend>怎麼算</legend>
@@ -37,8 +37,8 @@
 <label class="field"><span class="label">麵粉 <span class="unit">克</span></span><input name="flour" inputmode="decimal" min="0" step="any" value="500"></label>
 </div>
 <div class="fields grid-2" data-panel="balls" hidden>
-<label class="field"><span class="label">麵團球數</span><input name="balls" inputmode="decimal" min="0" step="any" value="4"></label>
-<label class="field"><span class="label">每球克數 <span class="unit">克</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="250"></label>
+<label class="field"><span class="label">麵團球數</span><input name="balls" inputmode="decimal" min="0" step="any" value="10"></label>
+<label class="field"><span class="label">每球克數 <span class="unit">克</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="79.3"></label>
 </div>
 <div class="fields grid-2">
 <label class="field"><span class="label">水合 <span class="unit">%</span></span><input name="hydration" inputmode="decimal" min="0" step="any" value="56"></label>
@@ -56,11 +56,34 @@
 <div class="actions">
 <button type="button" id="copy">複製配方</button>
 <button type="button" id="print" class="secondary">列印</button>
+<button type="button" id="download-pdf" data-label="下載 PDF" data-loading="正在載入…" data-busy="正在產生 PDF…">下載 PDF</button>
+<script>
+(function () {
+  var button = document.getElementById("download-pdf");
+  if (!button) return;
+  button.addEventListener("click", function () {
+    if (window.__pdfReady || window.__pdfPending) return;
+    window.__pdfPending = true;
+    button.disabled = true;
+    button.textContent = button.getAttribute("data-loading");
+  });
+})();
+</script>
 </div>
+<p id="pdf-error" class="error" role="alert" hidden>PDF 產生失敗，請再按一次。</p>
 <textarea id="recipe-text" hidden readonly></textarea>
 </section>
 <script type="application/json" id="labels">{"title":"比亞利麵包烘焙百分比","flour":"麵粉","water":"水","starter":"酸種","salt":"鹽","yeast":"酵母","total":"麵團總重","grams":"克","effective":"有效水合","copied":"已複製","copyFail":"請選中配方文字再複製"}</script>
-<script type="module" src="/assets/calc.js"></script>
+<script type="application/json" id="pdf-meta">{"title":"比亞利麵包烘焙百分比","url":"https://doughcalc.app/zh-tw/biyali/","filename":"doughcalc-biyali-zh-tw-recipe.pdf","lang":"zh-TW","fontUrl":"/assets/fonts/noto-sans-tc-subset.ttf","labels":{"result":"配方","flour":"麵粉","water":"水","starter":"酸種","salt":"鹽","yeast":"酵母","total":"麵團總重","grams":"克","effective":"有效水合","hydration":"水合","modeFlour":"按麵粉重量","modeBalls":"按麵團球","balls":"麵團球數","perBall":"每球克數"},"method":{"heading":"詳細做法","lead":"計算器打開時是麵粉 500 克，水合 56%，鹽 1.8%，酵母 0.8%。也就是水 280 克、鹽 9 克、酵母 4 克，合計 793 克。麵團球那一欄打開是 10 個、每個 79.3 克。每個小圓餅中間壓一個坑，填上切碎的洋蔥。不要水煮。洋蔥和罌粟籽不在合計克數裡。下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。","steps":[{"title":"攪拌","body":"把 500 克麵粉、280 克水、9 克鹽和 4 克速發酵母拌勻，再揉 8 到 10 分鐘，直到光滑、結實。水合 56%，麵團偏硬。麵團溫度大約 24°C。"},{"title":"基本發酵","body":"蓋上，放在大約 24°C，60 到 80 分鐘。酵母有 0.8%，大約脹起一半。"},{"title":"分割","body":"把 793 克麵團分成 10 份，每份 79.3 克，就是麵團球那一欄的重量。每份收成光滑的圓球，蓋上，鬆弛 10 分鐘。"},{"title":"壓坑","body":"用拇指在每個圓麵團的中心壓下去，把中間按平，讓它低於四周。留下一個坑，不要壓穿。這些圓餅不要下水煮。"},{"title":"填洋蔥","body":"每個坑裡放大約 8 克切得很碎的洋蔥。洋蔥上再撒一小撮罌粟籽，是常見的做法。洋蔥和罌粟籽都是另外加的，不在合計克數裡。照片裡坑中就是洋蔥。"},{"title":"最後發酵","body":"蓋著發 20 到 30 分鐘，只要略微蓬鬆。不要水煮。"},{"title":"烘烤","body":"烤箱 220°C，烤 12 到 16 分鐘，直到邊緣金黃、洋蔥熟了。中間仍然比邊緣更扁。"}]},"messages":{"label":"下載 PDF","busy":"正在產生 PDF…","fail":"PDF 產生失敗，請再按一次。"}}</script>
+<script type="module" src="/assets/calc.js"></script><section class="method">
+<h2>詳細做法</h2>
+<p>計算器打開時是麵粉 500 克，水合 56%，鹽 1.8%，酵母 0.8%。也就是水 280 克、鹽 9 克、酵母 4 克，合計 793 克。麵團球那一欄打開是 10 個、每個 79.3 克。每個小圓餅中間壓一個坑，填上切碎的洋蔥。不要水煮。洋蔥和罌粟籽不在合計克數裡。下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。</p>
+<ol><li><strong>攪拌</strong> 把 500 克麵粉、280 克水、9 克鹽和 4 克速發酵母拌勻，再揉 8 到 10 分鐘，直到光滑、結實。水合 56%，麵團偏硬。麵團溫度大約 24°C。</li><li><strong>基本發酵</strong> 蓋上，放在大約 24°C，60 到 80 分鐘。酵母有 0.8%，大約脹起一半。</li><li><strong>分割</strong> 把 793 克麵團分成 10 份，每份 79.3 克，就是麵團球那一欄的重量。每份收成光滑的圓球，蓋上，鬆弛 10 分鐘。</li><li><strong>壓坑</strong> 用拇指在每個圓麵團的中心壓下去，把中間按平，讓它低於四周。留下一個坑，不要壓穿。這些圓餅不要下水煮。</li><li><strong>填洋蔥</strong> 每個坑裡放大約 8 克切得很碎的洋蔥。洋蔥上再撒一小撮罌粟籽，是常見的做法。洋蔥和罌粟籽都是另外加的，不在合計克數裡。照片裡坑中就是洋蔥。</li><li><strong>最後發酵</strong> 蓋著發 20 到 30 分鐘，只要略微蓬鬆。不要水煮。</li><li><strong>烘烤</strong> 烤箱 220°C，烤 12 到 16 分鐘，直到邊緣金黃、洋蔥熟了。中間仍然比邊緣更扁。</li></ol>
+<figure>
+<img src="/assets/bialy.webp" width="1200" height="1084" alt="一個小圓餅，中間的坑裡是切碎的洋蔥，不是水煮的環。" loading="lazy">
+<figcaption>攝影：Chefallen，來自 <a href="https://commons.wikimedia.org/wiki/File:Bialy_2.jpg">Wikimedia Commons</a>，<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>。原圖寬 683、高 617，放大後轉為 WebP。</figcaption>
+</figure>
+</section>
 <section class="related"><h2>相關計算</h2><ul class="link-list"><li><a href="/zh-tw/wancan-canbao/">晚餐小餐包烘焙百分比</a></li><li><a href="/zh-tw/hanbao/">漢堡麵包烘焙百分比</a></li><li><a href="/zh-tw/regou/">熱狗麵包烘焙百分比</a></li><li><a href="/zh-tw/ruan-canbao/">軟餐包烘焙百分比</a></li></ul></section>
 </main>
 <footer>

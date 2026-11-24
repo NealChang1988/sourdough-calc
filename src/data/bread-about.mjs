@@ -20,9 +20,9 @@ export const breadAbout = {
     "zh-tw": "麩皮很吸水，剛拌時發沉，烤出來的心比白麵粉鄉村麵包更細密。一開始就要多攪一會兒。",
   },
   "spelt-sourdough": {
-    en: "It stretches, then suddenly tears. Quit folding while the mass still holds as one piece.",
-    "zh-cn": "能拉开，但很快就会断裂。趁它还是一整团就停手，再折下去边缘会散开，别再拉了，马上停。",
-    "zh-tw": "能拉開，但很快就會斷裂。趁它還是一整團就停手，再折下去邊緣會散開，別再拉了，馬上停。",
+    en: "One tin loaf of 980 g. Spelt stretches and then tears, so fold gently and stop while it still holds together. Seeds, if you add them, are extra.",
+    "zh-cn": "一条 980 克的烤模面包。斯佩尔特麦拉开后容易断，轻轻折叠，趁它还是一整团就停。若加种子，种子不在克数合计里。",
+    "zh-tw": "一條 980 克的烤模麵包。斯佩爾特麥拉開後容易斷，輕輕摺疊，趁它還是一整團就停。若加種子，種子不在克數合計裡。",
   },
   "rye-sourdough": {
     en: "Closer to a paste than a wheat dough that forms a windowpane. A tin stops it spreading into a pancake.",
@@ -80,9 +80,9 @@ export const breadAbout = {
     "zh-tw": "緊實的環。先短煮，再烤到外皮發亮定型。硬到沒法像披薩那樣拉開，外皮要先過水，環不要拉開。",
   },
   bialy: {
-    en: "A small round with a thumb-pressed dent of onions in the middle. Skip the boil; the center stays flatter than the rim.",
-    "zh-cn": "小圆饼中央用拇指压一个坑，填上洋葱。不要下水煮，中间会比边缘更扁，坑里才是重点。",
-    "zh-tw": "小圓餅中央用拇指壓一個坑，填上洋蔥。不要下水煮，中間會比邊緣更扁，坑裡才是重點。",
+    en: "Divide this batch into 10 small rounds of 79.3 g. Press a well in the center, fill it with chopped onion, and bake. Do not boil them.",
+    "zh-cn": "这一炉分成 10 个小圆饼，每个 79.3 克。中间压一个坑，填上切碎的洋葱再烤。不要下水煮。",
+    "zh-tw": "這一爐分成 10 個小圓餅，每個 79.3 克。中間壓一個坑，填上切碎的洋蔥再烤。不要下水煮。",
   },
   pita: {
     en: "Roll thin disks and bake them very hot so they balloon into a pocket. A crowded oven will not puff them.",
@@ -140,9 +140,9 @@ export const breadAbout = {
     "zh-tw": "在結實的圓麵團上壓出或折出一個結，再帶著蒸汽烘烤，頂部的星形才清楚，花紋要留住。",
   },
   "hoagie-rolls": {
-    en: "Longer than a hot-dog bun, proofed seam-side down, with a skin sturdy enough to hold a stuffed sandwich.",
-    "zh-cn": "比热狗包更长，接缝朝下醒发。外皮要撑得住塞满馅料的三明治，长度够夹一整份，长条够用。",
-    "zh-tw": "比熱狗包更長，接縫朝下醒發。外皮要撐得住塞滿餡料的三明治，長度夠夾一整份，長條夠用。",
+    en: "Divide this batch into 8 long rolls of 103 g. Proof them seam-side down, then bake until the crust can hold a filling.",
+    "zh-cn": "这一炉分成 8 条长面包，每条 103 克。接缝朝下醒发，烤到外皮撑得住塞进去的馅料。",
+    "zh-tw": "這一爐分成 8 條長麵包，每條 103 克。接縫朝下醒發，烤到外皮撐得住塞進去的餡料。",
   },
   breadsticks: {
     en: "After the first rise, divide the dough into pieces and roll each one into a thin stick. Bake until the center is cooked. A snack stick, not a loaf.",
@@ -265,9 +265,9 @@ export const breadAbout = {
     "zh-tw": "比佛卡夏更薄，壓得更平，坑洞要烤上色。是一張零食餅，不是厚厚的盤烤麵包，坑要見色。",
   },
   "pane-toscano": {
-    en: "Salt stays at zero on purpose, so the rise runs fast and the crust tastes plainly of wheat. Do not salt it back if this is the loaf you want.",
-    "zh-cn": "盐故意保持为零，发酵因此很快，表皮是小麦本身的味道。若就是要这种面包，不要再把盐加回去。",
-    "zh-tw": "鹽故意保持為零，發酵因此很快，表皮是小麥本身的味道。若就是要這種麵包，不要再把鹽加回去。",
+    en: "One flour-dusted loaf of 960 g, with the salt left at zero. The rise runs fast and the crust tastes of wheat. Do not salt it back.",
+    "zh-cn": "一条 960 克、表面撒粉的面包，盐保持为零。发酵因此很快，表皮是小麦本身的味道。不要再把盐加回去。",
+    "zh-tw": "一條 960 克、表面撒粉的麵包，鹽保持為零。發酵因此很快，表皮是小麥本身的味道。不要再把鹽加回去。",
   },
   "pane-pugliese": {
     en: "A wet round dusted with flour and shaped loosely, so it spreads a little as it bakes. The crust looks floury rather than smooth.",

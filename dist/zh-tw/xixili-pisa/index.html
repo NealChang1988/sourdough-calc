@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>西西里披薩麵團</title>
-<meta name="description" content="厚的方形盤麵團，比那不勒斯更軟，但沒有恰巴塔那麼濕。在油裡發到輕輕一晃會顫，烤出來組織高而鬆。">
+<meta name="description" content="厚的方形盤麵團，比那不勒斯更軟。頁面打開是 4 球、每球 450 克。在油裡發到輕輕一晃會顫，烤出來組織又高又厚。">
 <link rel="canonical" href="https://doughcalc.app/zh-tw/xixili-pisa/">
 <link rel="alternate" hreflang="en" href="https://doughcalc.app/en/sicilian-pizza-dough/"><link rel="alternate" hreflang="zh-CN" href="https://doughcalc.app/zh-cn/xixili-pisa/"><link rel="alternate" hreflang="zh-TW" href="https://doughcalc.app/zh-tw/xixili-pisa/"><link rel="alternate" hreflang="x-default" href="https://doughcalc.app/en/sicilian-pizza-dough/">
 <meta property="og:title" content="西西里披薩麵團">
-<meta property="og:description" content="厚的方形盤麵團，比那不勒斯更軟，但沒有恰巴塔那麼濕。在油裡發到輕輕一晃會顫，烤出來組織高而鬆。">
+<meta property="og:description" content="厚的方形盤麵團，比那不勒斯更軟。頁面打開是 4 球、每球 450 克。在油裡發到輕輕一晃會顫，烤出來組織又高又厚。">
 <meta property="og:url" content="https://doughcalc.app/zh-tw/xixili-pisa/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="zh_TW">
@@ -26,7 +26,7 @@
 <main id="main">
 <nav class="crumb" aria-label="目前位置"><a href="/zh-tw/">麵團計算器</a> / <a href="/zh-tw/pisa-fenlei/">披薩麵團</a></nav>
 <h1>西西里披薩麵團</h1>
-<p>把麵團按進抹足油的方形烤盤，發到輕輕晃會顫，再放配料。一球先按 450 克，夠一個方盤。再加一盤就把球數加上去。</p>
+<p>分成 4 份，每份 450 克。按進抹足油的方形烤盤，發到輕輕晃會顫，再放配料。每一球先按 450 克，一個厚方盤。烤幾盤，就把球數改成幾。</p>
 <form id="calc" autocomplete="off">
 <fieldset class="modes">
 <legend>怎麼算</legend>
@@ -56,11 +56,34 @@
 <div class="actions">
 <button type="button" id="copy">複製配方</button>
 <button type="button" id="print" class="secondary">列印</button>
+<button type="button" id="download-pdf" data-label="下載 PDF" data-loading="正在載入…" data-busy="正在產生 PDF…">下載 PDF</button>
+<script>
+(function () {
+  var button = document.getElementById("download-pdf");
+  if (!button) return;
+  button.addEventListener("click", function () {
+    if (window.__pdfReady || window.__pdfPending) return;
+    window.__pdfPending = true;
+    button.disabled = true;
+    button.textContent = button.getAttribute("data-loading");
+  });
+})();
+</script>
 </div>
+<p id="pdf-error" class="error" role="alert" hidden>PDF 產生失敗，請再按一次。</p>
 <textarea id="recipe-text" hidden readonly></textarea>
 </section>
 <script type="application/json" id="labels">{"title":"西西里披薩麵團","flour":"麵粉","water":"水","starter":"酸種","salt":"鹽","yeast":"酵母","total":"麵團總重","grams":"克","effective":"有效水合","copied":"已複製","copyFail":"請選中配方文字再複製"}</script>
-<script type="module" src="/assets/calc.js"></script>
+<script type="application/json" id="pdf-meta">{"title":"西西里披薩麵團","url":"https://doughcalc.app/zh-tw/xixili-pisa/","filename":"doughcalc-xixili-pisa-zh-tw-recipe.pdf","lang":"zh-TW","fontUrl":"/assets/fonts/noto-sans-tc-subset.ttf","labels":{"result":"配方","flour":"麵粉","water":"水","starter":"酸種","salt":"鹽","yeast":"酵母","total":"麵團總重","grams":"克","effective":"有效水合","hydration":"水合","modeFlour":"按麵粉重量","modeBalls":"按麵團球","balls":"麵團球數","perBall":"每球克數"},"method":{"heading":"詳細做法","lead":"計算器打開時是 4 個麵團球、每球 450 克，水合 70%，鹽 2.2%，酵母 0.5%。一球一個厚方盤。按這 4 球，頁面上是麵粉 1042.3 克、水 729.6 克、鹽 22.9 克、酵母 5.2 克。麵團比那不勒斯更軟，在油裡發到輕輕一晃會顫，烤出來組織又高又厚。油和配料不在合計克數裡。下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。","steps":[{"title":"攪拌","body":"把 1042.3 克麵粉、729.6 克水、22.9 克鹽和 5.2 克速發酵母拌到沒有乾粉。水合 70%，柔軟，有一點黏。麵團溫度大約 24°C。"},{"title":"鬆弛","body":"蓋上 20 分鐘，摺疊時才不容易扯破。"},{"title":"基本發酵","body":"蓋著，放在大約 24°C，70 到 100 分鐘。做兩輪拉伸摺疊。酵母有 0.5%，大約脹起一半即可，不必發到兩倍。"},{"title":"入盤","body":"分成 4 份，每份 450 克，就是頁面打開時的球數和重量。每份用一個大約 23 公分見方的烤盤，抹上大約 15 克油。油是另外加的，不在合計克數裡。"},{"title":"鋪開","body":"手指沾油，把麵團按向四角。如果縮回去，蓋上 10 分鐘再按，直到鋪滿方盤。這是厚的盤披薩，不是薄的圓餅。"},{"title":"最後發酵","body":"蓋著，放在大約 24°C，40 到 60 分鐘，發到蓬鬆，輕輕晃烤盤會顫。"},{"title":"烘烤","body":"每盤鋪大約 80 克番茄醬，再放起司或一點香草。配料是另外加的，不在合計克數裡。烤箱 230°C，烤 18 到 24 分鐘，直到鍋底金黃、組織定住。等 5 分鐘，再切成方塊。"}]},"messages":{"label":"下載 PDF","busy":"正在產生 PDF…","fail":"PDF 產生失敗，請再按一次。"}}</script>
+<script type="module" src="/assets/calc.js"></script><section class="method">
+<h2>詳細做法</h2>
+<p>計算器打開時是 4 個麵團球、每球 450 克，水合 70%，鹽 2.2%，酵母 0.5%。一球一個厚方盤。按這 4 球，頁面上是麵粉 1042.3 克、水 729.6 克、鹽 22.9 克、酵母 5.2 克。麵團比那不勒斯更軟，在油裡發到輕輕一晃會顫，烤出來組織又高又厚。油和配料不在合計克數裡。下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。</p>
+<ol><li><strong>攪拌</strong> 把 1042.3 克麵粉、729.6 克水、22.9 克鹽和 5.2 克速發酵母拌到沒有乾粉。水合 70%，柔軟，有一點黏。麵團溫度大約 24°C。</li><li><strong>鬆弛</strong> 蓋上 20 分鐘，摺疊時才不容易扯破。</li><li><strong>基本發酵</strong> 蓋著，放在大約 24°C，70 到 100 分鐘。做兩輪拉伸摺疊。酵母有 0.5%，大約脹起一半即可，不必發到兩倍。</li><li><strong>入盤</strong> 分成 4 份，每份 450 克，就是頁面打開時的球數和重量。每份用一個大約 23 公分見方的烤盤，抹上大約 15 克油。油是另外加的，不在合計克數裡。</li><li><strong>鋪開</strong> 手指沾油，把麵團按向四角。如果縮回去，蓋上 10 分鐘再按，直到鋪滿方盤。這是厚的盤披薩，不是薄的圓餅。</li><li><strong>最後發酵</strong> 蓋著，放在大約 24°C，40 到 60 分鐘，發到蓬鬆，輕輕晃烤盤會顫。</li><li><strong>烘烤</strong> 每盤鋪大約 80 克番茄醬，再放起司或一點香草。配料是另外加的，不在合計克數裡。烤箱 230°C，烤 18 到 24 分鐘，直到鍋底金黃、組織定住。等 5 分鐘，再切成方塊。</li></ol>
+<figure>
+<img src="/assets/sicilian-pizza.webp" width="1200" height="788" alt="一塊厚的方形盤披薩，組織又高又鬆，上面鋪著番茄。" loading="lazy">
+<figcaption>攝影：Rino Porrovecchio，來自 <a href="https://commons.wikimedia.org/wiki/File:Sfincione_palermitano.jpg">Wikimedia Commons</a>，<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC BY-SA 2.0</a>。已轉為 WebP。</figcaption>
+</figure>
+</section>
 <section class="related"><h2>相關計算</h2><ul class="link-list"><li><a href="/zh-tw/baopi-pisa/">薄皮披薩麵團</a></li><li><a href="/zh-tw/suanzhong-pisa/">酸種披薩麵團</a></li><li><a href="/zh-tw/dangri-pisa/">當日披薩麵團</a></li><li><a href="/zh-tw/lengcang-pisa/">冷藏發酵披薩麵團</a></li></ul></section>
 </main>
 <footer>
