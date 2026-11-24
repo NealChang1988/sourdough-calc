@@ -37,8 +37,8 @@
 <label class="field"><span class="label">面粉 <span class="unit">克</span></span><input name="flour" inputmode="decimal" min="0" step="any" value="500"></label>
 </div>
 <div class="fields grid-2" data-panel="balls" hidden>
-<label class="field"><span class="label">面团球数</span><input name="balls" inputmode="decimal" min="0" step="any" value="4"></label>
-<label class="field"><span class="label">每球克数 <span class="unit">克</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="250"></label>
+<label class="field"><span class="label">面团球数</span><input name="balls" inputmode="decimal" min="0" step="any" value="10"></label>
+<label class="field"><span class="label">每球克数 <span class="unit">克</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="80.45"></label>
 </div>
 <div class="fields grid-2">
 <label class="field"><span class="label">水合 <span class="unit">%</span></span><input name="hydration" inputmode="decimal" min="0" step="any" value="58"></label>
@@ -56,11 +56,22 @@
 <div class="actions">
 <button type="button" id="copy">复制配方</button>
 <button type="button" id="print" class="secondary">打印</button>
+<button type="button" id="download-pdf" data-busy="正在生成 PDF…">下载 PDF</button>
 </div>
+<p id="pdf-error" class="error" role="alert" hidden>PDF 生成失败，请再按一次。</p>
 <textarea id="recipe-text" hidden readonly></textarea>
 </section>
 <script type="application/json" id="labels">{"title":"凯撒餐包烘焙百分比","flour":"面粉","water":"水","starter":"酸种","salt":"盐","yeast":"酵母","total":"面团总重","grams":"克","effective":"有效水合","copied":"已复制","copyFail":"请选中配方文字再复制"}</script>
-<script type="module" src="/assets/calc.js"></script>
+<script type="application/json" id="pdf-meta">{"title":"凯撒餐包烘焙百分比","url":"https://doughcalc.app/zh-cn/kaisa-canbao/","filename":"doughcalc-kaisa-canbao-zh-cn-recipe.pdf","lang":"zh-CN","fontUrl":"/assets/fonts/noto-sans-sc-subset.ttf","labels":{"result":"配方","flour":"面粉","water":"水","starter":"酸种","salt":"盐","yeast":"酵母","total":"面团总重","grams":"克","effective":"有效水合","hydration":"水合","modeFlour":"按面粉重量","modeBalls":"按面团球","balls":"面团球数","perBall":"每球克数"},"method":{"heading":"详细做法","lead":"计算器打开时是面粉 500 克，水合 58%，盐 2%，酵母 0.9%。也就是水 290 克、盐 10 克、酵母 4.5 克，合计 804.5 克。面团球那一栏打开是 10 个、每个 80.45 克。在偏硬的圆面上折出星形，再带蒸汽烘烤，花纹才清楚。表面如果撒芝麻，芝麻不在合计克数里。下面的时间按只改面粉的量、百分比不变来估。发酵还是看面团的样子和手感。","steps":[{"title":"搅拌","body":"把 500 克面粉、290 克水、10 克盐和 4.5 克即发酵母拌匀，再揉 8 到 10 分钟，直到光滑、结实。水合 58%，面团偏硬，不是软餐包。面团温度大约 24°C。"},{"title":"基本发酵","body":"盖上，放在大约 24°C，60 到 90 分钟。酵母有 0.9%，大约胀起一半即可，不要发到两倍。"},{"title":"分割","body":"把 804.5 克面团分成 10 份，每份 80.45 克，就是面团球那一栏的重量。每份收成光滑的圆球，盖上，松弛 10 分钟。"},{"title":"折星","body":"把圆面按扁。从边缘折五瓣到中心，一瓣压着一瓣，收成星形。最后一瓣压进第一瓣下面，花纹才不会散开。如果有凯撒印模，在圆面上压一下也行。手折或压模都可以，顶上都要看出五瓣。"},{"title":"最后发酵","body":"星形朝下，放在撒了粉的布上，折痕才不会张开。盖着发 30 到 45 分钟，发到鼓起来。进炉前翻过来，星形朝上。"},{"title":"烘烤","body":"烤箱 220°C。入炉的前几分钟给蒸汽，底层放一盘热水就够。烤 14 到 18 分钟，直到表皮深金黄，星形还在。"},{"title":"放凉","body":"放到架子上至少 15 分钟再掰开。"}]},"messages":{"label":"下载 PDF","busy":"正在生成 PDF…","fail":"PDF 生成失败，请再按一次。"}}</script>
+<script type="module" src="/assets/calc.js"></script><section class="method">
+<h2>详细做法</h2>
+<p>计算器打开时是面粉 500 克，水合 58%，盐 2%，酵母 0.9%。也就是水 290 克、盐 10 克、酵母 4.5 克，合计 804.5 克。面团球那一栏打开是 10 个、每个 80.45 克。在偏硬的圆面上折出星形，再带蒸汽烘烤，花纹才清楚。表面如果撒芝麻，芝麻不在合计克数里。下面的时间按只改面粉的量、百分比不变来估。发酵还是看面团的样子和手感。</p>
+<ol><li><strong>搅拌</strong> 把 500 克面粉、290 克水、10 克盐和 4.5 克即发酵母拌匀，再揉 8 到 10 分钟，直到光滑、结实。水合 58%，面团偏硬，不是软餐包。面团温度大约 24°C。</li><li><strong>基本发酵</strong> 盖上，放在大约 24°C，60 到 90 分钟。酵母有 0.9%，大约胀起一半即可，不要发到两倍。</li><li><strong>分割</strong> 把 804.5 克面团分成 10 份，每份 80.45 克，就是面团球那一栏的重量。每份收成光滑的圆球，盖上，松弛 10 分钟。</li><li><strong>折星</strong> 把圆面按扁。从边缘折五瓣到中心，一瓣压着一瓣，收成星形。最后一瓣压进第一瓣下面，花纹才不会散开。如果有凯撒印模，在圆面上压一下也行。手折或压模都可以，顶上都要看出五瓣。</li><li><strong>最后发酵</strong> 星形朝下，放在撒了粉的布上，折痕才不会张开。盖着发 30 到 45 分钟，发到鼓起来。进炉前翻过来，星形朝上。</li><li><strong>烘烤</strong> 烤箱 220°C。入炉的前几分钟给蒸汽，底层放一盘热水就够。烤 14 到 18 分钟，直到表皮深金黄，星形还在。</li><li><strong>放凉</strong> 放到架子上至少 15 分钟再掰开。</li></ol>
+<figure>
+<img src="/assets/kaiser-rolls.webp" width="1200" height="1089" alt="一个金黄的圆餐包，顶部折出五瓣星形。" loading="lazy">
+<figcaption>摄影：Kobako，来自 <a href="https://commons.wikimedia.org/wiki/File:Kaisersemmel-.jpg">Wikimedia Commons</a>，<a href="https://creativecommons.org/licenses/by-sa/2.5/">CC BY-SA 2.5</a>。已压缩并转为 WebP。</figcaption>
+</figure>
+</section>
 <section class="related"><h2>相关计算</h2><ul class="link-list"><li><a href="/zh-cn/ruan-canbao/">软餐包烘焙百分比</a></li><li><a href="/zh-cn/ying-canbao/">硬餐包烘焙百分比</a></li><li><a href="/zh-cn/qianting/">潜艇堡面包烘焙百分比</a></li><li><a href="/zh-cn/jiaoyan-jie/">椒盐结烘焙百分比</a></li></ul></section>
 </main>
 <footer>

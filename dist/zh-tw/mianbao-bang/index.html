@@ -37,8 +37,8 @@
 <label class="field"><span class="label">麵粉 <span class="unit">克</span></span><input name="flour" inputmode="decimal" min="0" step="any" value="400"></label>
 </div>
 <div class="fields grid-2" data-panel="balls" hidden>
-<label class="field"><span class="label">麵團球數</span><input name="balls" inputmode="decimal" min="0" step="any" value="4"></label>
-<label class="field"><span class="label">每球克數 <span class="unit">克</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="250"></label>
+<label class="field"><span class="label">麵團球數</span><input name="balls" inputmode="decimal" min="0" step="any" value="16"></label>
+<label class="field"><span class="label">每球克數 <span class="unit">克</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="41.2"></label>
 </div>
 <div class="fields grid-2">
 <label class="field"><span class="label">水合 <span class="unit">%</span></span><input name="hydration" inputmode="decimal" min="0" step="any" value="62"></label>
@@ -56,11 +56,22 @@
 <div class="actions">
 <button type="button" id="copy">複製配方</button>
 <button type="button" id="print" class="secondary">列印</button>
+<button type="button" id="download-pdf" data-busy="正在產生 PDF…">下載 PDF</button>
 </div>
+<p id="pdf-error" class="error" role="alert" hidden>PDF 產生失敗，請再按一次。</p>
 <textarea id="recipe-text" hidden readonly></textarea>
 </section>
 <script type="application/json" id="labels">{"title":"麵包棒烘焙百分比","flour":"麵粉","water":"水","starter":"酸種","salt":"鹽","yeast":"酵母","total":"麵團總重","grams":"克","effective":"有效水合","copied":"已複製","copyFail":"請選中配方文字再複製"}</script>
-<script type="module" src="/assets/calc.js"></script>
+<script type="application/json" id="pdf-meta">{"title":"麵包棒烘焙百分比","url":"https://doughcalc.app/zh-tw/mianbao-bang/","filename":"doughcalc-mianbao-bang-zh-tw-recipe.pdf","lang":"zh-TW","fontUrl":"/assets/fonts/noto-sans-tc-subset.ttf","labels":{"result":"配方","flour":"麵粉","water":"水","starter":"酸種","salt":"鹽","yeast":"酵母","total":"麵團總重","grams":"克","effective":"有效水合","hydration":"水合","modeFlour":"按麵粉重量","modeBalls":"按麵團球","balls":"麵團球數","perBall":"每球克數"},"method":{"heading":"詳細做法","lead":"計算器打開時是麵粉 400 克，水合 62%，鹽 2.2%，酵母 0.6%。也就是水 248 克、鹽 8.8 克、酵母 2.4 克，合計 659.2 克。麵團球那一欄打開是 16 根、每根 41.2 克。搓成細長的棒，烤到中心沒有生麵。表面另刷的油或鹽不在合計克數裡。下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。","steps":[{"title":"攪拌","body":"把 400 克麵粉、248 克水、8.8 克鹽和 2.4 克速發酵母拌勻，再揉大約 8 分鐘，直到光滑。水合 62%，柔軟，能成團。麵團溫度大約 24°C。"},{"title":"發酵","body":"蓋上，放在大約 24°C，80 到 110 分鐘。酵母有 0.6%，大約發到兩倍。中途摺一次就夠。"},{"title":"分割","body":"把 659.2 克麵團分成 16 份，每份 41.2 克，就是麵團球那一欄的重量。蓋上，鬆弛 10 分鐘。"},{"title":"搓條","body":"檯面薄薄撒粉。每份搓成大約 28 公分長、大約 1 公分粗的棒。如果縮回去，鬆弛 5 分鐘再搓。烤盤薄薄抹油，棒和棒之間留一點空隙。油是另外加的，不在合計克數裡。"},{"title":"最後發酵","body":"蓋著發 15 到 25 分鐘，只要略微蓬鬆。棒和棒不要靠上。"},{"title":"烘烤","body":"烤箱 200°C，烤 12 到 16 分鐘，直到表面金黃、棒的中心熟透，沒有生麵。"},{"title":"放涼","body":"移到架上。涼一點會更挺。這是細棒，不是一條麵包。"}]},"messages":{"label":"下載 PDF","busy":"正在產生 PDF…","fail":"PDF 產生失敗，請再按一次。"}}</script>
+<script type="module" src="/assets/calc.js"></script><section class="method">
+<h2>詳細做法</h2>
+<p>計算器打開時是麵粉 400 克，水合 62%，鹽 2.2%，酵母 0.6%。也就是水 248 克、鹽 8.8 克、酵母 2.4 克，合計 659.2 克。麵團球那一欄打開是 16 根、每根 41.2 克。搓成細長的棒，烤到中心沒有生麵。表面另刷的油或鹽不在合計克數裡。下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。</p>
+<ol><li><strong>攪拌</strong> 把 400 克麵粉、248 克水、8.8 克鹽和 2.4 克速發酵母拌勻，再揉大約 8 分鐘，直到光滑。水合 62%，柔軟，能成團。麵團溫度大約 24°C。</li><li><strong>發酵</strong> 蓋上，放在大約 24°C，80 到 110 分鐘。酵母有 0.6%，大約發到兩倍。中途摺一次就夠。</li><li><strong>分割</strong> 把 659.2 克麵團分成 16 份，每份 41.2 克，就是麵團球那一欄的重量。蓋上，鬆弛 10 分鐘。</li><li><strong>搓條</strong> 檯面薄薄撒粉。每份搓成大約 28 公分長、大約 1 公分粗的棒。如果縮回去，鬆弛 5 分鐘再搓。烤盤薄薄抹油，棒和棒之間留一點空隙。油是另外加的，不在合計克數裡。</li><li><strong>最後發酵</strong> 蓋著發 15 到 25 分鐘，只要略微蓬鬆。棒和棒不要靠上。</li><li><strong>烘烤</strong> 烤箱 200°C，烤 12 到 16 分鐘，直到表面金黃、棒的中心熟透，沒有生麵。</li><li><strong>放涼</strong> 移到架上。涼一點會更挺。這是細棒，不是一條麵包。</li></ol>
+<figure>
+<img src="/assets/breadsticks.webp" width="1200" height="1800" alt="兩根細長的麵包棒，放在深色板上，旁邊一杯湯。" loading="lazy">
+<figcaption>攝影：Nataliya Vaitkevich，來自 <a href="https://www.pexels.com/photo/overhead-shot-of-bread-sticks-and-pumpkin-soup-5605540/">Pexels</a></figcaption>
+</figure>
+</section>
 <section class="related"><h2>相關計算</h2><ul class="link-list"><li><a href="/zh-tw/pisa-miantuan/">披薩麵團烘焙百分比</a></li><li><a href="/zh-tw/kaerzhuonei/">卡爾佐內麵團烘焙百分比</a></li><li><a href="/zh-tw/suanxiang-jie/">蒜香結烘焙百分比</a></li><li><a href="/zh-tw/suanzhong-pisa-mian/">酸種披薩麵團配方烘焙百分比</a></li></ul></section>
 </main>
 <footer>
