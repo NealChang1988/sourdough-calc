@@ -209,6 +209,10 @@ const BALL_PRESET = {
   breadsticks: [16, 41.2],
   lavash: [4, 153.9],
   "rye-sourdough": [1, 977.4],
+  bialy: [10, 79.3],
+  "hoagie-rolls": [8, 103],
+  "pane-toscano": [1, 960],
+  "spelt-sourdough": [1, 980],
 };
 
 // New breads stay out of older pages' related lists so those pages keep the same four links.

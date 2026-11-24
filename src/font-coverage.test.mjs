@@ -105,7 +105,7 @@ async function pdfParts(pdfBytes) {
     const text = data.toString("latin1");
     if (text.includes("beginbfchar") || text.includes("beginbfrange")) cmap = text;
   }
-  return { font, cmap };
+  return { font, cmap, pages: doc.getPageCount() };
 }
 
 function decodeUtf16Hex(hex) {
@@ -163,8 +163,17 @@ test("every non-space character in a guide PDF keeps a non-empty outline", async
         recipe: recipeFor(page.preset),
         fontBytes: lang === "zh-tw" ? fonts.tc : fonts.sc,
       });
-      const { font, cmap } = await pdfParts(pdfBytes);
+      const { font, cmap, pages: pageCount } = await pdfParts(pdfBytes);
       assert.ok(font, `${page.id} ${lang} embedded font`);
+      if (
+        page.id === "pizza-sicilian" ||
+        page.id === "bread-bialy" ||
+        page.id === "bread-hoagie-rolls" ||
+        page.id === "bread-pane-toscano" ||
+        page.id === "bread-spelt-sourdough"
+      ) {
+        assert.equal(pageCount, 1, `${page.id} ${lang}`);
+      }
       const pairs = unicodePairs(cmap);
       assert.ok(pairs.length > 30, `${page.id} ${lang} mapped ${pairs.length}`);
       const source = fontkit.create(lang === "zh-tw" ? fonts.tc : fonts.sc);

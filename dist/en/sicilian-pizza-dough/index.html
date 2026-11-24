@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sicilian Pizza Dough</title>
-<meta name="description" content="A thick, square pan dough, softer than a Neapolitan ball but not as wet as ciabatta. It proofs in oil until it jiggles, then bakes into a tall, airy crumb.">
+<meta name="description" content="A thick square pan dough, softer than a Neapolitan ball. The page opens at 4 balls of 450 g. It proofs in oil until it jiggles, then bakes into a tall crumb.">
 <link rel="canonical" href="https://doughcalc.app/en/sicilian-pizza-dough/">
 <link rel="alternate" hreflang="en" href="https://doughcalc.app/en/sicilian-pizza-dough/"><link rel="alternate" hreflang="zh-CN" href="https://doughcalc.app/zh-cn/xixili-pisa/"><link rel="alternate" hreflang="zh-TW" href="https://doughcalc.app/zh-tw/xixili-pisa/"><link rel="alternate" hreflang="x-default" href="https://doughcalc.app/en/sicilian-pizza-dough/">
 <meta property="og:title" content="Sicilian Pizza Dough">
-<meta property="og:description" content="A thick, square pan dough, softer than a Neapolitan ball but not as wet as ciabatta. It proofs in oil until it jiggles, then bakes into a tall, airy crumb.">
+<meta property="og:description" content="A thick square pan dough, softer than a Neapolitan ball. The page opens at 4 balls of 450 g. It proofs in oil until it jiggles, then bakes into a tall crumb.">
 <meta property="og:url" content="https://doughcalc.app/en/sicilian-pizza-dough/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_US">
@@ -26,7 +26,7 @@
 <main id="main">
 <nav class="crumb" aria-label="Breadcrumb"><a href="/en/">Dough calculator</a> / <a href="/en/pizza-dough/">Pizza dough</a></nav>
 <h1>Sicilian Pizza Dough</h1>
-<p>Press the dough into a well-oiled square pan and proof it until it looks jiggly before you top it. A ball starts at 450 g, enough for one square pan. Increase the count for another pan.</p>
+<p>Divide into 4 pieces of 450 g. Press each one into a well-oiled square pan and proof it until it jiggles before you top it. Each ball starts at 450 g, one thick square pan. Change the count when you are filling more pans.</p>
 <form id="calc" autocomplete="off">
 <fieldset class="modes">
 <legend>How to scale</legend>
@@ -56,11 +56,34 @@
 <div class="actions">
 <button type="button" id="copy">Copy recipe</button>
 <button type="button" id="print" class="secondary">Print</button>
+<button type="button" id="download-pdf" data-label="Download PDF" data-loading="Loading…" data-busy="Preparing PDF…">Download PDF</button>
+<script>
+(function () {
+  var button = document.getElementById("download-pdf");
+  if (!button) return;
+  button.addEventListener("click", function () {
+    if (window.__pdfReady || window.__pdfPending) return;
+    window.__pdfPending = true;
+    button.disabled = true;
+    button.textContent = button.getAttribute("data-loading");
+  });
+})();
+</script>
 </div>
+<p id="pdf-error" class="error" role="alert" hidden>PDF could not be created. Please try again.</p>
 <textarea id="recipe-text" hidden readonly></textarea>
 </section>
 <script type="application/json" id="labels">{"title":"Sicilian Pizza Dough","flour":"Flour","water":"Water","starter":"Starter","salt":"Salt","yeast":"Yeast","total":"Total dough","grams":"g","effective":"Effective hydration","copied":"Copied","copyFail":"Select the recipe text and copy it"}</script>
-<script type="module" src="/assets/calc.js"></script>
+<script type="application/json" id="pdf-meta">{"title":"Sicilian Pizza Dough","url":"https://doughcalc.app/en/sicilian-pizza-dough/","filename":"doughcalc-sicilian-pizza-dough-en-recipe.pdf","lang":"en","fontUrl":"/assets/fonts/noto-sans-sc-subset.ttf","labels":{"result":"Recipe","flour":"Flour","water":"Water","starter":"Starter","salt":"Salt","yeast":"Yeast","total":"Total dough","grams":"g","effective":"Effective hydration","hydration":"Hydration","modeFlour":"From flour weight","modeBalls":"From dough balls","balls":"Dough balls","perBall":"Grams per ball"},"method":{"heading":"Detailed method","lead":"The calculator opens at 4 balls of 450 g, with 70% hydration, 2.2% salt, and 0.5% yeast. Each ball is one thick square pan. From those balls the page shows 1042.3 g flour, 729.6 g water, 22.9 g salt, and 5.2 g yeast. The dough is softer than a Neapolitan ball. It proofs in oil until it jiggles, then bakes into a tall crumb. Oil and toppings are extra and are not in the gram total. These times assume you only change the flour amount and keep the percentages the same. Still judge the dough by how it looks and feels.","steps":[{"title":"Mix","body":"Stir 1042.3 g flour, 729.6 g water, 22.9 g salt, and 5.2 g instant yeast until no dry flour remains. At 70% the dough is soft and a little sticky. Aim for about 24°C (75°F)."},{"title":"Rest","body":"Cover the bowl for 20 minutes so the dough stops tearing when you fold it."},{"title":"Bulk","body":"Keep it covered at about 24°C (75°F) for 70 to 100 minutes. Give it two stretch-and-folds. With 0.5% yeast it should grow by about half, not double."},{"title":"Pan","body":"Divide into 4 pieces of 450 g, the count and the weight the page opens with. Oil a square pan about 23 cm on each side for each piece. About 15 g of oil in each pan is extra and is not in the gram total."},{"title":"Spread","body":"With oiled fingers, press the dough toward the corners. If it springs back, cover it for 10 minutes and press again until it fills the square. This is a thick pan pizza, not a thin round."},{"title":"Proof","body":"Cover the pan at about 24°C (75°F) for 40 to 60 minutes, until the dough looks puffy and jiggles when you shake the pan."},{"title":"Bake","body":"Spread about 80 g of tomato sauce on each square. Cheese or a few herbs can go on top. Those toppings are extra and are not in the gram total. Heat the oven to 230°C (450°F). Bake 18 to 24 minutes, until the bottom is golden and the crumb is set. Wait 5 minutes, then cut squares."}]},"messages":{"label":"Download PDF","busy":"Preparing PDF…","fail":"PDF could not be created. Please try again."}}</script>
+<script type="module" src="/assets/calc.js"></script><section class="method">
+<h2>Detailed method</h2>
+<p>The calculator opens at 4 balls of 450 g, with 70% hydration, 2.2% salt, and 0.5% yeast. Each ball is one thick square pan. From those balls the page shows 1042.3 g flour, 729.6 g water, 22.9 g salt, and 5.2 g yeast. The dough is softer than a Neapolitan ball. It proofs in oil until it jiggles, then bakes into a tall crumb. Oil and toppings are extra and are not in the gram total. These times assume you only change the flour amount and keep the percentages the same. Still judge the dough by how it looks and feels.</p>
+<ol><li><strong>Mix</strong> Stir 1042.3 g flour, 729.6 g water, 22.9 g salt, and 5.2 g instant yeast until no dry flour remains. At 70% the dough is soft and a little sticky. Aim for about 24°C (75°F).</li><li><strong>Rest</strong> Cover the bowl for 20 minutes so the dough stops tearing when you fold it.</li><li><strong>Bulk</strong> Keep it covered at about 24°C (75°F) for 70 to 100 minutes. Give it two stretch-and-folds. With 0.5% yeast it should grow by about half, not double.</li><li><strong>Pan</strong> Divide into 4 pieces of 450 g, the count and the weight the page opens with. Oil a square pan about 23 cm on each side for each piece. About 15 g of oil in each pan is extra and is not in the gram total.</li><li><strong>Spread</strong> With oiled fingers, press the dough toward the corners. If it springs back, cover it for 10 minutes and press again until it fills the square. This is a thick pan pizza, not a thin round.</li><li><strong>Proof</strong> Cover the pan at about 24°C (75°F) for 40 to 60 minutes, until the dough looks puffy and jiggles when you shake the pan.</li><li><strong>Bake</strong> Spread about 80 g of tomato sauce on each square. Cheese or a few herbs can go on top. Those toppings are extra and are not in the gram total. Heat the oven to 230°C (450°F). Bake 18 to 24 minutes, until the bottom is golden and the crumb is set. Wait 5 minutes, then cut squares.</li></ol>
+<figure>
+<img src="/assets/sicilian-pizza.webp" width="1200" height="788" alt="A thick square piece of pan pizza with a tall, airy crumb and tomato on top." loading="lazy">
+<figcaption>Photo by Rino Porrovecchio on <a href="https://commons.wikimedia.org/wiki/File:Sfincione_palermitano.jpg">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC BY-SA 2.0</a>. Converted to WebP.</figcaption>
+</figure>
+</section>
 <section class="related"><h2>Related calculators</h2><ul class="link-list"><li><a href="/en/thin-crust-pizza-dough/">Thin-Crust Pizza Dough</a></li><li><a href="/en/sourdough-pizza-dough/">Sourdough Pizza Dough</a></li><li><a href="/en/same-day-pizza-dough/">Same-Day Pizza Dough</a></li><li><a href="/en/cold-ferment-pizza-dough/">Cold-Fermented Pizza Dough</a></li></ul></section>
 </main>
 <footer>

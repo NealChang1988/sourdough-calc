@@ -319,7 +319,7 @@ test("built site drops removed urls and keeps a footer mailto on every page", as
 
 test("country sourdough page adds a method and photo without touching other pages", async () => {
   const country = pages.find((page) => page.id === "bread-country-sourdough");
-  const plain = pages.find((page) => page.id === "bread-bialy");
+  const plain = pages.find((page) => page.id === "bread-hot-dog-buns");
   const expected = {
     en: "Detailed method",
     "zh-cn": "详细做法",
@@ -396,6 +396,36 @@ test("country sourdough page adds a method and photo without touching other page
   const built = await readFile(path.join(dir, "zh-tw", "xiangcun-suanzhong", "index.html"), "utf8");
   assert.match(built, /詳細做法/);
   assert.match(built, /country-sourdough\.webp/);
+});
+
+test("batch 7 guides keep the method, photo, and ball defaults together", () => {
+  const cases = [
+    ["pizza-sicilian", "/assets/sicilian-pizza.webp", "Rino Porrovecchio", "CC BY-SA 2.0", 4, 450, "450"],
+    ["bread-bialy", "/assets/bialy.webp", "Chefallen", "CC BY-SA 3.0", 10, 79.3, "79.3"],
+    ["bread-hoagie-rolls", "/assets/hoagie-rolls.webp", "jeffreyw", "CC BY 2.0", 8, 103, "103"],
+    ["bread-pane-toscano", "/assets/pane-toscano.webp", "Anna Massini", "CC BY 4.0", 1, 960, "960"],
+    ["bread-spelt-sourdough", "/assets/spelt-sourdough.webp", "Katrin Gilger", "CC BY-SA 2.0", 1, 980, "980"],
+  ];
+  for (const [id, photo, photographer, license, balls, grams, shown] of cases) {
+    const page = pages.find((item) => item.id === id);
+    assert.equal(page.preset.balls, balls, id);
+    assert.equal(page.preset.gramsPerBall, grams, id);
+    for (const lang of ["en", "zh-cn", "zh-tw"]) {
+      const html = renderPage(page, lang);
+      assert.match(html, new RegExp(`src="${photo}"`), `${id} ${lang}`);
+      assert.match(html, new RegExp(photographer), `${id} ${lang}`);
+      assert.match(html, new RegExp(license.replaceAll(".", "\\.")), `${id} ${lang}`);
+      assert.match(html, /id="download-pdf"/, `${id} ${lang}`);
+      assert.match(html, /class="method"/, `${id} ${lang}`);
+      assert.match(html, new RegExp(shown), `${id} ${lang}`);
+      assert.equal(html.includes("心裡"), false, `${id} ${lang}`);
+      assert.equal(html.includes("示意圖"), false, `${id} ${lang}`);
+      assert.equal(html.includes("示意图"), false, `${id} ${lang}`);
+    }
+    const tw = renderPage(page, "zh-tw");
+    assert.match(tw, /速發酵母/, id);
+    assert.equal(tw.includes("即發酵母"), false, id);
+  }
 });
 
 test("every page discloses anonymous analytics and none claim there is none", async () => {
