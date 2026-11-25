@@ -1,4 +1,4 @@
-import { chartCell, convert, parseInput, trimNumber } from "./cups.mjs";
+import { amountCleanup, chartCell, convert, parseInput, trimNumber } from "./cups.mjs";
 import { cupsCopy, detectionNote, errorText, fdcUrl, present } from "./cups-copy.mjs";
 
 const lang =
@@ -95,8 +95,7 @@ function update(options = {}) {
       form.querySelector(`input[name=direction][value="${parsed.direction}"]`).checked = true;
     }
     if (parsed.system) form.querySelector(`input[name=system][value="${parsed.system}"]`).checked = true;
-    const messy = detected || raw.includes(",") || /[½⅓⅔¼¾⅛⅜⅝⅞]/u.test(raw);
-    if (options.clean && messy) {
+    if (options.clean && amountCleanup(raw, current.direction).messy) {
       const cleaned = trimNumber(parsed.value);
       if (amount.value !== cleaned) amount.value = cleaned;
     }
@@ -113,8 +112,20 @@ function update(options = {}) {
   updateChart(chosen.system);
 }
 
+function commitAmount() {
+  const cleanup = amountCleanup(amount.value, mode().direction);
+  if (!cleanup.ok || cleanup.messy) update({ fromAmount: true, clean: true });
+}
+
 amount.addEventListener("input", (event) => {
   update({ fromAmount: true, clean: event.inputType === "insertFromPaste" });
+});
+amount.addEventListener("change", commitAmount);
+amount.addEventListener("blur", commitAmount);
+amount.addEventListener("keydown", (event) => {
+  if (event.key !== "Enter") return;
+  event.preventDefault();
+  commitAmount();
 });
 form.addEventListener("change", (event) => {
   const name = event.target.name;

@@ -445,3 +445,13 @@ export function parseInput(raw, mode = "grams") {
     scaled: (unit?.scale ?? 1) !== 1,
   };
 }
+
+export function amountCleanup(raw, mode = "grams") {
+  const parsed = parseInput(raw, mode);
+  if (!parsed.ok) return { ok: false, parsed, messy: false, text: String(raw ?? "") };
+  const detected = Boolean(
+    parsed.directionDetected || parsed.ingredientDetected || parsed.unknown || parsed.system || parsed.scaled,
+  );
+  const messy = detected || String(raw).includes(",") || /[½⅓⅔¼¾⅛⅜⅝⅞]/u.test(String(raw));
+  return { ok: true, parsed, messy, text: messy ? trimNumber(parsed.value) : String(raw) };
+}

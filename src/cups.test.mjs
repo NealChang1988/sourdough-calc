@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { convert, cupWeight, formatWeight, parseInput, scenarioLine } from "./cups.mjs";
+import { amountCleanup, convert, cupWeight, formatWeight, parseInput, scenarioLine } from "./cups.mjs";
 import { cupsCopy, detectionNote, errorText, present } from "./cups-copy.mjs";
 import { pages } from "./catalog.mjs";
 import { renderPage, renderSitemap } from "./render.mjs";
@@ -132,6 +132,17 @@ test("result text states the cup, the scoop, and anything detected", () => {
   assert.match(detectionNote(parseInput("1 metric cup sugar"), "en"), /Metric cup/);
   assert.match(detectionNote(parseInput("250g almond meal"), "en"), /almond meal/);
   assert.match(detectionNote(parseInput("250g almond meal"), "en"), /Flour/);
+});
+
+test("typed messy text commits to the same amount as a paste", () => {
+  const typed = amountCleanup("250g flour", "cups");
+  const pasted = amountCleanup("250g flour", "grams");
+  assert.equal(typed.messy, true);
+  assert.equal(typed.text, "250");
+  assert.equal(typed.text, pasted.text);
+  assert.equal(typed.parsed.ingredient, "ap");
+  assert.equal(typed.parsed.direction, "grams");
+  assert.equal(amountCleanup("250", "cups").messy, false);
 });
 
 test("the three language pages use the spec titles and the existing page shell", () => {
