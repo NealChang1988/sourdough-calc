@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grams to Cups Converter</title>
+<meta name="description" content="US, metric, and UK cup weights for flour, sugar, butter, water, and other baking ingredients.">
+<link rel="canonical" href="https://doughcalc.app/en/grams-to-cups-converter/">
+<link rel="alternate" hreflang="en" href="https://doughcalc.app/en/grams-to-cups-converter/"><link rel="alternate" hreflang="zh-CN" href="https://doughcalc.app/zh-cn/ke-zhuan-bei-huansuanqi/"><link rel="alternate" hreflang="zh-TW" href="https://doughcalc.app/zh-tw/ke-zhuan-bei-huansuan/"><link rel="alternate" hreflang="x-default" href="https://doughcalc.app/en/grams-to-cups-converter/">
+<meta property="og:title" content="Grams to Cups Converter">
+<meta property="og:description" content="US, metric, and UK cup weights for flour, sugar, butter, water, and other baking ingredients.">
+<meta property="og:url" content="https://doughcalc.app/en/grams-to-cups-converter/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="zh_CN"><meta property="og:locale:alternate" content="zh_TW">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to the calculator</a>
+<header>
+<a class="brand" href="/en/">Dough calculator</a>
+<nav class="langs" aria-label="Language"><a href="/en/grams-to-cups-converter/" hreflang="en" lang="en" aria-current="page">EN</a><a href="/zh-cn/ke-zhuan-bei-huansuanqi/" hreflang="zh-CN" lang="zh-CN">简体</a><a href="/zh-tw/ke-zhuan-bei-huansuan/" hreflang="zh-TW" lang="zh-TW">繁體</a></nav>
+</header>
+<main id="main">
+<nav class="crumb" aria-label="Breadcrumb"><a href="/en/">Dough calculator</a></nav>
+<h1>Grams to Cups Converter</h1>
+<p>Convert grams and cups for one baking ingredient, including spoons, milliliters, and ounces.</p>
+<form id="calc" class="cups-tool" autocomplete="off">
+<p class="limits">Numbers stay in this browser: above 0, at most 100,000 g or 1,000 cups.</p>
+<label class="field"><span class="label">Ingredient</span><select name="ingredient"><optgroup label="Flours"><option value="ap" selected>All-purpose flour</option><option value="bread">Bread flour</option><option value="whole">Whole wheat flour</option></optgroup><optgroup label="Sugars"><option value="sugar">Granulated sugar</option><option value="brown">Brown sugar (packed)</option><option value="powdered">Powdered sugar (unsifted)</option></optgroup><optgroup label="Fats and dairy"><option value="butter">Butter</option><option value="milk">Whole milk</option></optgroup><optgroup label="Liquids"><option value="honey">Honey</option><option value="water">Water</option><option value="oil">Vegetable oil</option><option value="olive">Olive oil</option></optgroup><optgroup label="Other dry ingredients"><option value="cocoa">Cocoa powder (unsweetened)</option><option value="oats">Rolled oats (old-fashioned)</option><option value="rice">White rice (long-grain, raw)</option><option value="corn">Cornstarch</option></optgroup></select></label>
+<label class="field"><span class="label">Amount</span><input name="amount" inputmode="decimal" value="250"></label>
+<fieldset class="modes">
+<legend>Direction</legend>
+<label><input type="radio" name="direction" value="grams" checked> Grams → Cups</label>
+<label><input type="radio" name="direction" value="cups"> Cups → Grams</label>
+<button type="button" id="swap" class="secondary">Swap direction</button>
+</fieldset>
+<fieldset class="standards">
+<legend>Cup standard</legend>
+<label><input type="radio" name="system" value="us" checked> US cup</label>
+<label><input type="radio" name="system" value="metric"> Metric cup</label>
+<label><input type="radio" name="system" value="uk"> UK cup</label>
+</fieldset>
+</form>
+<section class="card result" aria-live="polite">
+<h2>Result</h2>
+<span id="form-error" class="error" role="alert" hidden>Enter a number greater than 0, or a common fraction, for example 250 or 1 1/2.</span>
+<p id="detected" class="detected"></p>
+<p class="hero" id="out-main">2.08 cups</p>
+<p id="out-frac">Nearest mark: 2 1/8 cups (error +2.0%).</p>
+<p id="out-warn" class="warn" hidden></p>
+<p id="out-scoop">Practical scoop: 2 cups + 1 tbsp + 1 tsp</p>
+<dl>
+<div><dt>Cups (decimal)</dt><dd id="out-cups">2.08 cups</dd></div>
+<div id="row-tbsp"><dt>Tablespoons (tbsp)</dt><dd id="out-tbsp">33.33 tbsp</dd></div>
+<div id="row-tsp"><dt>Teaspoons (tsp)</dt><dd id="out-tsp">100.00 tsp</dd></div>
+<div><dt>Milliliters (ml)</dt><dd id="out-ml">492.89 ml</dd></div>
+<div><dt>Grams (g)</dt><dd id="out-grams">250 g</dd></div>
+<div><dt>Ounces (weight oz)</dt><dd id="out-oz">8.82 oz</dd></div>
+<div id="row-sticks" hidden><dt>Butter sticks</dt><dd id="out-sticks">—</dd></div>
+</dl>
+<p class="convention" id="convention">Using 120 g per US cup (236.59 ml) for All-purpose flour. Spoon the flour into the cup and level it; a scooped cup is heavier.</p>
+<p class="sources"><a id="fdc" data-label="USDA FoodData Central" href="https://fdc.nal.usda.gov/food-details/168894/nutrients">USDA FoodData Central FDC 168894</a>. <a href="https://www.kingarthurbaking.com/learn/ingredient-weight-chart">King Arthur Baking ingredient weight chart</a>.</p>
+<div class="actions">
+<button type="button" id="copy">Copy result</button>
+<button type="button" id="print" class="secondary">Print</button>
+</div>
+<textarea id="recipe-text" hidden readonly></textarea>
+</section>
+<div class="chips"><button type="button" class="secondary" data-ingredient="ap">Flour</button><button type="button" class="secondary" data-ingredient="sugar">Sugar</button><button type="button" class="secondary" data-ingredient="brown">Brown sugar</button><button type="button" class="secondary" data-ingredient="butter">Butter</button><button type="button" class="secondary" data-ingredient="water">Water</button><button type="button" class="secondary" data-ingredient="honey">Honey</button></div>
+<div class="chips" data-quick="grams"><button type="button" class="secondary" data-amount="50">50g</button><button type="button" class="secondary" data-amount="100">100g</button><button type="button" class="secondary" data-amount="150">150g</button><button type="button" class="secondary" data-amount="200">200g</button><button type="button" class="secondary" data-amount="250">250g</button></div>
+<div class="chips" data-quick="cups" hidden><button type="button" class="secondary" data-amount="1/4">1/4</button><button type="button" class="secondary" data-amount="1/3">1/3</button><button type="button" class="secondary" data-amount="1/2">1/2</button><button type="button" class="secondary" data-amount="3/4">3/4</button><button type="button" class="secondary" data-amount="1">1</button><button type="button" class="secondary" data-amount="1 1/2">1 1/2</button></div>
+<p class="hint standard-hint">A US cup is 236.59 ml. A metric cup is 250 ml, about 5.7% more, and is the cup used in Taiwan, Australia, and Canada. A UK cup is 284.13 ml, for old British recipes.</p>
+<section class="chart-wrap">
+<h2>Common cup weights</h2>
+<table class="chart"><thead><tr><th>Ingredient</th><th scope="col">1/4 cup</th><th scope="col">1/3 cup</th><th scope="col">1/2 cup</th><th scope="col">1 cup</th></tr></thead><tbody><tr><th scope="row">All-purpose flour</th><td data-ing="ap" data-num="1" data-den="4">30</td><td data-ing="ap" data-num="1" data-den="3">40</td><td data-ing="ap" data-num="1" data-den="2">60</td><td data-ing="ap" data-num="1" data-den="1">120</td></tr><tr><th scope="row">Bread flour</th><td data-ing="bread" data-num="1" data-den="4">30</td><td data-ing="bread" data-num="1" data-den="3">40</td><td data-ing="bread" data-num="1" data-den="2">60</td><td data-ing="bread" data-num="1" data-den="1">120</td></tr><tr><th scope="row">Whole wheat flour</th><td data-ing="whole" data-num="1" data-den="4">28.25</td><td data-ing="whole" data-num="1" data-den="3">37.67</td><td data-ing="whole" data-num="1" data-den="2">56.50</td><td data-ing="whole" data-num="1" data-den="1">113</td></tr><tr><th scope="row">Granulated sugar</th><td data-ing="sugar" data-num="1" data-den="4">50</td><td data-ing="sugar" data-num="1" data-den="3">66.67</td><td data-ing="sugar" data-num="1" data-den="2">100</td><td data-ing="sugar" data-num="1" data-den="1">200</td></tr><tr><th scope="row">Brown sugar (packed)</th><td data-ing="brown" data-num="1" data-den="4">55</td><td data-ing="brown" data-num="1" data-den="3">73.33</td><td data-ing="brown" data-num="1" data-den="2">110</td><td data-ing="brown" data-num="1" data-den="1">220</td></tr><tr><th scope="row">Powdered sugar (unsifted)</th><td data-ing="powdered" data-num="1" data-den="4">30</td><td data-ing="powdered" data-num="1" data-den="3">40</td><td data-ing="powdered" data-num="1" data-den="2">60</td><td data-ing="powdered" data-num="1" data-den="1">120</td></tr><tr><th scope="row">Butter</th><td data-ing="butter" data-num="1" data-den="4">56.75</td><td data-ing="butter" data-num="1" data-den="3">75.67</td><td data-ing="butter" data-num="1" data-den="2">113.50</td><td data-ing="butter" data-num="1" data-den="1">227</td></tr><tr><th scope="row">Whole milk</th><td data-ing="milk" data-num="1" data-den="4">61</td><td data-ing="milk" data-num="1" data-den="3">81.33</td><td data-ing="milk" data-num="1" data-den="2">122</td><td data-ing="milk" data-num="1" data-den="1">244</td></tr><tr><th scope="row">Honey</th><td data-ing="honey" data-num="1" data-den="4">84.75</td><td data-ing="honey" data-num="1" data-den="3">113</td><td data-ing="honey" data-num="1" data-den="2">169.50</td><td data-ing="honey" data-num="1" data-den="1">339</td></tr><tr><th scope="row">Water</th><td data-ing="water" data-num="1" data-den="4">59.15</td><td data-ing="water" data-num="1" data-den="3">78.86</td><td data-ing="water" data-num="1" data-den="2">118.30</td><td data-ing="water" data-num="1" data-den="1">236.59</td></tr><tr><th scope="row">Vegetable oil</th><td data-ing="oil" data-num="1" data-den="4">54.50</td><td data-ing="oil" data-num="1" data-den="3">72.67</td><td data-ing="oil" data-num="1" data-den="2">109</td><td data-ing="oil" data-num="1" data-den="1">218</td></tr><tr><th scope="row">Olive oil</th><td data-ing="olive" data-num="1" data-den="4">54</td><td data-ing="olive" data-num="1" data-den="3">72</td><td data-ing="olive" data-num="1" data-den="2">108</td><td data-ing="olive" data-num="1" data-den="1">216</td></tr><tr><th scope="row">Cocoa powder (unsweetened)</th><td data-ing="cocoa" data-num="1" data-den="4">21.50</td><td data-ing="cocoa" data-num="1" data-den="3">28.67</td><td data-ing="cocoa" data-num="1" data-den="2">43</td><td data-ing="cocoa" data-num="1" data-den="1">86</td></tr><tr><th scope="row">Rolled oats (old-fashioned)</th><td data-ing="oats" data-num="1" data-den="4">22.25</td><td data-ing="oats" data-num="1" data-den="3">29.67</td><td data-ing="oats" data-num="1" data-den="2">44.50</td><td data-ing="oats" data-num="1" data-den="1">89</td></tr><tr><th scope="row">White rice (long-grain, raw)</th><td data-ing="rice" data-num="1" data-den="4">46.25</td><td data-ing="rice" data-num="1" data-den="3">61.67</td><td data-ing="rice" data-num="1" data-den="2">92.50</td><td data-ing="rice" data-num="1" data-den="1">185</td></tr><tr><th scope="row">Cornstarch</th><td data-ing="corn" data-num="1" data-den="4">32</td><td data-ing="corn" data-num="1" data-den="3">42.67</td><td data-ing="corn" data-num="1" data-den="2">64</td><td data-ing="corn" data-num="1" data-den="1">128</td></tr></tbody></table>
+</section>
+<section class="howto"><h2>How to use</h2><ol><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 10h8M8 13h8M8 16h5" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>Choose an Ingredient, or tap Flour, Sugar, Brown sugar, Butter, Water, or Honey.</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19h14M7 16l9.5-9.5a1.8 1.8 0 0 1 2.5 2.5L9.5 18.5 6 19.2 7 16z" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>Choose Grams → Cups or Cups → Grams, then US cup, Metric cup, or UK cup, and type the Amount.</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 12.5l2.5 2.5L16 9.5" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>Read the Result, then Copy result or Print.</span></li></ol></section>
+<section class="example"><h2>Example</h2><table><thead><tr><th>Before</th><th>After</th></tr></thead><tbody><tr><td>250g flour</td><td>2.08 US cups (2 cups + 1 tbsp + 1 tsp)</td></tr><tr><td>1 1/2 cups flour</td><td>180 g</td></tr></tbody></table></section>
+<section class="faq"><h2>Questions</h2><h3>Why pick an ingredient?</h3><p>A full cup of water, flour, and sugar do not weigh the same, so the converter needs the ingredient before it can turn weight into cups.</p><h3>Which cup is this using?</h3><p>A US cup is 236.59 ml. A metric cup, common in Taiwan, Australia, and Canada, is 250 ml, about 5.7% larger. A UK cup is 284.13 ml and is only for old British recipes; modern UK recipes usually list grams, and Australian or New Zealand recipes should use the metric cup. A 240 ml cup used on some US package labels differs by about 1.4%, so there is no separate button for it. Some Australian recipes use a 20 ml tablespoon; metric tablespoons here are 15 ml. A rice-cooker cup of 180 ml is not a baking cup.</p><h3>What is baker's percentage?</h3><p>Bakers write flour as 100%, then write water, salt, and yeast as a percentage of that flour. After the baker's percentage calculator gives grams, convert them to cups here.</p><h3>Why can the same cup of flour weigh more?</h3><p>Spoon flour into the cup and level it. Scooping packs it heavier. Brown sugar here is packed, and powdered sugar is unsifted.</p></section>
+<script type="module" src="/assets/cups.js"></script>
+<section class="related"><h2>Related calculators</h2><ul class="link-list"><li><a href="/en/">Sourdough and Baker's Percentage Calculator</a></li><li><a href="/en/sourdough-hydration/">Sourdough Hydration Calculators</a></li><li><a href="/en/bread-dough/">Bread Baker's Percentages</a></li><li><a href="/en/pizza-dough/">Pizza Dough Calculators</a></li></ul></section>
+</main>
+<footer>
+<nav aria-label="More pages"><a href="/en/">Dough calculator</a><a href="/en/sourdough-hydration/">Sourdough hydration</a><a href="/en/pizza-dough/">Pizza dough</a><a href="/en/bread-dough/">Bread dough</a><a href="/en/starter-percentage/">Starter percentage</a><a href="/en/salt-percentage/">Salt percentage</a><a href="/en/grams-to-cups-converter/">Grams to cups</a><a href="mailto:alan.chang198807@gmail.com">Feedback</a></nav>
+<p>Ratios for home baking.</p>
+<p class="privacy">This site uses Cloudflare's anonymous analytics to count page views. What you type into the calculator stays in your browser and is never sent. URL query strings are not kept.</p>
+</footer>
+</body>
+</html>

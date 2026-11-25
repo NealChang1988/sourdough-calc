@@ -261,6 +261,38 @@ function breadPages() {
   });
 }
 
+function cupsPage() {
+  const title = {
+    en: "Grams to Cups Converter",
+    "zh-cn": "克转杯换算器",
+    "zh-tw": "克轉杯換算器",
+  };
+  return {
+    id: "cups",
+    kind: "convert",
+    category: "convert",
+    slug: {
+      en: "grams-to-cups-converter",
+      "zh-cn": "ke-zhuan-bei-huansuanqi",
+      "zh-tw": "ke-zhuan-bei-huansuan",
+    },
+    title,
+    h1: title,
+    description: {
+      en: "US, metric, and UK cup weights for flour, sugar, butter, water, and other baking ingredients.",
+      "zh-cn": "用美制杯、公制杯或英制杯，换算面粉、细砂糖、黄油、水和其它烘焙食材。",
+      "zh-tw": "用美制杯、公制杯或英制杯，換算麵粉、細砂糖、奶油、水和其它烘焙食材。",
+    },
+    intro: {
+      en: [
+        "Convert grams and cups for one baking ingredient, including spoons, milliliters, and ounces.",
+      ],
+      "zh-cn": ["把单一种烘焙食材从克换算成量杯，或从量杯换算成克，并同时列出汤匙、茶匙、毫升和重量盎司。"],
+      "zh-tw": ["把單一種類的烘焙食材從克換算成量杯，或從量杯換算成克，並一併列出湯匙、茶匙、毫升與重量盎司。"],
+    },
+  };
+}
+
 function assertPages(list) {
   const ids = new Set();
   const slugs = { en: new Set(), "zh-cn": new Set(), "zh-tw": new Set() };
@@ -316,6 +348,7 @@ export const pages = [
   ...hydrationPages(),
   ...pizzaPages(),
   ...breadPages(),
+  cupsPage(),
 ];
 
 assertPages(pages);
