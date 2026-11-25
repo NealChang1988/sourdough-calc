@@ -81,41 +81,44 @@ function update(options = {}) {
   const current = mode();
   const raw = amount.value;
   const parsed = parseInput(raw, current.direction);
-  syncQuick(parsed.ok && parsed.direction ? parsed.direction : current.direction);
   if (!parsed.ok) {
     pinned = "";
+    syncQuick(current.direction);
     showError(parsed);
     return;
   }
-  const detected = parsed.directionDetected || parsed.ingredientDetected || parsed.unknown || parsed.system || parsed.scaled;
-  if (options.fromAmount) pinned = detected ? detectionNote(parsed, lang) : "";
-  const messy = detected || raw.includes(",") || /[½⅓⅔¼¾⅛⅜⅝⅞]/u.test(raw);
-  if (options.clean && messy) {
-    const cleaned = trimNumber(parsed.value);
-    if (amount.value !== cleaned) amount.value = cleaned;
+  if (options.fromAmount) {
+    const detected = parsed.directionDetected || parsed.ingredientDetected || parsed.unknown || parsed.system || parsed.scaled;
+    pinned = detected ? detectionNote(parsed, lang) : "";
+    if (parsed.ingredientDetected) ingredient.value = parsed.ingredient;
+    if (parsed.directionDetected) {
+      form.querySelector(`input[name=direction][value="${parsed.direction}"]`).checked = true;
+    }
+    if (parsed.system) form.querySelector(`input[name=system][value="${parsed.system}"]`).checked = true;
+    const messy = detected || raw.includes(",") || /[½⅓⅔¼¾⅛⅜⅝⅞]/u.test(raw);
+    if (options.clean && messy) {
+      const cleaned = trimNumber(parsed.value);
+      if (amount.value !== cleaned) amount.value = cleaned;
+    }
   }
-  if (parsed.ingredientDetected) ingredient.value = parsed.ingredient;
-  if (parsed.directionDetected) {
-    form.querySelector(`input[name=direction][value="${parsed.direction}"]`).checked = true;
-  }
-  if (parsed.system) form.querySelector(`input[name=system][value="${parsed.system}"]`).checked = true;
-  syncQuick(parsed.direction);
   const chosen = mode();
+  syncQuick(chosen.direction);
   const result = convert({
-    ingredient: parsed.ingredientDetected ? parsed.ingredient : ingredient.value,
-    system: parsed.system || chosen.system,
-    direction: parsed.direction,
+    ingredient: ingredient.value,
+    system: chosen.system,
+    direction: chosen.direction,
     amount: parsed.value,
   });
   show(result, pinned);
-  updateChart(result.system);
+  updateChart(chosen.system);
 }
 
 amount.addEventListener("input", (event) => {
   update({ fromAmount: true, clean: event.inputType === "insertFromPaste" });
 });
 form.addEventListener("change", (event) => {
-  if (event.target.name === "ingredient") pinned = "";
+  const name = event.target.name;
+  if (name === "ingredient" || name === "direction" || name === "system") pinned = "";
   update();
 });
 form.addEventListener("submit", (event) => {

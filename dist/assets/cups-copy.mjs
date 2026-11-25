@@ -160,7 +160,7 @@ export const cupsCopy = {
     copyFail: "Select the result text and copy it",
     print: "Print",
     formatError: "Enter a number greater than 0, or a common fraction, for example 250 or 1 1/2.",
-    limitError: "Enter a number greater than 0 and at most {max}, for example 250.",
+    limitError: "Enter a number greater than 0 and at most {max}, for example {example}.",
     detectedIngredient: "Detected {name}.",
     detectedDirection: {
       grams: "Detected grams, so this uses Grams → Cups.",
@@ -258,7 +258,7 @@ export const cupsCopy = {
     copyFail: "请选中结果文字再复制",
     print: "打印",
     formatError: "请输入大于 0 的数字或常见分数（例如 250 或 1 1/2）。",
-    limitError: "请输入大于 0、且不超过 {max} 的数字，例如 250。",
+    limitError: "请输入大于 0、且不超过 {max} 的数字，例如 {example}。",
     detectedIngredient: "从文字辨认出{name}。",
     detectedDirection: { grams: "辨认出克，所以改用克 → 杯。", cups: "辨认出杯，所以改用杯 → 克。" },
     detectedSystem: "辨认出{system}。",
@@ -347,7 +347,7 @@ export const cupsCopy = {
     copyFail: "請選中結果文字再複製",
     print: "列印",
     formatError: "請輸入大於 0 的數字或常見分數（例如 250 或 1 1/2）。",
-    limitError: "請輸入大於 0、且不超過 {max} 的數字，例如 250。",
+    limitError: "請輸入大於 0、且不超過 {max} 的數字，例如 {example}。",
     detectedIngredient: "從文字辨認出{name}。",
     detectedDirection: { grams: "辨認出克，所以改用克 → 杯。", cups: "辨認出杯，所以改用杯 → 克。" },
     detectedSystem: "辨認出{system}。",
@@ -395,7 +395,7 @@ export const cupsCopy = {
       ],
       [
         "美制杯和公制杯差在哪？",
-        "英制杯是 284.13 毫升，只供對照英國老食譜；現在的英國食譜多半直接寫克，澳紐食譜請用公制杯。有些美國包裝上的 240 毫升杯大約差 1.4%，這裡不另設按鈕。澳洲有些食譜的大匙是 20 毫升，這個工具的公制大匙用 15 毫升。電鍋量米杯是 180 毫升，不是烘焙量杯。",
+        "美制杯是美國食譜的 1 杯，236.59 毫升。公制杯是台灣、澳洲與加拿大常見的 250 毫升，相差約 5.7%。英制杯是 284.13 毫升，只供對照英國老食譜；現在的英國食譜多半直接寫克，澳紐食譜請用公制杯。有些美國包裝上的 240 毫升杯大約差 1.4%，這裡不另設按鈕。澳洲有些食譜的大匙是 20 毫升，這個工具的公制大匙用 15 毫升。電鍋量米杯是 180 毫升，不是烘焙量杯。",
       ],
       [
         "烘焙百分比是什麼？",
@@ -471,6 +471,9 @@ export function detectionNote(parsed, lang) {
 
 export function errorText(reason, lang, limit) {
   const copy = cupsCopy[lang];
-  if (reason === "limit") return copy.limitError.replace("{max}", String(limit));
+  if (reason === "limit") {
+    const example = Number(limit) > 1000 ? "250" : "1.5";
+    return copy.limitError.replace("{max}", String(limit)).replace("{example}", example);
+  }
   return copy.formatError;
 }

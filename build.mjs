@@ -96,6 +96,7 @@ export async function writeSite(distDir) {
     await readFile(path.join(root, "src", "fonts", "noto-sans-tc-subset.ttf")),
   );
   await writeFile(path.join(distDir, "favicon.svg"), await readFile(path.join(root, "src", "favicon.svg")));
+  await writeFile(path.join(distDir, "og.png"), await readFile(path.join(root, "src", "og.png")));
   await writeFile(path.join(distDir, "favicon.ico"), await readFile(path.join(root, "src", "favicon.ico")));
   await writeText(path.join(distDir, "index.html"), renderRoot());
   await writeText(path.join(distDir, "404.html"), renderNotFound());

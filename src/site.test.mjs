@@ -298,15 +298,26 @@ test("built site drops removed urls and keeps a footer mailto on every page", as
     assert.equal(sitemap.includes(rule.from), false, rule.from);
   }
   const removed = new Set(rules.map((rule) => rule.from));
+  const og = await readFile(path.join(dir, "og.png"));
+  assert.equal(og.readUInt32BE(16), 1200);
+  assert.equal(og.readUInt32BE(20), 630);
   for (const file of await htmlFiles(dir)) {
     const rel = path.relative(dir, file);
     const html = await readFile(file, "utf8");
     for (const from of removed) {
       assert.equal(html.includes(`href="${from}"`), false, `${rel} -> ${from}`);
     }
+    if (rel === "index.html" || rel === "404.html") {
+      assert.match(html, /property="og:image" content="https:\/\/doughcalc\.app\/og\.png"/, rel);
+      assert.match(html, /name="twitter:card" content="summary_large_image"/, rel);
+    }
     if (!/^(en|zh-cn|zh-tw)\//.test(rel)) continue;
     assert.match(html, /href="mailto:alan.chang198807@gmail.com"/, rel);
     assert.match(html, /rel="canonical" href="[^"]+"/, rel);
+    assert.match(html, /property="og:image" content="https:\/\/doughcalc\.app\/og\.png"/, rel);
+    assert.match(html, /property="og:image:width" content="1200"/, rel);
+    assert.match(html, /property="og:image:height" content="630"/, rel);
+    assert.match(html, /name="twitter:card" content="summary_large_image"/, rel);
     assert.match(html, /hreflang="en"/, rel);
     assert.match(html, /hreflang="zh-CN"/, rel);
     assert.match(html, /hreflang="zh-TW"/, rel);

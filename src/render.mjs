@@ -34,6 +34,15 @@ function alternates(page) {
   return links;
 }
 
+function shareMeta() {
+  const image = absoluteUrl("/og.png");
+  return `<meta property="og:image" content="${escapeHtml(image)}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="${escapeHtml(image)}">`;
+}
+
 function head({ lang, title, description, canonical, alts, robots }) {
   const altTags = alts
     .map(
@@ -63,6 +72,7 @@ ${altTags}
 <meta property="og:type" content="website">
 <meta property="og:locale" content="${OG_LOCALE[lang]}">
 ${ogAlts}
+${shareMeta()}
 ${robotsTag}
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/assets/site.css">
@@ -405,6 +415,7 @@ export function renderRoot() {
 <link rel="canonical" href="${absoluteUrl("/en/")}">
 <meta http-equiv="refresh" content="0; url=/en/">
 <meta name="robots" content="noindex">
+${shareMeta()}
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/assets/site.css">
 </head>
@@ -438,6 +449,7 @@ export function renderNotFound() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${escapeHtml(ui.en.notFoundTitle)}</title>
 <meta name="robots" content="noindex">
+${shareMeta()}
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/assets/site.css">
 </head>

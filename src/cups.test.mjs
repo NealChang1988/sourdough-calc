@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { convert, cupWeight, formatWeight, parseInput, scenarioLine } from "./cups.mjs";
-import { cupsCopy, detectionNote, present } from "./cups-copy.mjs";
+import { cupsCopy, detectionNote, errorText, present } from "./cups-copy.mjs";
 import { pages } from "./catalog.mjs";
 import { renderPage, renderSitemap } from "./render.mjs";
 
@@ -150,6 +150,10 @@ test("the three language pages use the spec titles and the existing page shell",
   assert.doesNotMatch(html.en, /<title>[^<]*doughcalc/i);
   assert.match(html.en, /rel="canonical" href="https:\/\/doughcalc\.app\/en\/grams-to-cups-converter\/"/);
   assert.match(html.en, /property="og:url" content="https:\/\/doughcalc\.app\/en\/grams-to-cups-converter\/"/);
+  assert.match(html.en, /property="og:image" content="https:\/\/doughcalc\.app\/og\.png"/);
+  assert.match(html.en, /property="og:image:width" content="1200"/);
+  assert.match(html.en, /property="og:image:height" content="630"/);
+  assert.match(html.en, /name="twitter:card" content="summary_large_image"/);
   assert.match(html.en, /hreflang="zh-CN" href="[^"]+\/zh-cn\/ke-zhuan-bei-huansuanqi\/"/);
   assert.match(html.en, /hreflang="zh-TW" href="[^"]+\/zh-tw\/ke-zhuan-bei-huansuan\/"/);
   assert.match(html.en, /hreflang="x-default" href="[^"]+\/en\/grams-to-cups-converter\/"/);
@@ -183,6 +187,15 @@ test("the three language pages use the spec titles and the existing page shell",
   assert.match(html["zh-tw"], />換算後</);
   assert.match(html["zh-tw"], /同樣滿 1 杯，水、麵粉和糖的重量都不一樣，所以一定要先選食材才能算。/);
   assert.match(html["zh-tw"], /美國食譜的 1 杯是 236\.59 毫升，台灣、澳洲與加拿大常見的公制量杯則是 250 毫升，相差約 5\.7%。/);
+  const cupFaq = html["zh-tw"].slice(html["zh-tw"].indexOf("美制杯和公制杯差在哪"), html["zh-tw"].indexOf("烘焙百分比是什麼"));
+  assert.ok(cupFaq.indexOf("236.59") < cupFaq.indexOf("英制"), cupFaq);
+  assert.match(cupFaq, /美制杯是美國食譜的 1 杯，236\.59 毫升/);
+  assert.match(cupFaq, /公制杯是台灣、澳洲與加拿大常見的 250 毫升/);
+  assert.match(errorText("limit", "en", 1000), /1\.5/);
+  assert.equal(errorText("limit", "en", 1000).includes("250"), false);
+  assert.match(errorText("limit", "en", 100000), /250/);
+  assert.match(errorText("limit", "zh-tw", 1000), /1\.5/);
+  assert.match(errorText("limit", "zh-cn", 1000), /1\.5/);
   assert.match(html["zh-tw"], /麵包師傅把麵粉當 100%，水、鹽和酵母都用占麵粉重量的百分比來寫，算好克數後就可以拿來這裡換成量杯。/);
   assert.doesNotMatch(html["zh-tw"], /黄油|细砂糖|玉米淀粉/);
   for (const lang of ["en", "zh-cn", "zh-tw"]) {
