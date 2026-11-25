@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { amountCleanup, convert, cupWeight, formatWeight, parseInput, scenarioLine } from "./cups.mjs";
+import { amountCleanup, convert, cupWeight, formatSwapped, formatWeight, parseInput, scenarioLine } from "./cups.mjs";
 import { cupsCopy, detectionNote, errorText, present } from "./cups-copy.mjs";
 import { pages } from "./catalog.mjs";
 import { renderPage, renderSitemap } from "./render.mjs";
@@ -132,6 +132,35 @@ test("result text states the cup, the scoop, and anything detected", () => {
   assert.match(detectionNote(parseInput("1 metric cup sugar"), "en"), /Metric cup/);
   assert.match(detectionNote(parseInput("250g almond meal"), "en"), /almond meal/);
   assert.match(detectionNote(parseInput("250g almond meal"), "en"), /Flour/);
+});
+
+test("comma decimals stay intact and thousands separators still group", () => {
+  assert.equal(parseInput("1,5").value, 1.5);
+  assert.equal(parseInput("0,75").value, 0.75);
+  assert.equal(parseInput("2,25").value, 2.25);
+  assert.equal(amountCleanup("1,5").text, "1.5");
+  assert.equal(parseInput("1,000").value, 1000);
+  assert.equal(parseInput("1,250").value, 1250);
+  assert.equal(parseInput("1,250.5").value, 1250.5);
+});
+
+test("full-width digits and punctuation parse as half-width", () => {
+  assert.equal(parseInput("２５０").value, 250);
+  assert.equal(parseInput("１．５").value, 1.5);
+  assert.equal(parseInput("１，５").value, 1.5);
+  assert.equal(parseInput("１／３").value, 1 / 3);
+});
+
+test("a typed fraction stays in the box and swapped values round", () => {
+  const fraction = amountCleanup("1/3", "cups");
+  assert.equal(fraction.messy, false);
+  assert.equal(fraction.text, "1/3");
+  assert.equal(formatSwapped(250 / 120, "cups"), "2.08");
+  assert.equal(formatSwapped(120 / 3, "grams"), "40");
+  assert.equal(formatSwapped(40 / 120, "cups"), "0.33");
+  const cups = formatSwapped(250 / 120, "cups");
+  const grams = formatSwapped(Number(cups) * 120, "grams");
+  assert.equal(formatSwapped(Number(grams) / 120, "cups"), cups);
 });
 
 test("typed messy text commits to the same amount as a paste", () => {

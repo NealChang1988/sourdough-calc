@@ -1,4 +1,4 @@
-import { amountCleanup, chartCell, convert, parseInput, trimNumber } from "./cups.mjs";
+import { amountCleanup, chartCell, convert, formatSwapped, parseInput } from "./cups.mjs";
 import { cupsCopy, detectionNote, errorText, fdcUrl, present } from "./cups-copy.mjs";
 
 const lang =
@@ -166,7 +166,7 @@ document.querySelector("#swap").addEventListener("click", () => {
     amount: parsed.value,
   });
   const next = result.direction === "grams" ? "cups" : "grams";
-  amount.value = trimNumber(next === "cups" ? result.cupsExact : result.gramsExact);
+  amount.value = formatSwapped(next === "cups" ? result.cupsExact : result.gramsExact, next);
   form.querySelector(`input[name=direction][value="${next}"]`).checked = true;
   pinned = "";
   update();

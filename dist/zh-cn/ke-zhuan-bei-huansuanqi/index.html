@@ -28,14 +28,17 @@
 <a class="brand" href="/zh-cn/">面团计算器</a>
 <nav class="langs" aria-label="语言"><a href="/en/grams-to-cups-converter/" hreflang="en" lang="en">EN</a><a href="/zh-cn/ke-zhuan-bei-huansuanqi/" hreflang="zh-CN" lang="zh-CN" aria-current="page">简体</a><a href="/zh-tw/ke-zhuan-bei-huansuan/" hreflang="zh-TW" lang="zh-TW">繁體</a></nav>
 </header>
-<main id="main">
+<main id="main" class="convert">
 <nav class="crumb" aria-label="当前位置"><a href="/zh-cn/">面团计算器</a></nav>
 <h1>克转杯换算器</h1>
 <p>把单一种烘焙食材从克换算成量杯，或从量杯换算成克，并同时列出汤匙、茶匙、毫升和重量盎司。</p>
 <form id="calc" class="cups-tool" autocomplete="off">
 <p class="limits">数字留在这个浏览器里，克数大于 0 到 100,000，杯数大于 0 到 1,000。</p>
 <label class="field"><span class="label">食材</span><select name="ingredient"><optgroup label="面粉"><option value="ap" selected>中筋面粉</option><option value="bread">高筋面粉</option><option value="whole">全麦面粉</option></optgroup><optgroup label="糖"><option value="sugar">细砂糖</option><option value="brown">红糖（压实）</option><option value="powdered">糖粉（未过筛）</option></optgroup><optgroup label="油脂和乳品"><option value="butter">黄油</option><option value="milk">全脂牛奶</option></optgroup><optgroup label="液体"><option value="honey">蜂蜜</option><option value="water">水</option><option value="oil">植物油</option><option value="olive">橄榄油</option></optgroup><optgroup label="其他干料"><option value="cocoa">无糖可可粉</option><option value="oats">传统燕麦片</option><option value="rice">生白米（长米）</option><option value="corn">玉米淀粉</option></optgroup></select></label>
+<div class="chips"><button type="button" class="secondary" data-ingredient="ap">面粉</button><button type="button" class="secondary" data-ingredient="sugar">细砂糖</button><button type="button" class="secondary" data-ingredient="brown">红糖</button><button type="button" class="secondary" data-ingredient="butter">黄油</button><button type="button" class="secondary" data-ingredient="water">水</button><button type="button" class="secondary" data-ingredient="honey">蜂蜜</button></div>
 <label class="field"><span class="label">数量</span><input name="amount" inputmode="decimal" value="250"></label>
+<div class="chips" data-quick="grams"><button type="button" class="secondary" data-amount="50">50克</button><button type="button" class="secondary" data-amount="100">100克</button><button type="button" class="secondary" data-amount="150">150克</button><button type="button" class="secondary" data-amount="200">200克</button><button type="button" class="secondary" data-amount="250">250克</button></div>
+<div class="chips" data-quick="cups" hidden><button type="button" class="secondary" data-amount="1/4">1/4</button><button type="button" class="secondary" data-amount="1/3">1/3</button><button type="button" class="secondary" data-amount="1/2">1/2</button><button type="button" class="secondary" data-amount="3/4">3/4</button><button type="button" class="secondary" data-amount="1">1</button><button type="button" class="secondary" data-amount="1 1/2">1 1/2</button></div>
 <fieldset class="modes">
 <legend>方向</legend>
 <label><input type="radio" name="direction" value="grams" checked> 克 → 杯</label>
@@ -67,16 +70,13 @@
 <div id="row-sticks" hidden><dt>黄油条</dt><dd id="out-sticks">—</dd></div>
 </dl>
 <p class="convention" id="convention">按中筋面粉每美制杯 120 克（236.59 毫升）计算。面粉先抖松再舀进杯子刮平，直接挖会更重。</p>
-<p class="sources"><a id="fdc" data-label="美国农业部 FoodData Central" href="https://fdc.nal.usda.gov/food-details/168894/nutrients">美国农业部 FoodData Central FDC 168894</a>. <a href="https://www.kingarthurbaking.com/learn/ingredient-weight-chart">King Arthur Baking 食材重量表</a>.</p>
+<p class="sources"><a id="fdc" data-label="美国农业部 FoodData Central" href="https://fdc.nal.usda.gov/food-details/168894/nutrients">美国农业部 FoodData Central FDC 168894</a>。 <a href="https://www.kingarthurbaking.com/learn/ingredient-weight-chart">King Arthur Baking 食材重量表</a>。</p>
 <div class="actions">
 <button type="button" id="copy">复制结果</button>
 <button type="button" id="print" class="secondary">打印</button>
 </div>
 <textarea id="recipe-text" hidden readonly></textarea>
 </section>
-<div class="chips"><button type="button" class="secondary" data-ingredient="ap">面粉</button><button type="button" class="secondary" data-ingredient="sugar">细砂糖</button><button type="button" class="secondary" data-ingredient="brown">红糖</button><button type="button" class="secondary" data-ingredient="butter">黄油</button><button type="button" class="secondary" data-ingredient="water">水</button><button type="button" class="secondary" data-ingredient="honey">蜂蜜</button></div>
-<div class="chips" data-quick="grams"><button type="button" class="secondary" data-amount="50">50克</button><button type="button" class="secondary" data-amount="100">100克</button><button type="button" class="secondary" data-amount="150">150克</button><button type="button" class="secondary" data-amount="200">200克</button><button type="button" class="secondary" data-amount="250">250克</button></div>
-<div class="chips" data-quick="cups" hidden><button type="button" class="secondary" data-amount="1/4">1/4</button><button type="button" class="secondary" data-amount="1/3">1/3</button><button type="button" class="secondary" data-amount="1/2">1/2</button><button type="button" class="secondary" data-amount="3/4">3/4</button><button type="button" class="secondary" data-amount="1">1</button><button type="button" class="secondary" data-amount="1 1/2">1 1/2</button></div>
 <p class="hint standard-hint">美制杯是美国食谱的 1 杯，236.59 毫升。公制杯是台湾、澳洲和加拿大常见的 250 毫升，大约多 5.7%。英制杯是 284.13 毫升，只供对照英国老食谱。</p>
 <section class="chart-wrap">
 <h2>常用食材的杯重</h2>

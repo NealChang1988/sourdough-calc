@@ -39,15 +39,20 @@ export function formatAmount(n) {
   return rounded.toFixed(1);
 }
 
-function halfWidth(text) {
-  return text
+export function toHalfWidth(text) {
+  return String(text)
     .replaceAll("\u3000", " ")
     .replace(/[\uFF10-\uFF19]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) - 0xfee0))
     .replaceAll("\uFF0E", ".")
     .replaceAll("\uFF0C", ",")
+    .replaceAll("\uFF0F", "/")
     .replaceAll("\uFF05", "%")
     .replaceAll("\uFF47", "g")
     .replaceAll("\uFF27", "G");
+}
+
+function halfWidth(text) {
+  return toHalfWidth(text);
 }
 
 function numberFrom(value) {

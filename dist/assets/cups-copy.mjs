@@ -366,9 +366,9 @@ export const cupsCopy = {
       sticks: "奶油條",
     },
     nearest: "最接近的刻度：{mark}（誤差 {diff}）。",
-    far: "這個刻度差太遠，請用實用勺取。",
+    far: "這個刻度差太遠，請用湯匙／茶匙量法。",
     under: "不到 1/8 杯，請改用下面的湯匙和茶匙。",
-    scoop: "實用勺取：{scoop}",
+    scoop: "湯匙／茶匙量法：{scoop}",
     using: "按{name}每{system} {weight} 克（{ml} 毫升）計算。{note}",
     copyApprox: "約 {mark}，或 {scoop}",
     copyUnder: "不到 1/8 杯，或 {scoop}",
@@ -391,7 +391,7 @@ export const cupsCopy = {
     faq: [
       [
         "為什麼要先選食材？",
-        "密度就是鬆緊造成的重量差異。同樣滿 1 杯，水、麵粉和糖的重量都不一樣，所以一定要先選食材才能算。",
+        "同樣滿 1 杯，水、麵粉和糖的重量都不一樣，所以一定要先選食材才能算。",
       ],
       [
         "美制杯和公制杯差在哪？",

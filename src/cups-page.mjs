@@ -77,7 +77,10 @@ export function renderCupsInner(lang) {
   return `<form id="calc" class="cups-tool" autocomplete="off">
 <p class="limits">${escapeHtml(copy.limits)}</p>
 <label class="field"><span class="label">${escapeHtml(copy.ingredientLegend)}</span><select name="ingredient">${optionGroups(copy)}</select></label>
+<div class="chips">${chips(copy.quick, "ingredient")}</div>
 <label class="field"><span class="label">${escapeHtml(copy.amount)}</span><input name="amount" inputmode="decimal" value="250"></label>
+<div class="chips" data-quick="grams">${amountChips(copy.gramQuick, copy.gramValues)}</div>
+<div class="chips" data-quick="cups" hidden>${amountChips(copy.cupQuick, copy.cupQuick)}</div>
 <fieldset class="modes">
 <legend>${escapeHtml(copy.directionLegend)}</legend>
 <label><input type="radio" name="direction" value="grams" checked> ${escapeHtml(copy.gramsToCups)}</label>
@@ -109,16 +112,13 @@ export function renderCupsInner(lang) {
 <div id="row-sticks" hidden><dt>${escapeHtml(copy.rows.sticks)}</dt><dd id="out-sticks">—</dd></div>
 </dl>
 <p class="convention" id="convention">${escapeHtml(view.convention)}</p>
-<p class="sources"><a id="fdc" data-label="${escapeHtml(copy.usda)}" href="${escapeHtml(fdcUrl(view.fdc))}">${escapeHtml(copy.usda)} FDC ${escapeHtml(view.fdc)}</a>. <a href="${KING_ARTHUR_URL}">${escapeHtml(copy.king)}</a>.</p>
+<p class="sources"><a id="fdc" data-label="${escapeHtml(copy.usda)}" href="${escapeHtml(fdcUrl(view.fdc))}">${escapeHtml(copy.usda)} FDC ${escapeHtml(view.fdc)}</a>${lang === "en" ? "." : "。"} <a href="${KING_ARTHUR_URL}">${escapeHtml(copy.king)}</a>${lang === "en" ? "." : "。"}</p>
 <div class="actions">
 <button type="button" id="copy">${escapeHtml(copy.copy)}</button>
 <button type="button" id="print" class="secondary">${escapeHtml(copy.print)}</button>
 </div>
 <textarea id="recipe-text" hidden readonly></textarea>
 </section>
-<div class="chips">${chips(copy.quick, "ingredient")}</div>
-<div class="chips" data-quick="grams">${amountChips(copy.gramQuick, copy.gramValues)}</div>
-<div class="chips" data-quick="cups" hidden>${amountChips(copy.cupQuick, copy.cupQuick)}</div>
 <p class="hint standard-hint">${escapeHtml(copy.standardHint)}</p>
 <section class="chart-wrap">
 <h2>${escapeHtml(copy.chartTitle)}</h2>

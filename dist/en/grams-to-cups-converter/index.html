@@ -28,14 +28,17 @@
 <a class="brand" href="/en/">Dough calculator</a>
 <nav class="langs" aria-label="Language"><a href="/en/grams-to-cups-converter/" hreflang="en" lang="en" aria-current="page">EN</a><a href="/zh-cn/ke-zhuan-bei-huansuanqi/" hreflang="zh-CN" lang="zh-CN">简体</a><a href="/zh-tw/ke-zhuan-bei-huansuan/" hreflang="zh-TW" lang="zh-TW">繁體</a></nav>
 </header>
-<main id="main">
+<main id="main" class="convert">
 <nav class="crumb" aria-label="Breadcrumb"><a href="/en/">Dough calculator</a></nav>
 <h1>Grams to Cups Converter</h1>
 <p>Convert grams and cups for one baking ingredient, including spoons, milliliters, and ounces.</p>
 <form id="calc" class="cups-tool" autocomplete="off">
 <p class="limits">Numbers stay in this browser: above 0, at most 100,000 g or 1,000 cups.</p>
 <label class="field"><span class="label">Ingredient</span><select name="ingredient"><optgroup label="Flours"><option value="ap" selected>All-purpose flour</option><option value="bread">Bread flour</option><option value="whole">Whole wheat flour</option></optgroup><optgroup label="Sugars"><option value="sugar">Granulated sugar</option><option value="brown">Brown sugar (packed)</option><option value="powdered">Powdered sugar (unsifted)</option></optgroup><optgroup label="Fats and dairy"><option value="butter">Butter</option><option value="milk">Whole milk</option></optgroup><optgroup label="Liquids"><option value="honey">Honey</option><option value="water">Water</option><option value="oil">Vegetable oil</option><option value="olive">Olive oil</option></optgroup><optgroup label="Other dry ingredients"><option value="cocoa">Cocoa powder (unsweetened)</option><option value="oats">Rolled oats (old-fashioned)</option><option value="rice">White rice (long-grain, raw)</option><option value="corn">Cornstarch</option></optgroup></select></label>
+<div class="chips"><button type="button" class="secondary" data-ingredient="ap">Flour</button><button type="button" class="secondary" data-ingredient="sugar">Sugar</button><button type="button" class="secondary" data-ingredient="brown">Brown sugar</button><button type="button" class="secondary" data-ingredient="butter">Butter</button><button type="button" class="secondary" data-ingredient="water">Water</button><button type="button" class="secondary" data-ingredient="honey">Honey</button></div>
 <label class="field"><span class="label">Amount</span><input name="amount" inputmode="decimal" value="250"></label>
+<div class="chips" data-quick="grams"><button type="button" class="secondary" data-amount="50">50g</button><button type="button" class="secondary" data-amount="100">100g</button><button type="button" class="secondary" data-amount="150">150g</button><button type="button" class="secondary" data-amount="200">200g</button><button type="button" class="secondary" data-amount="250">250g</button></div>
+<div class="chips" data-quick="cups" hidden><button type="button" class="secondary" data-amount="1/4">1/4</button><button type="button" class="secondary" data-amount="1/3">1/3</button><button type="button" class="secondary" data-amount="1/2">1/2</button><button type="button" class="secondary" data-amount="3/4">3/4</button><button type="button" class="secondary" data-amount="1">1</button><button type="button" class="secondary" data-amount="1 1/2">1 1/2</button></div>
 <fieldset class="modes">
 <legend>Direction</legend>
 <label><input type="radio" name="direction" value="grams" checked> Grams → Cups</label>
@@ -74,9 +77,6 @@
 </div>
 <textarea id="recipe-text" hidden readonly></textarea>
 </section>
-<div class="chips"><button type="button" class="secondary" data-ingredient="ap">Flour</button><button type="button" class="secondary" data-ingredient="sugar">Sugar</button><button type="button" class="secondary" data-ingredient="brown">Brown sugar</button><button type="button" class="secondary" data-ingredient="butter">Butter</button><button type="button" class="secondary" data-ingredient="water">Water</button><button type="button" class="secondary" data-ingredient="honey">Honey</button></div>
-<div class="chips" data-quick="grams"><button type="button" class="secondary" data-amount="50">50g</button><button type="button" class="secondary" data-amount="100">100g</button><button type="button" class="secondary" data-amount="150">150g</button><button type="button" class="secondary" data-amount="200">200g</button><button type="button" class="secondary" data-amount="250">250g</button></div>
-<div class="chips" data-quick="cups" hidden><button type="button" class="secondary" data-amount="1/4">1/4</button><button type="button" class="secondary" data-amount="1/3">1/3</button><button type="button" class="secondary" data-amount="1/2">1/2</button><button type="button" class="secondary" data-amount="3/4">3/4</button><button type="button" class="secondary" data-amount="1">1</button><button type="button" class="secondary" data-amount="1 1/2">1 1/2</button></div>
 <p class="hint standard-hint">A US cup is 236.59 ml. A metric cup is 250 ml, about 5.7% more, and is the cup used in Taiwan, Australia, and Canada. A UK cup is 284.13 ml, for old British recipes.</p>
 <section class="chart-wrap">
 <h2>Common cup weights</h2>

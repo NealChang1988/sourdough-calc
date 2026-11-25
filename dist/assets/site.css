@@ -183,17 +183,28 @@ footer nav { display: flex; flex-wrap: wrap; gap: 0.7rem 1rem; margin-bottom: 0.
   .fields.grid-2 { grid-template-columns: 1fr 1fr; }
   h1 { font-size: 2rem; }
 }
-.limits { color: var(--muted); margin: 0 0 0.75rem; }
+.limits { color: var(--muted); margin: 0 0 0.45rem; }
+@media (max-width: 26rem) {
+  .convert h1 { font-size: 1.45rem; margin-bottom: 0.25rem; }
+}
 .cups-tool .modes label, .cups-tool .standards label {
   display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   width: auto;
   margin: 0.15rem 0.85rem 0.15rem 0;
 }
-.cups-tool fieldset { margin-bottom: 0.45rem; }
+.cups-tool fieldset { margin-bottom: 0.25rem; padding: 0.2rem 0.65rem 0.25rem; }
 .cups-tool #swap { display: inline-flex; align-items: center; width: auto; margin: 0.15rem 0; }
 .standard-hint { margin: 0.2rem 0 1rem; }
-.chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 0.75rem; }
-.chips button { flex: 1 1 auto; }
+.chips {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.4rem;
+  margin: 0.2rem 0 0.25rem;
+  overflow-x: auto;
+}
+.chips button { flex: 0 0 auto; min-height: 2.25rem; padding: 0.1rem 0.7rem; }
 .hero { font-size: 1.7rem; font-weight: 700; margin: 0.15rem 0 0.35rem; font-variant-numeric: tabular-nums; }
 .detected { margin: 0.15rem 0 0.4rem; }
 .detected:empty { display: none; }

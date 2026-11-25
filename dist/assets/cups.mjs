@@ -1,3 +1,5 @@
+import { toHalfWidth } from "./formula.mjs";
+
 export const US_ML = 236.5882365;
 export const METRIC_ML = 250;
 export const UK_ML = 284.130625;
@@ -356,11 +358,21 @@ function detectUnit(text) {
 }
 
 function normalize(raw) {
-  let text = raw.replace(/\s+/g, " ").trim();
+  let text = toHalfWidth(raw).replace(/\s+/g, " ").trim();
   text = text.replace(/(\d)\s*([½⅓⅔¼¾⅛⅜⅝⅞⅕⅖⅗⅘⅙⅚])/gu, (_, digit, mark) => `${digit} ${UNICODE_FRACTIONS[mark]}`);
   text = text.replace(/[½⅓⅔¼¾⅛⅜⅝⅞⅕⅖⅗⅘⅙⅚]/gu, (mark) => UNICODE_FRACTIONS[mark]);
   text = text.replace(/(\d),(?=\d{3}(?:\D|$))/g, "$1");
+  text = text.replace(/(\d),(?=\d{1,2}(?:\D|$))/g, "$1.");
   return text;
+}
+
+export function formatSwapped(value, direction) {
+  if (direction === "cups") {
+    const rounded = roundTo(value, 2);
+    if (Math.abs(rounded - Math.round(rounded)) < 1e-9) return String(Math.round(rounded));
+    return rounded.toFixed(2).replace(/0+$/, "").replace(/\.$/, "");
+  }
+  return formatGrams(value);
 }
 
 function readNumber(text) {
