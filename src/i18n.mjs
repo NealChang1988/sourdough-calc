@@ -30,6 +30,7 @@ const en = {
   privacy:
     "This site uses Cloudflare's anonymous analytics to count page views. What you type into the calculator stays in your browser and is never sent. URL query strings are not kept.",
   feedback: "Feedback",
+  cupsNav: "Grams to cups",
   modeLabel: "How to scale",
   modeFlour: "From flour weight",
   modeBalls: "From dough balls",
@@ -140,6 +141,7 @@ const zhCn = {
   privacy:
     "这个网站使用 Cloudflare 的匿名分析来统计页面浏览量。你在计算器里输入的内容留在浏览器里，不会发送出去。网址里的查询字符串不会被保留。",
   feedback: "意见反馈",
+  cupsNav: "克转杯换算",
   modeLabel: "怎么算",
   modeFlour: "按面粉重量",
   modeBalls: "按面团球",
@@ -239,6 +241,7 @@ const zhTw = {
   privacy:
     "這個網站使用 Cloudflare 的匿名分析來統計頁面瀏覽量。你在計算器裡輸入的內容留在瀏覽器裡，不會送出去。網址裡的查詢字串不會被保留。",
   feedback: "意見回饋",
+  cupsNav: "克轉杯換算",
   modeLabel: "怎麼算",
   modeFlour: "按麵粉重量",
   modeBalls: "按麵團球",

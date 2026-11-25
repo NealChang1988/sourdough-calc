@@ -1,5 +1,6 @@
 import { SITE_URL } from "../site.config.mjs";
 import { pages, hubGroups, relatedPages, featuredPages } from "./catalog.mjs";
+import { renderCupsInner } from "./cups-page.mjs";
 import { doughGuides } from "./data/dough-guides.mjs";
 import { effectiveHydration, formatAmount, recipeFor } from "./formula.mjs";
 import { HTML_LANG, HREFLANG, LANGS, OG_LOCALE, ui } from "./i18n.mjs";
@@ -33,6 +34,15 @@ function alternates(page) {
   return links;
 }
 
+function shareMeta() {
+  const image = absoluteUrl("/og.png");
+  return `<meta property="og:image" content="${escapeHtml(image)}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="${escapeHtml(image)}">`;
+}
+
 function head({ lang, title, description, canonical, alts, robots }) {
   const altTags = alts
     .map(
@@ -62,6 +72,7 @@ ${altTags}
 <meta property="og:type" content="website">
 <meta property="og:locale" content="${OG_LOCALE[lang]}">
 ${ogAlts}
+${shareMeta()}
 ${robotsTag}
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/assets/site.css">
@@ -95,12 +106,14 @@ ${langSwitch(page, lang)}
 
 function footer(lang) {
   const homeHref = pagePath(lang, "");
+  const cups = pages.find((page) => page.id === "cups");
   const anchors = [
     `<a href="${homeHref}">${escapeHtml(ui[lang].siteName)}</a>`,
     ...["hydration", "pizza", "bread", "starter", "salt"].map((category) => {
       const hub = pages.find((page) => page.id === `hub-${category}`);
       return `<a href="${pagePath(lang, hub.slug[lang])}">${escapeHtml(ui[lang].categories[category])}</a>`;
     }),
+    `<a href="${pagePath(lang, cups.slug[lang])}">${escapeHtml(ui[lang].cupsNav)}</a>`,
     `<a href="mailto:alan.chang198807@gmail.com">${escapeHtml(ui[lang].feedback)}</a>`,
   ];
   return `<footer>
@@ -113,7 +126,7 @@ function footer(lang) {
 function crumb(page, lang) {
   if (page.kind === "home") return "";
   const home = `<a href="${pagePath(lang, "")}">${escapeHtml(ui[lang].siteName)}</a>`;
-  if (page.kind === "hub") {
+  if (page.kind === "hub" || page.kind === "convert") {
     return `<nav class="crumb" aria-label="${escapeHtml(ui[lang].crumbLabel)}">${home}</nav>`;
   }
   const hub = pages.find((item) => item.id === `hub-${page.category}`);
@@ -294,25 +307,42 @@ function pdfMeta(page, lang) {
   return `\n<script type="application/json" id="pdf-meta">${json}</script>`;
 }
 
-function adjustSection(page, lang) {
+const WEIGH_RE = {
+  en: /\b(measuring cups|measuring cup|kitchen scales|kitchen scale|weigh out|weighing|weighed|weighs|weigh)\b/i,
+  "zh-cn": /量杯|称重|称出|称准|电子秤|厨房秤/,
+  "zh-tw": /量杯|秤重|秤出|秤準|電子秤|廚房秤/,
+};
+
+function linkWeigh(escaped, lang, weigh) {
+  if (!weigh || weigh.done) return escaped;
+  let hit = false;
+  const next = escaped.replace(WEIGH_RE[lang], (word) => {
+    hit = true;
+    return `<a href="${weigh.href}">${word}</a>`;
+  });
+  if (hit) weigh.done = true;
+  return next;
+}
+
+function adjustSection(page, lang, weigh) {
   const block = page.adjust;
   if (!block) return "";
   const country = pages.find((item) => item.id === "bread-country-sourdough");
   const link = `<a href="${escapeHtml(pagePath(lang, country.slug[lang]))}">${escapeHtml(block.countryLink[lang])}</a>`;
   const paragraphs = block.paragraphs[lang]
-    .map((paragraph) => `<p>${escapeHtml(paragraph).replaceAll("{country}", link)}</p>`)
+    .map((paragraph) => `<p>${linkWeigh(escapeHtml(paragraph).replaceAll("{country}", link), lang, weigh)}</p>`)
     .join("");
   return `\n<section class="adjust"><h2>${escapeHtml(block.heading[lang])}</h2>${paragraphs}</section>`;
 }
 
-function methodSection(page, lang) {
+function methodSection(page, lang, weigh) {
   const guide = doughGuides[page.id];
   if (!guide) return "";
   const copy = guide[lang];
   const steps = copy.steps
     .map(
       (step) =>
-        `<li><strong>${escapeHtml(step.title)}</strong> ${escapeHtml(step.body)}</li>`,
+        `<li><strong>${escapeHtml(step.title)}</strong> ${linkWeigh(escapeHtml(step.body), lang, weigh)}</li>`,
     )
     .join("");
   const photo = guide.photo;
@@ -321,7 +351,7 @@ function methodSection(page, lang) {
     : "";
   return `<section class="method">
 <h2>${escapeHtml(copy.heading)}</h2>
-<p>${escapeHtml(copy.lead)}</p>
+<p>${linkWeigh(escapeHtml(copy.lead), lang, weigh)}</p>
 <ol>${steps}</ol>
 <figure>
 <img src="${photo.src}" width="${photo.width}" height="${photo.height}" alt="${escapeHtml(copy.alt)}" loading="lazy">
@@ -330,20 +360,34 @@ function methodSection(page, lang) {
 </section>`;
 }
 
-function relatedBlock(page, lang) {
-  const items = page.kind === "home" ? featuredPages() : relatedPages(page);
-  if (!items.length) return "";
-  const heading = page.kind === "home" ? ui[lang].featured : ui[lang].related;
-  return `<section class="related"><h2>${escapeHtml(heading)}</h2>${linkList(items, lang)}</section>`;
+function convertLinks() {
+  return ["home", "hub-hydration", "hub-bread", "hub-pizza"].map((id) => pages.find((page) => page.id === id));
 }
 
-function article(page, lang, inner) {
-  const paragraphs = page.intro[lang].map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("");
+function homeCupsLink(lang) {
+  const cups = pages.find((page) => page.id === "cups");
+  return `<p><a href="${pagePath(lang, cups.slug[lang])}">${escapeHtml(cups.title[lang])}</a></p>`;
+}
+
+function relatedBlock(page, lang) {
+  const items = page.kind === "home" ? featuredPages() : page.kind === "convert" ? convertLinks() : relatedPages(page);
+  if (!items.length) return "";
+  const heading = page.kind === "home" ? ui[lang].featured : ui[lang].related;
+  const extra = page.kind === "home" ? homeCupsLink(lang) : "";
+  return `<section class="related"><h2>${escapeHtml(heading)}</h2>${linkList(items, lang)}${extra}</section>`;
+}
+
+function linkedIntro(page, lang, weigh) {
+  return page.intro[lang].map((paragraph) => `<p>${linkWeigh(escapeHtml(paragraph), lang, weigh)}</p>`).join("");
+}
+
+function article(page, lang, inner, introHtml) {
+  const mainClass = page.kind === "convert" ? ' class="convert"' : "";
   return `${header(page, lang)}
-<main id="main">
+<main id="main"${mainClass}>
 ${crumb(page, lang)}
 <h1>${escapeHtml(page.h1[lang])}</h1>
-${paragraphs}
+${introHtml}
 ${inner}
 ${relatedBlock(page, lang)}
 </main>
@@ -353,8 +397,13 @@ ${footer(lang)}`;
 export function renderPage(page, lang) {
   const canonical = absoluteUrl(pagePath(lang, page.slug[lang]));
   const alts = alternates(page);
+  const cups = pages.find((item) => item.id === "cups");
+  const weigh = { done: page.kind === "convert", href: pagePath(lang, cups.slug[lang]) };
+  const introHtml = linkedIntro(page, lang, weigh);
   let inner = "";
-  if (page.kind === "hub") {
+  if (page.kind === "convert") {
+    inner = renderCupsInner(lang);
+  } else if (page.kind === "hub") {
     const groups = hubGroups(page, lang)
       .filter((group) => group.pages.length > 0)
       .map((group) => {
@@ -364,7 +413,7 @@ export function renderPage(page, lang) {
       .join("");
     inner = `${page.preset ? calculator(page, lang) : ""}${groups}`;
   } else {
-    inner = `${calculator(page, lang)}${adjustSection(page, lang)}${methodSection(page, lang)}`;
+    inner = `${calculator(page, lang)}${adjustSection(page, lang, weigh)}${methodSection(page, lang, weigh)}`;
   }
   return `${head({
     lang,
@@ -374,7 +423,7 @@ export function renderPage(page, lang) {
     alts,
   })}
 <body>
-${article(page, lang, inner)}
+${article(page, lang, inner, introHtml)}
 </body>
 </html>
 `;
@@ -390,6 +439,7 @@ export function renderRoot() {
 <link rel="canonical" href="${absoluteUrl("/en/")}">
 <meta http-equiv="refresh" content="0; url=/en/">
 <meta name="robots" content="noindex">
+${shareMeta()}
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/assets/site.css">
 </head>
@@ -423,6 +473,7 @@ export function renderNotFound() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${escapeHtml(ui.en.notFoundTitle)}</title>
 <meta name="robots" content="noindex">
+${shareMeta()}
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/assets/site.css">
 </head>

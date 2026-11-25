@@ -99,7 +99,7 @@ legend { padding: 0 0.25rem; }
 label.field { display: grid; gap: 0.3rem; font-weight: 650; }
 .unit { color: var(--muted); font-weight: 450; }
 .hint { font-weight: 450; color: var(--muted); font-size: 0.92rem; }
-input:not([type="radio"]), textarea {
+input:not([type="radio"]), textarea, select {
   font: inherit;
   font-size: 1rem;
   width: 100%;
@@ -183,8 +183,54 @@ footer nav { display: flex; flex-wrap: wrap; gap: 0.7rem 1rem; margin-bottom: 0.
   .fields.grid-2 { grid-template-columns: 1fr 1fr; }
   h1 { font-size: 2rem; }
 }
+.limits { color: var(--muted); margin: 0 0 0.45rem; }
+@media (max-width: 26rem) {
+  .convert h1 { font-size: 1.45rem; margin-bottom: 0.25rem; }
+}
+.cups-tool .modes label, .cups-tool .standards label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: auto;
+  margin: 0.15rem 0.85rem 0.15rem 0;
+}
+.cups-tool fieldset { margin-bottom: 0.25rem; padding: 0.2rem 0.65rem 0.25rem; }
+.cups-tool #swap { display: inline-flex; align-items: center; width: auto; margin: 0.15rem 0; }
+.standard-hint { margin: 0.2rem 0 1rem; }
+.chips {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.4rem;
+  margin: 0.2rem 0 0.25rem;
+  overflow-x: auto;
+}
+.chips button { flex: 0 0 auto; min-height: 2.25rem; padding: 0.1rem 0.7rem; }
+.hero { font-size: 1.7rem; font-weight: 700; margin: 0.15rem 0 0.35rem; font-variant-numeric: tabular-nums; }
+.detected { margin: 0.15rem 0 0.4rem; }
+.detected:empty { display: none; }
+.warn { color: var(--error); font-weight: 650; }
+.spotlight dt, .spotlight dd { color: var(--accent); }
+.sources { color: var(--muted); font-size: 0.95rem; }
+.chart, .example table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+.chart { table-layout: fixed; }
+.chart th, .chart td, .example th, .example td {
+  border-bottom: 1px solid var(--line);
+  padding: 0.28rem 0.2rem;
+  text-align: left;
+  vertical-align: top;
+}
+.chart th:not(:first-child), .chart td:not(:first-child) { text-align: right; font-variant-numeric: tabular-nums; }
+.chart th:first-child, .chart td:first-child { width: 36%; }
+.howto { margin: 1.25rem 0; }
+.howto ol { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.8rem; }
+.howto li { display: flex; gap: 0.55rem; align-items: flex-start; }
+.howto svg { width: 1.7rem; height: 1.7rem; flex: none; color: var(--accent); }
+.faq h3 { font-size: 1.02rem; margin: 0.9rem 0 0.25rem; }
+@media (min-width: 36rem) {
+  .howto ol { grid-template-columns: 1fr 1fr 1fr; }
+}
 @media print {
-  header, footer, form, .actions, .related, .crumb, .skip, #recipe-text, .method figure, #pdf-error { display: none !important; }
+  header, footer, form, .actions, .related, .crumb, .skip, #recipe-text, .method figure, #pdf-error, .howto, .faq, .example, .chips, .standard-hint { display: none !important; }
   body { background: #fff; color: #000; }
   main { width: auto; }
   .card { border: 0; padding: 0; }

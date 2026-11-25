@@ -1638,4 +1638,25 @@
     <xhtml:link rel="alternate" hreflang="zh-TW" href="https://doughcalc.app/zh-tw/kesong/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://doughcalc.app/en/croissants-bakers-percentage/"/>
   </url>
+  <url>
+    <loc>https://doughcalc.app/en/grams-to-cups-converter/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doughcalc.app/en/grams-to-cups-converter/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://doughcalc.app/zh-cn/ke-zhuan-bei-huansuanqi/"/>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://doughcalc.app/zh-tw/ke-zhuan-bei-huansuan/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doughcalc.app/en/grams-to-cups-converter/"/>
+  </url>
+  <url>
+    <loc>https://doughcalc.app/zh-cn/ke-zhuan-bei-huansuanqi/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doughcalc.app/en/grams-to-cups-converter/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://doughcalc.app/zh-cn/ke-zhuan-bei-huansuanqi/"/>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://doughcalc.app/zh-tw/ke-zhuan-bei-huansuan/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doughcalc.app/en/grams-to-cups-converter/"/>
+  </url>
+  <url>
+    <loc>https://doughcalc.app/zh-tw/ke-zhuan-bei-huansuan/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doughcalc.app/en/grams-to-cups-converter/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://doughcalc.app/zh-cn/ke-zhuan-bei-huansuanqi/"/>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://doughcalc.app/zh-tw/ke-zhuan-bei-huansuan/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doughcalc.app/en/grams-to-cups-converter/"/>
+  </url>
 </urlset>
