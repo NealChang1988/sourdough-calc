@@ -39,6 +39,36 @@ export function formatAmount(n) {
   return rounded.toFixed(1);
 }
 
+function shownPreset(n) {
+  const text = String(n);
+  return text.includes("e") ? formatAmount(n) : text;
+}
+
+const AMOUNT_TOKENS = {
+  flour: (recipe) => formatAmount(recipe.flour),
+  water: (recipe) => formatAmount(recipe.water),
+  starter: (recipe) => formatAmount(recipe.starter),
+  salt: (recipe) => formatAmount(recipe.salt),
+  yeast: (recipe) => formatAmount(recipe.yeast),
+  total: (recipe) => formatAmount(recipe.total),
+  effective: (recipe) => formatAmount(effectiveHydration(recipe)),
+  piece: (recipe, preset) => formatAmount(recipe.total / preset.balls),
+  hydration: (_recipe, preset) => shownPreset(preset.hydration),
+  starterPct: (_recipe, preset) => shownPreset(preset.starter),
+  saltPct: (_recipe, preset) => shownPreset(preset.salt),
+  yeastPct: (_recipe, preset) => shownPreset(preset.yeast),
+  balls: (_recipe, preset) => shownPreset(preset.balls),
+};
+
+export function fillAmounts(text, recipe, preset) {
+  const source = String(text);
+  if (!source.includes("{{")) return source;
+  return source.replace(/\{\{([A-Za-z]+)\}\}/g, (token, key) => {
+    const fill = AMOUNT_TOKENS[key];
+    return fill ? fill(recipe, preset) : token;
+  });
+}
+
 export function toHalfWidth(text) {
   return String(text)
     .replaceAll("\u3000", " ")

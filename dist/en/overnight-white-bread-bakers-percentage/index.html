@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Overnight White Bread Baker's Percentage</title>
-<meta name="description" content="A small pinch of yeast and a night in the refrigerator. Bake the next day once the chill has left the dough.">
+<meta name="description" content="One loaf from a night in the refrigerator. Yeast stays very low, and you bake the next day only after the chill has left the dough.">
 <link rel="canonical" href="https://doughcalc.app/en/overnight-white-bread-bakers-percentage/">
 <link rel="alternate" hreflang="en" href="https://doughcalc.app/en/overnight-white-bread-bakers-percentage/"><link rel="alternate" hreflang="zh-CN" href="https://doughcalc.app/zh-cn/geye-baimianbao/"><link rel="alternate" hreflang="zh-TW" href="https://doughcalc.app/zh-tw/geye-baimianbao/"><link rel="alternate" hreflang="x-default" href="https://doughcalc.app/en/overnight-white-bread-bakers-percentage/">
 <meta property="og:title" content="Overnight White Bread Baker's Percentage">
-<meta property="og:description" content="A small pinch of yeast and a night in the refrigerator. Bake the next day once the chill has left the dough.">
+<meta property="og:description" content="One loaf from a night in the refrigerator. Yeast stays very low, and you bake the next day only after the chill has left the dough.">
 <meta property="og:url" content="https://doughcalc.app/en/overnight-white-bread-bakers-percentage/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_US">
@@ -31,7 +31,7 @@
 <main id="main">
 <nav class="crumb" aria-label="Breadcrumb"><a href="/en/">Dough calculator</a> / <a href="/en/bread-dough/">Bread dough</a></nav>
 <h1>Overnight White Bread Baker's Percentage</h1>
-<p>A small pinch of yeast and a night in the refrigerator. Bake the next day once the chill has left the dough.</p>
+<p>One loaf from a night in the refrigerator. Yeast stays very low, and you bake the next day only after the chill has left the dough.</p>
 <form id="calc" autocomplete="off">
 <fieldset class="modes">
 <legend>How to scale</legend>
@@ -42,8 +42,8 @@
 <label class="field"><span class="label">Flour <span class="unit">g</span></span><input name="flour" inputmode="decimal" min="0" step="any" value="500"></label>
 </div>
 <div class="fields grid-2" data-panel="balls" hidden>
-<label class="field"><span class="label">Dough balls</span><input name="balls" inputmode="decimal" min="0" step="any" value="4"></label>
-<label class="field"><span class="label">Grams per ball <span class="unit">g</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="250"></label>
+<label class="field"><span class="label">Dough balls</span><input name="balls" inputmode="decimal" min="0" step="any" value="1"></label>
+<label class="field"><span class="label">Grams per ball <span class="unit">g</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="871.25"></label>
 </div>
 <div class="fields grid-2">
 <label class="field"><span class="label">Hydration <span class="unit">%</span></span><input name="hydration" inputmode="decimal" min="0" step="any" value="72"></label>
@@ -61,11 +61,34 @@
 <div class="actions">
 <button type="button" id="copy">Copy recipe</button>
 <button type="button" id="print" class="secondary">Print</button>
+<button type="button" id="download-pdf" data-label="Download PDF" data-loading="Loading…" data-busy="Preparing PDF…">Download PDF</button>
+<script>
+(function () {
+  var button = document.getElementById("download-pdf");
+  if (!button) return;
+  button.addEventListener("click", function () {
+    if (window.__pdfReady || window.__pdfPending) return;
+    window.__pdfPending = true;
+    button.disabled = true;
+    button.textContent = button.getAttribute("data-loading");
+  });
+})();
+</script>
 </div>
+<p id="pdf-error" class="error" role="alert" hidden>PDF could not be created. Please try again.</p>
 <textarea id="recipe-text" hidden readonly></textarea>
 </section>
 <script type="application/json" id="labels">{"title":"Overnight White Bread Baker's Percentage","flour":"Flour","water":"Water","starter":"Starter","salt":"Salt","yeast":"Yeast","total":"Total dough","grams":"g","effective":"Effective hydration","copied":"Copied","copyFail":"Select the recipe text and copy it"}</script>
-<script type="module" src="/assets/calc.js"></script>
+<script type="application/json" id="pdf-meta">{"title":"Overnight White Bread Baker's Percentage","url":"https://doughcalc.app/en/overnight-white-bread-bakers-percentage/","filename":"doughcalc-overnight-white-bread-bakers-percentage-en-recipe.pdf","lang":"en","fontUrl":"/assets/fonts/noto-sans-sc-subset.ttf","labels":{"result":"Recipe","flour":"Flour","water":"Water","starter":"Starter","salt":"Salt","yeast":"Yeast","total":"Total dough","grams":"g","effective":"Effective hydration","hydration":"Hydration","modeFlour":"From flour weight","modeBalls":"From dough balls","balls":"Dough balls","perBall":"Grams per ball"},"method":{"heading":"Detailed method","lead":"One loaf, mixed today and baked tomorrow. The calculator opens at 500 g flour, 72% hydration, 2% salt, and 0.25% yeast. That is 360 g water, 10 g salt, and 1.3 g yeast, 871.3 g of dough. The balls fields open at 1 loaf of 871.3 g. The small yeast amount is for a night in the refrigerator. These times assume you only change the flour amount and keep the percentages the same. Still judge the dough by how it looks and feels.","leadTemplate":"One loaf, mixed today and baked tomorrow. The calculator opens at {{flour}} g flour, {{hydration}}% hydration, {{saltPct}}% salt, and {{yeastPct}}% yeast. That is {{water}} g water, {{salt}} g salt, and {{yeast}} g yeast, {{total}} g of dough. The balls fields open at {{balls}} loaf of {{piece}} g. The small yeast amount is for a night in the refrigerator. These times assume you only change the flour amount and keep the percentages the same. Still judge the dough by how it looks and feels.","steps":[{"title":"Mix","body":"Stir 500 g flour, 360 g water, 10 g salt, and 1.3 g instant yeast until no dry flour remains. At 72% the dough is soft. Knead 6 to 8 minutes, until smooth. Aim for about 24°C (75°F).","bodyTemplate":"Stir {{flour}} g flour, {{water}} g water, {{salt}} g salt, and {{yeast}} g instant yeast until no dry flour remains. At {{hydration}}% the dough is soft. Knead 6 to 8 minutes, until smooth. Aim for about 24°C (75°F)."},{"title":"Rest","body":"Cover the bowl for 30 minutes at about 24°C (75°F). With 0.25% yeast it will barely puff.","bodyTemplate":"Cover the bowl for 30 minutes at about 24°C (75°F). With {{yeastPct}}% yeast it will barely puff."},{"title":"Cold","body":"Refrigerate the covered dough at about 4°C (39°F) for 12 to 16 hours. It should grow by about half overnight, not spill over the bowl."},{"title":"Warm","body":"Take it out and leave it covered for 45 to 70 minutes, until it is no longer cold in the middle. The full dough is 871.3 g, one loaf.","bodyTemplate":"Take it out and leave it covered for 45 to 70 minutes, until it is no longer cold in the middle. The full dough is {{total}} g, one loaf."},{"title":"Shape","body":"Tighten it into one oval and set it seam-side down on a floured cloth, or in a greased tin. This batch is 1 loaf.","bodyTemplate":"Tighten it into one oval and set it seam-side down on a floured cloth, or in a greased tin. This batch is {{balls}} loaf."},{"title":"Bake","body":"Heat the oven to 220°C (430°F). Score once. Bake 20 minutes with steam, then 15 to 20 minutes at 200°C (390°F), until the crust is golden and the sides are firm. Cool on a rack for at least 1 hour. The photo shows that one sliced loaf."}]},"messages":{"label":"Download PDF","busy":"Preparing PDF…","fail":"PDF could not be created. Please try again."}}</script>
+<script type="module" src="/assets/calc.js"></script><section class="method">
+<h2>Detailed method</h2>
+<p><span data-template="One loaf, mixed today and baked tomorrow. The calculator opens at {{flour}} g flour, {{hydration}}% hydration, {{saltPct}}% salt, and {{yeastPct}}% yeast. That is {{water}} g water, {{salt}} g salt, and {{yeast}} g yeast, {{total}} g of dough. The balls fields open at {{balls}} loaf of {{piece}} g. The small yeast amount is for a night in the refrigerator. These times assume you only change the flour amount and keep the percentages the same. Still judge the dough by how it looks and feels.">One loaf, mixed today and baked tomorrow. The calculator opens at 500 g flour, 72% hydration, 2% salt, and 0.25% yeast. That is 360 g water, 10 g salt, and 1.3 g yeast, 871.3 g of dough. The balls fields open at 1 loaf of 871.3 g. The small yeast amount is for a night in the refrigerator. These times assume you only change the flour amount and keep the percentages the same. Still judge the dough by how it looks and feels.</span></p>
+<ol><li><strong>Mix</strong> <span data-template="Stir {{flour}} g flour, {{water}} g water, {{salt}} g salt, and {{yeast}} g instant yeast until no dry flour remains. At {{hydration}}% the dough is soft. Knead 6 to 8 minutes, until smooth. Aim for about 24°C (75°F).">Stir 500 g flour, 360 g water, 10 g salt, and 1.3 g instant yeast until no dry flour remains. At 72% the dough is soft. Knead 6 to 8 minutes, until smooth. Aim for about 24°C (75°F).</span></li><li><strong>Rest</strong> <span data-template="Cover the bowl for 30 minutes at about 24°C (75°F). With {{yeastPct}}% yeast it will barely puff.">Cover the bowl for 30 minutes at about 24°C (75°F). With 0.25% yeast it will barely puff.</span></li><li><strong>Cold</strong> Refrigerate the covered dough at about 4°C (39°F) for 12 to 16 hours. It should grow by about half overnight, not spill over the bowl.</li><li><strong>Warm</strong> <span data-template="Take it out and leave it covered for 45 to 70 minutes, until it is no longer cold in the middle. The full dough is {{total}} g, one loaf.">Take it out and leave it covered for 45 to 70 minutes, until it is no longer cold in the middle. The full dough is 871.3 g, one loaf.</span></li><li><strong>Shape</strong> <span data-template="Tighten it into one oval and set it seam-side down on a floured cloth, or in a greased tin. This batch is {{balls}} loaf.">Tighten it into one oval and set it seam-side down on a floured cloth, or in a greased tin. This batch is 1 loaf.</span></li><li><strong>Bake</strong> Heat the oven to 220°C (430°F). Score once. Bake 20 minutes with steam, then 15 to 20 minutes at 200°C (390°F), until the crust is golden and the sides are firm. Cool on a rack for at least 1 hour. The photo shows that one sliced loaf.</li></ol>
+<figure>
+<img src="/assets/overnight-white.webp" width="1200" height="772" alt="One sliced white loaf with a pale crumb and a thin golden crust." loading="lazy">
+<figcaption>Photo by Mateusz Feliksik on <a href="https://www.pexels.com/photo/sliced-bread-on-wooden-board-11789791/">Pexels</a></figcaption>
+</figure>
+</section>
 <section class="related"><h2>Related calculators</h2><ul class="link-list"><li><a href="/en/sandwich-loaf-bakers-percentage/">Sandwich Loaf Baker's Percentage</a></li><li><a href="/en/pullman-loaf-bakers-percentage/">Pullman Loaf Baker's Percentage</a></li><li><a href="/en/no-knead-bread-bakers-percentage/">No-Knead Bread Baker's Percentage</a></li><li><a href="/en/poolish-baguette-bakers-percentage/">Poolish Baguette Baker's Percentage</a></li></ul></section>
 </main>
 <footer>

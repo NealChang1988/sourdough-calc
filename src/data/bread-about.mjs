@@ -30,9 +30,9 @@ export const breadAbout = {
     "zh-tw": "更像糊，拉不出小麥那種薄膜。放進模具烤，讓模壁撐住，不然會攤平，別指望它自己站著。",
   },
   "seeded-sourdough": {
-    en: "Toasted seeds should be soaked in part of the water first, or they leave dry pockets in the finished crumb.",
-    "zh-cn": "种子先用一部分配方水泡软再拌进去，否则烤好后心里会留下干硬的小块，像没泡开的碎粒。",
-    "zh-tw": "種子先用一部分配方水泡軟再拌進去，否則烤好後心裡會留下乾硬的小塊，像沒泡開的碎粒。",
+    en: "One 1021 g loaf. Soak the seeds in some of the dough water before mixing, or they stay hard in the crumb. Seed weight is not part of the gram total.",
+    "zh-cn": "一条 1021 克的种子酸种。拌面前用一部分配方水把种子泡软，否则组织里会有硬粒。种子的重量不在克数合计里。",
+    "zh-tw": "一條 1021 克的種子酸種。拌麵前用一部分配方水把種子泡軟，否則組織裡會有硬粒。種子的重量不在克數合計裡。",
   },
   "olive-sourdough": {
     en: "Fold chopped olives in after the dough already has some strength, so the pieces stay chunky instead of smearing.",
@@ -125,9 +125,9 @@ export const breadAbout = {
     "zh-tw": "帶蓋的直角模裡放入 845 克，高度大約只到一半。蓋嚴之後，膨脹才會把切片壓成正方形。",
   },
   "soft-rolls": {
-    en: "Proof them fully if you want a yielding bite. A spoon of oil, should you add one, is extra and is not in the gram total.",
-    "zh-cn": "想要咬下去软，就让小圆发足再进炉。若另舀一勺油，那勺油不算在克数合计里，页面只算主料。",
-    "zh-tw": "想要咬下去軟，就讓小圓發足再進爐。若另舀一匙油，那匙油不算在克數合計裡，頁面只算主料。",
+    en: "Twelve rounds of 70 g. Let them proof until the sides touch, then bake. A spoon of oil, if you add one, is outside the gram total.",
+    "zh-cn": "这一炉是 12 个软餐包，每个 70 克。发到彼此碰上再烤。若另加一勺油，油不在克数合计里。",
+    "zh-tw": "這一爐是 12 個軟餐包，每個 70 克。發到彼此碰上再烤。若另加一匙油，油不在克數合計裡。",
   },
   "hard-rolls": {
     en: "Small, stiff pieces. A burst of steam as they go into the oven is what crackles the shell.",
@@ -185,9 +185,9 @@ export const breadAbout = {
     "zh-tw": "很硬的環，醒發比酵母版本更慢。做法仍是先煮後烤，只是在檯面上要多等一陣才拉得動。",
   },
   "sourdough-baguette": {
-    en: "Pre-shape the lengths gently, let them relax, and only then roll them tight. The clock follows the levain, not a fast yeast.",
-    "zh-cn": "轻轻预整成长条，松弛之后再卷紧。时间跟着酸种走，不是快速酵母的节奏，要多等一会。",
-    "zh-tw": "輕輕預整成長條，鬆弛之後再捲緊。時間跟著酸種走，不是快速酵母的節奏，要多等一會。",
+    en: "Four sticks of 237.5 g. Shape them in two steps, with a rest between, and bake with steam. The timing follows the starter.",
+    "zh-cn": "四根酸种长棍，每根 237.5 克。先轻轻预整，松弛后再收紧，带蒸汽烘烤。时间跟着酸种走。",
+    "zh-tw": "四根酸種長棍，每根 237.5 克。先輕輕預整，鬆弛後再收緊，帶蒸汽烘烤。時間跟著酸種走。",
   },
   "sourdough-ciabatta": {
     en: "Cut the slack dough into slippers and barely shape them, so the large holes survive. Leavened with starter rather than a packet of yeast.",
@@ -215,9 +215,9 @@ export const breadAbout = {
     "zh-tw": "攪到看不見乾粉就停，然後長時間靜置。輕輕整形，加蓋烘烤，不靠揉麵，靜置代替揉麵。",
   },
   "overnight-white": {
-    en: "A small pinch of yeast and a night in the refrigerator. Bake the next day once the chill has left the dough.",
-    "zh-cn": "酵母放得很少，在冰箱里过一夜。第二天等寒气散掉再烤，不要刚出冰箱就进炉，隔夜再烤。",
-    "zh-tw": "酵母放得很少，在冰箱裡過一夜。第二天等寒氣散掉再烤，不要剛出冰箱就進爐，隔夜再烤。",
+    en: "One loaf from a night in the refrigerator. Yeast stays very low, and you bake the next day only after the chill has left the dough.",
+    "zh-cn": "这一炉是一条隔夜白面包。酵母放得很少，冰箱过一夜，第二天等面团不再冰手，再放进烤箱。",
+    "zh-tw": "這一爐是一條隔夜白麵包。酵母放得很少，冰箱過一夜，第二天等麵團不再冰手，再放進烤箱。",
   },
   "poolish-baguette": {
     en: "Mix a pourable preferment ahead of time. Its weight belongs in the starter field, on top of the flour in the final dough.",

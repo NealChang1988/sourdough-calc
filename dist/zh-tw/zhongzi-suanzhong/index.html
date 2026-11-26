@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>種子酸種麵包烘焙百分比</title>
-<meta name="description" content="種子先用一部分配方水泡軟再拌進去，否則烤好後心裡會留下乾硬的小塊，像沒泡開的碎粒。">
+<meta name="description" content="一條 1021 克的種子酸種。拌麵前用一部分配方水把種子泡軟，否則組織裡會有硬粒。種子的重量不在克數合計裡。">
 <link rel="canonical" href="https://doughcalc.app/zh-tw/zhongzi-suanzhong/">
 <link rel="alternate" hreflang="en" href="https://doughcalc.app/en/seeded-sourdough-bakers-percentage/"><link rel="alternate" hreflang="zh-CN" href="https://doughcalc.app/zh-cn/zhongzi-suanzhong/"><link rel="alternate" hreflang="zh-TW" href="https://doughcalc.app/zh-tw/zhongzi-suanzhong/"><link rel="alternate" hreflang="x-default" href="https://doughcalc.app/en/seeded-sourdough-bakers-percentage/">
 <meta property="og:title" content="種子酸種麵包烘焙百分比">
-<meta property="og:description" content="種子先用一部分配方水泡軟再拌進去，否則烤好後心裡會留下乾硬的小塊，像沒泡開的碎粒。">
+<meta property="og:description" content="一條 1021 克的種子酸種。拌麵前用一部分配方水把種子泡軟，否則組織裡會有硬粒。種子的重量不在克數合計裡。">
 <meta property="og:url" content="https://doughcalc.app/zh-tw/zhongzi-suanzhong/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="zh_TW">
@@ -31,7 +31,7 @@
 <main id="main">
 <nav class="crumb" aria-label="目前位置"><a href="/zh-tw/">麵團計算器</a> / <a href="/zh-tw/mianbao-baifenbi/">麵包麵團</a></nav>
 <h1>種子酸種麵包烘焙百分比</h1>
-<p>種子先用一部分配方水泡軟再拌進去，否則烤好後心裡會留下乾硬的小塊，像沒泡開的碎粒。</p>
+<p>一條 1021 克的種子酸種。拌麵前用一部分配方水把種子泡軟，否則組織裡會有硬粒。種子的重量不在克數合計裡。</p>
 <form id="calc" autocomplete="off">
 <fieldset class="modes">
 <legend>怎麼算</legend>
@@ -42,8 +42,8 @@
 <label class="field"><span class="label">麵粉 <span class="unit">克</span></span><input name="flour" inputmode="decimal" min="0" step="any" value="500"></label>
 </div>
 <div class="fields grid-2" data-panel="balls" hidden>
-<label class="field"><span class="label">麵團球數</span><input name="balls" inputmode="decimal" min="0" step="any" value="4"></label>
-<label class="field"><span class="label">每球克數 <span class="unit">克</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="250"></label>
+<label class="field"><span class="label">麵團球數</span><input name="balls" inputmode="decimal" min="0" step="any" value="1"></label>
+<label class="field"><span class="label">每球克數 <span class="unit">克</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="1021"></label>
 </div>
 <div class="fields grid-2">
 <label class="field"><span class="label">水合 <span class="unit">%</span></span><input name="hydration" inputmode="decimal" min="0" step="any" value="80"></label>
@@ -61,11 +61,34 @@
 <div class="actions">
 <button type="button" id="copy">複製配方</button>
 <button type="button" id="print" class="secondary">列印</button>
+<button type="button" id="download-pdf" data-label="下載 PDF" data-loading="正在載入…" data-busy="正在產生 PDF…">下載 PDF</button>
+<script>
+(function () {
+  var button = document.getElementById("download-pdf");
+  if (!button) return;
+  button.addEventListener("click", function () {
+    if (window.__pdfReady || window.__pdfPending) return;
+    window.__pdfPending = true;
+    button.disabled = true;
+    button.textContent = button.getAttribute("data-loading");
+  });
+})();
+</script>
 </div>
+<p id="pdf-error" class="error" role="alert" hidden>PDF 產生失敗，請再按一次。</p>
 <textarea id="recipe-text" hidden readonly></textarea>
 </section>
 <script type="application/json" id="labels">{"title":"種子酸種麵包烘焙百分比","flour":"麵粉","water":"水","starter":"酸種","salt":"鹽","yeast":"酵母","total":"麵團總重","grams":"克","effective":"有效水合","copied":"已複製","copyFail":"請選中配方文字再複製"}</script>
-<script type="module" src="/assets/calc.js"></script>
+<script type="application/json" id="pdf-meta">{"title":"種子酸種麵包烘焙百分比","url":"https://doughcalc.app/zh-tw/zhongzi-suanzhong/","filename":"doughcalc-zhongzi-suanzhong-zh-tw-recipe.pdf","lang":"zh-TW","fontUrl":"/assets/fonts/noto-sans-tc-subset.ttf","labels":{"result":"配方","flour":"麵粉","water":"水","starter":"酸種","salt":"鹽","yeast":"酵母","total":"麵團總重","grams":"克","effective":"有效水合","hydration":"水合","modeFlour":"按麵粉重量","modeBalls":"按麵團球","balls":"麵團球數","perBall":"每球克數"},"method":{"heading":"詳細做法","lead":"一條種子酸種麵包。計算器打開時是麵粉 500 克，水合 80%，酸種 22%，鹽 2.2%，酵母 0。也就是水 400 克、酸種 110 克、鹽 11 克，合計 1021 克。酸種按 100% 水合計，和結果裡的有效水合用的是同一種假設。頁面上的有效水合是 82%。麵團球那一欄打開是 1 條、1021 克。拌麵前用一部分配方水把種子泡軟。種子不在合計克數裡。照片是一條帶籽的橢圓麵包。下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。","leadTemplate":"一條種子酸種麵包。計算器打開時是麵粉 {{flour}} 克，水合 {{hydration}}%，酸種 {{starterPct}}%，鹽 {{saltPct}}%，酵母 0。也就是水 {{water}} 克、酸種 {{starter}} 克、鹽 {{salt}} 克，合計 {{total}} 克。酸種按 100% 水合計，和結果裡的有效水合用的是同一種假設。頁面上的有效水合是 {{effective}}%。麵團球那一欄打開是 {{balls}} 條、{{piece}} 克。拌麵前用一部分配方水把種子泡軟。種子不在合計克數裡。照片是一條帶籽的橢圓麵包。下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。","steps":[{"title":"泡種子","body":"大約 80 克種子，用 400 克配方水裡的大約 80 克先泡至少 30 分鐘。泡過的種子和這些水都拌進麵團。種子是另外加的，不在合計克數裡。","bodyTemplate":"大約 80 克種子，用 {{water}} 克配方水裡的大約 80 克先泡至少 30 分鐘。泡過的種子和這些水都拌進麵團。種子是另外加的，不在合計克數裡。"},{"title":"酸種","body":"用 110 克已經發到大約兩倍、表面有氣泡的酸種。這 110 克算在合計裡。這一頁不用速發酵母，酵母欄是 0。","bodyTemplate":"用 {{starter}} 克已經發到大約兩倍、表面有氣泡的酸種。這 {{starter}} 克算在合計裡。這一頁不用速發酵母，酵母欄是 {{yeastPct}}。"},{"title":"攪拌","body":"把 500 克麵粉、留下的水、泡好的種子、110 克酸種和 11 克鹽拌到沒有乾粉。配方裡的水是 400 克。水合 80%，麵團發黏。麵團溫度大約 24°C。","bodyTemplate":"把 {{flour}} 克麵粉、留下的水、泡好的種子、{{starter}} 克酸種和 {{salt}} 克鹽拌到沒有乾粉。配方裡的水是 {{water}} 克。水合 {{hydration}}%，麵團發黏。麵團溫度大約 24°C。"},{"title":"基本發酵","body":"蓋著，放在大約 24°C，大約 3 到 4 小時。前 90 分鐘摺疊三輪。大約脹起一半就可以整形。"},{"title":"整形","body":"把 1021 克收成一個橢圓。這一爐是 1 條。接縫朝上，放進撒了粉的發酵籃。表面再撒一點種子也可以，那些種子不在合計克數裡。","bodyTemplate":"把 {{total}} 克收成一個橢圓。這一爐是 {{balls}} 條。接縫朝上，放進撒了粉的發酵籃。表面再撒一點種子也可以，那些種子不在合計克數裡。"},{"title":"最後發酵","body":"蓋著發 45 到 70 分鐘，發到蓬鬆。酸種有 22%。如果頂上開始塌，就烘烤。","bodyTemplate":"蓋著發 45 到 70 分鐘，發到蓬鬆。酸種有 {{starterPct}}%。如果頂上開始塌，就烘烤。"},{"title":"烘烤","body":"烤箱 230°C，用帶蓋的鍋。沿長邊劃一刀。蓋著烤 20 分鐘，再揭蓋烤 18 到 24 分鐘，直到表皮深褐。放到架上至少 1 小時。照片裡就是這一條。"}]},"messages":{"label":"下載 PDF","busy":"正在產生 PDF…","fail":"PDF 產生失敗，請再按一次。"}}</script>
+<script type="module" src="/assets/calc.js"></script><section class="method">
+<h2>詳細做法</h2>
+<p><span data-template="一條種子酸種麵包。計算器打開時是麵粉 {{flour}} 克，水合 {{hydration}}%，酸種 {{starterPct}}%，鹽 {{saltPct}}%，酵母 0。也就是水 {{water}} 克、酸種 {{starter}} 克、鹽 {{salt}} 克，合計 {{total}} 克。酸種按 100% 水合計，和結果裡的有效水合用的是同一種假設。頁面上的有效水合是 {{effective}}%。麵團球那一欄打開是 {{balls}} 條、{{piece}} 克。拌麵前用一部分配方水把種子泡軟。種子不在合計克數裡。照片是一條帶籽的橢圓麵包。下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。">一條種子酸種麵包。計算器打開時是麵粉 500 克，水合 80%，酸種 22%，鹽 2.2%，酵母 0。也就是水 400 克、酸種 110 克、鹽 11 克，合計 1021 克。酸種按 100% 水合計，和結果裡的有效水合用的是同一種假設。頁面上的有效水合是 82%。麵團球那一欄打開是 1 條、1021 克。拌麵前用一部分配方水把種子泡軟。種子不在合計克數裡。照片是一條帶籽的橢圓麵包。下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。</span></p>
+<ol><li><strong>泡種子</strong> <span data-template="大約 80 克種子，用 {{water}} 克配方水裡的大約 80 克先泡至少 30 分鐘。泡過的種子和這些水都拌進麵團。種子是另外加的，不在合計克數裡。">大約 80 克種子，用 400 克配方水裡的大約 80 克先泡至少 30 分鐘。泡過的種子和這些水都拌進麵團。種子是另外加的，不在合計克數裡。</span></li><li><strong>酸種</strong> <span data-template="用 {{starter}} 克已經發到大約兩倍、表面有氣泡的酸種。這 {{starter}} 克算在合計裡。這一頁不用速發酵母，酵母欄是 {{yeastPct}}。">用 110 克已經發到大約兩倍、表面有氣泡的酸種。這 110 克算在合計裡。這一頁不用速發酵母，酵母欄是 0。</span></li><li><strong>攪拌</strong> <span data-template="把 {{flour}} 克麵粉、留下的水、泡好的種子、{{starter}} 克酸種和 {{salt}} 克鹽拌到沒有乾粉。配方裡的水是 {{water}} 克。水合 {{hydration}}%，麵團發黏。麵團溫度大約 24°C。">把 500 克麵粉、留下的水、泡好的種子、110 克酸種和 11 克鹽拌到沒有乾粉。配方裡的水是 400 克。水合 80%，麵團發黏。麵團溫度大約 24°C。</span></li><li><strong>基本發酵</strong> 蓋著，放在大約 24°C，大約 3 到 4 小時。前 90 分鐘摺疊三輪。大約脹起一半就可以整形。</li><li><strong>整形</strong> <span data-template="把 {{total}} 克收成一個橢圓。這一爐是 {{balls}} 條。接縫朝上，放進撒了粉的發酵籃。表面再撒一點種子也可以，那些種子不在合計克數裡。">把 1021 克收成一個橢圓。這一爐是 1 條。接縫朝上，放進撒了粉的發酵籃。表面再撒一點種子也可以，那些種子不在合計克數裡。</span></li><li><strong>最後發酵</strong> <span data-template="蓋著發 45 到 70 分鐘，發到蓬鬆。酸種有 {{starterPct}}%。如果頂上開始塌，就烘烤。">蓋著發 45 到 70 分鐘，發到蓬鬆。酸種有 22%。如果頂上開始塌，就烘烤。</span></li><li><strong>烘烤</strong> 烤箱 230°C，用帶蓋的鍋。沿長邊劃一刀。蓋著烤 20 分鐘，再揭蓋烤 18 到 24 分鐘，直到表皮深褐。放到架上至少 1 小時。照片裡就是這一條。</li></ol>
+<figure>
+<img src="/assets/seeded-sourdough.webp" width="1200" height="800" alt="一條橢圓酸種麵包，表皮有種子，中間劃開一道長口。" loading="lazy">
+<figcaption>攝影：Jana Ohajdova，來自 <a href="https://www.pexels.com/photo/rustic-sourdough-bread-on-wooden-table-33988127/">Pexels</a></figcaption>
+</figure>
+</section>
 <section class="related"><h2>相關計算</h2><ul class="link-list"><li><a href="/zh-tw/quanmai-suanzhong/">全麥酸種烘焙百分比</a></li><li><a href="/zh-tw/sipeierte-suanzhong/">斯佩爾特酸種烘焙百分比</a></li><li><a href="/zh-tw/heimai-suanzhong/">黑麥酸種烘焙百分比</a></li><li><a href="/zh-tw/ganlan-suanzhong/">橄欖酸種麵包烘焙百分比</a></li></ul></section>
 </main>
 <footer>

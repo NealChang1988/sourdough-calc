@@ -494,6 +494,38 @@ for lang, texts in data.items():
   assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
 });
 
+test("batch 9 guides keep the method, photo, and ball defaults together", () => {
+  const cases = [
+    ["bread-overnight-white", "/assets/overnight-white.webp", "Mateusz Feliksik", "Pexels", 1, 871.25, "871.3"],
+    ["bread-soft-rolls", "/assets/soft-rolls.webp", "Güneş", "Pexels", 12, 70, "70"],
+    ["bread-sourdough-sandwich", "/assets/sourdough-sandwich.webp", "Polina Tankilevitch", "Pexels", 1, 940, "940"],
+    ["bread-sourdough-baguette", "/assets/sourdough-baguette.webp", "jules", "CC BY 2.0", 4, 237.5, "237.5"],
+    ["bread-seeded-sourdough", "/assets/seeded-sourdough.webp", "Jana Ohajdova", "Pexels", 1, 1021, "1021"],
+  ];
+  for (const [id, photo, photographer, license, balls, grams, shown] of cases) {
+    const page = pages.find((item) => item.id === id);
+    assert.equal(page.preset.balls, balls, id);
+    assert.equal(page.preset.gramsPerBall, grams, id);
+    for (const lang of ["en", "zh-cn", "zh-tw"]) {
+      const html = renderPage(page, lang);
+      assert.match(html, new RegExp(`src="${photo}"`), `${id} ${lang}`);
+      assert.match(html, new RegExp(photographer), `${id} ${lang}`);
+      assert.match(html, new RegExp(license.replaceAll(".", "\\.")), `${id} ${lang}`);
+      assert.match(html, /data-template="/, `${id} ${lang}`);
+      assert.match(html, /id="download-pdf"/, `${id} ${lang}`);
+      assert.match(html, /class="method"/, `${id} ${lang}`);
+      assert.match(html, new RegExp(shown), `${id} ${lang}`);
+      const method = html.slice(html.indexOf('class="method"'), html.indexOf('class="related"'));
+      assert.equal(method.replace(/<[^>]+>/g, "").includes("{{"), false, `${id} ${lang}`);
+      assert.equal(html.includes("心裡"), false, `${id} ${lang}`);
+      assert.equal(html.includes("示意图"), false, `${id} ${lang}`);
+    }
+    const tw = renderPage(page, "zh-tw");
+    assert.match(tw, /速發酵母/, id);
+    assert.equal(tw.includes("即發酵母"), false, id);
+  }
+});
+
 test("every page discloses anonymous analytics and none claim there is none", async () => {
   const dir = await mkdtemp(path.join(tmpdir(), "dough-"));
   await writeSite(dir);

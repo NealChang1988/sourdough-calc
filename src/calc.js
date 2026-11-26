@@ -1,4 +1,4 @@
-import { effectiveHydration, formatAmount, parseInputs, recipeFor } from "./formula.mjs";
+import { effectiveHydration, fillAmounts, formatAmount, parseInputs, recipeFor } from "./formula.mjs";
 
 const form = document.querySelector("#calc");
 const labels = JSON.parse(document.querySelector("#labels").textContent);
@@ -30,13 +30,16 @@ function readForm() {
   });
 }
 
-function showRecipe(recipe) {
+function showRecipe(recipe, preset) {
   for (const key of ["flour", "water", "starter", "salt", "yeast", "total"]) {
     outs[key].textContent = `${formatAmount(recipe[key])} ${labels.grams}`;
   }
   outs.effective.textContent = `${formatAmount(effectiveHydration(recipe))}%`;
   if (new FormData(form).get("mode") === "balls") {
     form.querySelector("[name=flour]").value = formatAmount(recipe.flour);
+  }
+  for (const el of document.querySelectorAll("[data-template]")) {
+    el.textContent = fillAmounts(el.dataset.template, recipe, preset);
   }
 }
 
@@ -89,7 +92,7 @@ function update() {
     return;
   }
   error.hidden = true;
-  showRecipe(recipeFor(parsed.preset));
+  showRecipe(recipeFor(parsed.preset), parsed.preset);
 }
 
 form.addEventListener("input", update);
@@ -148,7 +151,7 @@ if (pdfButton) {
     }
     error.hidden = true;
     const recipe = recipeFor(parsed.preset);
-    showRecipe(recipe);
+    showRecipe(recipe, parsed.preset);
     pdfBusy = true;
     pdfButton.disabled = true;
     pdfButton.textContent = pdfButton.dataset.busy;
@@ -161,7 +164,16 @@ if (pdfButton) {
         lang: meta.lang,
         fontUrl: meta.fontUrl,
         labels: meta.labels,
-        method: meta.method,
+        method: {
+          heading: meta.method.heading,
+          lead: meta.method.leadTemplate
+            ? fillAmounts(meta.method.leadTemplate, recipe, parsed.preset)
+            : meta.method.lead,
+          steps: meta.method.steps.map((step) => ({
+            title: step.title,
+            body: step.bodyTemplate ? fillAmounts(step.bodyTemplate, recipe, parsed.preset) : step.body,
+          })),
+        },
         inputs: parsed.preset,
         recipe,
       });

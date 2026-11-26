@@ -2,7 +2,7 @@ import { SITE_URL } from "../site.config.mjs";
 import { pages, hubGroups, relatedPages, featuredPages } from "./catalog.mjs";
 import { renderCupsInner } from "./cups-page.mjs";
 import { doughGuides } from "./data/dough-guides.mjs";
-import { effectiveHydration, formatAmount, recipeFor } from "./formula.mjs";
+import { effectiveHydration, fillAmounts, formatAmount, recipeFor } from "./formula.mjs";
 import { HTML_LANG, HREFLANG, LANGS, OG_LOCALE, ui } from "./i18n.mjs";
 
 export function escapeHtml(value) {
@@ -232,6 +232,21 @@ const COUNTRY_PDF_FILENAME = {
   "zh-tw": "doughcalc-xiangcun-suanzhong-zh-tw-recipe.pdf",
 };
 
+function methodPayload(page, method) {
+  const recipe = recipeFor(page.preset);
+  const stepPayload = (step) => {
+    const body = fillAmounts(step.body, recipe, page.preset);
+    return step.body.includes("{{") ? { title: step.title, body, bodyTemplate: step.body } : { title: step.title, body };
+  };
+  const lead = fillAmounts(method.lead, recipe, page.preset);
+  return {
+    heading: method.heading,
+    lead,
+    ...(method.lead.includes("{{") ? { leadTemplate: method.lead } : {}),
+    steps: method.steps.map(stepPayload),
+  };
+}
+
 export function pdfFilename(page, lang) {
   if (page.id === "bread-country-sourdough") return COUNTRY_PDF_FILENAME[lang];
   return `doughcalc-${page.slug[lang]}-${lang}-recipe.pdf`;
@@ -264,11 +279,7 @@ export function pdfPayload(page, lang) {
       balls: copy.balls,
       perBall: copy.perBall,
     },
-    method: {
-      heading: method.heading,
-      lead: method.lead,
-      steps: method.steps.map((step) => ({ title: step.title, body: step.body })),
-    },
+    method: methodPayload(page, method),
     messages: {
       label: PDF_BUTTON[lang].label,
       busy: PDF_BUTTON[lang].busy,
@@ -335,14 +346,21 @@ function adjustSection(page, lang, weigh) {
   return `\n<section class="adjust"><h2>${escapeHtml(block.heading[lang])}</h2>${paragraphs}</section>`;
 }
 
+function methodText(template, recipe, preset, lang, weigh) {
+  const filled = linkWeigh(escapeHtml(fillAmounts(template, recipe, preset)), lang, weigh);
+  if (!String(template).includes("{{")) return filled;
+  return `<span data-template="${escapeHtml(template)}">${filled}</span>`;
+}
+
 function methodSection(page, lang, weigh) {
   const guide = doughGuides[page.id];
   if (!guide) return "";
   const copy = guide[lang];
+  const recipe = recipeFor(page.preset);
   const steps = copy.steps
     .map(
       (step) =>
-        `<li><strong>${escapeHtml(step.title)}</strong> ${linkWeigh(escapeHtml(step.body), lang, weigh)}</li>`,
+        `<li><strong>${escapeHtml(step.title)}</strong> ${methodText(step.body, recipe, page.preset, lang, weigh)}</li>`,
     )
     .join("");
   const photo = guide.photo;
@@ -351,7 +369,7 @@ function methodSection(page, lang, weigh) {
     : "";
   return `<section class="method">
 <h2>${escapeHtml(copy.heading)}</h2>
-<p>${linkWeigh(escapeHtml(copy.lead), lang, weigh)}</p>
+<p>${methodText(copy.lead, recipe, page.preset, lang, weigh)}</p>
 <ol>${steps}</ol>
 <figure>
 <img src="${photo.src}" width="${photo.width}" height="${photo.height}" alt="${escapeHtml(copy.alt)}" loading="lazy">
