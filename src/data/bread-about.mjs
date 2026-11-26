@@ -15,9 +15,9 @@ export const breadAbout = {
     "zh-tw": "結實、表面光滑，適合切成厚薄均勻的吐司片。短時間揉勻，比一輪又一輪的濕摺疊更合適。",
   },
   "whole-wheat-sourdough": {
-    en: "The bran drinks water, so the mix starts heavy and the interior stays tighter than a white country loaf. Stir longer at the beginning.",
-    "zh-cn": "麸皮很吸水，刚拌时发沉，烤出来的内心比白面粉乡村面包更细密。一开始就要多搅一会儿。",
-    "zh-tw": "麩皮很吸水，剛拌時發沉，烤出來的心比白麵粉鄉村麵包更細密。一開始就要多攪一會兒。",
+    en: "Stir this 1046 g whole wheat dough longer at the start, because the bran drinks the water, and expect a tighter interior than a white country loaf.",
+    "zh-cn": "这一炉全麦是 1046 克。麸皮会把水吃掉，所以一开始要多搅，烤出来的组织也比白面粉乡村面包更紧。",
+    "zh-tw": "這一爐全麥是 1046 克。麩皮會把水吃掉，所以一開始要多攪，烤出來的組織也比白麵粉鄉村麵包更緊。",
   },
   "spelt-sourdough": {
     en: "One tin loaf of 980 g. Spelt stretches and then tears, so fold gently and stop while it still holds together. Seeds, if you add them, are extra.",
@@ -70,9 +70,9 @@ export const breadAbout = {
     "zh-tw": "鋪在抹了油的烤盤裡，發到蓬鬆後用沾油的手指戳出深坑，高溫烤到凸起的地方上色。它是一張餅，不是高麵包。",
   },
   "sourdough-focaccia": {
-    en: "Dimpled like the yeasted sheet, but the pan proof takes longer because only the starter is lifting it. The underside fries against the oil.",
-    "zh-cn": "戳坑的样子和酵母版一样，但只有酸种在发酵，盘子里要等更久。底部贴着油，会煎得发脆。",
-    "zh-tw": "戳坑的樣子和酵母版一樣，但只有酸種在發酵，盤子裡要等更久。底部貼著油，會煎得發脆。",
+    en: "Spread all 1012.5 g in one oiled pan. Only starter lifts the sheet, so wait longer to dimple it, and let the underside fry.",
+    "zh-cn": "1012.5 克全部铺进一只抹了油的盘。只有酸种在发，戳坑要多等，底部贴着油会煎脆。",
+    "zh-tw": "1012.5 克全部鋪進一隻抹了油的盤。只有酸種在發，戳坑要多等，底部貼著油會煎脆。",
   },
   bagel: {
     en: "A dense ring. Boil it briefly, then bake until the skin sets and shines. Far too stiff to open like a pizza.",
@@ -110,19 +110,19 @@ export const breadAbout = {
     "zh-tw": "每個大約 90 到 100 克，巴掌寬的圓餅。最後發酵前輕輕壓扁，免得鼓成球，上面要平一點。",
   },
   "hot-dog-buns": {
-    en: "Short logs proofed shoulder to shoulder, so the sides that touch stay pale. Split them lengthwise for a sausage.",
-    "zh-cn": "整成短条，紧挨着发酵，贴在一起的侧面颜色较浅。纵向剖开，用来夹一根香肠，短条即可。",
-    "zh-tw": "整成短條，緊挨著發酵，貼在一起的側面顏色較淺。縱向剖開，用來夾一根香腸，短條即可。",
+    en: "Ten logs of 82.55 g proof in a row and touch. The sides stay pale, and a split along the top holds the sausage.",
+    "zh-cn": "十根 82.55 克的短条排成一排、彼此碰上再发。贴住的侧面颜色浅，顶部的一道开口用来放香肠。",
+    "zh-tw": "十根 82.55 克的短條排成一排、彼此碰上再發。貼住的側面顏色淺，頂部的一道開口用來放香腸。",
   },
   "sandwich-loaf": {
-    en: "Smooth the top, set it in a tin, and proof until the dome clears the rim. The crumb is close enough to slice cleanly.",
-    "zh-cn": "表面收光，放进方模，发到拱起高出模沿。内心细密，切片时不容易碎，切出来是整齐的片。",
-    "zh-tw": "表面收光，放進方模，發到拱起高出模沿。內心細密，切片時不容易碎，切出來是整齊的片。",
+    en: "One open tin takes the full 840 g. Let the crown rise past the rim, then cut even slices from the close crumb.",
+    "zh-cn": "整团 840 克放进一只敞口模具。等顶部鼓出模沿再进炉，出炉后把细密的组织切成厚薄均匀的片。",
+    "zh-tw": "整團 840 克放進一隻敞口模具。等頂部鼓出模沿再進爐，出爐後把細密的組織切成厚薄均勻的片。",
   },
   "pullman-loaf": {
-    en: "A straight-sided tin with a lid. Fill it only about halfway so the loaf can square itself against the cover.",
-    "zh-cn": "直角模具再加一个盖。面团大约只装一半，膨胀后才会被盖子压成方片，顶部是平的，盖要盖严。",
-    "zh-tw": "直角模具再加一個蓋。麵團大約只裝一半，膨脹後才會被蓋子壓成方片，頂部是平的，蓋要蓋嚴。",
+    en: "A lidded straight-sided tin, filled about halfway with 845 g of dough, presses this loaf into a square slice.",
+    "zh-cn": "带盖的直角模里放入 845 克，高度大约只到一半。盖严之后，膨胀才会把切片压成正方形。",
+    "zh-tw": "帶蓋的直角模裡放入 845 克，高度大約只到一半。蓋嚴之後，膨脹才會把切片壓成正方形。",
   },
   "soft-rolls": {
     en: "Proof them fully if you want a yielding bite. A spoon of oil, should you add one, is extra and is not in the gram total.",

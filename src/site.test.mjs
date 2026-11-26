@@ -330,7 +330,7 @@ test("built site drops removed urls and keeps a footer mailto on every page", as
 
 test("country sourdough page adds a method and photo without touching other pages", async () => {
   const country = pages.find((page) => page.id === "bread-country-sourdough");
-  const plain = pages.find((page) => page.id === "bread-hot-dog-buns");
+  const plain = pages.find((page) => page.id === "bread-hard-rolls");
   const expected = {
     en: "Detailed method",
     "zh-cn": "详细做法",
@@ -437,6 +437,61 @@ test("batch 7 guides keep the method, photo, and ball defaults together", () => 
     assert.match(tw, /速發酵母/, id);
     assert.equal(tw.includes("即發酵母"), false, id);
   }
+});
+
+test("batch 8 guides keep the method, photo, and ball defaults together", () => {
+  const cases = [
+    ["bread-sandwich-loaf", "/assets/sandwich-loaf.webp", "Christina", "Pexels", 1, 840, "840"],
+    ["bread-hot-dog-buns", "/assets/hot-dog-buns.webp", "Joy", "CC BY 2.0", 10, 82.55, "82.55"],
+    ["bread-pullman-loaf", "/assets/pullman-loaf.webp", "loppear", "CC BY 2.0", 1, 845, "845"],
+    ["bread-sourdough-focaccia", "/assets/sourdough-focaccia.webp", "Nunun Dy", "Pexels", 1, 1012.5, "1012.5"],
+    ["bread-whole-wheat-sourdough", "/assets/whole-wheat-sourdough.webp", "Hatice Uyar", "Pexels", 1, 1046, "1046"],
+  ];
+  for (const [id, photo, photographer, license, balls, grams, shown] of cases) {
+    const page = pages.find((item) => item.id === id);
+    assert.equal(page.preset.balls, balls, id);
+    assert.equal(page.preset.gramsPerBall, grams, id);
+    for (const lang of ["en", "zh-cn", "zh-tw"]) {
+      const html = renderPage(page, lang);
+      assert.match(html, new RegExp(`src="${photo}"`), `${id} ${lang}`);
+      assert.match(html, new RegExp(photographer), `${id} ${lang}`);
+      assert.match(html, new RegExp(license.replaceAll(".", "\\.")), `${id} ${lang}`);
+      assert.match(html, /id="download-pdf"/, `${id} ${lang}`);
+      assert.match(html, /class="method"/, `${id} ${lang}`);
+      assert.match(html, new RegExp(shown), `${id} ${lang}`);
+      assert.equal(html.includes("心裡"), false, `${id} ${lang}`);
+      assert.equal(html.includes("示意圖"), false, `${id} ${lang}`);
+      assert.equal(html.includes("示意图"), false, `${id} ${lang}`);
+    }
+    const tw = renderPage(page, "zh-tw");
+    assert.match(tw, /速發酵母/, id);
+    assert.equal(tw.includes("即發酵母"), false, id);
+  }
+});
+
+test("bread page intros stay under 50% similar", () => {
+  const group = pages.filter((page) => page.category === "bread" && page.kind === "tool");
+  const payload = {};
+  for (const lang of ["en", "zh-cn", "zh-tw"]) {
+    payload[lang] = group.map((page) => page.intro[lang].join("\n"));
+  }
+  const script = `
+import json, difflib, sys
+data = json.load(sys.stdin)
+for lang, texts in data.items():
+    best = 0.0
+    for i, a in enumerate(texts):
+        for b in texts[i+1:]:
+            ratio = difflib.SequenceMatcher(None, a, b, autojunk=False).ratio()
+            if ratio > best:
+                best = ratio
+    print(f"bread {lang} {best:.4f}")
+    if best >= 0.50:
+        sys.exit(1)
+`;
+  const result = spawnSync("python3", ["-c", script], { input: JSON.stringify(payload), encoding: "utf8" });
+  if (result.stdout) console.log(result.stdout.trim());
+  assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
 });
 
 test("every page discloses anonymous analytics and none claim there is none", async () => {
