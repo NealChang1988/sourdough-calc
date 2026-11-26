@@ -120,9 +120,9 @@ export const breadAbout = {
     "zh-tw": "整團 840 克放進一隻敞口模具。等頂部鼓出模沿再進爐，出爐後把細密的組織切成厚薄均勻的片。",
   },
   "pullman-loaf": {
-    en: "A lidded straight-sided tin, filled about halfway with 845 g of dough, presses this loaf into a square slice.",
-    "zh-cn": "带盖的直角模里放入 845 克，高度大约只到一半。盖严之后，膨胀才会把切片压成正方形。",
-    "zh-tw": "帶蓋的直角模裡放入 845 克，高度大約只到一半。蓋嚴之後，膨脹才會把切片壓成正方形。",
+    en: "A lidded straight-sided tin, filled about halfway with 845 g of dough, holds this loaf while it rises into the lid.",
+    "zh-cn": "带盖的直角模里放入 845 克，高度大约只到一半。盖严之后，面团贴着盖子继续膨胀。",
+    "zh-tw": "帶蓋的直角模裡放入 845 克，高度大約只到一半。蓋嚴之後，麵團貼著蓋子繼續膨脹。",
   },
   "soft-rolls": {
     en: "Proof them fully if you want a yielding bite. A spoon of oil, should you add one, is extra and is not in the gram total.",
