@@ -10,7 +10,7 @@ import { nearestHydration, pages, redirectRules, toolCount } from "./catalog.mjs
 import { doughGuides } from "./data/dough-guides.mjs";
 import { formatAmount } from "./formula.mjs";
 import { ui } from "./i18n.mjs";
-import { renderPage } from "./render.mjs";
+import { pdfPayload, renderPage } from "./render.mjs";
 
 test("long-tail calculators are the kept hydration, pizza, and bread pages", () => {
   assert.equal(toolCount(), 72);
@@ -441,13 +441,13 @@ test("batch 7 guides keep the method, photo, and ball defaults together", () => 
 
 test("batch 8 guides keep the method, photo, and ball defaults together", () => {
   const cases = [
-    ["bread-sandwich-loaf", "/assets/sandwich-loaf.webp", "Christina", "Pexels", 1, 840, "840"],
-    ["bread-hot-dog-buns", "/assets/hot-dog-buns.webp", "Joy", "CC BY 2.0", 10, 82.55, "82.55"],
-    ["bread-pullman-loaf", "/assets/pullman-loaf.webp", "loppear", "CC BY 2.0", 1, 845, "845"],
-    ["bread-sourdough-focaccia", "/assets/sourdough-focaccia.webp", "Nunun Dy", "Pexels", 1, 1012.5, "1012.5"],
-    ["bread-whole-wheat-sourdough", "/assets/whole-wheat-sourdough.webp", "Hatice Uyar", "Pexels", 1, 1046, "1046"],
+    ["bread-sandwich-loaf", "/assets/sandwich-loaf.webp", "Christina", "Pexels", 1, 840, "840", "23 cm long and 13 cm wide"],
+    ["bread-hot-dog-buns", "/assets/hot-dog-buns.webp", "Joy", "CC BY 2.0", 10, 82.55, "82.55", "40 cm long and 30 cm wide"],
+    ["bread-pullman-loaf", "/assets/pullman-loaf.webp", "loppear", "CC BY 2.0", 1, 845, "845", "holds about 900 g"],
+    ["bread-sourdough-focaccia", "/assets/sourdough-focaccia.webp", "Nunun Dy", "Pexels", 1, 1012.5, "1012.5", "30 cm long and 20 cm wide"],
+    ["bread-whole-wheat-sourdough", "/assets/whole-wheat-sourdough.webp", "Hatice Uyar", "Pexels", 1, 1046, "1046", "23 cm long and 13 cm wide"],
   ];
-  for (const [id, photo, photographer, license, balls, grams, shown] of cases) {
+  for (const [id, photo, photographer, license, balls, grams, shown, pan] of cases) {
     const page = pages.find((item) => item.id === id);
     assert.equal(page.preset.balls, balls, id);
     assert.equal(page.preset.gramsPerBall, grams, id);
@@ -456,17 +456,57 @@ test("batch 8 guides keep the method, photo, and ball defaults together", () => 
       assert.match(html, new RegExp(`src="${photo}"`), `${id} ${lang}`);
       assert.match(html, new RegExp(photographer), `${id} ${lang}`);
       assert.match(html, new RegExp(license.replaceAll(".", "\\.")), `${id} ${lang}`);
+      assert.match(html, /data-template="/, `${id} ${lang}`);
       assert.match(html, /id="download-pdf"/, `${id} ${lang}`);
       assert.match(html, /class="method"/, `${id} ${lang}`);
       assert.match(html, new RegExp(shown), `${id} ${lang}`);
       assert.equal(html.includes("心裡"), false, `${id} ${lang}`);
-      assert.equal(html.includes("示意圖"), false, `${id} ${lang}`);
-      assert.equal(html.includes("示意图"), false, `${id} ${lang}`);
+      const method = html.slice(html.indexOf('class="method"'), html.indexOf('class="related"'));
+      assert.equal(method.replace(/<[^>]+>/g, "").includes("{{"), false, `${id} ${lang}`);
+      const payload = pdfPayload(page, lang);
+      const pdfText = [payload.method.lead, payload.method.leadTemplate || "", ...payload.method.steps.flatMap((step) => [step.body, step.bodyTemplate || ""])].join("\n");
+      assert.equal(/(^|\n|。|\. )(The photo|In the photo|照片)/.test(pdfText), false, `${id} ${lang} pdf photo`);
+      assert.equal(/in the photo|照片/.test(pdfText), false, `${id} ${lang} pdf photo`);
+      if (lang === "en") {
+        assert.match(html, /Illustration\./, id);
+        assert.match(method, new RegExp(pan), id);
+        assert.equal(html.includes("示意圖"), false, id);
+        assert.equal(html.includes("示意图"), false, id);
+      }
+      if (lang === "zh-cn") {
+        assert.match(html, /示意图/, id);
+        assert.match(html, /默认是/, id);
+        assert.equal(html.includes("示意圖"), false, id);
+        assert.equal(html.includes("打开时"), false, id);
+      }
+      if (lang === "zh-tw") {
+        assert.match(html, /示意圖/, id);
+        assert.match(html, /預設是/, id);
+        assert.equal(html.includes("示意图"), false, id);
+        assert.equal(html.includes("打開時"), false, id);
+      }
     }
     const tw = renderPage(page, "zh-tw");
     assert.match(tw, /速發酵母/, id);
     assert.equal(tw.includes("即發酵母"), false, id);
   }
+  const sandwich = renderPage(pages.find((item) => item.id === "bread-sandwich-loaf"), "en");
+  assert.match(sandwich, /cut face of the front slice/);
+  assert.equal(sandwich.includes("gently rounded top\"") || sandwich.includes("top slightly domed"), false);
+  const buns = renderPage(pages.find((item) => item.id === "bread-hot-dog-buns"), "en");
+  assert.match(buns, /Slash each log once along the top/);
+  assert.match(buns, /The photo shows them in a row/);
+  const steps = buns.slice(buns.indexOf("<ol>"), buns.indexOf("</ol>"));
+  assert.equal(steps.includes("The photo shows"), false);
+  const pullman = renderPage(pages.find((item) => item.id === "bread-pullman-loaf"), "en");
+  assert.match(pullman, /domed top/);
+  assert.equal(pullman.includes("square"), false);
+  const focaccia = renderPage(pages.find((item) => item.id === "bread-sourdough-focaccia"), "en");
+  assert.match(focaccia, /81\.8%/);
+  const wheat = renderPage(pages.find((item) => item.id === "bread-whole-wheat-sourdough"), "en");
+  assert.match(wheat, /84%/);
+  assert.match(wheat, /The photo shows oats on top/);
+  assert.match(wheat, /crust in the photo/);
 });
 
 test("bread page intros stay under 50% similar", () => {

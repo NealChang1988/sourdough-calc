@@ -235,14 +235,16 @@ const COUNTRY_PDF_FILENAME = {
 function methodPayload(page, method) {
   const recipe = recipeFor(page.preset);
   const stepPayload = (step) => {
-    const body = fillAmounts(step.body, recipe, page.preset);
-    return step.body.includes("{{") ? { title: step.title, body, bodyTemplate: step.body } : { title: step.title, body };
+    const source = step.pdfBody ?? step.body;
+    const body = fillAmounts(source, recipe, page.preset);
+    return source.includes("{{") ? { title: step.title, body, bodyTemplate: source } : { title: step.title, body };
   };
-  const lead = fillAmounts(method.lead, recipe, page.preset);
+  const leadSource = method.pdfLead ?? method.lead;
+  const lead = fillAmounts(leadSource, recipe, page.preset);
   return {
     heading: method.heading,
     lead,
-    ...(method.lead.includes("{{") ? { leadTemplate: method.lead } : {}),
+    ...(leadSource.includes("{{") ? { leadTemplate: leadSource } : {}),
     steps: method.steps.map(stepPayload),
   };
 }
@@ -346,10 +348,21 @@ function adjustSection(page, lang, weigh) {
   return `\n<section class="adjust"><h2>${escapeHtml(block.heading[lang])}</h2>${paragraphs}</section>`;
 }
 
+const FIGURE_LABEL = {
+  en: "Illustration",
+  "zh-cn": "示意图",
+  "zh-tw": "示意圖",
+};
+
 function methodText(template, recipe, preset, lang, weigh) {
   const filled = linkWeigh(escapeHtml(fillAmounts(template, recipe, preset)), lang, weigh);
   if (!String(template).includes("{{")) return filled;
   return `<span data-template="${escapeHtml(template)}">${filled}</span>`;
+}
+
+function figureLabel(photo, lang) {
+  if (!photo.illustration) return "";
+  return lang === "en" ? `${escapeHtml(FIGURE_LABEL.en)}. ` : `${escapeHtml(FIGURE_LABEL[lang])}。`;
 }
 
 function methodSection(page, lang, weigh) {
@@ -367,13 +380,14 @@ function methodSection(page, lang, weigh) {
   const license = photo.licenseUrl
     ? `${escapeHtml(copy.licenseBefore || "")}<a href="${photo.licenseUrl}">${escapeHtml(copy.licenseLabel || "")}</a>${escapeHtml(copy.licenseAfter || "")}`
     : "";
+  const caption = copy.caption ? `${methodText(copy.caption, recipe, page.preset, lang, weigh)} ` : "";
   return `<section class="method">
 <h2>${escapeHtml(copy.heading)}</h2>
 <p>${methodText(copy.lead, recipe, page.preset, lang, weigh)}</p>
 <ol>${steps}</ol>
 <figure>
 <img src="${photo.src}" width="${photo.width}" height="${photo.height}" alt="${escapeHtml(copy.alt)}" loading="lazy">
-<figcaption>${escapeHtml(copy.creditBefore)}<a href="${photo.pageUrl}">${escapeHtml(copy.creditLink)}</a>${license}</figcaption>
+<figcaption>${figureLabel(photo, lang)}${caption}${escapeHtml(copy.creditBefore)}<a href="${photo.pageUrl}">${escapeHtml(copy.creditLink)}</a>${license}</figcaption>
 </figure>
 </section>`;
 }
