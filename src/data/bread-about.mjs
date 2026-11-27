@@ -175,9 +175,9 @@ export const breadAbout = {
     "zh-tw": "把麵團條打結，烤熟後再拌油和蒜。一口一個，不是拉開的大圓餅，結要先烤透，然後再拌油。",
   },
   "sourdough-pizza": {
-    en: "Cold-ferment the dough in one piece. Take the tub out, divide it, rest the pieces at room temperature, then stretch. No added yeast.",
-    "zh-cn": "整团先冷藏发酵。从冰箱取出后再分割，在室温回温，然后拉开。配方里不加商业酵母，靠酸种发酵。",
-    "zh-tw": "整團先冷藏發酵。從冰箱取出後再分割，在室溫回溫，然後拉開。配方裡不加商業酵母，靠酸種發酵。",
+    en: "Leave it at room temperature for 2 to 3 hours{{ifStarter}}, until it is slightly puffy{{endStarter}}, then ball it and refrigerate. Warm it until it stretches without springing back, usually 1.5 to 3 hours. No added yeast.",
+    "zh-cn": "室温放 2 到 3 小时{{ifStarter}}，略微胀起就可以{{endStarter}}，然后收成球，再放进冰箱。回温到拉开时不会缩回去，多半要 1.5 到 3 小时。配方里不加商业酵母。",
+    "zh-tw": "室溫放 2 到 3 小時{{ifStarter}}，略微脹起就可以{{endStarter}}，然後收成球，再放進冰箱。回溫到拉開時不會縮回去，多半要 1.5 到 3 小時。配方裡不加商業酵母。",
   },
   "sourdough-bagels": {
     en: "{{ifStarter}}The rings take longer to puff than a commercial-yeast version, and each one still gets a short simmer before the oven.{{endStarter}}{{ifNoStarter}}Without starter the dough will not rise.{{endNoStarter}}",
@@ -246,8 +246,8 @@ export const breadAbout = {
   },
   "spelt-loaf": {
     en: "Stop mixing once the flour disappears. The hard knead that strong wheat tolerates makes spelt tear and slacken.",
-    "zh-cn": "面粉一消失就停手。高筋小麦经得起的用力揉，会把斯佩尔特麦揉断、揉塌，点到为止，停早一点。",
-    "zh-tw": "麵粉一消失就停手。高筋小麥經得起的用力揉，會把斯佩爾特麥揉斷、揉塌，點到為止，停早一點。",
+    "zh-cn": "看不到干粉就停手。高筋面粉经得起大力揉，斯佩尔特麦不行，会揉断、揉塌。停早一点就好。",
+    "zh-tw": "看不到乾粉就停手。高筋麵粉經得起大力揉，斯佩爾特麥不行，會揉斷、揉塌。停早一點就好。",
   },
   "rye-loaf": {
     en: "A yeasted pan loaf that stays close-textured. Bake it fully, then wait until it cools before you try to slice.",
@@ -261,8 +261,8 @@ export const breadAbout = {
   },
   schiacciata: {
     en: "Thinner than focaccia and pressed flatter, with dimples that should take color. A snack sheet, not a tall pan bread.",
-    "zh-cn": "比佛卡夏更薄，压得更平，坑洞要烤上色。是一张零食饼，不是厚厚的盘烤面包，坑要见色。",
-    "zh-tw": "比佛卡夏更薄，壓得更平，坑洞要烤上色。是一張零食餅，不是厚厚的盤烤麵包，坑要見色。",
+    "zh-cn": "比佛卡夏更薄，压得更平，坑洞要烤上色。是一张零食饼，不是厚厚的盘烤面包，整张压平再进炉。",
+    "zh-tw": "比佛卡夏更薄，壓得更平，坑洞要烤上色。是一張零食餅，不是厚厚的盤烤麵包，整張壓平再進爐。",
   },
   "pane-toscano": {
     en: "One flour-dusted loaf of 960 g, with the salt left at zero.{{ifStarter}} The rise runs fast and the crust tastes of wheat.{{endStarter}} Do not salt it back.{{ifNoStarter}} Without starter the dough will not rise.{{endNoStarter}}",
@@ -276,8 +276,8 @@ export const breadAbout = {
   },
   filone: {
     en: "A plump log, fatter through the middle than a baguette, scored on a slant. Slice it across after a steam bake.",
-    "zh-cn": "粗长条，中段比法棍更胖，表面斜划几刀。带蒸汽烤好后横切，它比细棍厚一圈，粗一点。",
-    "zh-tw": "粗長條，中段比法國長棍更胖，表面斜劃幾刀。帶蒸汽烤好後橫切，它比細棍厚一圈，粗一點。",
+    "zh-cn": "粗长条，中段比法棍更胖，表面斜划几刀。带蒸汽烤好后横切，它比细棍厚一圈，适合切片。",
+    "zh-tw": "粗長條，中段比法國長棍更胖，表面斜劃幾刀。帶蒸汽烤好後橫切，它比細棍厚一圈，適合切片。",
   },
   "cinnamon-rolls": {
     en: "Roll a soft sheet around cinnamon sugar and cut spirals. Butter and egg, if you use them, are missing from the displayed total.",

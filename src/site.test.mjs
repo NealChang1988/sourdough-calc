@@ -401,7 +401,7 @@ test("country sourdough page adds a method and photo without touching other page
     const page = pages.find((item) => item.id === id);
     const tw = renderPage(page, "zh-tw");
     const method = tw.slice(tw.indexOf('<section class="method">'), tw.indexOf('<section class="related">'));
-    const visible = method.replace(/<[^>]+>/g, "").replace(/[A-Z]\./g, "").replace(/[A-Za-z]+/g, "").replace(/\d\.\d/g, "0");
+    const visible = method.replace(/<[^>]+>/g, "").replace(/[A-Za-z]\./g, "").replace(/[A-Za-z]+/g, "").replace(/\d\.\d/g, "0");
     assert.equal(/[,.:;!?()]/.test(visible), false, `${id} ${visible}`);
     assert.match(tw, /id="download-pdf"/);
     assert.match(tw, /class="method"/);
@@ -832,8 +832,8 @@ test("batch 11 guides keep the method, photo, and ball defaults together", () =>
   assert.equal(poolishStep.trim(), "");
   assert.equal(doughGuides["bread-sourdough-ciabatta"].en.steps.find((step) => step.title === "Cut").body.includes("larger tray"), false);
   const pizzaDivide = fillAmounts(doughGuides["bread-sourdough-pizza"].en.steps.find((step) => step.title === "Divide").body, recipeFor(pages.find((item) => item.id === "bread-sourdough-pizza").preset), pages.find((item) => item.id === "bread-sourdough-pizza").preset);
-  assert.match(pizzaDivide, /Take the tub out of the fridge/);
-  assert.match(pizzaDivide, /rest them at room temperature for 60 to 90 minutes/);
+  assert.match(pizzaDivide, /refrigerate the covered balls/);
+  assert.match(pizzaDivide, /until they stretch without springing back, usually 1\.5 to 3 hours/);
   assert.match(pizzaDivide, /Then stretch each ball/);
 });
 
@@ -973,11 +973,11 @@ test("batch 12 guides keep the method, photo, and ball defaults together", () =>
 test("batch 13 guides keep the method, photo, and ball defaults together", () => {
   const cases = [
     ["bread-ficelle", "/assets/ficelle.webp", "Nono64", "CC BY-SA 3.0", 4, 172.8, "691.2", "default 691.2 g uses a baking stone or tray about 40 cm long"],
-    ["bread-schiacciata", "/assets/schiacciata.webp", "PilotChicago", "CC BY-SA 4.0", 1, 863, "863", "default 863 g uses a rimmed tray about 30 cm long and 20 cm wide"],
+    ["bread-schiacciata", "/assets/schiacciata.webp", "PilotChicago", "CC BY-SA 4.0", 1, 863, "863", "default 863 g uses a rimmed tray about 40 cm long and 30 cm wide"],
     ["bread-pane-pugliese", "/assets/pane-pugliese.webp", "Alice Wiegand", "CC BY-SA 4.0", 1, 990, "78.2", "default 990 g uses a round lidded pot about 24 cm across"],
     ["bread-filone", "/assets/filone.webp", "Karen and Brad Emerson", "CC BY 2.0", 1, 853.5, "853.5", "default 853.5 g uses a baking stone or tray about 40 cm long"],
     ["bread-spelt-loaf", "/assets/spelt-loaf.webp", "adactio", "CC BY 2.0", 1, 864, "864", "default 864 g uses a loaf pan about 23 cm long, 13 cm wide, and 7 cm high"],
-    ["pizza-sourdough", "/assets/sourdough-pizza-dough.webp", "Veganbaking", "CC BY-SA 2.0", 4, 270, "72.7", "default 1080 g uses a baking stone or tray about 40 cm across"],
+    ["pizza-sourdough", "/assets/sourdough-pizza-dough.webp", "Veganbaking.net from USA", "CC BY-SA 2.0", 4, 270, "72.7", "default 1080 g uses a baking stone or tray about 40 cm across"],
   ];
   for (const [id, photo, photographer, license, balls, grams, shown, pan] of cases) {
     const page = pages.find((item) => item.id === id);
