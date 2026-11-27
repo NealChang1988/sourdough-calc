@@ -805,6 +805,30 @@ test("batch 11 guides keep the method, photo, and ball defaults together", () =>
   assert.match(pizza.caption, /one pizza/i);
   assert.match(pizza.caption, /five/);
   assert.match(renderPage(pages.find((item) => item.id === "bread-hard-rolls"), "zh-tw"), /速發酵母/);
+  const rollsPage = pages.find((item) => item.id === "bread-sourdough-rolls");
+  const rollsLead = fillAmounts(doughGuides[rollsPage.id].en.lead, recipeFor(rollsPage.preset), rollsPage.preset);
+  assert.match(rollsLead, /and 10 g salt, 940 g of dough/);
+  const noStarter = { ...rollsPage.preset, starter: 0 };
+  const noStarterLead = fillAmounts(doughGuides[rollsPage.id].en.lead, recipeFor(noStarter), noStarter);
+  const noStarterStep = fillAmounts(doughGuides[rollsPage.id].en.steps[0].body, recipeFor(noStarter), noStarter);
+  assert.equal(/\b0 g starter\b/.test(noStarterLead), false);
+  assert.equal(noStarterStep.trim(), "");
+  const hard = pages.find((item) => item.id === "bread-hard-rolls");
+  const hardMix = fillAmounts(doughGuides[hard.id]["zh-tw"].steps[0].body, recipeFor(hard.preset), hard.preset);
+  assert.match(hardMix, /10 克鹽和 4 克速發酵母/);
+  const overnight = pages.find((item) => item.id === "bread-overnight-white");
+  const noYeast = { ...overnight.preset, yeast: 0 };
+  const overnightMix = fillAmounts(doughGuides[overnight.id]["zh-cn"].steps[0].body, recipeFor(noYeast), noYeast);
+  assert.equal(overnightMix.includes("0 克即发酵母"), false);
+  const poolish = pages.find((item) => item.id === "bread-poolish-baguette");
+  const noPoolish = { ...poolish.preset, starter: 0 };
+  const poolishStep = fillAmounts(doughGuides[poolish.id].en.steps[0].body, recipeFor(noPoolish), noPoolish);
+  assert.equal(poolishStep.trim(), "");
+  assert.equal(doughGuides["bread-sourdough-ciabatta"].en.steps.find((step) => step.title === "Cut").body.includes("larger tray"), false);
+  const pizzaDivide = fillAmounts(doughGuides["bread-sourdough-pizza"].en.steps.find((step) => step.title === "Divide").body, recipeFor(pages.find((item) => item.id === "bread-sourdough-pizza").preset), pages.find((item) => item.id === "bread-sourdough-pizza").preset);
+  assert.match(pizzaDivide, /Take the tub out of the fridge/);
+  assert.match(pizzaDivide, /rest them at room temperature for 60 to 90 minutes/);
+  assert.match(pizzaDivide, /Then stretch each ball/);
 });
 
 test("every page discloses anonymous analytics and none claim there is none", async () => {

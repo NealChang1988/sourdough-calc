@@ -39,7 +39,10 @@ function showRecipe(recipe, preset) {
     form.querySelector("[name=flour]").value = formatAmount(recipe.flour);
   }
   for (const el of document.querySelectorAll("[data-template]")) {
-    el.textContent = fillAmounts(el.dataset.template, recipe, preset);
+    const text = fillAmounts(el.dataset.template, recipe, preset).trim();
+    el.textContent = text;
+    const item = el.closest("ol > li");
+    if (item) item.hidden = text === "";
   }
 }
 
@@ -171,7 +174,7 @@ if (pdfButton) {
             : meta.method.lead,
           steps: meta.method.steps.map((step) => ({
             title: step.title,
-            body: step.bodyTemplate ? fillAmounts(step.bodyTemplate, recipe, parsed.preset) : step.body,
+            body: step.bodyTemplate ? fillAmounts(step.bodyTemplate, recipe, parsed.preset).trim() : step.body,
           })),
         },
         inputs: parsed.preset,

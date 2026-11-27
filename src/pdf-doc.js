@@ -194,7 +194,7 @@ export async function buildRecipePdf(data) {
   draw(data.method.heading, 14, ink, 5);
   draw(data.method.lead, 11, ink, 3);
   y -= 2;
-  data.method.steps.forEach((step, index) => {
+  data.method.steps.filter((step) => step.body && step.body.trim()).forEach((step, index) => {
     if (y - (12 + 3 + 11 + 3) < MARGIN) nextPage();
     draw(`${index + 1}. ${step.title}`, 12, ink, 3);
     draw(step.body, 11, ink, 3);
