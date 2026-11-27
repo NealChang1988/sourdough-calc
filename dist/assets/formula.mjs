@@ -44,12 +44,7 @@ export function formatAmount(n) {
 }
 
 function formatPiece(n) {
-  const snapped = snap(n);
-  const hundredths = Math.round(snapped * 100);
-  if (Math.abs(snapped * 100 - hundredths) < 1e-4 && Math.abs(hundredths) % 10 === 5) {
-    return (hundredths / 100).toFixed(2).replace(/0$/, "");
-  }
-  return formatAmount(snapped);
+  return formatAmount(n);
 }
 
 function shownPreset(n) {
@@ -68,6 +63,7 @@ const AMOUNT_TOKENS = {
   piece: (recipe, preset) => formatPiece(recipe.total / preset.balls),
   seeds: (recipe) => formatAmount(recipe.flour * 0.16),
   olives: (recipe) => formatAmount(recipe.flour * 0.2),
+  poolishHalf: (recipe) => formatAmount(recipe.starter / 2),
   hydration: (_recipe, preset) => shownPreset(preset.hydration),
   starterPct: (_recipe, preset) => shownPreset(preset.starter),
   saltPct: (_recipe, preset) => shownPreset(preset.salt),
@@ -75,8 +71,28 @@ const AMOUNT_TOKENS = {
   balls: (_recipe, preset) => shownPreset(preset.balls),
 };
 
+const CONDITIONS = [
+  ["ifYeast", "endYeast", (recipe) => formatAmount(recipe.yeast) !== "0"],
+  ["ifStarter", "endStarter", (recipe) => formatAmount(recipe.starter) !== "0"],
+  ["ifMany", "endMany", (_recipe, preset) => Number(preset.balls) > 1],
+  ["ifOne", "endOne", (_recipe, preset) => !(Number(preset.balls) > 1)],
+];
+
+function applyConditions(text, recipe, preset) {
+  let out = text;
+  let prev;
+  do {
+    prev = out;
+    for (const [open, close, pred] of CONDITIONS) {
+      const keep = pred(recipe, preset);
+      out = out.replace(new RegExp(`\\{\\{${open}\\}\\}([\\s\\S]*?)\\{\\{${close}\\}\\}`, "g"), (_, inner) => (keep ? inner : ""));
+    }
+  } while (out !== prev);
+  return out;
+}
+
 export function fillAmounts(text, recipe, preset) {
-  const source = String(text);
+  const source = applyConditions(String(text), recipe, preset);
   if (!source.includes("{{")) return source;
   return source.replace(/\{\{([A-Za-z]+)\}\}/g, (token, key) => {
     const fill = AMOUNT_TOKENS[key];

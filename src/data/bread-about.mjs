@@ -15,9 +15,9 @@ export const breadAbout = {
     "zh-tw": "結實、表面光滑，適合切成厚薄均勻的吐司片。短時間揉勻，比一輪又一輪的濕摺疊更合適。",
   },
   "whole-wheat-sourdough": {
-    en: "Stir this 1046 g whole wheat dough longer at the start, because the bran drinks the water, and expect a tighter interior than a white country loaf.",
-    "zh-cn": "这一炉全麦是 1046 克。麸皮会把水吃掉，所以一开始要多搅，烤出来的组织也比白面粉乡村面包更紧。",
-    "zh-tw": "這一爐全麥是 1046 克。麩皮會把水吃掉，所以一開始要多攪，烤出來的組織也比白麵粉鄉村麵包更緊。",
+    en: "Stir this whole wheat dough longer at the start, because the bran drinks the water, and expect a tighter interior than a white country loaf.",
+    "zh-cn": "这一炉是全麦。麸皮会把水吃掉，所以一开始要多搅，烤出来的组织也比白面粉乡村面包更紧。",
+    "zh-tw": "這一爐是全麥。麩皮會把水吃掉，所以一開始要多攪，烤出來的組織也比白麵粉鄉村麵包更緊。",
   },
   "spelt-sourdough": {
     en: "One tin loaf of 980 g. Spelt stretches and then tears, so fold gently and stop while it still holds together. Seeds, if you add them, are extra.",
@@ -30,9 +30,9 @@ export const breadAbout = {
     "zh-tw": "更像糊，拉不出小麥那種薄膜。放進模具烤，讓模壁撐住，不然會攤平，別指望它自己站著。",
   },
   "seeded-sourdough": {
-    en: "One 1021 g loaf. Soak the seeds in some of the dough water before mixing, or they stay hard in the crumb. Seed weight is not part of the gram total.",
-    "zh-cn": "一条 1021 克的种子酸种。拌面前用一部分配方水把种子泡软，否则组织里会有硬粒。种子的重量不在克数合计里。",
-    "zh-tw": "一條 1021 克的種子酸種。拌麵前用一部分配方水把種子泡軟，否則組織裡會有硬粒。種子的重量不在克數合計裡。",
+    en: "One seeded loaf. Soak the seeds in some of the dough water before mixing, or they stay hard in the crumb. Seed weight is not part of the gram total.",
+    "zh-cn": "一条种子酸种。拌面前用一部分配方水把种子泡软，否则组织里会有硬粒。种子的重量不在克数合计里。",
+    "zh-tw": "一條種子酸種。拌麵前用一部分配方水把種子泡軟，否則組織裡會有硬粒。種子的重量不在克數合計裡。",
   },
   "olive-sourdough": {
     en: "Fold chopped olives in after the dough already has some strength, so the pieces stay chunky instead of smearing.",
@@ -40,9 +40,9 @@ export const breadAbout = {
     "zh-tw": "等麵團已經有一點筋力，再拌入切碎的橄欖，果肉才是一塊一塊的，而不是攪成泥。晚拌才保得住顆粒。",
   },
   miche: {
-    en: "One very large round, often from a kilo of flour, that needs a wide basket and a slow rise so it does not spill over.",
-    "zh-cn": "常常用到一公斤面粉的大圆面包。篮子要宽，发酵要慢，不然会从篮沿漫出来，一次就是一整锅。",
-    "zh-tw": "常常用到一公斤麵粉的大圓麵包。籃子要寬，發酵要慢，不然會從籃沿漫出來，一次就是一整鍋。",
+    en: "One very large round that needs a wide basket and a slow rise so it does not spill over the basket.",
+    "zh-cn": "面团很大，这是一个大圆面包。篮子要宽，发酵要慢，不然会从篮沿漫出来，一次就是一整锅。",
+    "zh-tw": "麵團很大，這是一個大圓麵包。籃子要寬，發酵要慢，不然會從籃沿漫出來，一次就是一整鍋。",
   },
   batard: {
     en: "Shape an oval, pull the skin tight, and make one cut down the center. It fits a home baking stone more easily than a huge round.",
@@ -110,9 +110,9 @@ export const breadAbout = {
     "zh-tw": "每個大約 90 到 100 克，巴掌寬的圓餅。最後發酵前輕輕壓扁，免得鼓成球，上面要平一點。",
   },
   "hot-dog-buns": {
-    en: "Ten logs of 82.55 g proof in a row and touch. The sides stay pale, and a split along the top holds the sausage.",
-    "zh-cn": "十根 82.55 克的短条排成一排、彼此碰上再发。贴住的侧面颜色浅，顶部的一道开口用来放香肠。",
-    "zh-tw": "十根 82.55 克的短條排成一排、彼此碰上再發。貼住的側面顏色淺，頂部的一道開口用來放香腸。",
+    en: "The logs proof in a row and touch. The sides stay pale, and a split along the top holds the sausage.",
+    "zh-cn": "短条排成一排、彼此碰上再发。贴住的侧面颜色浅，入炉前在顶部划一道开口，用来放香肠。",
+    "zh-tw": "短條排成一排、彼此碰上再發。貼住的側面顏色淺，入爐前在頂部劃一道開口，用來放香腸。",
   },
   "sandwich-loaf": {
     en: "One open tin takes the full 840 g. Let the crown rise past the rim, then cut even slices from the close crumb.",
@@ -185,9 +185,9 @@ export const breadAbout = {
     "zh-tw": "很硬的環，醒發比酵母版本更慢。做法仍是先煮後烤，只是在檯面上要多等一陣才拉得動。",
   },
   "sourdough-baguette": {
-    en: "This batch is four sticks of 237.5 g. Shape them in two steps and bake with steam. The photo shows three sticks.",
-    "zh-cn": "这一炉是四根酸种长棍，每根 237.5 克。分两步整形，带蒸汽烘烤。照片里是三根。",
-    "zh-tw": "這一爐是四根酸種長棍，每根 237.5 克。分兩步整形，帶蒸汽烘烤。照片裡是三根。",
+    en: "Shape the sticks in two steps and bake with steam. The photo shows three sticks, and the calculator sets how many you make.",
+    "zh-cn": "酸种长棍分两步整形，带蒸汽烘烤。照片里是三根。做几根、每根多少克都跟着计算器走。",
+    "zh-tw": "酸種長棍分兩步整形，帶蒸汽烘烤。照片裡是三根。做幾根、每根多少克都跟著計算器走。",
   },
   "sourdough-ciabatta": {
     en: "Cut the slack dough into slippers and barely shape them, so the large holes survive. Leavened with starter rather than a packet of yeast.",

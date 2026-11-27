@@ -395,7 +395,7 @@ test("country sourdough page adds a method and photo without touching other page
     const page = pages.find((item) => item.id === id);
     const tw = renderPage(page, "zh-tw");
     const method = tw.slice(tw.indexOf('<section class="method">'), tw.indexOf('<section class="related">'));
-    const visible = method.replace(/<[^>]+>/g, "").replace(/[A-Za-z]+/g, "").replace(/\d\.\d/g, "0");
+    const visible = method.replace(/<[^>]+>/g, "").replace(/[A-Z]\./g, "").replace(/[A-Za-z]+/g, "").replace(/\d\.\d/g, "0");
     assert.equal(/[,.:;!?()]/.test(visible), false, `${id} ${visible}`);
     assert.match(tw, /id="download-pdf"/);
     assert.match(tw, /class="method"/);
@@ -618,7 +618,7 @@ test("flour at 1000 keeps pan defaults and follows yeast, seeds, and rounding", 
   assert.equal(formatAmount(flourMode.total), formatAmount(ballMode.total));
   assert.equal(formatAmount(flourMode.total), "871.3");
   const piece = fillAmounts("{{piece}}", recipeFor(buns.preset), buns.preset);
-  assert.equal(piece, String(buns.preset.gramsPerBall));
+  assert.equal(piece, "82.6");
   const baguette = doughGuides["bread-sourdough-baguette"].en;
   assert.match(baguette.caption, /three/i);
   assert.equal(baguette.caption.includes("{{"), false);
@@ -628,10 +628,10 @@ test("flour at 1000 keeps pan defaults and follows yeast, seeds, and rounding", 
 test("batch 10 guides keep the method, photo, and ball defaults together", () => {
   const cases = [
     ["bread-high-hydration-sourdough", "/assets/high-hydration-sourdough.webp", "Virtual-Pano", "CC BY-SA 4.0", 1, 1035, "86.4", "default 1035 g uses a round lidded pot about 24 cm across and 11 cm high"],
-    ["bread-olive-sourdough", "/assets/olive-sourdough.webp", "Neil Conway", "CC BY 2.0", 1, 970, "74.5", "default 970 g uses a round lidded pot about 24 cm across and 11 cm high"],
-    ["bread-miche", "/assets/miche.webp", "Chris R Sims", "CC BY-SA 4.0", 1, 1950, "79.5", "default 1950 g uses a round lidded pot about 28 cm across and 12 cm high"],
+    ["bread-olive-sourdough", "/assets/olive-sourdough.webp", "Neil Conway", "CC BY 2.0", 1, 970, "74.5", "970 g of dough plus 100 g of olives"],
+    ["bread-miche", "/assets/miche.webp", "Chris R. Sims", "CC BY-SA 4.0", 1, 1950, "79.5", "default 1950 g uses a round lidded pot about 28 cm across and 12 cm high"],
     ["bread-sourdough-ciabatta", "/assets/sourdough-ciabatta.webp", "Key West Wedding Photography", "CC BY 2.0", 4, 255.25, "83.6", "default 1021 g uses a rimmed tray about 40 cm long, 30 cm wide, and 2 cm high"],
-    ["bread-poolish-baguette", "/assets/poolish-baguette.webp", "Ivan J Long", "Pexels", 4, 254, "72.5", "default 1016 g uses a rimmed tray about 40 cm long, 30 cm wide, and 2 cm high"],
+    ["bread-poolish-baguette", "/assets/poolish-baguette.webp", "Ivan J. Long", "Pexels", 4, 254, "72.5", "default 1016 g uses a rimmed tray about 40 cm long, 30 cm wide, and 2 cm high"],
   ];
   for (const [id, photo, photographer, license, balls, grams, effective, pan] of cases) {
     const page = pages.find((item) => item.id === id);
@@ -658,7 +658,8 @@ test("batch 10 guides keep the method, photo, and ball defaults together", () =>
         assert.match(html, /Currently /, id);
         assert.equal(method.includes("The calculator opens at"), false, id);
         assert.match(method, /g starter|g poolish/, id);
-        assert.match(method, /g yeast/, id);
+        if (page.preset.yeast > 0) assert.match(method, /g yeast/, id);
+        else assert.equal(/\b0 g yeast\b/.test(method), false, id);
       }
       if (lang === "zh-cn") {
         assert.match(html, /示意图。/, id);
@@ -708,8 +709,8 @@ test("batch 10 at flour 1000 keeps pan defaults and scales olives, starter, and 
   const olives = filled("bread-olive-sourdough", "Olives", 1000);
   assert.match(olives, /200 g of pitted/);
   const oliveShape = filled("bread-olive-sourdough", "Shape", 1000);
-  assert.match(oliveShape, /default 970 g uses a round lidded pot about 24 cm across and 11 cm high/);
-  assert.match(oliveShape, /1940 g/);
+  assert.match(oliveShape, /970 g of dough plus 100 g of olives/);
+  assert.match(oliveShape, /1940 g of dough plus 200 g of olives/);
   const miche = filled("bread-miche", "Shape", 2000);
   assert.match(miche, /default 1950 g uses a round lidded pot about 28 cm across and 12 cm high/);
   assert.equal(/28 cm across and 12 cm high suits this 3900/.test(miche), false);
