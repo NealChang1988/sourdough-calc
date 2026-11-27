@@ -42,8 +42,8 @@
 <label class="field"><span class="label">麵粉 <span class="unit">克</span></span><input name="flour" inputmode="decimal" min="0" step="any" value="500"></label>
 </div>
 <div class="fields grid-2" data-panel="balls" hidden>
-<label class="field"><span class="label">麵團球數</span><input name="balls" inputmode="decimal" min="0" step="any" value="4"></label>
-<label class="field"><span class="label">每球克數 <span class="unit">克</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="250"></label>
+<label class="field"><span class="label">麵團球數</span><input name="balls" inputmode="decimal" min="0" step="any" value="1"></label>
+<label class="field"><span class="label">每球克數 <span class="unit">克</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="920"></label>
 </div>
 <div class="fields grid-2">
 <label class="field"><span class="label">水合 <span class="unit">%</span></span><input name="hydration" inputmode="decimal" min="0" step="any" value="62"></label>
@@ -61,11 +61,34 @@
 <div class="actions">
 <button type="button" id="copy">複製配方</button>
 <button type="button" id="print" class="secondary">列印</button>
+<button type="button" id="download-pdf" data-label="下載 PDF" data-loading="正在載入…" data-busy="正在產生 PDF…">下載 PDF</button>
+<script>
+(function () {
+  var button = document.getElementById("download-pdf");
+  if (!button) return;
+  button.addEventListener("click", function () {
+    if (window.__pdfReady || window.__pdfPending) return;
+    window.__pdfPending = true;
+    button.disabled = true;
+    button.textContent = button.getAttribute("data-loading");
+  });
+})();
+</script>
 </div>
+<p id="pdf-error" class="error" role="alert" hidden>PDF 產生失敗，請再按一次。</p>
 <textarea id="recipe-text" hidden readonly></textarea>
 </section>
 <script type="application/json" id="labels">{"title":"低水合酸種烘焙百分比","flour":"麵粉","water":"水","starter":"酸種","salt":"鹽","yeast":"酵母","total":"麵團總重","grams":"克","effective":"有效水合","copied":"已複製","copyFail":"請選中配方文字再複製"}</script>
-<script type="module" src="/assets/calc.js"></script>
+<script type="application/json" id="pdf-meta">{"title":"低水合酸種烘焙百分比","url":"https://doughcalc.app/zh-tw/di-shuihe-suanzhong/","filename":"doughcalc-di-shuihe-suanzhong-zh-tw-recipe.pdf","lang":"zh-TW","fontUrl":"/assets/fonts/noto-sans-tc-subset.ttf","labels":{"result":"配方","flour":"麵粉","water":"水","starter":"酸種","salt":"鹽","yeast":"酵母","total":"麵團總重","grams":"克","effective":"有效水合","hydration":"水合","modeFlour":"按麵粉重量","modeBalls":"按麵團球","balls":"麵團球數","perBall":"每球克數"},"method":{"heading":"詳細做法","lead":"一條結實的酸種麵包。目前是麵粉 500 克，水合 62%，酸種 20%，鹽 2%，酵母 0%。也就是水 310 克、酸種 100 克、鹽 10 克，合計 920 克。酸種按 100% 水合計，和結果裡的有效水合用的是同一種假設。頁面上的有效水合是 65.5%。目前是 1 條、920 克。下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。","leadTemplate":"{{ifOne}}一條結實的酸種麵包。{{endOne}}{{ifMany}}結實的酸種麵包。{{endMany}}目前是麵粉 {{flour}} 克，水合 {{hydration}}%，酸種 {{starterPct}}%，鹽 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸種 {{starter}} 克{{endStarter}}、鹽 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合計 {{total}} 克。酸種按 100% 水合計，和結果裡的有效水合用的是同一種假設。頁面上的有效水合是 {{effective}}%。{{ifOne}}目前是 {{balls}} 條、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 條、每條 {{piece}} 克{{endMany}}。下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。","steps":[{"title":"酸種","body":"用 100 克已經發到大約兩倍、表面有氣泡的酸種。這 100 克算在合計裡。","bodyTemplate":"用 {{starter}} 克已經發到大約兩倍、表面有氣泡的酸種。這 {{starter}} 克算在合計裡。{{ifYeast}}酵母是 {{yeast}} 克。{{endYeast}}"},{"title":"攪拌","body":"把 500 克麵粉、310 克水、100 克酸種和 10 克鹽拌到沒有乾粉，再揉 6 到 8 分鐘，直到光滑。水合 62%，麵團結實。麵團溫度大約 24°C。","bodyTemplate":"把 {{flour}} 克麵粉、{{water}} 克水{{ifStarter}}、{{starter}} 克酸種{{endStarter}}{{ifYeast}}、{{yeast}} 克速發酵母{{endYeast}}和 {{salt}} 克鹽拌到沒有乾粉，再揉 6 到 8 分鐘，直到光滑。水合 {{hydration}}%，麵團結實。麵團溫度大約 24°C。"},{"title":"基本發酵","body":"蓋著，放在大約 24°C，大約 3 到 4 小時。第一個小時摺疊兩輪。大約脹起一半就可以整形。"},{"title":"整形","body":"把 920 克收成一條，接縫朝上，放進撒了粉的發酵籃。這一爐是 1 條。預設 920 克用大約 24 公分寬、11 公分高的圓形帶蓋鍋；份量改了請換合適大小的鍋，或分成兩條。","bodyTemplate":"{{ifOne}}把 {{total}} 克收成一條，接縫朝上，放進撒了粉的發酵籃。這一爐是 {{balls}} 條。{{endOne}}{{ifMany}}把 {{total}} 克分成 {{balls}} 份，每份 {{piece}} 克，各自收成一條。{{endMany}}預設 920 克用大約 24 公分寬、11 公分高的圓形帶蓋鍋；份量改了請換合適大小的鍋，或分成兩條。"},{"title":"最後發酵","body":"蓋著發 45 到 70 分鐘，發到蓬鬆。酸種有 20%。如果頂上開始塌，就烘烤。","bodyTemplate":"{{ifOne}}蓋著發{{endOne}}{{ifMany}}各自蓋著發{{endMany}} 45 到 70 分鐘，發到蓬鬆。酸種有 {{starterPct}}%。如果頂上開始塌，就烘烤。"},{"title":"烘烤","body":"烤箱連鍋一起預熱到 230°C。麵團放在烘焙紙上，連紙放進熱鍋。劃一刀。蓋著烤 20 分鐘，再揭蓋烤 16 到 22 分鐘，直到表皮金黃。如果沒有蓋子，前 20 分鐘倒扣另一口鍋。放到架上至少 1 小時。"}]},"messages":{"label":"下載 PDF","busy":"正在產生 PDF…","fail":"PDF 產生失敗，請再按一次。"}}</script>
+<script type="module" src="/assets/calc.js"></script><section class="method">
+<h2>詳細做法</h2>
+<p><span data-template="{{ifOne}}一條結實的酸種麵包。{{endOne}}{{ifMany}}結實的酸種麵包。{{endMany}}目前是麵粉 {{flour}} 克，水合 {{hydration}}%，酸種 {{starterPct}}%，鹽 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸種 {{starter}} 克{{endStarter}}、鹽 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合計 {{total}} 克。酸種按 100% 水合計，和結果裡的有效水合用的是同一種假設。頁面上的有效水合是 {{effective}}%。{{ifOne}}目前是 {{balls}} 條、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 條、每條 {{piece}} 克{{endMany}}。下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。">一條結實的酸種麵包。目前是麵粉 500 克，水合 62%，酸種 20%，鹽 2%，酵母 0%。也就是水 310 克、酸種 100 克、鹽 10 克，合計 920 克。酸種按 100% 水合計，和結果裡的有效水合用的是同一種假設。頁面上的有效水合是 65.5%。目前是 1 條、920 克。下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。</span></p>
+<ol><li><strong>酸種</strong> <span data-template="用 {{starter}} 克已經發到大約兩倍、表面有氣泡的酸種。這 {{starter}} 克算在合計裡。{{ifYeast}}酵母是 {{yeast}} 克。{{endYeast}}">用 100 克已經發到大約兩倍、表面有氣泡的酸種。這 100 克算在合計裡。</span></li><li><strong>攪拌</strong> <span data-template="把 {{flour}} 克麵粉、{{water}} 克水{{ifStarter}}、{{starter}} 克酸種{{endStarter}}{{ifYeast}}、{{yeast}} 克速發酵母{{endYeast}}和 {{salt}} 克鹽拌到沒有乾粉，再揉 6 到 8 分鐘，直到光滑。水合 {{hydration}}%，麵團結實。麵團溫度大約 24°C。">把 500 克麵粉、310 克水、100 克酸種和 10 克鹽拌到沒有乾粉，再揉 6 到 8 分鐘，直到光滑。水合 62%，麵團結實。麵團溫度大約 24°C。</span></li><li><strong>基本發酵</strong> 蓋著，放在大約 24°C，大約 3 到 4 小時。第一個小時摺疊兩輪。大約脹起一半就可以整形。</li><li><strong>整形</strong> <span data-template="{{ifOne}}把 {{total}} 克收成一條，接縫朝上，放進撒了粉的發酵籃。這一爐是 {{balls}} 條。{{endOne}}{{ifMany}}把 {{total}} 克分成 {{balls}} 份，每份 {{piece}} 克，各自收成一條。{{endMany}}預設 920 克用大約 24 公分寬、11 公分高的圓形帶蓋鍋；份量改了請換合適大小的鍋，或分成兩條。">把 920 克收成一條，接縫朝上，放進撒了粉的發酵籃。這一爐是 1 條。預設 920 克用大約 24 公分寬、11 公分高的圓形帶蓋鍋；份量改了請換合適大小的鍋，或分成兩條。</span></li><li><strong>最後發酵</strong> <span data-template="{{ifOne}}蓋著發{{endOne}}{{ifMany}}各自蓋著發{{endMany}} 45 到 70 分鐘，發到蓬鬆。酸種有 {{starterPct}}%。如果頂上開始塌，就烘烤。">蓋著發 45 到 70 分鐘，發到蓬鬆。酸種有 20%。如果頂上開始塌，就烘烤。</span></li><li><strong>烘烤</strong> 烤箱連鍋一起預熱到 230°C。麵團放在烘焙紙上，連紙放進熱鍋。劃一刀。蓋著烤 20 分鐘，再揭蓋烤 16 到 22 分鐘，直到表皮金黃。如果沒有蓋子，前 20 分鐘倒扣另一口鍋。放到架上至少 1 小時。</li></ol>
+<figure>
+<img src="/assets/low-hydration-sourdough.webp" width="1200" height="562" alt="一條切開的模具麵包，組織均勻，前面有兩片。" loading="lazy">
+<figcaption>示意圖。照片是一條切開的模具麵包和兩片。這一爐做一條圓麵包。 攝影：cogdogblog，來自 <a href="https://commons.wikimedia.org/wiki/File:2009-365-105_Greatest_Thing_Since_Sliced_(Homemade)_Bread_(3446051727).jpg">Wikimedia Commons</a>。已裁掉刀子，並縮小轉為 WebP。公有領域。</figcaption>
+</figure>
+</section>
 <section class="related"><h2>相關計算</h2><ul class="link-list"><li><a href="/zh-tw/quanmai-suanzhong/">全麥酸種烘焙百分比</a></li><li><a href="/zh-tw/sipeierte-suanzhong/">斯佩爾特酸種烘焙百分比</a></li><li><a href="/zh-tw/heimai-suanzhong/">黑麥酸種烘焙百分比</a></li><li><a href="/zh-tw/zhongzi-suanzhong/">種子酸種麵包烘焙百分比</a></li></ul></section>
 </main>
 <footer>

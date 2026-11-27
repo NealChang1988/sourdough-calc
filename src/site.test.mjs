@@ -330,7 +330,7 @@ test("built site drops removed urls and keeps a footer mailto on every page", as
 
 test("country sourdough page adds a method and photo without touching other pages", async () => {
   const country = pages.find((page) => page.id === "bread-country-sourdough");
-  const plain = pages.find((page) => page.id === "bread-hard-rolls");
+  const plain = pages.find((page) => page.id === "bread-batard");
   const expected = {
     en: "Detailed method",
     "zh-cn": "详细做法",
@@ -740,6 +740,71 @@ test("batch 10 at flour 1000 keeps pan defaults and scales olives, starter, and 
   const overnightPage = pages.find((item) => item.id === "bread-overnight-white");
   assert.equal(formatAmount(recipeFor({ ...overnightPage.preset, mode: "flour" }).total), "871.3");
   assert.equal(overnightPage.preset.gramsPerBall, 871.3);
+});
+
+test("batch 11 guides keep the method, photo, and ball defaults together", () => {
+  const cases = [
+    ["bread-low-hydration-sourdough", "/assets/low-hydration-sourdough.webp", "cogdogblog", "Public domain", 1, 920, "65.5", "default 920 g uses a round lidded pot about 24 cm across and 11 cm high"],
+    ["bread-pain-de-campagne", "/assets/pain-de-campagne.webp", "Zantastik", "CC BY-SA 3.0", 1, 995, "75.1", "default 995 g uses a round lidded pot about 24 cm across and 11 cm high"],
+    ["bread-sourdough-rolls", "/assets/sourdough-rolls.webp", "3268zauber", "CC BY-SA 3.0", 8, 117.5, "69.1", "default 940 g uses a rimmed tray about 40 cm long, 30 cm wide, and 2 cm high"],
+    ["bread-sourdough-pizza", "/assets/sourdough-pizza.webp", "jeffreyw", "CC BY 2.0", 5, 192.5, "72.7", "default 962.5 g uses a baking stone or tray about 40 cm across"],
+    ["bread-hard-rolls", "/assets/hard-rolls.webp", "Daniel Sone", "Public domain", 8, 100.5, "58%", "default 804 g uses a rimmed tray about 40 cm long, 30 cm wide, and 2 cm high"],
+  ];
+  for (const [id, photo, photographer, license, balls, grams, shown, pan] of cases) {
+    const page = pages.find((item) => item.id === id);
+    assert.equal(page.preset.balls, balls, id);
+    assert.equal(page.preset.gramsPerBall, grams, id);
+    for (const lang of ["en", "zh-cn", "zh-tw"]) {
+      const html = renderPage(page, lang);
+      assert.match(html, new RegExp(`src="${photo}"`), `${id} ${lang}`);
+      assert.match(html, new RegExp(photographer.replaceAll(".", "\\.")), `${id} ${lang}`);
+      if (license === "Public domain") {
+        if (lang === "en") assert.match(html, /Public domain/, id);
+        if (lang === "zh-cn") assert.match(html, /公有领域/, id);
+        if (lang === "zh-tw") assert.match(html, /公有領域/, id);
+      } else {
+        assert.match(html, new RegExp(license.replaceAll(".", "\\.")), `${id} ${lang}`);
+      }
+      assert.match(html, /data-template="/, `${id} ${lang}`);
+      assert.match(html, new RegExp(shown.replaceAll(".", "\\.")), `${id} ${lang}`);
+      const method = html.slice(html.indexOf('class="method"'), html.indexOf('class="related"'));
+      assert.equal(method.replace(/<[^>]+>/g, "").includes("{{"), false, `${id} ${lang}`);
+      if (lang === "en") assert.match(method, new RegExp(pan.replaceAll(".", "\\.")), `${id} pan`);
+      const payload = pdfPayload(page, lang);
+      const pdfText = [payload.method.lead, payload.method.leadTemplate || "", ...payload.method.steps.flatMap((step) => [step.body, step.bodyTemplate || ""])].join("\n");
+      assert.equal(/The photo|In the photo|照片/.test(pdfText), false, `${id} ${lang} pdf photo`);
+      if (lang === "en") {
+        assert.match(html, /For illustration only\./, id);
+        assert.match(html, /Currently /, id);
+        assert.equal(/\b0 g yeast\b/.test(method), false, id);
+        assert.equal(/\b0 g starter\b/.test(method), false, id);
+      }
+      if (lang === "zh-cn") {
+        assert.match(html, /示意图。/, id);
+        assert.match(html, /目前是/, id);
+        assert.equal(html.includes("默认是"), false, id);
+      }
+      if (lang === "zh-tw") {
+        assert.match(html, /示意圖。/, id);
+        assert.match(html, /目前是/, id);
+        assert.equal(method.includes("預設是"), false, id);
+      }
+    }
+  }
+  const low = pages.find((item) => item.id === "bread-low-hydration-sourdough");
+  const one = fillAmounts(doughGuides[low.id].en.lead, recipeFor(low.preset), low.preset);
+  const manyPreset = { ...low.preset, balls: 2 };
+  const many = fillAmounts(doughGuides[low.id].en.lead, recipeFor(manyPreset), manyPreset);
+  assert.match(one, /One firm sourdough loaf/);
+  assert.match(many, /Firm sourdough loaves/);
+  assert.equal(one.includes("Firm sourdough loaves"), false);
+  const rolls = doughGuides["bread-sourdough-rolls"].en;
+  assert.match(rolls.caption, /eight/);
+  assert.equal(rolls.caption.includes("{{"), false);
+  const pizza = doughGuides["bread-sourdough-pizza"].en;
+  assert.match(pizza.caption, /one pizza/i);
+  assert.match(pizza.caption, /five/);
+  assert.match(renderPage(pages.find((item) => item.id === "bread-hard-rolls"), "zh-tw"), /速發酵母/);
 });
 
 test("every page discloses anonymous analytics and none claim there is none", async () => {

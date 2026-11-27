@@ -131,8 +131,8 @@ export const breadAbout = {
   },
   "hard-rolls": {
     en: "Small, stiff pieces. A burst of steam as they go into the oven is what crackles the shell.",
-    "zh-cn": "小而硬的面团块。入炉时喷一股蒸汽，外壳才会脆响。这一款图的就是那层脆壳，咬开会响。",
-    "zh-tw": "小而硬的麵團塊。入爐時噴一股蒸汽，外殼才會脆響。這一款圖的就是那層脆殼，咬開會響。",
+    "zh-cn": "小而硬的面团块。入炉时喷一股蒸汽，外壳才会脆响。咬开时有一层薄壳，里面仍然可以是软的。",
+    "zh-tw": "小而硬的麵團塊。入爐時噴一股蒸汽，外殼才會脆響。咬開時有一層薄殼，裡面仍然可以是軟的。",
   },
   "kaiser-rolls": {
     en: "Fold or stamp a knot on top of a firm round, then bake with steam so the star pattern stays sharp.",
