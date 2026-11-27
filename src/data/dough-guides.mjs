@@ -2017,7 +2017,7 @@ export const doughGuides = {
           { title: "Bake", body: "Heat the oven to 190°C (375°F). Bake 30 to 38 minutes, until the crust is golden and the sides feel firm." },
           {
             title: "Cool",
-            body: "Turn it out and cool on a rack for at least 1 hour before you slice. The photo shows that close crumb and a gently rounded top.",
+            body: "Turn it out and cool on a rack for at least 1 hour before you slice. The photo shows the close crumb on the cut face of the front slice.",
             pdfBody: "Turn it out and cool on a rack for at least 1 hour before you slice.",
           },
         ],
@@ -2034,7 +2034,7 @@ export const doughGuides = {
           { title: "烘烤", body: "烤箱 190°C，烤 30 到 38 分钟，直到表皮金黄、侧面定住。" },
           {
             title: "放凉",
-            body: "倒出来，放到架子上至少 1 小时再切。照片里就是这种细密的组织和微微拱起的顶。",
+            body: "倒出来，放到架子上至少 1 小时再切。照片里最前面一片的切面组织细密。",
             pdfBody: "倒出来，放到架子上至少 1 小时再切。",
           },
         ],
@@ -2051,7 +2051,7 @@ export const doughGuides = {
           { title: "烘烤", body: "烤箱 190°C，烤 30 到 38 分鐘，直到表皮金黃、側面定住。" },
           {
             title: "放涼",
-            body: "倒出來，放到架上至少 1 小時再切。照片裡就是這種細密的組織和微微拱起的頂。",
+            body: "倒出來，放到架上至少 1 小時再切。照片裡最前面一片的切面組織細密。",
             pdfBody: "倒出來，放到架上至少 1 小時再切。",
           },
         ],
@@ -2072,7 +2072,7 @@ export const doughGuides = {
     {
       en: {
         heading: "Detailed method",
-        lead: `Ten short logs come from this batch. Currently {{flour}} g flour, {{hydration}}% hydration, {{saltPct}}% salt, and {{yeastPct}}% yeast. That is {{water}} g water, {{starter}} g starter, {{salt}} g salt, and {{yeast}} g yeast, {{total}} g of dough. Currently {{balls}} logs of {{piece}} g. Proof them touching so the sides stay pale. Slash the top before baking so a sausage has an opening. ${tail.en}`,
+        lead: `{{balls}} short logs come from this batch. Currently {{flour}} g flour, {{hydration}}% hydration, {{saltPct}}% salt, and {{yeastPct}}% yeast. That is {{water}} g water, {{starter}} g starter, {{salt}} g salt, and {{yeast}} g yeast, {{total}} g of dough. Currently {{balls}} logs of {{piece}} g. Proof them touching so the sides stay pale. Slash the top before baking so a sausage has an opening. ${tail.en}`,
         alt: "A row of long hot dog buns with pale sides where they touched and a split along each top.",
         caption: "The photo shows them in a row. This batch makes {{balls}}.",
         licenseBefore: ", ",
@@ -2090,7 +2090,7 @@ export const doughGuides = {
       },
       "zh-cn": {
         heading: "详细做法",
-        lead: `这一炉做十根短条。目前是面粉 {{flour}} 克，水合 {{hydration}}%，盐 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克、酸种 {{starter}} 克、盐 {{salt}} 克、酵母 {{yeast}} 克，合计 {{total}} 克。目前是 {{balls}} 根、每根 {{piece}} 克。紧挨着发酵，贴住的侧面颜色浅。入炉前在顶部划一刀，开口用来放香肠。${tail["zh-cn"]}`,
+        lead: `这一炉做 {{balls}} 根短条。目前是面粉 {{flour}} 克，水合 {{hydration}}%，盐 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克、酸种 {{starter}} 克、盐 {{salt}} 克、酵母 {{yeast}} 克，合计 {{total}} 克。目前是 {{balls}} 根、每根 {{piece}} 克。紧挨着发酵，贴住的侧面颜色浅。入炉前在顶部划一刀，开口用来放香肠。${tail["zh-cn"]}`,
         alt: "一排长热狗包，贴在一起的侧面颜色浅，每根顶部有一道开口。",
         caption: "照片是排成一排的。这一炉做 {{balls}} 根。",
         licenseBefore: "，",
@@ -2108,7 +2108,7 @@ export const doughGuides = {
       },
       "zh-tw": {
         heading: "詳細做法",
-        lead: `這一爐做十根短條。目前是麵粉 {{flour}} 克，水合 {{hydration}}%，鹽 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克、酸種 {{starter}} 克、鹽 {{salt}} 克、酵母 {{yeast}} 克，合計 {{total}} 克。目前是 {{balls}} 根、每根 {{piece}} 克。緊挨著發酵，貼住的側面顏色淺。入爐前在頂部劃一刀，開口用來放香腸。${tail["zh-tw"]}`,
+        lead: `這一爐做 {{balls}} 根短條。目前是麵粉 {{flour}} 克，水合 {{hydration}}%，鹽 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克、酸種 {{starter}} 克、鹽 {{salt}} 克、酵母 {{yeast}} 克，合計 {{total}} 克。目前是 {{balls}} 根、每根 {{piece}} 克。緊挨著發酵，貼住的側面顏色淺。入爐前在頂部劃一刀，開口用來放香腸。${tail["zh-tw"]}`,
         alt: "一排長熱狗包，貼在一起的側面顏色淺，每根頂部有一道開口。",
         caption: "照片是排成一排的。這一爐做 {{balls}} 根。",
         licenseBefore: "，",
