@@ -85,7 +85,7 @@ export function renderButterInner(lang) {
     .map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`)
     .join("");
   return `<div class="quick-answer">${quick}</div>
-<form id="butter-calc" class="cups-tool butter-tool" autocomplete="off" data-unit="stick">
+<form id="butter-calc" class="cups-tool butter-tool" autocomplete="off" data-unit="stick" onsubmit="return false">
 <p class="privacy-line">${escapeHtml(copy.privacy)}</p>
 <p class="limits">${escapeHtml(copy.limits)}</p>
 <label class="field"><span class="label">${escapeHtml(copy.amount)}</span><input name="amount" inputmode="decimal" value="${escapeHtml(copy.opening)}"></label>

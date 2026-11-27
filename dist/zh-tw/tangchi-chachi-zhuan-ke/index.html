@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>湯匙、茶匙換算成克（各種食材）</title>
+<meta name="description" content="麵粉、糖、奶油、蜂蜜、鹽等食材的湯匙、茶匙換算成克，含美制和公制湯匙。">
+<link rel="canonical" href="https://doughcalc.app/zh-tw/tangchi-chachi-zhuan-ke/">
+<link rel="alternate" hreflang="en" href="https://doughcalc.app/en/tablespoons-teaspoons-to-grams/"><link rel="alternate" hreflang="zh-CN" href="https://doughcalc.app/zh-cn/tangchi-chachi-zhuan-ke/"><link rel="alternate" hreflang="zh-TW" href="https://doughcalc.app/zh-tw/tangchi-chachi-zhuan-ke/"><link rel="alternate" hreflang="x-default" href="https://doughcalc.app/en/tablespoons-teaspoons-to-grams/">
+<meta property="og:title" content="湯匙、茶匙換算成克（各種食材）">
+<meta property="og:description" content="麵粉、糖、奶油、蜂蜜、鹽等食材的湯匙、茶匙換算成克，含美制和公制湯匙。">
+<meta property="og:url" content="https://doughcalc.app/zh-tw/tangchi-chachi-zhuan-ke/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:locale:alternate" content="en_US"><meta property="og:locale:alternate" content="zh_CN">
+<meta property="og:image" content="https://doughcalc.app/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://doughcalc.app/og.png">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">跳到計算器</a>
+<header>
+<a class="brand" href="/zh-tw/">麵團計算器</a>
+<nav class="langs" aria-label="語言"><a href="/en/tablespoons-teaspoons-to-grams/" hreflang="en" lang="en">EN</a><a href="/zh-cn/tangchi-chachi-zhuan-ke/" hreflang="zh-CN" lang="zh-CN">简体</a><a href="/zh-tw/tangchi-chachi-zhuan-ke/" hreflang="zh-TW" lang="zh-TW" aria-current="page">繁體</a></nav>
+</header>
+<main id="main" class="convert butter spoons">
+<nav class="crumb" aria-label="目前位置"><a href="/zh-tw/">麵團計算器</a></nav>
+<h1>湯匙、茶匙轉克換算器</h1>
+<p>選一種食材，就能在湯匙、茶匙和克之間換算。</p>
+<div class="quick-answer"><p>1 美制湯匙約 14.8 毫升，等於 3 茶匙；克數要看食材。</p><p class="quick-row">細砂糖：1 湯匙 = 12.5 克 · 1 茶匙 = 4.2 克</p><p class="quick-row">中筋麵粉：1 湯匙 = 7.5 克 · 1 茶匙 = 2.5 克</p><p class="quick-row">奶油：1 湯匙 = 14.2 克 · 1 茶匙 = 4.7 克</p></div>
+<form id="spoon-calc" class="cups-tool spoon-tool" autocomplete="off" data-unit="tbsp" onsubmit="return false">
+<p class="privacy-line">你輸入的內容只留在這個瀏覽器，不會送出去。</p>
+<p class="limits">須大於 0。最多 100,000 克、16,000 湯匙或 48,000 茶匙。</p>
+<label class="field"><span class="label">食材</span><select name="ingredient"><optgroup label="麵粉"><option value="ap">中筋麵粉</option><option value="bread">高筋麵粉</option><option value="whole">全麥麵粉</option></optgroup><optgroup label="糖"><option value="sugar" selected>細砂糖</option><option value="brown">紅糖（壓實）</option><option value="powdered">糖粉（未過篩）</option></optgroup><optgroup label="油脂和乳品"><option value="butter">奶油</option><option value="milk">全脂鮮奶</option></optgroup><optgroup label="液體"><option value="honey">蜂蜜</option><option value="water">水</option><option value="oil">植物油</option><option value="olive">橄欖油</option></optgroup><optgroup label="其他乾料"><option value="cocoa">無糖可可粉</option><option value="oats">傳統燕麥片</option><option value="rice">生白米（長米）</option><option value="corn">玉米澱粉</option></optgroup><optgroup label="按匙計"><option value="salt">食鹽（細鹽）</option><option value="dc">Diamond Crystal 粗鹽</option><option value="morton">Morton 粗鹽</option><option value="bp">泡打粉</option><option value="soda">小蘇打</option><option value="yeast">速發酵母</option><option value="vanilla">香草精</option></optgroup></select></label>
+<label class="field"><span class="label">數量</span><input name="amount" inputmode="decimal" value="1 湯匙"></label>
+<div class="units" role="group" aria-label="單位"><button type="button" class="secondary" data-unit="tbsp" aria-pressed="true">湯匙</button><button type="button" class="secondary" data-unit="tsp" aria-pressed="false">茶匙</button><button type="button" class="secondary" data-unit="g" aria-pressed="false">克</button></div>
+<section class="card result" aria-live="polite">
+<h2>結果</h2>
+<span id="form-error" class="error" role="alert" hidden></span>
+<p id="detected" class="detected"></p>
+<p class="hero" id="out-main"><span class="nowrap">12.5 克</span></p>
+<p id="out-hint" class="hint" hidden></p>
+<p id="out-summary">1 湯匙 細砂糖 ≈ 12.5 克 ≈ 3 茶匙</p>
+<dl id="out-rows">
+<div id="row-other"><dt id="out-other-label">茶匙</dt><dd id="out-other">3 茶匙</dd></div>
+<div id="row-tbsp" hidden><dt>湯匙</dt><dd id="out-tbsp">1 湯匙</dd></div>
+<div id="row-tsp" hidden><dt>茶匙</dt><dd id="out-tsp">3 茶匙</dd></div>
+<div id="row-kitchen" hidden><dt>廚房量法</dt><dd id="out-kitchen"></dd></div>
+<div id="row-ml"><dt>毫升</dt><dd id="out-ml">14.79 毫升</dd></div>
+<div id="row-oz"><dt>盎司</dt><dd id="out-oz">0.44 盎司</dd></div>
+<div id="row-cups"><dt>杯</dt><dd id="out-cups">1/16 (0.06) 杯</dd></div>
+</dl>
+<div class="actions">
+<button type="button" id="copy">複製結果</button>
+<button type="button" id="print" class="secondary">列印</button>
+</div>
+<textarea id="recipe-text" hidden readonly></textarea>
+</section>
+<div class="chips"><button type="button" class="secondary" data-amount="1 湯匙" data-unit="tbsp">1 湯匙</button><button type="button" class="secondary" data-amount="2 湯匙" data-unit="tbsp">2 湯匙</button><button type="button" class="secondary" data-amount="1 茶匙" data-unit="tsp">1 茶匙</button><button type="button" class="secondary" data-amount="1/2 茶匙" data-unit="tsp">1/2 茶匙</button><button type="button" class="secondary" data-amount="15 克" data-unit="g">15 克</button><button type="button" class="secondary" data-amount="100 克" data-unit="g">100 克</button></div>
+<fieldset class="standards">
+<legend>湯匙</legend>
+<label><input type="radio" name="spoon" value="us" checked> 美制湯匙（14.8 毫升）</label><label><input type="radio" name="spoon" value="metric"> 公制湯匙（15 毫升）</label>
+</fieldset>
+</form>
+<section class="chart-wrap">
+<h2>一匙多少克</h2>
+<div class="chart-scroll"><table class="chart"><thead><tr><th scope="col">食材</th><th scope="col">1 湯匙</th><th scope="col">1 茶匙</th></tr></thead><tbody><tr><th scope="row">中筋麵粉</th><td>7.5</td><td>2.5</td></tr><tr><th scope="row">高筋麵粉</th><td>7.5</td><td>2.5</td></tr><tr><th scope="row">全麥麵粉</th><td>7.1</td><td>2.4</td></tr><tr><th scope="row">細砂糖</th><td>12.5</td><td>4.2</td></tr><tr><th scope="row">紅糖（壓實）</th><td>13.8</td><td>4.6</td></tr><tr><th scope="row">糖粉（未過篩）</th><td>7.5</td><td>2.5</td></tr><tr><th scope="row">奶油</th><td>14.2</td><td>4.7</td></tr><tr><th scope="row">全脂鮮奶</th><td>15.3</td><td>5.1</td></tr><tr><th scope="row">蜂蜜</th><td>21.2</td><td>7.1</td></tr><tr><th scope="row">水</th><td>14.8</td><td>4.9</td></tr><tr><th scope="row">植物油</th><td>13.6</td><td>4.5</td></tr><tr><th scope="row">橄欖油</th><td>13.5</td><td>4.5</td></tr><tr><th scope="row">無糖可可粉</th><td>5.4</td><td>1.8</td></tr><tr><th scope="row">傳統燕麥片</th><td>5.6</td><td>1.9</td></tr><tr><th scope="row">生白米（長米）</th><td>11.6</td><td>3.9</td></tr><tr><th scope="row">玉米澱粉</th><td>8.0</td><td>2.7</td></tr></tbody></table></div>
+</section>
+<section class="chart-wrap">
+<h2>按匙計</h2>
+<div class="chart-scroll"><table class="chart"><thead><tr><th scope="col">食材</th><th scope="col">1 湯匙</th><th scope="col">1 茶匙</th></tr></thead><tbody><tr><th scope="row">食鹽（細鹽）</th><td>18.0</td><td>6.0</td></tr><tr><th scope="row">Diamond Crystal 粗鹽</th><td>8.0</td><td>2.7</td></tr><tr><th scope="row">Morton 粗鹽</th><td>16.0</td><td>5.3</td></tr><tr><th scope="row">泡打粉</th><td>12.0</td><td>4.0</td></tr><tr><th scope="row">小蘇打</th><td>18.0</td><td>6.0</td></tr><tr><th scope="row">速發酵母</th><td>9.0</td><td>3.0</td></tr><tr><th scope="row">香草精</th><td>14.0</td><td>4.7</td></tr></tbody></table></div>
+<p>粗鹽牌子差很多：Diamond Crystal 一湯匙 8 克，Morton 一湯匙 16 克，是兩倍。</p>
+</section>
+<section class="chart-wrap">
+<h2>美制湯匙和公制湯匙</h2>
+<div class="chart-scroll"><table class="chart"><thead><tr><th scope="col">食材</th><th scope="col">美制湯匙</th><th scope="col">公制湯匙</th></tr></thead><tbody><tr><th scope="row">細砂糖</th><td>12.5</td><td>12.7</td></tr><tr><th scope="row">中筋麵粉</th><td>7.5</td><td>7.6</td></tr><tr><th scope="row">奶油</th><td>14.2</td><td>14.4</td></tr><tr><th scope="row">水</th><td>14.8</td><td>15.0</td></tr></tbody></table></div>
+<p>公制湯匙是 15 毫升，美制湯匙約 14.8 毫升，大約多 1.4%。</p>
+</section>
+<section class="chart-wrap">
+<h2>湯匙和杯</h2>
+<div class="chart-scroll"><table class="chart"><thead><tr><th scope="col">杯</th><th scope="col">湯匙</th><th scope="col">茶匙</th><th scope="col">毫升</th></tr></thead><tbody><tr><th scope="row">1 杯</th><td>16</td><td>48</td><td>236.59</td></tr><tr><th scope="row">1/2 杯</th><td>8</td><td>24</td><td>118.29</td></tr><tr><th scope="row">1/4 杯</th><td>4</td><td>12</td><td>59.15</td></tr><tr><th scope="row">1/8 杯</th><td>2</td><td>6</td><td>29.57</td></tr><tr><th scope="row">1/16 杯</th><td>1</td><td>3</td><td>14.79</td></tr><tr><th scope="row">1 茶匙</th><td></td><td>1</td><td>4.93</td></tr></tbody></table></div>
+</section>
+<section class="howto"><h2>怎麼用</h2><ol><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 10h8M8 13h8M8 16h5" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>先選食材，再在數量輸入 2 湯匙或 15 克，或點 1 湯匙、1 茶匙、15 克。</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19h14M7 16l9.5-9.5a1.8 1.8 0 0 1 2.5 2.5L9.5 18.5 6 19.2 7 16z" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>如果只打數字，再點湯匙、茶匙或克。</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 12.5l2.5 2.5L16 9.5" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>看結果，然後複製結果或列印。</span></li></ol></section>
+<section class="example"><h2>例子</h2><table><thead><tr><th>換算前</th><th>換算後</th></tr></thead><tbody><tr><td>2 湯匙細砂糖</td><td>25 克</td></tr><tr><td>1 1/2 茶匙食鹽</td><td>9.0 克</td></tr><tr><td>15 克細砂糖</td><td>1.2 湯匙（1 湯匙 + 0.6 茶匙）</td></tr></tbody></table></section>
+<section class="faq"><h2>常見問題</h2><h3>一湯匙是多少克？</h3><p>要看食材。1 美制湯匙大約是水 14.8 克、細砂糖 12.5 克、中筋麵粉 7.5 克、奶油 14.2 克。</p><h3>一湯匙等於幾茶匙？</h3><p>3 茶匙。</p><h3>為什麼粗鹽差這麼多？</h3><p>Diamond Crystal 一湯匙 8 克，Morton 一湯匙 16 克。用哪一種就選哪一種。</p><h3>公制湯匙和美制湯匙一樣嗎？</h3><p>公制湯匙是 15 毫升，美制湯匙約 14.8 毫升，大約多 1.4%。</p><h3>為什麼糖粉這裡是 7.5 克，美國農業部寫成 8.0 克？</h3><p>這裡把 120 克一杯除以 16，是 7.5 克。美國農業部的一湯匙條目是 8.0 克。在意的時候請用秤。奶油換算頁把同一份 14.175 克收成整數 14 克。</p></section>
+<section class="sources-note"><h2>這些數字從哪來</h2><p>杯重來自這個網站已有的食材數據。1 美制杯 = 16 湯匙 = 48 茶匙 = 236.5882365 毫升，所以 1 美制湯匙約 14.8 毫升。公制湯匙是 15 毫升，茶匙是 5 毫升。</p><p><a href="https://fdc.nal.usda.gov/food-details/169655/nutrients">U.S. Department of Agriculture, Agricultural Research Service. FoodData Central</a>。按匙計的 7 種食材來自 <a href="https://www.kingarthurbaking.com/learn/ingredient-weight-chart">King Arthur Baking 食材重量表</a>，公制是按體積換算來的。奶油 1 湯匙是 4 盎司一條的 1/8，14.175 克。</p><p>這裡按平匙計算。細砂糖 1 茶匙算出來是 4.17 克，美國農業部寫成 4.2 克，四捨五入後一樣。糖粉這裡是 7.5 克，美國農業部的一湯匙條目是 8.0 克。</p></section>
+<section class="gap"><h2>這裡不算哪些</h2><p>這裡不算堆滿的匙，也不算壓實的匙。紅糖例外，它本來就是壓實的。沒有澳洲 20 毫升的大匙。</p><p>沒列出的鹽、酵母和膨鬆劑不算，例如乾酵母或海鹽。這是廚房估算，秤最準。</p></section>
+<script type="module" src="/assets/spoons.js"></script>
+<section class="related"><h2>相關計算</h2><ul class="link-list"><li><a href="/zh-tw/naiyou-huansuan/">奶油換算器：條、杯、湯匙轉克</a></li><li><a href="/zh-tw/ke-zhuan-bei-huansuan/">克轉杯換算器</a></li><li><a href="/zh-tw/">酸種與烘焙百分比計算</a></li></ul></section>
+</main>
+<footer>
+<nav aria-label="更多頁面"><a href="/zh-tw/">麵團計算器</a><a href="/zh-tw/suan-zhong-han-shuai/">酸種水合</a><a href="/zh-tw/pisa-fenlei/">披薩麵團</a><a href="/zh-tw/mianbao-baifenbi/">麵包麵團</a><a href="/zh-tw/suan-zhong-bili/">酸種比例</a><a href="/zh-tw/yan-bili/">鹽的比例</a><a href="/zh-tw/ke-zhuan-bei-huansuan/">克轉杯換算</a><a href="mailto:alan.chang198807@gmail.com">意見回饋</a></nav>
+<p>家庭烘焙用的比例。</p>
+<p class="privacy">這個網站使用 Cloudflare 的匿名分析來統計頁面瀏覽量。你在計算器裡輸入的內容留在瀏覽器裡，不會送出去。網址裡的查詢字串不會被保留。</p>
+</footer>
+</body>
+</html>
