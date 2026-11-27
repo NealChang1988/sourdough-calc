@@ -213,6 +213,16 @@ const BALL_PRESET = {
   "hoagie-rolls": [8, 103],
   "pane-toscano": [1, 960],
   "spelt-sourdough": [1, 980],
+  "sandwich-loaf": [1, 840],
+  "hot-dog-buns": [10, 82.55],
+  "pullman-loaf": [1, 845],
+  "sourdough-focaccia": [1, 1012.5],
+  "whole-wheat-sourdough": [1, 1046],
+  "overnight-white": [1, 871.25],
+  "soft-rolls": [12, 70],
+  "sourdough-sandwich": [1, 940],
+  "sourdough-baguette": [4, 237.5],
+  "seeded-sourdough": [1, 1021],
 };
 
 // New breads stay out of older pages' related lists so those pages keep the same four links.

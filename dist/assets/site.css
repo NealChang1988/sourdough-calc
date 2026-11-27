@@ -163,6 +163,12 @@ button:disabled { cursor: wait; opacity: 0.65; }
   height: auto;
   border-radius: 0.9rem;
 }
+.method img.tall {
+  height: 32rem;
+  max-height: 32rem;
+  object-fit: cover;
+  object-position: center;
+}
 .method figcaption { margin-top: 0.4rem; color: var(--muted); font-size: 0.85rem; }
 .link-list { padding-left: 1.15rem; margin: 0.2rem 0 1rem; }
 .link-list li { margin: 0.35rem 0; }

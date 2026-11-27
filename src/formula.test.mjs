@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import {
   effectiveHydration,
+  fillAmounts,
   formatAmount,
   gramsFromFlour,
   parseInputs,
@@ -82,4 +83,14 @@ test("parseInputs reads thousands separators, full-width digits, and a trailing 
   assert.equal(parseInputs({ ...base, flour: "500 克" }).preset.flour, 500);
   assert.equal(parseInputs({ ...base, flour: "１．５" }).preset.flour, 1.5);
   assert.equal(parseInputs({ ...base, flour: "500", yeast: "0,2" }).ok, false);
+});
+
+test("method amounts follow the current flour, not a frozen batch", () => {
+  const preset = { mode: "flour", flour: 500, hydration: 72, starter: 0, salt: 2, yeast: 0.25, balls: 1, gramsPerBall: 871.25 };
+  const text = "{{flour}} g flour, {{water}} g water, {{yeast}} g yeast, {{total}} g, {{yeastPct}}% yeast, {{piece}} g each";
+  const opened = fillAmounts(text, recipeFor(preset), preset);
+  assert.equal(opened, "500 g flour, 360 g water, 1.3 g yeast, 871.3 g, 0.25% yeast, 871.25 g each");
+  const doubled = { ...preset, flour: 1000 };
+  const next = fillAmounts(text, recipeFor(doubled), doubled);
+  assert.equal(next, "1000 g flour, 720 g water, 2.5 g yeast, 1742.5 g, 0.25% yeast, 1742.5 g each");
 });

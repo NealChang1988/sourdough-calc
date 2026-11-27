@@ -15,9 +15,9 @@ export const breadAbout = {
     "zh-tw": "結實、表面光滑，適合切成厚薄均勻的吐司片。短時間揉勻，比一輪又一輪的濕摺疊更合適。",
   },
   "whole-wheat-sourdough": {
-    en: "The bran drinks water, so the mix starts heavy and the interior stays tighter than a white country loaf. Stir longer at the beginning.",
-    "zh-cn": "麸皮很吸水，刚拌时发沉，烤出来的内心比白面粉乡村面包更细密。一开始就要多搅一会儿。",
-    "zh-tw": "麩皮很吸水，剛拌時發沉，烤出來的心比白麵粉鄉村麵包更細密。一開始就要多攪一會兒。",
+    en: "Stir this 1046 g whole wheat dough longer at the start, because the bran drinks the water, and expect a tighter interior than a white country loaf.",
+    "zh-cn": "这一炉全麦是 1046 克。麸皮会把水吃掉，所以一开始要多搅，烤出来的组织也比白面粉乡村面包更紧。",
+    "zh-tw": "這一爐全麥是 1046 克。麩皮會把水吃掉，所以一開始要多攪，烤出來的組織也比白麵粉鄉村麵包更緊。",
   },
   "spelt-sourdough": {
     en: "One tin loaf of 980 g. Spelt stretches and then tears, so fold gently and stop while it still holds together. Seeds, if you add them, are extra.",
@@ -30,9 +30,9 @@ export const breadAbout = {
     "zh-tw": "更像糊，拉不出小麥那種薄膜。放進模具烤，讓模壁撐住，不然會攤平，別指望它自己站著。",
   },
   "seeded-sourdough": {
-    en: "Toasted seeds should be soaked in part of the water first, or they leave dry pockets in the finished crumb.",
-    "zh-cn": "种子先用一部分配方水泡软再拌进去，否则烤好后心里会留下干硬的小块，像没泡开的碎粒。",
-    "zh-tw": "種子先用一部分配方水泡軟再拌進去，否則烤好後心裡會留下乾硬的小塊，像沒泡開的碎粒。",
+    en: "One 1021 g loaf. Soak the seeds in some of the dough water before mixing, or they stay hard in the crumb. Seed weight is not part of the gram total.",
+    "zh-cn": "一条 1021 克的种子酸种。拌面前用一部分配方水把种子泡软，否则组织里会有硬粒。种子的重量不在克数合计里。",
+    "zh-tw": "一條 1021 克的種子酸種。拌麵前用一部分配方水把種子泡軟，否則組織裡會有硬粒。種子的重量不在克數合計裡。",
   },
   "olive-sourdough": {
     en: "Fold chopped olives in after the dough already has some strength, so the pieces stay chunky instead of smearing.",
@@ -70,9 +70,9 @@ export const breadAbout = {
     "zh-tw": "鋪在抹了油的烤盤裡，發到蓬鬆後用沾油的手指戳出深坑，高溫烤到凸起的地方上色。它是一張餅，不是高麵包。",
   },
   "sourdough-focaccia": {
-    en: "Dimpled like the yeasted sheet, but the pan proof takes longer because only the starter is lifting it. The underside fries against the oil.",
-    "zh-cn": "戳坑的样子和酵母版一样，但只有酸种在发酵，盘子里要等更久。底部贴着油，会煎得发脆。",
-    "zh-tw": "戳坑的樣子和酵母版一樣，但只有酸種在發酵，盤子裡要等更久。底部貼著油，會煎得發脆。",
+    en: "Spread all 1012.5 g in one oiled pan. Only starter lifts the sheet, so wait longer to dimple it, and let the underside fry.",
+    "zh-cn": "1012.5 克全部铺进一只抹了油的盘。只有酸种在发，戳坑要多等，底部贴着油会煎脆。",
+    "zh-tw": "1012.5 克全部鋪進一隻抹了油的盤。只有酸種在發，戳坑要多等，底部貼著油會煎脆。",
   },
   bagel: {
     en: "A dense ring. Boil it briefly, then bake until the skin sets and shines. Far too stiff to open like a pizza.",
@@ -110,24 +110,24 @@ export const breadAbout = {
     "zh-tw": "每個大約 90 到 100 克，巴掌寬的圓餅。最後發酵前輕輕壓扁，免得鼓成球，上面要平一點。",
   },
   "hot-dog-buns": {
-    en: "Short logs proofed shoulder to shoulder, so the sides that touch stay pale. Split them lengthwise for a sausage.",
-    "zh-cn": "整成短条，紧挨着发酵，贴在一起的侧面颜色较浅。纵向剖开，用来夹一根香肠，短条即可。",
-    "zh-tw": "整成短條，緊挨著發酵，貼在一起的側面顏色較淺。縱向剖開，用來夾一根香腸，短條即可。",
+    en: "Ten logs of 82.55 g proof in a row and touch. The sides stay pale, and a split along the top holds the sausage.",
+    "zh-cn": "十根 82.55 克的短条排成一排、彼此碰上再发。贴住的侧面颜色浅，顶部的一道开口用来放香肠。",
+    "zh-tw": "十根 82.55 克的短條排成一排、彼此碰上再發。貼住的側面顏色淺，頂部的一道開口用來放香腸。",
   },
   "sandwich-loaf": {
-    en: "Smooth the top, set it in a tin, and proof until the dome clears the rim. The crumb is close enough to slice cleanly.",
-    "zh-cn": "表面收光，放进方模，发到拱起高出模沿。内心细密，切片时不容易碎，切出来是整齐的片。",
-    "zh-tw": "表面收光，放進方模，發到拱起高出模沿。內心細密，切片時不容易碎，切出來是整齊的片。",
+    en: "One open tin takes the full 840 g. Let the crown rise past the rim, then cut even slices from the close crumb.",
+    "zh-cn": "整团 840 克放进一只敞口模具。等顶部鼓出模沿再进炉，出炉后把细密的组织切成厚薄均匀的片。",
+    "zh-tw": "整團 840 克放進一隻敞口模具。等頂部鼓出模沿再進爐，出爐後把細密的組織切成厚薄均勻的片。",
   },
   "pullman-loaf": {
-    en: "A straight-sided tin with a lid. Fill it only about halfway so the loaf can square itself against the cover.",
-    "zh-cn": "直角模具再加一个盖。面团大约只装一半，膨胀后才会被盖子压成方片，顶部是平的，盖要盖严。",
-    "zh-tw": "直角模具再加一個蓋。麵團大約只裝一半，膨脹後才會被蓋子壓成方片，頂部是平的，蓋要蓋嚴。",
+    en: "A lidded straight-sided tin, filled about halfway with 845 g of dough, holds this loaf while it rises into the lid.",
+    "zh-cn": "带盖的直角模里放入 845 克，高度大约只到一半。盖严之后，面团贴着盖子继续膨胀。",
+    "zh-tw": "帶蓋的直角模裡放入 845 克，高度大約只到一半。蓋嚴之後，麵團貼著蓋子繼續膨脹。",
   },
   "soft-rolls": {
-    en: "Proof them fully if you want a yielding bite. A spoon of oil, should you add one, is extra and is not in the gram total.",
-    "zh-cn": "想要咬下去软，就让小圆发足再进炉。若另舀一勺油，那勺油不算在克数合计里，页面只算主料。",
-    "zh-tw": "想要咬下去軟，就讓小圓發足再進爐。若另舀一匙油，那匙油不算在克數合計裡，頁面只算主料。",
+    en: "Twelve rounds of 70 g. Let them proof until the sides touch, then bake. A spoon of oil, if you add one, is outside the gram total.",
+    "zh-cn": "这一炉是 12 个软餐包，每个 70 克。发到彼此碰上再烤。若另加一勺油，油不在克数合计里。",
+    "zh-tw": "這一爐是 12 個軟餐包，每個 70 克。發到彼此碰上再烤。若另加一匙油，油不在克數合計裡。",
   },
   "hard-rolls": {
     en: "Small, stiff pieces. A burst of steam as they go into the oven is what crackles the shell.",
@@ -185,9 +185,9 @@ export const breadAbout = {
     "zh-tw": "很硬的環，醒發比酵母版本更慢。做法仍是先煮後烤，只是在檯面上要多等一陣才拉得動。",
   },
   "sourdough-baguette": {
-    en: "Pre-shape the lengths gently, let them relax, and only then roll them tight. The clock follows the levain, not a fast yeast.",
-    "zh-cn": "轻轻预整成长条，松弛之后再卷紧。时间跟着酸种走，不是快速酵母的节奏，要多等一会。",
-    "zh-tw": "輕輕預整成長條，鬆弛之後再捲緊。時間跟著酸種走，不是快速酵母的節奏，要多等一會。",
+    en: "This batch is four sticks of 237.5 g. Shape them in two steps and bake with steam. The photo shows three sticks.",
+    "zh-cn": "这一炉是四根酸种长棍，每根 237.5 克。分两步整形，带蒸汽烘烤。照片里是三根。",
+    "zh-tw": "這一爐是四根酸種長棍，每根 237.5 克。分兩步整形，帶蒸汽烘烤。照片裡是三根。",
   },
   "sourdough-ciabatta": {
     en: "Cut the slack dough into slippers and barely shape them, so the large holes survive. Leavened with starter rather than a packet of yeast.",
@@ -196,8 +196,8 @@ export const breadAbout = {
   },
   "sourdough-sandwich": {
     en: "Keep a lid on the tin for the first part of the bake if you want a thinner, paler roof. Slice it once the loaf has cooled.",
-    "zh-cn": "前半段盖上模具盖，顶部会更薄、颜色更浅。放凉后再切成片，盖着烤顶部不会太厚，顶部求薄。",
-    "zh-tw": "前半段蓋上模具蓋，頂部會更薄、顏色更淺。放涼後再切成片，蓋著烤頂部不會太厚，頂部求薄。",
+    "zh-cn": "前半段如果盖着烤，顶部会更薄、颜色更浅，等面包已经完全放凉以后再切成厚薄均匀的片。",
+    "zh-tw": "前半段如果蓋著烤，頂部會更薄、顏色更淺，等麵包已經完全放涼以後再切成厚薄均勻的片。",
   },
   "sourdough-pita": {
     en: "Needs a longer proof than a yeasted pita, then the same fierce heat so the thin disk inflates.",
@@ -215,9 +215,9 @@ export const breadAbout = {
     "zh-tw": "攪到看不見乾粉就停，然後長時間靜置。輕輕整形，加蓋烘烤，不靠揉麵，靜置代替揉麵。",
   },
   "overnight-white": {
-    en: "A small pinch of yeast and a night in the refrigerator. Bake the next day once the chill has left the dough.",
-    "zh-cn": "酵母放得很少，在冰箱里过一夜。第二天等寒气散掉再烤，不要刚出冰箱就进炉，隔夜再烤。",
-    "zh-tw": "酵母放得很少，在冰箱裡過一夜。第二天等寒氣散掉再烤，不要剛出冰箱就進爐，隔夜再烤。",
+    en: "One loaf from a night in the refrigerator. Yeast stays very low, and you bake the next day only after the chill has left the dough.",
+    "zh-cn": "这一炉是一条隔夜白面包。酵母放得很少，冰箱过一夜，第二天等面团不再冰手，再放进烤箱。",
+    "zh-tw": "這一爐是一條隔夜白麵包。酵母放得很少，冰箱過一夜，第二天等麵團不再冰手，再放進烤箱。",
   },
   "poolish-baguette": {
     en: "Mix a pourable preferment ahead of time. Its weight belongs in the starter field, on top of the flour in the final dough.",

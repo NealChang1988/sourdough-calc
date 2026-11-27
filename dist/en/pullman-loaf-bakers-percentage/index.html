@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pullman Loaf Baker's Percentage</title>
-<meta name="description" content="A straight-sided tin with a lid. Fill it only about halfway so the loaf can square itself against the cover.">
+<meta name="description" content="A lidded straight-sided tin, filled about halfway with 845 g of dough, holds this loaf while it rises into the lid.">
 <link rel="canonical" href="https://doughcalc.app/en/pullman-loaf-bakers-percentage/">
 <link rel="alternate" hreflang="en" href="https://doughcalc.app/en/pullman-loaf-bakers-percentage/"><link rel="alternate" hreflang="zh-CN" href="https://doughcalc.app/zh-cn/daigai-tusi/"><link rel="alternate" hreflang="zh-TW" href="https://doughcalc.app/zh-tw/daigai-tusi/"><link rel="alternate" hreflang="x-default" href="https://doughcalc.app/en/pullman-loaf-bakers-percentage/">
 <meta property="og:title" content="Pullman Loaf Baker's Percentage">
-<meta property="og:description" content="A straight-sided tin with a lid. Fill it only about halfway so the loaf can square itself against the cover.">
+<meta property="og:description" content="A lidded straight-sided tin, filled about halfway with 845 g of dough, holds this loaf while it rises into the lid.">
 <meta property="og:url" content="https://doughcalc.app/en/pullman-loaf-bakers-percentage/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_US">
@@ -31,7 +31,7 @@
 <main id="main">
 <nav class="crumb" aria-label="Breadcrumb"><a href="/en/">Dough calculator</a> / <a href="/en/bread-dough/">Bread dough</a></nav>
 <h1>Pullman Loaf Baker's Percentage</h1>
-<p>A straight-sided tin with a lid. Fill it only about halfway so the loaf can square itself against the cover.</p>
+<p>A lidded straight-sided tin, filled about halfway with 845 g of dough, holds this loaf while it rises into the lid.</p>
 <form id="calc" autocomplete="off">
 <fieldset class="modes">
 <legend>How to scale</legend>
@@ -42,8 +42,8 @@
 <label class="field"><span class="label">Flour <span class="unit">g</span></span><input name="flour" inputmode="decimal" min="0" step="any" value="500"></label>
 </div>
 <div class="fields grid-2" data-panel="balls" hidden>
-<label class="field"><span class="label">Dough balls</span><input name="balls" inputmode="decimal" min="0" step="any" value="4"></label>
-<label class="field"><span class="label">Grams per ball <span class="unit">g</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="250"></label>
+<label class="field"><span class="label">Dough balls</span><input name="balls" inputmode="decimal" min="0" step="any" value="1"></label>
+<label class="field"><span class="label">Grams per ball <span class="unit">g</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="845"></label>
 </div>
 <div class="fields grid-2">
 <label class="field"><span class="label">Hydration <span class="unit">%</span></span><input name="hydration" inputmode="decimal" min="0" step="any" value="66"></label>
@@ -61,11 +61,34 @@
 <div class="actions">
 <button type="button" id="copy">Copy recipe</button>
 <button type="button" id="print" class="secondary">Print</button>
+<button type="button" id="download-pdf" data-label="Download PDF" data-loading="Loading…" data-busy="Preparing PDF…">Download PDF</button>
+<script>
+(function () {
+  var button = document.getElementById("download-pdf");
+  if (!button) return;
+  button.addEventListener("click", function () {
+    if (window.__pdfReady || window.__pdfPending) return;
+    window.__pdfPending = true;
+    button.disabled = true;
+    button.textContent = button.getAttribute("data-loading");
+  });
+})();
+</script>
 </div>
+<p id="pdf-error" class="error" role="alert" hidden>PDF could not be created. Please try again.</p>
 <textarea id="recipe-text" hidden readonly></textarea>
 </section>
 <script type="application/json" id="labels">{"title":"Pullman Loaf Baker's Percentage","flour":"Flour","water":"Water","starter":"Starter","salt":"Salt","yeast":"Yeast","total":"Total dough","grams":"g","effective":"Effective hydration","copied":"Copied","copyFail":"Select the recipe text and copy it"}</script>
-<script type="module" src="/assets/calc.js"></script>
+<script type="application/json" id="pdf-meta">{"title":"Pullman Loaf Baker's Percentage","url":"https://doughcalc.app/en/pullman-loaf-bakers-percentage/","filename":"doughcalc-pullman-loaf-bakers-percentage-en-recipe.pdf","lang":"en","fontUrl":"/assets/fonts/noto-sans-sc-subset.ttf","labels":{"result":"Recipe","flour":"Flour","water":"Water","starter":"Starter","salt":"Salt","yeast":"Yeast","total":"Total dough","grams":"g","effective":"Effective hydration","hydration":"Hydration","modeFlour":"From flour weight","modeBalls":"From dough balls","balls":"Dough balls","perBall":"Grams per ball"},"method":{"heading":"Detailed method","lead":"A lid sits on this tin loaf. Currently 500 g flour, 66% hydration, 2% salt, and 1% yeast. That is 330 g water, 0 g starter, 10 g salt, and 5 g yeast, 845 g of dough. Currently 1 loaf of 845 g. Fill a straight-sided tin about halfway so the dough can rise into the lid. These times assume you only change the flour amount and keep the percentages the same. Still judge the dough by how it looks and feels.","leadTemplate":"A lid sits on this tin loaf. Currently {{flour}} g flour, {{hydration}}% hydration, {{saltPct}}% salt, and {{yeastPct}}% yeast. That is {{water}} g water, {{starter}} g starter, {{salt}} g salt, and {{yeast}} g yeast, {{total}} g of dough. Currently {{balls}} loaf of {{piece}} g. Fill a straight-sided tin about halfway so the dough can rise into the lid. These times assume you only change the flour amount and keep the percentages the same. Still judge the dough by how it looks and feels.","steps":[{"title":"Mix","body":"Stir 500 g flour, 330 g water, 0 g starter, 10 g salt, and 5 g instant yeast, then knead 8 to 10 minutes until smooth. At 66% the dough is soft. Aim for about 24°C (75°F).","bodyTemplate":"Stir {{flour}} g flour, {{water}} g water, {{starter}} g starter, {{salt}} g salt, and {{yeast}} g instant yeast, then knead 8 to 10 minutes until smooth. At {{hydration}}% the dough is soft. Aim for about 24°C (75°F)."},{"title":"Bulk","body":"Cover it at about 24°C (75°F) for 60 to 90 minutes. With 1% yeast it should about double.","bodyTemplate":"Cover it at about 24°C (75°F) for 60 to 90 minutes. With {{yeastPct}}% yeast it should about double."},{"title":"Pan","body":"Grease a straight-sided tin and its lid. The default 845 g uses a lidded pullman pan about 33 cm long, 10 cm wide, and 10 cm high, which holds about 900 g. If you change the amount, use a larger pan in proportion or split the dough into two loaves. Roll the 845 g dough into a log and set it seam-side down. It should fill the tin about halfway. This batch is 1 loaf. Oil for the tin is extra and is not in the gram total.","bodyTemplate":"Grease a straight-sided tin and its lid. The default 845 g uses a lidded pullman pan about 33 cm long, 10 cm wide, and 10 cm high, which holds about 900 g. If you change the amount, use a larger pan in proportion or split the dough into two loaves. Roll the {{total}} g dough into a log and set it seam-side down. It should fill the tin about halfway. This batch is {{balls}} loaf. Oil for the tin is extra and is not in the gram total."},{"title":"Proof","body":"Cover the tin with the lid off for 40 to 70 minutes, until the dough rises to about 2 cm under where the lid will sit. Then slide the lid on."},{"title":"Bake","body":"Heat the oven to 190°C (375°F). Bake 25 minutes with the lid on, then 12 to 18 minutes with the lid off, until the top is golden and the sides are firm."},{"title":"Cool","body":"Turn it out and cool on a rack for at least 1 hour. Slice it once it is cool."}]},"messages":{"label":"Download PDF","busy":"Preparing PDF…","fail":"PDF could not be created. Please try again."}}</script>
+<script type="module" src="/assets/calc.js"></script><section class="method">
+<h2>Detailed method</h2>
+<p><span data-template="A lid sits on this tin loaf. Currently {{flour}} g flour, {{hydration}}% hydration, {{saltPct}}% salt, and {{yeastPct}}% yeast. That is {{water}} g water, {{starter}} g starter, {{salt}} g salt, and {{yeast}} g yeast, {{total}} g of dough. Currently {{balls}} loaf of {{piece}} g. Fill a straight-sided tin about halfway so the dough can rise into the lid. These times assume you only change the flour amount and keep the percentages the same. Still judge the dough by how it looks and feels.">A lid sits on this tin loaf. Currently 500 g flour, 66% hydration, 2% salt, and 1% yeast. That is 330 g water, 0 g starter, 10 g salt, and 5 g yeast, 845 g of dough. Currently 1 loaf of 845 g. Fill a straight-sided tin about halfway so the dough can rise into the lid. These times assume you only change the flour amount and keep the percentages the same. Still judge the dough by how it looks and feels.</span></p>
+<ol><li><strong>Mix</strong> <span data-template="Stir {{flour}} g flour, {{water}} g water, {{starter}} g starter, {{salt}} g salt, and {{yeast}} g instant yeast, then knead 8 to 10 minutes until smooth. At {{hydration}}% the dough is soft. Aim for about 24°C (75°F).">Stir 500 g flour, 330 g water, 0 g starter, 10 g salt, and 5 g instant yeast, then knead 8 to 10 minutes until smooth. At 66% the dough is soft. Aim for about 24°C (75°F).</span></li><li><strong>Bulk</strong> <span data-template="Cover it at about 24°C (75°F) for 60 to 90 minutes. With {{yeastPct}}% yeast it should about double.">Cover it at about 24°C (75°F) for 60 to 90 minutes. With 1% yeast it should about double.</span></li><li><strong>Pan</strong> <span data-template="Grease a straight-sided tin and its lid. The default 845 g uses a lidded pullman pan about 33 cm long, 10 cm wide, and 10 cm high, which holds about 900 g. If you change the amount, use a larger pan in proportion or split the dough into two loaves. Roll the {{total}} g dough into a log and set it seam-side down. It should fill the tin about halfway. This batch is {{balls}} loaf. Oil for the tin is extra and is not in the gram total.">Grease a straight-sided tin and its lid. The default 845 g uses a lidded pullman pan about 33 cm long, 10 cm wide, and 10 cm high, which holds about 900 g. If you change the amount, use a larger pan in proportion or split the dough into two loaves. Roll the 845 g dough into a log and set it seam-side down. It should fill the tin about halfway. This batch is 1 loaf. Oil for the tin is extra and is not in the gram total.</span></li><li><strong>Proof</strong> Cover the tin with the lid off for 40 to 70 minutes, until the dough rises to about 2 cm under where the lid will sit. Then slide the lid on.</li><li><strong>Bake</strong> Heat the oven to 190°C (375°F). Bake 25 minutes with the lid on, then 12 to 18 minutes with the lid off, until the top is golden and the sides are firm.</li><li><strong>Cool</strong> Turn it out and cool on a rack for at least 1 hour. Slice it once it is cool.</li></ol>
+<figure>
+<img src="/assets/pullman-loaf.webp" width="1200" height="1032" alt="A tightly cropped, dark photo of a crusty loaf with a domed top and one slice beside it." loading="lazy">
+<figcaption>For illustration only. The photo is a tight, dark crop of a crusty loaf with a domed top. Photo by loppear on <a href="https://commons.wikimedia.org/wiki/File:Pullman_loaf.jpg">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a>. Cropped to the loaf and converted to WebP.</figcaption>
+</figure>
+</section>
 <section class="related"><h2>Related calculators</h2><ul class="link-list"><li><a href="/en/sandwich-loaf-bakers-percentage/">Sandwich Loaf Baker's Percentage</a></li><li><a href="/en/no-knead-bread-bakers-percentage/">No-Knead Bread Baker's Percentage</a></li><li><a href="/en/overnight-white-bread-bakers-percentage/">Overnight White Bread Baker's Percentage</a></li><li><a href="/en/poolish-baguette-bakers-percentage/">Poolish Baguette Baker's Percentage</a></li></ul></section>
 </main>
 <footer>

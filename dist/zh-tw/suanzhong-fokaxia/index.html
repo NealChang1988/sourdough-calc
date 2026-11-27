@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>酸種佛卡夏烘焙百分比</title>
-<meta name="description" content="戳坑的樣子和酵母版一樣，但只有酸種在發酵，盤子裡要等更久。底部貼著油，會煎得發脆。">
+<meta name="description" content="1012.5 克全部鋪進一隻抹了油的盤。只有酸種在發，戳坑要多等，底部貼著油會煎脆。">
 <link rel="canonical" href="https://doughcalc.app/zh-tw/suanzhong-fokaxia/">
 <link rel="alternate" hreflang="en" href="https://doughcalc.app/en/sourdough-focaccia-bakers-percentage/"><link rel="alternate" hreflang="zh-CN" href="https://doughcalc.app/zh-cn/suanzhong-fokaxia/"><link rel="alternate" hreflang="zh-TW" href="https://doughcalc.app/zh-tw/suanzhong-fokaxia/"><link rel="alternate" hreflang="x-default" href="https://doughcalc.app/en/sourdough-focaccia-bakers-percentage/">
 <meta property="og:title" content="酸種佛卡夏烘焙百分比">
-<meta property="og:description" content="戳坑的樣子和酵母版一樣，但只有酸種在發酵，盤子裡要等更久。底部貼著油，會煎得發脆。">
+<meta property="og:description" content="1012.5 克全部鋪進一隻抹了油的盤。只有酸種在發，戳坑要多等，底部貼著油會煎脆。">
 <meta property="og:url" content="https://doughcalc.app/zh-tw/suanzhong-fokaxia/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="zh_TW">
@@ -31,7 +31,7 @@
 <main id="main">
 <nav class="crumb" aria-label="目前位置"><a href="/zh-tw/">麵團計算器</a> / <a href="/zh-tw/mianbao-baifenbi/">麵包麵團</a></nav>
 <h1>酸種佛卡夏烘焙百分比</h1>
-<p>戳坑的樣子和酵母版一樣，但只有酸種在發酵，盤子裡要等更久。底部貼著油，會煎得發脆。</p>
+<p>1012.5 克全部鋪進一隻抹了油的盤。只有酸種在發，戳坑要多等，底部貼著油會煎脆。</p>
 <form id="calc" autocomplete="off">
 <fieldset class="modes">
 <legend>怎麼算</legend>
@@ -42,8 +42,8 @@
 <label class="field"><span class="label">麵粉 <span class="unit">克</span></span><input name="flour" inputmode="decimal" min="0" step="any" value="500"></label>
 </div>
 <div class="fields grid-2" data-panel="balls" hidden>
-<label class="field"><span class="label">麵團球數</span><input name="balls" inputmode="decimal" min="0" step="any" value="4"></label>
-<label class="field"><span class="label">每球克數 <span class="unit">克</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="250"></label>
+<label class="field"><span class="label">麵團球數</span><input name="balls" inputmode="decimal" min="0" step="any" value="1"></label>
+<label class="field"><span class="label">每球克數 <span class="unit">克</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="1012.5"></label>
 </div>
 <div class="fields grid-2">
 <label class="field"><span class="label">水合 <span class="unit">%</span></span><input name="hydration" inputmode="decimal" min="0" step="any" value="80"></label>
@@ -61,11 +61,34 @@
 <div class="actions">
 <button type="button" id="copy">複製配方</button>
 <button type="button" id="print" class="secondary">列印</button>
+<button type="button" id="download-pdf" data-label="下載 PDF" data-loading="正在載入…" data-busy="正在產生 PDF…">下載 PDF</button>
+<script>
+(function () {
+  var button = document.getElementById("download-pdf");
+  if (!button) return;
+  button.addEventListener("click", function () {
+    if (window.__pdfReady || window.__pdfPending) return;
+    window.__pdfPending = true;
+    button.disabled = true;
+    button.textContent = button.getAttribute("data-loading");
+  });
+})();
+</script>
 </div>
+<p id="pdf-error" class="error" role="alert" hidden>PDF 產生失敗，請再按一次。</p>
 <textarea id="recipe-text" hidden readonly></textarea>
 </section>
 <script type="application/json" id="labels">{"title":"酸種佛卡夏烘焙百分比","flour":"麵粉","water":"水","starter":"酸種","salt":"鹽","yeast":"酵母","total":"麵團總重","grams":"克","effective":"有效水合","copied":"已複製","copyFail":"請選中配方文字再複製"}</script>
-<script type="module" src="/assets/calc.js"></script>
+<script type="application/json" id="pdf-meta">{"title":"酸種佛卡夏烘焙百分比","url":"https://doughcalc.app/zh-tw/suanzhong-fokaxia/","filename":"doughcalc-suanzhong-fokaxia-zh-tw-recipe.pdf","lang":"zh-TW","fontUrl":"/assets/fonts/noto-sans-tc-subset.ttf","labels":{"result":"配方","flour":"麵粉","water":"水","starter":"酸種","salt":"鹽","yeast":"酵母","total":"麵團總重","grams":"克","effective":"有效水合","hydration":"水合","modeFlour":"按麵粉重量","modeBalls":"按麵團球","balls":"麵團球數","perBall":"每球克數"},"method":{"heading":"詳細做法","lead":"這是酸種佛卡夏，不是酵母佛卡夏。目前是麵粉 500 克，水合 80%，酸種 20%，鹽 2.5%，酵母 0。也就是水 400 克、酸種 100 克、鹽 12.5 克、酵母 0 克，合計 1012.5 克。酸種按 100% 水合計，和結果裡的有效水合用的是同一種假設。頁面上的有效水合是 81.8%。目前是 1 張、1012.5 克。只有酸種在發酵，盤子裡要等更久。油、蒜和香草不在合計克數裡。下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。","leadTemplate":"這是酸種佛卡夏，不是酵母佛卡夏。目前是麵粉 {{flour}} 克，水合 {{hydration}}%，酸種 {{starterPct}}%，鹽 {{saltPct}}%，酵母 {{yeastPct}}。也就是水 {{water}} 克、酸種 {{starter}} 克、鹽 {{salt}} 克、酵母 {{yeast}} 克，合計 {{total}} 克。酸種按 100% 水合計，和結果裡的有效水合用的是同一種假設。頁面上的有效水合是 {{effective}}%。目前是 {{balls}} 張、{{piece}} 克。只有酸種在發酵，盤子裡要等更久。油、蒜和香草不在合計克數裡。下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。","steps":[{"title":"酸種","body":"用 100 克已經發到大約兩倍、表面有氣泡的酸種。這 100 克算在合計裡。酵母是 0。","bodyTemplate":"用 {{starter}} 克已經發到大約兩倍、表面有氣泡的酸種。這 {{starter}} 克算在合計裡。酵母是 {{yeastPct}}。"},{"title":"攪拌","body":"把 500 克麵粉、400 克水、100 克酸種、0 克速發酵母和 12.5 克鹽拌到沒有乾粉。水合 80%，麵團發黏。手沾水，不要再補麵粉。麵團溫度大約 24°C。","bodyTemplate":"把 {{flour}} 克麵粉、{{water}} 克水、{{starter}} 克酸種、{{yeast}} 克速發酵母和 {{salt}} 克鹽拌到沒有乾粉。水合 {{hydration}}%，麵團發黏。手沾水，不要再補麵粉。麵團溫度大約 24°C。"},{"title":"基本發酵","body":"蓋著，放在大約 24°C，大約 3 到 4 小時。前 90 分鐘做三輪拉伸摺疊。要發到起泡，大約脹起一半。"},{"title":"入盤","body":"烤盤抹油。預設 1012.5 克用大約 30 公分長、20 公分寬的烤盤；份量改了請按比例換大一點的烤盤或分成兩盤。大約 20 克油是另外加的，不在合計克數裡。把 1012.5 克全部倒進去。這一爐是 1 張。","bodyTemplate":"烤盤抹油。預設 1012.5 克用大約 30 公分長、20 公分寬的烤盤；份量改了請按比例換大一點的烤盤或分成兩盤。大約 20 克油是另外加的，不在合計克數裡。把 {{total}} 克全部倒進去。這一爐是 {{balls}} 張。"},{"title":"戳坑","body":"20 分鐘後，手指沾油，把麵團慢慢推向四角。再蓋著發 45 到 80 分鐘，發到蓬鬆。手指沾油，垂直戳到盤底，坑要留得住。"},{"title":"烘烤","body":"烤箱 220°C。可以再放幾瓣蒜或撒一點香草。蒜和香草是另外加的，不在合計克數裡。烤 20 到 26 分鐘，鼓起的地方呈深金黃，底部發脆。"},{"title":"放涼","body":"在盤裡停 10 分鐘，再移到架上。"}]},"messages":{"label":"下載 PDF","busy":"正在產生 PDF…","fail":"PDF 產生失敗，請再按一次。"}}</script>
+<script type="module" src="/assets/calc.js"></script><section class="method">
+<h2>詳細做法</h2>
+<p><span data-template="這是酸種佛卡夏，不是酵母佛卡夏。目前是麵粉 {{flour}} 克，水合 {{hydration}}%，酸種 {{starterPct}}%，鹽 {{saltPct}}%，酵母 {{yeastPct}}。也就是水 {{water}} 克、酸種 {{starter}} 克、鹽 {{salt}} 克、酵母 {{yeast}} 克，合計 {{total}} 克。酸種按 100% 水合計，和結果裡的有效水合用的是同一種假設。頁面上的有效水合是 {{effective}}%。目前是 {{balls}} 張、{{piece}} 克。只有酸種在發酵，盤子裡要等更久。油、蒜和香草不在合計克數裡。下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。">這是酸種佛卡夏，不是酵母佛卡夏。目前是麵粉 500 克，水合 80%，酸種 20%，鹽 2.5%，酵母 0。也就是水 400 克、酸種 100 克、鹽 12.5 克、酵母 0 克，合計 1012.5 克。酸種按 100% 水合計，和結果裡的有效水合用的是同一種假設。頁面上的有效水合是 81.8%。目前是 1 張、1012.5 克。只有酸種在發酵，盤子裡要等更久。油、蒜和香草不在合計克數裡。下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。</span></p>
+<ol><li><strong>酸種</strong> <span data-template="用 {{starter}} 克已經發到大約兩倍、表面有氣泡的酸種。這 {{starter}} 克算在合計裡。酵母是 {{yeastPct}}。">用 100 克已經發到大約兩倍、表面有氣泡的酸種。這 100 克算在合計裡。酵母是 0。</span></li><li><strong>攪拌</strong> <span data-template="把 {{flour}} 克麵粉、{{water}} 克水、{{starter}} 克酸種、{{yeast}} 克速發酵母和 {{salt}} 克鹽拌到沒有乾粉。水合 {{hydration}}%，麵團發黏。手沾水，不要再補麵粉。麵團溫度大約 24°C。">把 500 克麵粉、400 克水、100 克酸種、0 克速發酵母和 12.5 克鹽拌到沒有乾粉。水合 80%，麵團發黏。手沾水，不要再補麵粉。麵團溫度大約 24°C。</span></li><li><strong>基本發酵</strong> 蓋著，放在大約 24°C，大約 3 到 4 小時。前 90 分鐘做三輪拉伸摺疊。要發到起泡，大約脹起一半。</li><li><strong>入盤</strong> <span data-template="烤盤抹油。預設 1012.5 克用大約 30 公分長、20 公分寬的烤盤；份量改了請按比例換大一點的烤盤或分成兩盤。大約 20 克油是另外加的，不在合計克數裡。把 {{total}} 克全部倒進去。這一爐是 {{balls}} 張。">烤盤抹油。預設 1012.5 克用大約 30 公分長、20 公分寬的烤盤；份量改了請按比例換大一點的烤盤或分成兩盤。大約 20 克油是另外加的，不在合計克數裡。把 1012.5 克全部倒進去。這一爐是 1 張。</span></li><li><strong>戳坑</strong> 20 分鐘後，手指沾油，把麵團慢慢推向四角。再蓋著發 45 到 80 分鐘，發到蓬鬆。手指沾油，垂直戳到盤底，坑要留得住。</li><li><strong>烘烤</strong> 烤箱 220°C。可以再放幾瓣蒜或撒一點香草。蒜和香草是另外加的，不在合計克數裡。烤 20 到 26 分鐘，鼓起的地方呈深金黃，底部發脆。</li><li><strong>放涼</strong> 在盤裡停 10 分鐘，再移到架上。照片裡就是這種坑和敞開的組織。</li></ol>
+<figure>
+<img src="/assets/sourdough-focaccia.webp" width="1200" height="1040" alt="一張戳了坑的佛卡夏，切開的一塊露出敞開的組織。" loading="lazy">
+<figcaption>示意圖。攝影：Nunun Dy，來自 <a href="https://www.pexels.com/photo/fresh-homemade-pastry-20210310/">Pexels</a></figcaption>
+</figure>
+</section>
 <section class="related"><h2>相關計算</h2><ul class="link-list"><li><a href="/zh-tw/suanzhong-pita/">酸種皮塔烘焙百分比</a></li><li><a href="/zh-tw/xiaqiata/">夏恰塔烘焙百分比</a></li><li><a href="/zh-tw/fokaxia-hongbei-baifenbi/">佛卡夏烘焙百分比</a></li><li><a href="/zh-tw/pita/">皮塔餅烘焙百分比</a></li></ul></section>
 </main>
 <footer>
