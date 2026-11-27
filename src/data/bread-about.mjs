@@ -70,9 +70,9 @@ export const breadAbout = {
     "zh-tw": "鋪在抹了油的烤盤裡，發到蓬鬆後用沾油的手指戳出深坑，高溫烤到凸起的地方上色。它是一張餅，不是高麵包。",
   },
   "sourdough-focaccia": {
-    en: "Spread all 1012.5 g in one oiled pan. Only starter lifts the sheet, so wait longer to dimple it, and let the underside fry.",
-    "zh-cn": "1012.5 克全部铺进一只抹了油的盘。只有酸种在发，戳坑要多等，底部贴着油会煎脆。",
-    "zh-tw": "1012.5 克全部鋪進一隻抹了油的盤。只有酸種在發，戳坑要多等，底部貼著油會煎脆。",
+    en: "Spread all {{total}} g in one oiled pan. Only starter lifts the sheet, so wait longer to dimple it, and let the underside fry.",
+    "zh-cn": "{{total}} 克全部铺进一只抹了油的盘。只有酸种在发，戳坑要多等，底部贴着油会煎脆。",
+    "zh-tw": "{{total}} 克全部鋪進一隻抹了油的盤。只有酸種在發，戳坑要多等，底部貼著油會煎脆。",
   },
   bagel: {
     en: "A dense ring. Boil it briefly, then bake until the skin sets and shines. Far too stiff to open like a pizza.",
@@ -115,24 +115,24 @@ export const breadAbout = {
     "zh-tw": "短條排成一排、彼此碰上再發。貼住的側面顏色淺，入爐前在頂部劃一道開口，用來放香腸。",
   },
   "sandwich-loaf": {
-    en: "One open tin takes the full 840 g. Let the crown rise past the rim, then cut even slices from the close crumb.",
-    "zh-cn": "整团 840 克放进一只敞口模具。等顶部鼓出模沿再进炉，出炉后把细密的组织切成厚薄均匀的片。",
-    "zh-tw": "整團 840 克放進一隻敞口模具。等頂部鼓出模沿再進爐，出爐後把細密的組織切成厚薄均勻的片。",
+    en: "One open tin takes the full {{total}} g. Let the crown rise past the rim, then cut even slices from the close crumb.",
+    "zh-cn": "整团 {{total}} 克放进一只敞口模具。等顶部鼓出模沿再进炉，出炉后把细密的组织切成厚薄均匀的片。",
+    "zh-tw": "整團 {{total}} 克放進一隻敞口模具。等頂部鼓出模沿再進爐，出爐後把細密的組織切成厚薄均勻的片。",
   },
   "pullman-loaf": {
-    en: "A lidded straight-sided tin, filled about halfway with 845 g of dough, holds this loaf while it rises into the lid.",
-    "zh-cn": "带盖的直角模里放入 845 克，高度大约只到一半。盖严之后，面团贴着盖子继续膨胀。",
-    "zh-tw": "帶蓋的直角模裡放入 845 克，高度大約只到一半。蓋嚴之後，麵團貼著蓋子繼續膨脹。",
+    en: "A lidded straight-sided tin, filled about halfway with {{total}} g of dough, holds this loaf while it rises into the lid.",
+    "zh-cn": "带盖的直角模里放入 {{total}} 克，高度大约只到一半。盖严之后，面团贴着盖子继续膨胀。",
+    "zh-tw": "帶蓋的直角模裡放入 {{total}} 克，高度大約只到一半。蓋嚴之後，麵團貼著蓋子繼續膨脹。",
   },
   "soft-rolls": {
-    en: "Twelve rounds of 70 g. Let them proof until the sides touch, then bake. A spoon of oil, if you add one, is outside the gram total.",
-    "zh-cn": "这一炉是 12 个软餐包，每个 70 克。发到彼此碰上再烤。若另加一勺油，油不在克数合计里。",
-    "zh-tw": "這一爐是 12 個軟餐包，每個 70 克。發到彼此碰上再烤。若另加一匙油，油不在克數合計裡。",
+    en: "{{ifOne}}One round of {{piece}} g. Let it proof, then bake.{{endOne}}{{ifMany}}{{balls}} rounds of {{piece}} g. Let them proof until the sides touch, then bake.{{endMany}} A spoon of oil, if you add one, is outside the gram total.",
+    "zh-cn": "这一炉是 {{balls}} 个软餐包，每个 {{piece}} 克。发到彼此碰上再烤。若另加一勺油，油不在克数合计里。",
+    "zh-tw": "這一爐是 {{balls}} 個軟餐包，每個 {{piece}} 克。發到彼此碰上再烤。若另加一匙油，油不在克數合計裡。",
   },
   "hard-rolls": {
     en: "Small, stiff pieces. A burst of steam as they go into the oven is what crackles the shell.",
-    "zh-cn": "小而硬的面团块。入炉时喷一股蒸汽，外壳才会脆响。这一款图的就是那层脆壳，咬开会响。",
-    "zh-tw": "小而硬的麵團塊。入爐時噴一股蒸汽，外殼才會脆響。這一款圖的就是那層脆殼，咬開會響。",
+    "zh-cn": "小而硬的面团块。入炉时喷一股蒸汽，外壳才会脆响。咬开时有一层薄壳，里面仍然可以是软的。",
+    "zh-tw": "小而硬的麵團塊。入爐時噴一股蒸汽，外殼才會脆響。咬開時有一層薄殼，裡面仍然可以是軟的。",
   },
   "kaiser-rolls": {
     en: "Fold or stamp a knot on top of a firm round, then bake with steam so the star pattern stays sharp.",
@@ -175,9 +175,9 @@ export const breadAbout = {
     "zh-tw": "把麵團條打結，烤熟後再拌油和蒜。一口一個，不是拉開的大圓餅，結要先烤透，然後再拌油。",
   },
   "sourdough-pizza": {
-    en: "Balls that want a long, cold rise and a warm-up on the counter before you stretch them. No added yeast.",
-    "zh-cn": "面团球适合冷藏慢慢发，拉开之前先在台面上回温。配方里不加商业酵母，靠酸种发酵，冷藏为主。",
-    "zh-tw": "麵團球適合冷藏慢慢發，拉開之前先在檯面上回溫。配方裡不加商業酵母，靠酸種發酵，冷藏為主。",
+    en: "Cold-ferment the dough in one piece. Take the tub out, divide it, rest the pieces at room temperature, then stretch. No added yeast.",
+    "zh-cn": "整团先冷藏发酵。从冰箱取出后再分割，在室温回温，然后拉开。配方里不加商业酵母，靠酸种发酵。",
+    "zh-tw": "整團先冷藏發酵。從冰箱取出後再分割，在室溫回溫，然後拉開。配方裡不加商業酵母，靠酸種發酵。",
   },
   "sourdough-bagels": {
     en: "The rings take longer to puff than a commercial-yeast version, and each one still gets a short simmer before the oven.",

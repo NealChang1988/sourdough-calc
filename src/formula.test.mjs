@@ -85,6 +85,17 @@ test("parseInputs reads thousands separators, full-width digits, and a trailing 
   assert.equal(parseInputs({ ...base, flour: "500", yeast: "0,2" }).ok, false);
 });
 
+test("switching to balls mode keeps an integer flour when the piece weight is only rounded", () => {
+  const ciabatta = recipeFor({ mode: "balls", balls: 4, gramsPerBall: 255.3, hydration: 82, starter: 20, salt: 2.2, yeast: 0 });
+  assert.equal(formatAmount(ciabatta.flour), "500");
+  assert.equal(formatAmount(ciabatta.total), "1021");
+  const overnight = recipeFor({ mode: "balls", balls: 2, gramsPerBall: 871.3, hydration: 72, starter: 0, salt: 2, yeast: 0.25 });
+  assert.equal(formatAmount(overnight.flour), "1000");
+  assert.equal(formatAmount(overnight.total), "1742.5");
+  const typed = recipeFor({ mode: "balls", balls: 4, gramsPerBall: 250, hydration: 65, starter: 0, salt: 3, yeast: 0.2 });
+  assert.equal(formatAmount(typed.flour), "594.5");
+});
+
 test("method amounts follow the current flour, not a frozen batch", () => {
   const preset = { mode: "flour", flour: 500, hydration: 72, starter: 0, salt: 2, yeast: 0.25, balls: 1, gramsPerBall: 871.25 };
   const text = "{{flour}} g flour, {{water}} g water, {{yeast}} g yeast, {{total}} g, {{yeastPct}}% yeast, {{piece}} g each";

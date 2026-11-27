@@ -8,11 +8,34 @@ export function gramsFromFlour(input) {
   return { flour, water, starter, salt, yeast, total };
 }
 
+function isRoundedTenth(n) {
+  if (!Number.isFinite(n)) return false;
+  const tenths = snap(n) * 10;
+  const nearest = Math.round(tenths);
+  if (Math.abs(tenths - nearest) > 1e-6) return false;
+  return nearest % 10 !== 0;
+}
+
+function snappedFlour(input, flour) {
+  const balls = input.balls;
+  const per = input.gramsPerBall;
+  if (!(balls > 0) || !Number.isFinite(flour) || !isRoundedTenth(per)) return flour;
+  let best = null;
+  for (const candidate of [Math.round(flour), Math.floor(flour), Math.ceil(flour)]) {
+    if (!(candidate > 0)) continue;
+    const made = gramsFromFlour({ ...input, flour: candidate });
+    const gap = Math.abs(made.total / balls - per);
+    if (gap > 0.051) continue;
+    if (best === null || gap < best.gap) best = { flour: candidate, gap };
+  }
+  return best ? best.flour : flour;
+}
+
 export function flourFromBalls(input) {
   const total = input.balls * input.gramsPerBall;
   const percentSum = input.hydration + input.starter + input.salt + (input.yeast ?? 0);
   const flour = total / (1 + percentSum / 100);
-  return gramsFromFlour({ ...input, flour });
+  return gramsFromFlour({ ...input, flour: snappedFlour(input, flour) });
 }
 
 export function recipeFor(preset) {
@@ -78,6 +101,31 @@ const CONDITIONS = [
   ["ifOne", "endOne", (_recipe, preset) => !(Number(preset.balls) > 1)],
 ];
 
+function joinItems(items, sep, andWord) {
+  if (items.length === 0) return "";
+  if (items.length === 1) return items[0];
+  if (sep === "、") return `${items.slice(0, -1).join("、")}${andWord} ${items[items.length - 1]}`;
+  if (items.length === 2) return `${items[0]} ${andWord} ${items[1]}`;
+  return `${items.slice(0, -1).join(", ")}, ${andWord} ${items[items.length - 1]}`;
+}
+
+function joinMarkedLists(text) {
+  const lists = [
+    ["enjoin", ", ", "and"],
+    ["zhjoin", "、", "和"],
+  ];
+  let out = text;
+  for (const [name, sep, andWord] of lists) {
+    out = out.replace(new RegExp(`\\{\\{${name}\\}\\}([\\s\\S]*?)\\{\\{endjoin\\}\\}`, "g"), (_, inner) => {
+      const items = [...inner.matchAll(/\{\{item\}\}([\s\S]*?)\{\{enditem\}\}/g)]
+        .map((match) => match[1].trim())
+        .filter(Boolean);
+      return joinItems(items, sep, andWord);
+    });
+  }
+  return out;
+}
+
 function applyConditions(text, recipe, preset) {
   let out = text;
   let prev;
@@ -92,7 +140,7 @@ function applyConditions(text, recipe, preset) {
 }
 
 export function fillAmounts(text, recipe, preset) {
-  const source = applyConditions(String(text), recipe, preset);
+  const source = joinMarkedLists(applyConditions(String(text), recipe, preset));
   if (!source.includes("{{")) return source;
   return source.replace(/\{\{([A-Za-z]+)\}\}/g, (token, key) => {
     const fill = AMOUNT_TOKENS[key];

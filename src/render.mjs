@@ -355,7 +355,7 @@ const FIGURE_LABEL = {
 };
 
 function methodText(template, recipe, preset, lang, weigh) {
-  const filled = linkWeigh(escapeHtml(fillAmounts(template, recipe, preset)), lang, weigh);
+  const filled = linkWeigh(escapeHtml(fillAmounts(template, recipe, preset).trim()), lang, weigh);
   if (!String(template).includes("{{")) return filled;
   return `<span data-template="${escapeHtml(template)}">${filled}</span>`;
 }
@@ -371,6 +371,7 @@ function methodSection(page, lang, weigh) {
   const copy = guide[lang];
   const recipe = recipeFor(page.preset);
   const steps = copy.steps
+    .filter((step) => fillAmounts(step.body, recipe, page.preset).trim())
     .map(
       (step) =>
         `<li><strong>${escapeHtml(step.title)}</strong> ${methodText(step.body, recipe, page.preset, lang, weigh)}</li>`,
@@ -410,7 +411,14 @@ function relatedBlock(page, lang) {
 }
 
 function linkedIntro(page, lang, weigh) {
-  return page.intro[lang].map((paragraph) => `<p>${linkWeigh(escapeHtml(paragraph), lang, weigh)}</p>`).join("");
+  const recipe = page.preset ? recipeFor(page.preset) : null;
+  return page.intro[lang].map((paragraph) => {
+    const live = recipe && paragraph.includes("{{");
+    const text = live ? fillAmounts(paragraph, recipe, page.preset) : paragraph;
+    const inner = linkWeigh(escapeHtml(text), lang, weigh);
+    const body = live ? `<span data-template="${escapeHtml(paragraph)}">${inner}</span>` : inner;
+    return `<p>${body}</p>`;
+  }).join("");
 }
 
 function article(page, lang, inner, introHtml) {

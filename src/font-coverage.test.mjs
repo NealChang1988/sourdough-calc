@@ -185,7 +185,12 @@ test("every non-space character in a guide PDF keeps a non-empty outline", async
         page.id === "bread-olive-sourdough" ||
         page.id === "bread-miche" ||
         page.id === "bread-sourdough-ciabatta" ||
-        page.id === "bread-poolish-baguette"
+        page.id === "bread-poolish-baguette" ||
+        page.id === "bread-low-hydration-sourdough" ||
+        page.id === "bread-pain-de-campagne" ||
+        page.id === "bread-sourdough-rolls" ||
+        page.id === "bread-sourdough-pizza" ||
+        page.id === "bread-hard-rolls"
       ) {
         assert.equal(pageCount, 1, `${page.id} ${lang}`);
       }
