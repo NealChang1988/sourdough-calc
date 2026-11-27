@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { amountCleanup, convert, cupWeight, formatSwapped, formatWeight, parseInput, scenarioLine } from "./cups.mjs";
+import { amountCleanup, chartCell, convert, cupWeight, formatSwapped, formatWeight, interpret, parseInput, scenarioLine } from "./cups.mjs";
 import { cupsCopy, detectionNote, errorText, present } from "./cups-copy.mjs";
 import { pages } from "./catalog.mjs";
 import { renderPage, renderSitemap } from "./render.mjs";
@@ -12,7 +12,7 @@ const CUP_WEIGHTS = {
   sugar: ["200.00", "211.34", "240.19"],
   brown: ["220.00", "232.47", "264.21"],
   powdered: ["120.00", "126.80", "144.11"],
-  butter: ["227.00", "239.87", "272.62"],
+  butter: ["226.80", "239.65", "272.37"],
   cocoa: ["86.00", "90.88", "103.28"],
   oats: ["89.00", "94.05", "106.88"],
   rice: ["185.00", "195.49", "222.18"],
@@ -31,7 +31,7 @@ const SCENARIOS = [
   ["B2", { ingredient: "ap", system: "metric", direction: "cups", amount: 1.5 }, "190.20 g | 1.50 cups (nearest frac: 1 1/2, diff +0.0%) | scoop: 1 cup + 1/2 cup | 25.00 tbsp | 75.00 tsp | 375.00 ml | 6.71 oz"],
   ["C1", { ingredient: "sugar", system: "us", direction: "grams", amount: 200 }, "200.00 g | 1.00 cups (nearest frac: 1, diff +0.0%) | scoop: 1 cup | 16.00 tbsp | 48.00 tsp | 236.59 ml | 7.05 oz"],
   ["C2", { ingredient: "sugar", system: "metric", direction: "grams", amount: 200 }, "200.00 g | 0.95 cups (nearest frac: 1, diff +5.7%) | scoop: 3/4 cup + 3 tbsp + 1 tsp | 15.77 tbsp | 47.32 tsp | 236.59 ml | 7.05 oz"],
-  ["D1", { ingredient: "butter", system: "us", direction: "grams", amount: 100 }, "100.00 g | 0.44 cups (nearest frac: 1/2, diff +13.5%) | scoop: 1/3 cup + 1 tbsp + 2 tsp | 7.05 tbsp | 21.15 tsp | 104.22 ml | 3.53 oz"],
+  ["D1", { ingredient: "butter", system: "us", direction: "grams", amount: 100 }, "100.00 g | 0.44 cups (nearest frac: 1/2, diff +13.4%) | scoop: 1/3 cup + 1 tbsp + 2 tsp | 7.05 tbsp | 21.16 tsp | 104.32 ml | 3.53 oz"],
   ["E1", { ingredient: "water", system: "us", direction: "grams", amount: 350 }, "350.00 g | 1.48 cups (nearest frac: 1 1/2, diff +1.4%) | scoop: 1 cup + 1/3 cup + 2 tbsp + 1 tsp | 23.67 tbsp | 71.01 tsp | 350.00 ml | 12.35 oz"],
   ["E2", { ingredient: "water", system: "metric", direction: "grams", amount: 350 }, "350.00 g | 1.40 cups (nearest frac: 1 3/8, diff -1.8%) | scoop: 1 cup + 1/3 cup + 1 tbsp + 0.5 tsp | 23.33 tbsp | 70.00 tsp | 350.00 ml | 12.35 oz"],
   ["E3", { ingredient: "honey", system: "us", direction: "grams", amount: 85 }, "85.00 g | 0.25 cups (nearest frac: 1/4, diff -0.3%) | scoop: 1/4 cup | 4.01 tbsp | 12.04 tsp | 59.32 ml | 3.00 oz"],
@@ -176,16 +176,17 @@ test("typed messy text commits to the same amount as a paste", () => {
 
 test("the three language pages use the spec titles and the existing page shell", () => {
   const page = pages.find((item) => item.id === "cups");
-  assert.equal(page.title.en, "Grams to Cups Converter");
+  assert.equal(page.title.en, "Grams to Cups and Cups to Grams Converter");
   assert.equal(page.title["zh-cn"], "克转杯换算器");
   assert.equal(page.title["zh-tw"], "克轉杯換算器");
-  assert.equal(page.h1.en, page.title.en);
+  assert.equal(page.h1.en, "Grams to Cups Converter");
   const html = {
     en: renderPage(page, "en"),
     "zh-cn": renderPage(page, "zh-cn"),
     "zh-tw": renderPage(page, "zh-tw"),
   };
-  assert.match(html.en, /<title>Grams to Cups Converter<\/title>/);
+  assert.match(html.en, /<title>Grams to Cups and Cups to Grams Converter<\/title>/);
+  assert.match(html.en, /property="og:title" content="Grams to Cups and Cups to Grams Converter"/);
   assert.match(html.en, /<h1>Grams to Cups Converter<\/h1>/);
   assert.doesNotMatch(html.en, /<title>[^<]*doughcalc/i);
   assert.match(html.en, /rel="canonical" href="https:\/\/doughcalc\.app\/en\/grams-to-cups-converter\/"/);
@@ -266,4 +267,76 @@ test("the three language pages use the spec titles and the existing page shell",
   assert.match(sitemap, /hreflang="zh-CN" href="https:\/\/doughcalc\.app\/zh-cn\/ke-zhuan-bei-huansuanqi\/"/);
   assert.match(sitemap, /hreflang="zh-TW" href="https:\/\/doughcalc\.app\/zh-tw\/ke-zhuan-bei-huansuan\/"/);
   assert.match(sitemap, /hreflang="x-default" href="https:\/\/doughcalc\.app\/en\/grams-to-cups-converter\/"/);
+  assert.match(html.en, /butter-conversion/);
+  assert.match(
+    present(convert({ ingredient: "butter", system: "us", direction: "grams", amount: 100 }), "en").convention,
+    /A US stick of butter is 4 oz \(113 g\), 8 tbsp, or half a US cup\./,
+  );
+  assert.deepEqual(
+    ["1/4", "1/3", "1/2", "1"].map((token) => chartCell("butter", "us", token === "1" ? 1 : Number(token.split("/")[0]) / Number(token.split("/")[1]))),
+    ["56.70", "75.60", "113.40", "226.80"],
+  );
+});
+
+test("spoons, sticks, and milliliters convert, and unknown words are named", () => {
+  const hero = (raw, options) => {
+    const out = interpret(raw, options);
+    assert.equal(out.ok, true, raw);
+    return present(out.result, "en").main;
+  };
+  assert.equal(hero("2 tbsp butter"), "28.4 g");
+  assert.equal(hero("1 stick butter"), "113.4 g");
+  assert.equal(hero("3 tablespoons flour"), "22.5 g");
+  assert.equal(hero("1 tsp sugar"), "4.2 g");
+  assert.equal(hero("2 tbsp", { ingredient: "ap" }), "15 g");
+  assert.equal(hero("100 ml butter"), "95.9 g");
+  assert.equal(hero("1/2 cup butter"), "113.4 g");
+  assert.equal(hero("1 cup butter"), "226.8 g");
+  assert.equal(hero("2 tbsp butter", { system: "metric" }), "28.8 g");
+  assert.equal(hero("2 tbsp butter", { system: "uk" }), "34.1 g");
+  assert.equal(hero("1 cup sugar"), "200 g");
+  assert.equal(hero("1 cup flour"), "120 g");
+  assert.equal(hero("250 g", { ingredient: "ap" }), "2.08 cups");
+  assert.equal(hero("2 湯匙 奶油"), "28.4 g");
+  assert.equal(hero("1 條奶油"), "113.4 g");
+  assert.equal(hero("1 大匙 細砂糖"), "12.5 g");
+  assert.equal(hero("2 汤匙 黄油"), "28.4 g");
+  assert.equal(hero("2 tbsp. butter"), "28.4 g");
+  assert.equal(hero("1 stick butter", { system: "metric" }), "113.4 g");
+  assert.equal(hero("1 stick butter", { system: "uk" }), "113.4 g");
+  const flourStick = interpret("1 stick flour");
+  assert.equal(flourStick.ok, false);
+  assert.equal(flourStick.resolved.reason, "stick");
+  assert.equal(cupsCopy.en.stickError, "A stick is a butter measure. Pick butter, or enter cups, grams, or tablespoons.");
+  assert.equal(cupsCopy["zh-cn"].stickError, "“条”是黄油专用的单位。请选黄油，或改用杯、克、汤匙。");
+  assert.equal(cupsCopy["zh-tw"].stickError, "「條」是奶油專用的單位。請選奶油，或改用杯、克、湯匙。");
+  const pinches = detectionNote(parseInput("2 pinches butter"), "en");
+  assert.match(pinches, /Detected Butter/);
+  assert.match(pinches, /I read this as 2 g — I didn't recognize "pinches"\./);
+  const bare = detectionNote(parseInput("2 pinches"), "en");
+  assert.match(bare, /No listed density for pinches/);
+  assert.equal(bare.includes("I read this as"), false);
+  assert.match(detectionNote(parseInput("250g almond meal"), "en"), /almond meal/);
+  assert.equal(amountCleanup("2 tbsp butter").text, "2 tbsp butter");
+  const same = {
+    "250": { value: 250, direction: "grams", ingredient: null, unit: null },
+    "1 1/2 cups": { value: 1.5, direction: "cups", ingredient: null, unit: "cup" },
+    "250 g flour": { value: 250, direction: "grams", ingredient: "ap", unit: "g" },
+    "1/2 cup brown sugar": { value: 0.5, direction: "cups", ingredient: "brown", unit: "cup" },
+    "200 克": { value: 200, direction: "grams", ingredient: null, unit: "g" },
+    "1 杯 細砂糖": { value: 1, direction: "cups", ingredient: "sugar", unit: "cup" },
+  };
+  for (const [raw, expected] of Object.entries(same)) {
+    const parsed = parseInput(raw);
+    assert.equal(parsed.ok, true, raw);
+    assert.equal(parsed.value, expected.value, raw);
+    assert.equal(parsed.direction, expected.direction, raw);
+    assert.equal(parsed.ingredient, expected.ingredient, raw);
+    assert.equal(parsed.unit, expected.unit, raw);
+  }
+  assert.equal(hero("250", { ingredient: "ap" }), "2.08 cups");
+  assert.equal(hero("1 1/2 cups", { ingredient: "ap" }), "180 g");
+  assert.equal(hero("1/2 cup brown sugar"), "110 g");
+  assert.equal(hero("200 克", { ingredient: "ap" }), "1.67 cups");
+  assert.equal(hero("1 杯 細砂糖"), "200 g");
 });

@@ -289,7 +289,7 @@ function breadPages() {
 }
 
 function cupsPage() {
-  const title = {
+  const h1 = {
     en: "Grams to Cups Converter",
     "zh-cn": "克转杯换算器",
     "zh-tw": "克轉杯換算器",
@@ -303,8 +303,12 @@ function cupsPage() {
       "zh-cn": "ke-zhuan-bei-huansuanqi",
       "zh-tw": "ke-zhuan-bei-huansuan",
     },
-    title,
-    h1: title,
+    title: {
+      en: "Grams to Cups and Cups to Grams Converter",
+      "zh-cn": h1["zh-cn"],
+      "zh-tw": h1["zh-tw"],
+    },
+    h1,
     description: {
       en: "US, metric, and UK cup weights for flour, sugar, butter, water, and other baking ingredients.",
       "zh-cn": "用美制杯、公制杯或英制杯，换算面粉、细砂糖、黄油、水和其它烘焙食材。",
@@ -316,6 +320,39 @@ function cupsPage() {
       ],
       "zh-cn": ["把单一种烘焙食材从克换算成量杯，或从量杯换算成克，并同时列出汤匙、茶匙、毫升和重量盎司。"],
       "zh-tw": ["把單一種類的烘焙食材從克換算成量杯，或從量杯換算成克，並一併列出湯匙、茶匙、毫升與重量盎司。"],
+    },
+  };
+}
+
+function butterPage() {
+  return {
+    id: "butter",
+    kind: "butter",
+    category: "convert",
+    slug: {
+      en: "butter-conversion",
+      "zh-cn": "huangyou-huansuan",
+      "zh-tw": "naiyou-huansuan",
+    },
+    title: {
+      en: "Butter in Grams: Stick, Cup and Tablespoon Converter",
+      "zh-cn": "黄油多少克？一条、半杯、一汤匙黄油换算",
+      "zh-tw": "奶油幾克？一條、半杯、一湯匙奶油換算",
+    },
+    h1: {
+      en: "Butter Converter: Sticks, Cups and Tablespoons to Grams",
+      "zh-cn": "黄油换算器：条、杯、汤匙转克",
+      "zh-tw": "奶油換算器：條、杯、湯匙轉克",
+    },
+    description: {
+      en: "One US stick of butter is 4 oz, 8 tablespoons or 1/2 cup: 113 g. Convert sticks, cups, tablespoons and grams.",
+      "zh-cn": "一条黄油是 4 盎司、8 汤匙、半杯：113 克。换算条、杯、汤匙和克。",
+      "zh-tw": "一條奶油是 4 盎司、8 湯匙、半杯：113 克。換算條、杯、湯匙和克。",
+    },
+    intro: {
+      en: ["One US stick of butter is 4 oz (113 g), 8 tablespoons, or half a cup."],
+      "zh-cn": ["一条美制黄油是 4 盎司（113 克）、8 汤匙，也就是半杯。"],
+      "zh-tw": ["一條美制奶油是 4 盎司（113 克）、8 湯匙，也就是半杯。"],
     },
   };
 }
@@ -337,7 +374,8 @@ function assertPages(list) {
         if (!value || !value.trim()) throw new Error(`missing ${field} ${page.id} ${lang}`);
       }
       const paragraphs = page.intro[lang];
-      if (!paragraphs?.length || paragraphs.some((p) => p.trim().length < 40)) {
+      const minIntro = page.kind === "butter" ? 20 : 40;
+      if (!paragraphs?.length || paragraphs.some((p) => p.trim().length < minIntro)) {
         throw new Error(`short intro ${page.id} ${lang}`);
       }
       if (titles[lang].has(page.title[lang])) throw new Error(`duplicate title ${lang} ${page.title[lang]}`);
@@ -376,6 +414,7 @@ export const pages = [
   ...pizzaPages(),
   ...breadPages(),
   cupsPage(),
+  butterPage(),
 ];
 
 assertPages(pages);

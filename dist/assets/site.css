@@ -231,6 +231,21 @@ footer nav { display: flex; flex-wrap: wrap; gap: 0.7rem 1rem; margin-bottom: 0.
 .howto ol { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.8rem; }
 .howto li { display: flex; gap: 0.55rem; align-items: flex-start; }
 .howto svg { width: 1.7rem; height: 1.7rem; flex: none; color: var(--accent); }
+.butter > p { margin: 0.15rem 0 0.35rem; }
+.butter .quick-answer { margin: 0.15rem 0 0.45rem; font-size: 0.95rem; line-height: 1.35; }
+.butter .quick-answer p { margin: 0; }
+.butter .privacy-line { margin: 0 0 0.2rem; color: var(--muted); font-size: 0.95rem; }
+.butter form, .butter .result { margin: 0.45rem 0; }
+.butter .hero, .butter dd, .nowrap { white-space: nowrap; }
+.butter .units, .butter .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.25rem 0; overflow: visible; }
+.butter .units button, .butter .chips button { flex: 0 0 auto; min-height: 2.25rem; padding: 0.1rem 0.7rem; }
+.butter .units button[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); }
+.butter .stick-chart th:first-child, .butter .stick-chart td:first-child { width: auto; }
+@media (max-width: 26rem) {
+  .butter h1 { font-size: 1.35rem; margin-bottom: 0.15rem; }
+  .butter .lede, .butter .quick-answer, .butter .privacy-line, .butter .limits { font-size: 0.92rem; }
+  .butter .quick-answer { margin-bottom: 0.25rem; }
+}
 .faq h3 { font-size: 1.02rem; margin: 0.9rem 0 0.25rem; }
 @media (min-width: 36rem) {
   .howto ol { grid-template-columns: 1fr 1fr 1fr; }

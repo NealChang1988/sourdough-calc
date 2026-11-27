@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>黄油多少克？一条、半杯、一汤匙黄油换算</title>
+<meta name="description" content="一条黄油是 4 盎司、8 汤匙、半杯：113 克。换算条、杯、汤匙和克。">
+<link rel="canonical" href="https://doughcalc.app/zh-cn/huangyou-huansuan/">
+<link rel="alternate" hreflang="en" href="https://doughcalc.app/en/butter-conversion/"><link rel="alternate" hreflang="zh-CN" href="https://doughcalc.app/zh-cn/huangyou-huansuan/"><link rel="alternate" hreflang="zh-TW" href="https://doughcalc.app/zh-tw/naiyou-huansuan/"><link rel="alternate" hreflang="x-default" href="https://doughcalc.app/en/butter-conversion/">
+<meta property="og:title" content="黄油多少克？一条、半杯、一汤匙黄油换算">
+<meta property="og:description" content="一条黄油是 4 盎司、8 汤匙、半杯：113 克。换算条、杯、汤匙和克。">
+<meta property="og:url" content="https://doughcalc.app/zh-cn/huangyou-huansuan/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:locale:alternate" content="en_US"><meta property="og:locale:alternate" content="zh_TW">
+<meta property="og:image" content="https://doughcalc.app/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://doughcalc.app/og.png">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">跳到计算器</a>
+<header>
+<a class="brand" href="/zh-cn/">面团计算器</a>
+<nav class="langs" aria-label="语言"><a href="/en/butter-conversion/" hreflang="en" lang="en">EN</a><a href="/zh-cn/huangyou-huansuan/" hreflang="zh-CN" lang="zh-CN" aria-current="page">简体</a><a href="/zh-tw/naiyou-huansuan/" hreflang="zh-TW" lang="zh-TW">繁體</a></nav>
+</header>
+<main id="main" class="convert butter">
+<nav class="crumb" aria-label="当前位置"><a href="/zh-cn/">面团计算器</a></nav>
+<h1>黄油换算器：条、杯、汤匙转克</h1>
+<p>一条美制黄油是 4 盎司（113 克）、8 汤匙，也就是半杯。</p>
+<div class="quick-answer"><p>1 条 = 113 克</p><p>1/2 杯 = 113 克 · 1 杯 = 227 克</p><p>1 汤匙 = 14 克</p></div>
+<form id="butter-calc" class="cups-tool butter-tool" autocomplete="off" data-unit="stick">
+<p class="privacy-line">你输入的内容只留在这个浏览器里，不会发送出去。</p>
+<p class="limits">须大于 0。最多 100,000 克、1,000 杯、2,000 条、16,000 汤匙或 48,000 茶匙。</p>
+<label class="field"><span class="label">数量</span><input name="amount" inputmode="decimal" value="1 条"></label>
+<div class="units" role="group" aria-label="单位"><button type="button" class="secondary" data-unit="stick" aria-pressed="true">条</button><button type="button" class="secondary" data-unit="tbsp" aria-pressed="false">汤匙</button><button type="button" class="secondary" data-unit="tsp" aria-pressed="false">茶匙</button><button type="button" class="secondary" data-unit="cup" aria-pressed="false">杯</button><button type="button" class="secondary" data-unit="g" aria-pressed="false">克</button><button type="button" class="secondary" data-unit="oz" aria-pressed="false">盎司</button></div>
+<div class="chips"><button type="button" class="secondary" data-amount="1 条" data-unit="stick">1 条</button><button type="button" class="secondary" data-amount="2 条" data-unit="stick">2 条</button><button type="button" class="secondary" data-amount="1/2 杯" data-unit="cup">1/2 杯</button><button type="button" class="secondary" data-amount="1 杯" data-unit="cup">1 杯</button><button type="button" class="secondary" data-amount="1 汤匙" data-unit="tbsp">1 汤匙</button><button type="button" class="secondary" data-amount="100 克" data-unit="g">100 克</button><button type="button" class="secondary" data-amount="250 克" data-unit="g">250 克</button></div>
+<fieldset class="standards">
+<legend>杯制</legend>
+<label><input type="radio" name="system" value="us" checked> 美制杯</label><label><input type="radio" name="system" value="metric"> 公制杯</label><label><input type="radio" name="system" value="uk"> 英制杯</label>
+</fieldset>
+<p class="hint standard-hint" id="standard-hint" hidden>条、汤匙和茶匙仍是美制；换杯制只会改变杯。</p>
+</form>
+<section class="card result" aria-live="polite">
+<h2>结果</h2>
+<span id="form-error" class="error" role="alert" hidden></span>
+<p id="detected" class="detected"></p>
+<p class="hero" id="out-main"><span class="nowrap">113 克</span></p>
+<p id="out-summary">113 克 黄油 ≈ 8 汤匙 ≈ 1 条</p>
+<p id="out-frac">最接近的刻度：1/2 杯（误差 +0.0%）。</p>
+<dl id="out-rows"><div id="row-oz"><dt>盎司</dt><dd id="out-oz">4.00 盎司</dd></div><div id="row-sticks"><dt>条</dt><dd id="out-sticks">1</dd></div><div id="row-tbsp"><dt>汤匙</dt><dd id="out-tbsp">8</dd></div><div id="row-tsp"><dt>茶匙</dt><dd id="out-tsp">24</dd></div><div id="row-cups"><dt>杯</dt><dd id="out-cups">1/2</dd></div><div id="row-ml"><dt>毫升</dt><dd id="out-ml">118.29 毫升</dd></div></dl>
+<div class="actions">
+<button type="button" id="copy">复制结果</button>
+<button type="button" id="print" class="secondary">打印</button>
+</div>
+<textarea id="recipe-text" hidden readonly></textarea>
+</section>
+<section class="chart-wrap">
+<h2>一条黄油是多少？</h2>
+<table class="chart stick-chart"><thead><tr><th scope="col">条</th><th scope="col">克</th><th scope="col">盎司</th><th scope="col">汤匙</th><th scope="col">杯</th></tr></thead><tbody><tr><th scope="row">1/4</th><td>28</td><td>1</td><td>2</td><td>1/8</td></tr><tr><th scope="row">1/2</th><td>57</td><td>2</td><td>4</td><td>1/4</td></tr><tr><th scope="row">1</th><td>113</td><td>4</td><td>8</td><td>1/2</td></tr><tr><th scope="row">1 1/2</th><td>170</td><td>6</td><td>12</td><td>3/4</td></tr><tr><th scope="row">2</th><td>227</td><td>8</td><td>16</td><td>1</td></tr></tbody></table>
+</section>
+<section class="howto"><h2>怎么用</h2><ol><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 10h8M8 13h8M8 16h5" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>在数量里输入 1 条或 2 汤匙，或点 1 条、1/2 杯、100 克。</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19h14M7 16l9.5-9.5a1.8 1.8 0 0 1 2.5 2.5L9.5 18.5 6 19.2 7 16z" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>如果只输入数字，再点条、汤匙、茶匙、杯、克或盎司。</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 12.5l2.5 2.5L16 9.5" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>看结果的克数，然后复制结果或打印。</span></li></ol></section>
+<section class="example"><h2>例子</h2><table><thead><tr><th>换算前</th><th>换算后</th></tr></thead><tbody><tr><td>1 1/2 条黄油</td><td>170 克（12 汤匙、3/4 杯）</td></tr><tr><td>2 汤匙黄油</td><td>28 克</td></tr><tr><td>250 克黄油</td><td>2.20 条（2 条 + 23 克）</td></tr></tbody></table></section>
+<section class="faq"><h2>常见问题</h2><h3>一条黄油是多少克？</h3><p>一条美制黄油是 4 盎司，也就是 113 克、8 汤匙、半杯。</p><h3>为什么会看到 113 克、113.5 克和 227 克？</h3><p>一条是 4 盎司，算出来是 113.4 克。一杯是两条，226.8 克。美国农业部 FoodData Central 和 King Arthur 的表把它们写成 113 克和 227 克。227 克的一半是 113.5 克，所以有的表会写成 113.5。</p><h3>250 克一块是几条？</h3><p>大约 2.20 条，也就是 2 条再加 23 克。这只是例子，包装规格没有核对过。</p><h3>选了公制杯，一条会变吗？</h3><p>不会。一条还是 4 盎司。变的只有杯。</p><h3>用秤会不会更准？</h3><p>会。拿得出秤就称一下。汤匙只是厨房里的估法。</p></section>
+<section class="sources-note"><h2>这些数字从哪来</h2><p>1 盎司 = 28.349523125 克。这一页把 4 盎司的结果收成整数克：一条 113 克，一杯 227 克，一汤匙 14 克。这三个整数和下面两个来源一致。</p><p><a href="https://fdc.nal.usda.gov/food-details/173410/nutrients">U.S. Department of Agriculture, Agricultural Research Service. FoodData Central</a>。咸黄油，FDC 173410：一条 113 克，一汤匙 14.2 克，一杯 227 克。</p><p><a href="https://www.kingarthurbaking.com/learn/ingredient-weight-chart">King Arthur Baking 食材重量表</a>：黄油 8 汤匙（半杯）= 4 盎司 = 113 克。</p></section>
+<section class="gap"><h2>这里不算哪些</h2><p>这里不算融化的、打发的，或植物黄油。加盐和不加盐的重量差没有核对，美国以外的黄油包装规格也没有核对。</p><p>这是厨房里的估算。秤最准。</p></section>
+<script type="module" src="/assets/butter.js"></script>
+<section class="related"><h2>相关计算</h2><ul class="link-list"><li><a href="/zh-cn/ke-zhuan-bei-huansuanqi/">克转杯换算器</a></li><li><a href="/zh-cn/">酸种与烘焙百分比计算器</a></li></ul></section>
+</main>
+<footer>
+<nav aria-label="更多页面"><a href="/zh-cn/">面团计算器</a><a href="/zh-cn/suanzhong-shuihe/">酸种水合</a><a href="/zh-cn/pisa-fenlei/">披萨面团</a><a href="/zh-cn/mianbao-baifenbi/">面包面团</a><a href="/zh-cn/suanzhong-bili/">酸种比例</a><a href="/zh-cn/yan-bili/">盐的比例</a><a href="/zh-cn/ke-zhuan-bei-huansuanqi/">克转杯换算</a><a href="mailto:alan.chang198807@gmail.com">意见反馈</a></nav>
+<p>家庭烘焙用的比例。</p>
+<p class="privacy">这个网站使用 Cloudflare 的匿名分析来统计页面浏览量。你在计算器里输入的内容留在浏览器里，不会发送出去。网址里的查询字符串不会被保留。</p>
+</footer>
+</body>
+</html>

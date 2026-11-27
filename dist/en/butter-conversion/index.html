@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Butter in Grams: Stick, Cup and Tablespoon Converter</title>
+<meta name="description" content="One US stick of butter is 4 oz, 8 tablespoons or 1/2 cup: 113 g. Convert sticks, cups, tablespoons and grams.">
+<link rel="canonical" href="https://doughcalc.app/en/butter-conversion/">
+<link rel="alternate" hreflang="en" href="https://doughcalc.app/en/butter-conversion/"><link rel="alternate" hreflang="zh-CN" href="https://doughcalc.app/zh-cn/huangyou-huansuan/"><link rel="alternate" hreflang="zh-TW" href="https://doughcalc.app/zh-tw/naiyou-huansuan/"><link rel="alternate" hreflang="x-default" href="https://doughcalc.app/en/butter-conversion/">
+<meta property="og:title" content="Butter in Grams: Stick, Cup and Tablespoon Converter">
+<meta property="og:description" content="One US stick of butter is 4 oz, 8 tablespoons or 1/2 cup: 113 g. Convert sticks, cups, tablespoons and grams.">
+<meta property="og:url" content="https://doughcalc.app/en/butter-conversion/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="zh_CN"><meta property="og:locale:alternate" content="zh_TW">
+<meta property="og:image" content="https://doughcalc.app/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://doughcalc.app/og.png">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to the calculator</a>
+<header>
+<a class="brand" href="/en/">Dough calculator</a>
+<nav class="langs" aria-label="Language"><a href="/en/butter-conversion/" hreflang="en" lang="en" aria-current="page">EN</a><a href="/zh-cn/huangyou-huansuan/" hreflang="zh-CN" lang="zh-CN">简体</a><a href="/zh-tw/naiyou-huansuan/" hreflang="zh-TW" lang="zh-TW">繁體</a></nav>
+</header>
+<main id="main" class="convert butter">
+<nav class="crumb" aria-label="Breadcrumb"><a href="/en/">Dough calculator</a></nav>
+<h1>Butter Converter: Sticks, Cups and Tablespoons to Grams</h1>
+<p>One US stick of butter is 4 oz (113 g), 8 tablespoons, or half a cup.</p>
+<div class="quick-answer"><p>1 stick = 113 g</p><p>1/2 cup = 113 g · 1 cup = 227 g</p><p>1 tbsp = 14 g</p></div>
+<form id="butter-calc" class="cups-tool butter-tool" autocomplete="off" data-unit="stick">
+<p class="privacy-line">What you type stays in this browser and is never sent.</p>
+<p class="limits">Above 0, and at most 100,000 g, 1,000 cups, 2,000 sticks, 16,000 tbsp, or 48,000 tsp.</p>
+<label class="field"><span class="label">Amount</span><input name="amount" inputmode="decimal" value="1 stick"></label>
+<div class="units" role="group" aria-label="Unit"><button type="button" class="secondary" data-unit="stick" aria-pressed="true">stick</button><button type="button" class="secondary" data-unit="tbsp" aria-pressed="false">tbsp</button><button type="button" class="secondary" data-unit="tsp" aria-pressed="false">tsp</button><button type="button" class="secondary" data-unit="cup" aria-pressed="false">cup</button><button type="button" class="secondary" data-unit="g" aria-pressed="false">g</button><button type="button" class="secondary" data-unit="oz" aria-pressed="false">oz</button></div>
+<div class="chips"><button type="button" class="secondary" data-amount="1 stick" data-unit="stick">1 stick</button><button type="button" class="secondary" data-amount="2 sticks" data-unit="stick">2 sticks</button><button type="button" class="secondary" data-amount="1/2 cup" data-unit="cup">1/2 cup</button><button type="button" class="secondary" data-amount="1 cup" data-unit="cup">1 cup</button><button type="button" class="secondary" data-amount="1 tbsp" data-unit="tbsp">1 tbsp</button><button type="button" class="secondary" data-amount="100 g" data-unit="g">100 g</button><button type="button" class="secondary" data-amount="250 g" data-unit="g">250 g</button></div>
+<fieldset class="standards">
+<legend>Cup standard</legend>
+<label><input type="radio" name="system" value="us" checked> US cup</label><label><input type="radio" name="system" value="metric"> Metric cup</label><label><input type="radio" name="system" value="uk"> UK cup</label>
+</fieldset>
+<p class="hint standard-hint" id="standard-hint" hidden>Sticks and spoons stay US sizes; only the cup changes.</p>
+</form>
+<section class="card result" aria-live="polite">
+<h2>Result</h2>
+<span id="form-error" class="error" role="alert" hidden></span>
+<p id="detected" class="detected"></p>
+<p class="hero" id="out-main"><span class="nowrap">113 g</span></p>
+<p id="out-summary">113 g butter ≈ 8 tbsp ≈ 1 stick</p>
+<p id="out-frac">Nearest mark: 1/2 cup (error +0.0%).</p>
+<dl id="out-rows"><div id="row-oz"><dt>Ounces</dt><dd id="out-oz">4.00 oz</dd></div><div id="row-sticks"><dt>Sticks</dt><dd id="out-sticks">1</dd></div><div id="row-tbsp"><dt>Tablespoons</dt><dd id="out-tbsp">8</dd></div><div id="row-tsp"><dt>Teaspoons</dt><dd id="out-tsp">24</dd></div><div id="row-cups"><dt>Cups</dt><dd id="out-cups">1/2</dd></div><div id="row-ml"><dt>Milliliters</dt><dd id="out-ml">118.29 ml</dd></div></dl>
+<div class="actions">
+<button type="button" id="copy">Copy result</button>
+<button type="button" id="print" class="secondary">Print</button>
+</div>
+<textarea id="recipe-text" hidden readonly></textarea>
+</section>
+<section class="chart-wrap">
+<h2>How much is a stick of butter?</h2>
+<table class="chart stick-chart"><thead><tr><th scope="col">Sticks</th><th scope="col">Grams</th><th scope="col">Ounces</th><th scope="col">Tablespoons</th><th scope="col">Cups</th></tr></thead><tbody><tr><th scope="row">1/4</th><td>28</td><td>1</td><td>2</td><td>1/8</td></tr><tr><th scope="row">1/2</th><td>57</td><td>2</td><td>4</td><td>1/4</td></tr><tr><th scope="row">1</th><td>113</td><td>4</td><td>8</td><td>1/2</td></tr><tr><th scope="row">1 1/2</th><td>170</td><td>6</td><td>12</td><td>3/4</td></tr><tr><th scope="row">2</th><td>227</td><td>8</td><td>16</td><td>1</td></tr></tbody></table>
+</section>
+<section class="howto"><h2>How to use</h2><ol><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 10h8M8 13h8M8 16h5" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>Type an Amount, like 1 stick or 2 tbsp, or tap 1 stick, 1/2 cup, or 100 g.</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19h14M7 16l9.5-9.5a1.8 1.8 0 0 1 2.5 2.5L9.5 18.5 6 19.2 7 16z" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>If you typed only a number, tap stick, tbsp, tsp, cup, g, or oz.</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 12.5l2.5 2.5L16 9.5" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>Read the grams in the Result, then Copy result or Print.</span></li></ol></section>
+<section class="example"><h2>Example</h2><table><thead><tr><th>Before</th><th>After</th></tr></thead><tbody><tr><td>1 1/2 sticks butter</td><td>170 g (12 tbsp, 3/4 cup)</td></tr><tr><td>2 tbsp butter</td><td>28 g</td></tr><tr><td>250 g block of butter</td><td>2.20 sticks (2 sticks + 23 g)</td></tr></tbody></table></section>
+<section class="faq"><h2>Questions</h2><h3>How many grams is a stick of butter?</h3><p>One US stick is 4 oz: 113 g, 8 tablespoons, or 1/2 cup.</p><h3>Why do I see 113 g, 113.5 g and 227 g?</h3><p>A stick is 4 oz, which works out to 113.4 g. A cup is 2 sticks, 226.8 g. USDA FoodData Central and the King Arthur chart round those to 113 g and 227 g. Half of 227 g is 113.5 g, which is why some charts list 113.5.</p><h3>How many sticks is a 250 g block?</h3><p>About 2.20 sticks: 2 sticks plus 23 g. Use that as an example only. Package sizes were not checked.</p><h3>Does choosing a metric cup change a stick?</h3><p>No. A stick stays 4 oz. The cup size is the only thing that changes.</p><h3>Is a scale more accurate?</h3><p>Yes. Weigh the butter when you can. A spoon measure is a kitchen estimate.</p></section>
+<section class="sources-note"><h2>Where the numbers come from</h2><p>1 oz = 28.349523125 g. This page rounds 4 oz values to whole grams: 113 g for a stick, 227 g for a cup, and 14 g for a tablespoon. Those whole-gram figures match both sources below.</p><p><a href="https://fdc.nal.usda.gov/food-details/173410/nutrients">U.S. Department of Agriculture, Agricultural Research Service. FoodData Central</a>. Butter, salted, FDC 173410: stick 113 g, tablespoon 14.2 g, cup 227 g.</p><p><a href="https://www.kingarthurbaking.com/learn/ingredient-weight-chart">King Arthur Baking Ingredient Weight Chart</a>: butter, 8 tablespoons (1/2 cup) = 4 oz = 113 g.</p></section>
+<section class="gap"><h2>What this does not cover</h2><p>This page does not cover melted, whipped, or plant-based butter. Salted and unsalted weight differences were not checked, and butter package sizes outside the US were not checked.</p><p>It is a kitchen estimate. A scale is the most accurate.</p></section>
+<script type="module" src="/assets/butter.js"></script>
+<section class="related"><h2>Related calculators</h2><ul class="link-list"><li><a href="/en/grams-to-cups-converter/">Grams to Cups Converter</a></li><li><a href="/en/">Sourdough and Baker's Percentage Calculator</a></li></ul></section>
+</main>
+<footer>
+<nav aria-label="More pages"><a href="/en/">Dough calculator</a><a href="/en/sourdough-hydration/">Sourdough hydration</a><a href="/en/pizza-dough/">Pizza dough</a><a href="/en/bread-dough/">Bread dough</a><a href="/en/starter-percentage/">Starter percentage</a><a href="/en/salt-percentage/">Salt percentage</a><a href="/en/grams-to-cups-converter/">Grams to cups</a><a href="mailto:alan.chang198807@gmail.com">Feedback</a></nav>
+<p>Ratios for home baking.</p>
+<p class="privacy">This site uses Cloudflare's anonymous analytics to count page views. What you type into the calculator stays in your browser and is never sent. URL query strings are not kept.</p>
+</footer>
+</body>
+</html>

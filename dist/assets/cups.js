@@ -1,4 +1,4 @@
-import { amountCleanup, chartCell, convert, formatSwapped, parseInput, trimNumber } from "./cups.mjs";
+import { amountCleanup, chartCell, convert, formatSwapped, parseInput, resolveAmount } from "./cups.mjs";
 import { cupsCopy, detectionNote, errorText, fdcUrl, present } from "./cups-copy.mjs";
 
 const lang =
@@ -40,9 +40,12 @@ function clearOutputs() {
 function showError(parsed) {
   const limit = parsed.limit || (mode().direction === "grams" ? 100000 : 1000);
   error.hidden = false;
-  error.textContent = errorText(parsed.reason, lang, limit);
+  error.textContent = parsed.reason === "stick" ? copy.stickError : errorText(parsed.reason, lang, limit);
   detected.textContent = "";
   clearOutputs();
+  if (parsed.reason === "stick") {
+    for (const id of fields) document.querySelector(`#${id}`).textContent = "";
+  }
 }
 
 function show(result, note) {
@@ -88,26 +91,38 @@ function update(options = {}) {
     return;
   }
   if (options.fromAmount) {
-    const detected = parsed.directionDetected || parsed.ingredientDetected || parsed.unknown || parsed.system || parsed.scaled;
-    pinned = detected ? detectionNote(parsed, lang) : "";
+    const noted = parsed.directionDetected || parsed.ingredientDetected || parsed.unknown || parsed.unrecognized || parsed.system || parsed.scaled;
+    pinned = noted ? detectionNote(parsed, lang, { mode: current.direction }) : "";
     if (parsed.ingredientDetected) ingredient.value = parsed.ingredient;
     if (parsed.directionDetected) {
       form.querySelector(`input[name=direction][value="${parsed.direction}"]`).checked = true;
     }
     if (parsed.system) form.querySelector(`input[name=system][value="${parsed.system}"]`).checked = true;
-    if (options.clean && amountCleanup(raw, current.direction).messy) {
-      const cleaned = trimNumber(parsed.value);
-      if (amount.value !== cleaned) amount.value = cleaned;
+    if (options.clean) {
+      const cleanup = amountCleanup(raw, current.direction);
+      if (cleanup.messy && amount.value !== cleanup.text) amount.value = cleanup.text;
     }
   }
   const chosen = mode();
-  syncQuick(chosen.direction);
+  const resolved = resolveAmount(parsed, { system: chosen.system, ingredient: ingredient.value });
+  if (!resolved.ok) {
+    pinned = "";
+    syncQuick(chosen.direction);
+    showError(resolved);
+    return;
+  }
+  if (options.fromAmount && resolved.hero === "grams" && parsed.unit && !parsed.directionDetected) {
+    form.querySelector('input[name=direction][value="cups"]').checked = true;
+  }
+  const shown = mode();
+  syncQuick(shown.direction);
   const result = convert({
     ingredient: ingredient.value,
     system: chosen.system,
-    direction: chosen.direction,
-    amount: parsed.value,
+    direction: resolved.direction,
+    amount: resolved.amount,
   });
+  result.hero = resolved.hero;
   show(result, pinned);
   updateChart(chosen.system);
 }
@@ -159,13 +174,19 @@ document.querySelector("#swap").addEventListener("click", () => {
     update();
     return;
   }
+  const resolved = resolveAmount(parsed, { system: current.system, ingredient: ingredient.value });
+  if (!resolved.ok) {
+    update();
+    return;
+  }
   const result = convert({
     ingredient: ingredient.value,
     system: current.system,
-    direction: parsed.direction,
-    amount: parsed.value,
+    direction: resolved.direction,
+    amount: resolved.amount,
   });
-  const next = result.direction === "grams" ? "cups" : "grams";
+  const showingGrams = resolved.hero === "grams" || (resolved.hero !== "cups" && resolved.direction !== "grams");
+  const next = showingGrams ? "grams" : "cups";
   amount.value = formatSwapped(next === "cups" ? result.cupsExact : result.gramsExact, next);
   form.querySelector(`input[name=direction][value="${next}"]`).checked = true;
   pinned = "";

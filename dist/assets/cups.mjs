@@ -4,9 +4,11 @@ export const US_ML = 236.5882365;
 export const METRIC_ML = 250;
 export const UK_ML = 284.130625;
 export const OZ_G = 28.3495;
-export const STICK_G = 113.5;
+// 4 oz, with the international avoirdupois ounce. A US cup of butter is two sticks.
+export const STICK_G = 113.3980925;
 export const GRAM_LIMIT = 100000;
 export const CUP_LIMIT = 1000;
+export const UNIT_LIMITS = { stick: 2000, tbsp: 16000, tsp: 48000 };
 
 export const SYSTEMS = {
   us: { id: "us", ml: US_ML, tbspMl: US_ML / 16, tspMl: US_ML / 48 },
@@ -21,7 +23,7 @@ export const INGREDIENTS = [
   { id: "sugar", gUs: 200, group: "sugar", quick: "sugar", fdc: "169655" },
   { id: "brown", gUs: 220, group: "sugar", quick: "brown", fdc: "168833" },
   { id: "powdered", gUs: 120, group: "sugar", fdc: "169656" },
-  { id: "butter", gUs: 227, group: "fat", quick: "butter", fdc: "173410" },
+  { id: "butter", gUs: STICK_G * 2, group: "fat", quick: "butter", fdc: "173410" },
   { id: "milk", gUs: 244, group: "fat", fdc: "171265" },
   { id: "honey", gUs: 339, group: "liquid", quick: "honey", fdc: "169640" },
   { id: "water", gUs: US_ML, group: "liquid", quick: "water", fdc: "173647" },
@@ -348,12 +350,16 @@ function hasUnit(text, pattern) {
 }
 
 function detectUnit(text) {
-  if (hasUnit(text, "kilograms?|kg") || /千克|公斤/.test(text)) return { kind: "weight", scale: 1000 };
-  if (hasUnit(text, "ounces?|oz") || /盎司/.test(text)) return { kind: "weight", scale: 28.3495 };
-  if (hasUnit(text, "cups?") || /杯/.test(text)) return { kind: "volume", scale: 1 };
-  if (hasUnit(text, "grams?|gms|gm") || /克/.test(text)) return { kind: "weight", scale: 1 };
-  if (hasUnit(text, "g")) return { kind: "weight", scale: 1 };
-  if (hasUnit(text, "c")) return { kind: "volume", scale: 1 };
+  if (hasUnit(text, "kilograms?|kg") || /千克|公斤/.test(text)) return { name: "kg", kind: "weight", scale: 1000 };
+  if (hasUnit(text, "milliliters?|millilitres?|ml") || /毫升/.test(text)) return { name: "ml", kind: "ml", scale: 1 };
+  if (hasUnit(text, "tablespoons?|tbsp|tbs|tbl") || /湯匙|汤匙|大匙/.test(text)) return { name: "tbsp", kind: "volume", scale: 1 };
+  if (hasUnit(text, "teaspoons?|tsp") || /茶匙|小匙/.test(text)) return { name: "tsp", kind: "volume", scale: 1 };
+  if (hasUnit(text, "sticks?") || /條|条/.test(text)) return { name: "stick", kind: "stick", scale: 1 };
+  if (hasUnit(text, "ounces?|oz") || /盎司/.test(text)) return { name: "oz", kind: "weight", scale: OZ_G };
+  if (hasUnit(text, "cups?") || /杯/.test(text)) return { name: "cup", kind: "volume", scale: 1 };
+  if (hasUnit(text, "grams?|gms|gm") || /克/.test(text)) return { name: "g", kind: "weight", scale: 1 };
+  if (hasUnit(text, "g")) return { name: "g", kind: "weight", scale: 1 };
+  if (hasUnit(text, "c")) return { name: "cup", kind: "volume", scale: 1 };
   return null;
 }
 
@@ -398,7 +404,9 @@ function readNumber(text) {
 
 function leftoverWords(text) {
   let rest = text;
-  rest = rest.replace(/kilograms?|\bkg\b|ounces?|\boz\b|grams?|gms|\bgm\b|cups?|千克|公斤|盎司|克|杯/gi, " ");
+  rest = rest.replace(/kilograms?|\bkg\b|ounces?|\boz\b|grams?|gms|\bgm\b|cups?/gi, " ");
+  rest = rest.replace(/\b(?:milliliters?|millilitres?|tablespoons?|teaspoons?|sticks?|tbsp|tbs|tbl|tsp|ml)\b/gi, " ");
+  rest = rest.replace(/千克|公斤|毫升|湯匙|汤匙|大匙|茶匙|小匙|條|条|盎司|克|杯/g, " ");
   rest = rest.replace(/(^|[^a-z])g([^a-z]|$)/gi, " ");
   rest = rest.replace(/(^|[^a-z])c([^a-z]|$)/gi, " ");
   rest = rest.replace(/metric|imperial|公制|公製|英制|英製|美制|美製|\buk\b|\bus\b/gi, " ");
@@ -410,6 +418,16 @@ function leftoverWords(text) {
   return rest.replace(/[^a-z\u3400-\u9fff]+/gi, " ").trim();
 }
 
+function removePhrase(text, phrase) {
+  const index = phraseIndex(text, phrase);
+  if (index < 0) return text;
+  return `${text.slice(0, index)} ${text.slice(index + phrase.length)}`;
+}
+
+function classicUnit(unit) {
+  return !unit || unit.name === "g" || unit.name === "kg" || unit.name === "oz" || unit.name === "cup";
+}
+
 export function parseInput(raw, mode = "grams") {
   if (typeof raw !== "string" || raw.trim() === "") return { ok: false, reason: "format" };
   const text = normalize(raw);
@@ -419,51 +437,197 @@ export function parseInput(raw, mode = "grams") {
   if (number.error) return { ok: false, reason: number.error };
   if (!(number.value > 0)) return { ok: false, reason: "range" };
   const unit = detectUnit(text);
-  const value = number.value * (unit?.scale ?? 1);
-  const direction = unit?.kind === "weight" ? "grams" : unit?.kind === "volume" ? "cups" : mode;
-  const limit = direction === "grams" ? GRAM_LIMIT : CUP_LIMIT;
-  if (!(value > 0) || value > limit) return { ok: false, reason: "limit", limit };
+  const counted = classicUnit(unit);
+  const value = counted ? number.value * (unit?.scale ?? 1) : number.value;
+  const direction = !unit || unit.kind === "stick" || unit.kind === "weight" ? (unit ? "grams" : mode) : unit.kind === "ml" ? "grams" : "cups";
+  if (counted) {
+    const limit = direction === "grams" ? GRAM_LIMIT : CUP_LIMIT;
+    if (!(value > 0) || value > limit) return { ok: false, reason: "limit", limit };
+  }
   const found = findIngredient(text);
+  const withoutNumber = `${text.slice(0, number.index)} ${text.slice(number.index + number.length)}`;
+  const rest = leftoverWords(found ? removePhrase(withoutNumber, found.phrase) : withoutNumber);
   let unknown = null;
+  let ingredient = found?.id ?? null;
+  let ingredientDetected = Boolean(found);
   if (!found) {
-    const withoutNumber = `${text.slice(0, number.index)} ${text.slice(number.index + number.length)}`;
-    let rest = leftoverWords(withoutNumber);
     for (const [phrase, id] of SOLO) {
       if (rest === phrase) {
-        return {
-          ok: true,
-          value,
-          direction,
-          directionDetected: Boolean(unit),
-          ingredient: id,
-          ingredientDetected: true,
-          unknown: null,
-          system: detectSystem(text),
-          scaled: (unit?.scale ?? 1) !== 1,
-        };
+        ingredient = id;
+        ingredientDetected = true;
+        break;
       }
     }
-    if (rest) unknown = rest;
+    if (!ingredientDetected && rest) unknown = rest;
   }
+  const unrecognized = ingredientDetected && rest ? rest : null;
   return {
     ok: true,
     value,
     direction,
-    directionDetected: Boolean(unit),
-    ingredient: found?.id ?? null,
-    ingredientDetected: Boolean(found),
+    directionDetected: Boolean(unit) && classicUnit(unit),
+    unit: unit?.name ?? null,
+    ingredient,
+    ingredientDetected,
     unknown,
+    unrecognized,
+    assumed: false,
     system: detectSystem(text),
-    scaled: (unit?.scale ?? 1) !== 1,
+    scaled: counted && (unit?.scale ?? 1) !== 1,
   };
+}
+
+export function resolveAmount(parsed, { system = "us", ingredient = "ap", spoonStyle = "follow" } = {}) {
+  if (!parsed?.ok) return parsed;
+  const unit = parsed.unit;
+  const count = parsed.value;
+  const ing = parsed.ingredient || ingredient;
+  if (unit && UNIT_LIMITS[unit] && count > UNIT_LIMITS[unit]) {
+    return { ok: false, reason: "limit", limit: UNIT_LIMITS[unit] };
+  }
+  const item = ingredientById(ing);
+  if (!item) return { ok: false, reason: "format" };
+  if (unit === "stick") {
+    if (ing !== "butter") return { ok: false, reason: "stick" };
+    const grams = count * STICK_G;
+    if (grams > GRAM_LIMIT) return { ok: false, reason: "limit", limit: GRAM_LIMIT };
+    return { ok: true, amount: grams, direction: "grams", hero: "grams", unit, ingredient: ing };
+  }
+  if (unit === "tbsp" || unit === "tsp") {
+    const sys = SYSTEMS[spoonStyle === "us" ? "us" : system];
+    const per = unit === "tbsp" ? sys.tbspMl : sys.tspMl;
+    const cups = (count * per) / sys.ml;
+    if (spoonStyle === "us" && system !== "us") {
+      const grams = cups * item.gUs;
+      if (grams > GRAM_LIMIT) return { ok: false, reason: "limit", limit: GRAM_LIMIT };
+      return { ok: true, amount: grams, direction: "grams", hero: "grams", unit, ingredient: ing };
+    }
+    if (cups > CUP_LIMIT) return { ok: false, reason: "limit", limit: CUP_LIMIT };
+    return { ok: true, amount: cups, direction: "cups", hero: "grams", unit, ingredient: ing };
+  }
+  if (unit === "ml") {
+    const grams = (count * item.gUs) / US_ML;
+    if (grams > GRAM_LIMIT) return { ok: false, reason: "limit", limit: GRAM_LIMIT };
+    return { ok: true, amount: grams, direction: "grams", hero: "grams", unit, ingredient: ing };
+  }
+  const limit = parsed.direction === "grams" ? GRAM_LIMIT : CUP_LIMIT;
+  if (!(count > 0) || count > limit) return { ok: false, reason: "limit", limit };
+  return { ok: true, amount: count, direction: parsed.direction, hero: null, unit, ingredient: ing };
+}
+
+export function interpret(raw, options = {}) {
+  const mode = options.mode || "grams";
+  const parsed0 = parseInput(raw, mode);
+  if (!parsed0.ok) return { ok: false, parsed: parsed0 };
+  const parsed =
+    options.defaultUnit && !parsed0.unit ? { ...parsed0, unit: options.defaultUnit, assumed: true } : parsed0;
+  const ingredient = parsed.ingredient || options.ingredient || "ap";
+  const system = parsed.system || options.system || "us";
+  const resolved = resolveAmount(parsed, {
+    system,
+    ingredient,
+    spoonStyle: options.spoonStyle || "follow",
+  });
+  if (!resolved.ok) return { ok: false, parsed, resolved };
+  const result = convert({
+    ingredient,
+    system,
+    direction: resolved.direction,
+    amount: resolved.amount,
+  });
+  result.hero = options.hero || resolved.hero;
+  return { ok: true, parsed, resolved, result };
+}
+
+const KITCHEN = [
+  [0, ""],
+  [1 / 8, "1/8"],
+  [1 / 4, "1/4"],
+  [1 / 3, "1/3"],
+  [3 / 8, "3/8"],
+  [1 / 2, "1/2"],
+  [5 / 8, "5/8"],
+  [2 / 3, "2/3"],
+  [3 / 4, "3/4"],
+  [7 / 8, "7/8"],
+];
+
+const SIXTEENTHS = [1, 3, 5, 7, 9, 11, 13, 15].map((n) => [n / 16, `${n}/16`]);
+
+export function formatKitchen(value, { sixteenths = false, thirdNote = false } = {}) {
+  const v = Math.abs(value);
+  const steps = sixteenths ? KITCHEN.concat(SIXTEENTHS) : KITCHEN;
+  const whole = Math.floor(v + 1e-9);
+  let best = null;
+  for (let w = Math.max(0, whole - 1); w <= whole + 1; w += 1) {
+    for (const [frac, label] of steps) {
+      const candidate = w + frac;
+      const dist = Math.abs(candidate - v);
+      const limit = frac === 0 ? 1e-3 : 5e-4;
+      if (dist < limit && (!best || dist < best.dist)) best = { dist, w, frac, label };
+    }
+  }
+  if (best && best.frac === 0) return String(best.w);
+  if (best) {
+    const text = best.w ? `${best.w} ${best.label}` : best.label;
+    const third = Math.abs(best.frac - 1 / 3) < 1e-9 || Math.abs(best.frac - 2 / 3) < 1e-9;
+    const sixteenth = sixteenths && SIXTEENTHS.some(([frac]) => Math.abs(best.frac - frac) < 1e-9);
+    if ((thirdNote && third) || sixteenth) return `${text} (${roundTo(v, 2).toFixed(2)})`;
+    return text;
+  }
+  return roundTo(v, 2).toFixed(2);
+}
+
+export function wholeGrams(value) {
+  return Math.round(value);
+}
+
+export function measureFigures(result) {
+  const item = ingredientById(result.ingredient);
+  const grams = result.gramsExact;
+  const perCupExact = (item.gUs * SYSTEMS[result.system].ml) / US_ML;
+  const fromCups = result.direction === "cups";
+  const cups = fromCups ? result.cupsExact : grams / perCupExact;
+  const usCups = fromCups && result.system === "us" ? result.cupsExact : grams / item.gUs;
+  const sticks = result.ingredient === "butter" && fromCups && result.system === "us" ? result.cupsExact * 2 : grams / STICK_G;
+  return {
+    grams,
+    oz: grams / OZ_G,
+    sticks,
+    tbsp: usCups * 16,
+    tsp: usCups * 48,
+    cups,
+    ml: cups * SYSTEMS[result.system].ml,
+  };
+}
+
+export function butterStickTable() {
+  return [1 / 4, 1 / 2, 1, 3 / 2, 2].map((sticks) => {
+    const grams = sticks * STICK_G;
+    const gUs = ingredientById("butter").gUs;
+    return {
+      sticks,
+      grams: wholeGrams(grams),
+      oz: wholeGrams(grams / OZ_G),
+      tbsp: wholeGrams((grams * 16) / gUs),
+      cups: formatKitchen(grams / gUs),
+      sticksLabel: formatKitchen(sticks),
+    };
+  });
 }
 
 export function amountCleanup(raw, mode = "grams") {
   const parsed = parseInput(raw, mode);
   if (!parsed.ok) return { ok: false, parsed, messy: false, text: String(raw ?? "") };
   const detected = Boolean(
-    parsed.directionDetected || parsed.ingredientDetected || parsed.unknown || parsed.system || parsed.scaled,
+    parsed.directionDetected ||
+      parsed.ingredientDetected ||
+      parsed.unknown ||
+      parsed.unrecognized ||
+      parsed.system ||
+      parsed.scaled,
   );
   const messy = detected || String(raw).includes(",") || /[½⅓⅔¼¾⅛⅜⅝⅞]/u.test(String(raw));
-  return { ok: true, parsed, messy, text: messy ? trimNumber(parsed.value) : String(raw) };
+  const preserve = parsed.unit === "tbsp" || parsed.unit === "tsp" || parsed.unit === "ml" || parsed.unit === "stick";
+  return { ok: true, parsed, messy, text: messy && !preserve ? trimNumber(parsed.value) : String(raw) };
 }
