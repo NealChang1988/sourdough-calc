@@ -182,6 +182,7 @@ export const cupsCopy = {
       ml: "ml",
       stick: "stick",
       sticks: "sticks",
+      lb: "lb",
     },
     units: { one: "cup", many: "cups", tbsp: "tbsp", tsp: "tsp" },
     cupWord: "cups",
@@ -292,6 +293,7 @@ export const cupsCopy = {
       ml: "毫升",
       stick: "条",
       sticks: "条",
+      lb: "磅",
     },
     units: { one: "杯", many: "杯", tbsp: "汤匙", tsp: "茶匙" },
     cupWord: "杯",
@@ -396,6 +398,7 @@ export const cupsCopy = {
       ml: "毫升",
       stick: "條",
       sticks: "條",
+      lb: "磅",
     },
     units: { one: "杯", many: "杯", tbsp: "湯匙", tsp: "茶匙" },
     cupWord: "杯",
@@ -506,7 +509,7 @@ export function present(result, lang) {
 
 export function readAsValue(parsed, lang, mode = "grams") {
   const copy = cupsCopy[lang];
-  const n = trimNumber(parsed.value);
+  const n = trimNumber(parsed.count ?? parsed.value);
   const unit = parsed.unit;
   if (!unit) return mode === "cups" ? `${n} ${copy.cupWord}` : `${n} ${copy.gramWord}`;
   if (unit === "stick") return `${n} ${Number(n) > 1 ? copy.unitName.sticks : copy.unitName.stick}`;
@@ -529,16 +532,33 @@ export function detectionNote(parsed, lang, options = {}) {
   } else if (parsed.assumed) {
     bits.push(copy.readAsBare.replace("{value}", readAsValue(parsed, lang, mode)));
   }
-  if (parsed.directionDetected) bits.push(copy.detectedDirection[parsed.direction]);
+  if (parsed.directionDetected && !options.skipDirection) bits.push(copy.detectedDirection[parsed.direction]);
   if (parsed.system) bits.push(copy.detectedSystem.replace("{system}", copy.systems[parsed.system]));
   return bits.join(" ");
 }
 
-export function errorText(reason, lang, limit) {
+function limitMax(limit, unit, lang) {
+  if (!unit) return String(limit);
+  const copy = cupsCopy[lang];
+  const plural = Number(limit) === 1 ? unit : unit === "stick" ? "sticks" : unit === "cup" ? "cups" : unit;
+  const name = copy.unitName[plural] || copy.unitName[unit] || unit;
+  const num = Number(limit).toLocaleString("en-US");
+  return `${num} ${name}`;
+}
+
+function limitExample(limit, unit) {
+  if (unit === "stick" || unit === "tbsp" || unit === "tsp") return "2";
+  if (!unit && Number(limit) > 1000) return "250";
+  if (unit === "g" && Number(limit) > 1000) return "250";
+  return "1.5";
+}
+
+export function errorText(reason, lang, limit, unit) {
   const copy = cupsCopy[lang];
   if (reason === "limit") {
-    const example = Number(limit) > 1000 ? "250" : "1.5";
-    return copy.limitError.replace("{max}", String(limit)).replace("{example}", example);
+    const max = limitMax(limit, unit, lang);
+    const text = copy.limitError.replace("{max}", max).replace("{example}", limitExample(limit, unit));
+    return unit && lang !== "en" ? text.replace(`${max} 的`, `${max}的`) : text;
   }
   return copy.formatError;
 }

@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { butterExampleRows, butterView, quickFacts, quickLines } from "./butter-copy.mjs";
-import { errorText } from "./cups-copy.mjs";
-import { formatKitchen, interpret, measureFigures, wholeGrams } from "./cups.mjs";
+import { detectionNote, errorText } from "./cups-copy.mjs";
+import { applyUnitTap, formatKitchen, interpret, measureFigures, wholeGrams } from "./cups.mjs";
 import { pages } from "./catalog.mjs";
 import { renderPage, renderSitemap } from "./render.mjs";
 
@@ -188,4 +188,46 @@ test("butter pages use the spec titles in all three languages", () => {
   assert.match(sitemap, /<loc>https:\/\/doughcalc\.app\/zh-cn\/huangyou-huansuan\/<\/loc>/);
   assert.match(sitemap, /<loc>https:\/\/doughcalc\.app\/zh-tw\/naiyou-huansuan\/<\/loc>/);
   assert.match(sitemap, /hreflang="x-default" href="https:\/\/doughcalc\.app\/en\/butter-conversion\/"/);
+});
+
+function butterGrams(raw, options = {}) {
+  const out = interpret(raw, { ingredient: "butter", spoonStyle: "us", hero: "grams", ...options });
+  assert.equal(out.ok, true, raw);
+  return { grams: butterView(out.result, "en").grams, parsed: out.parsed, result: out.result };
+}
+
+test("unit taps, limits, pounds, and small grams stay consistent", () => {
+  const cups = butterGrams("2", { defaultUnit: "cup" });
+  assert.equal(cups.grams, "454 g");
+  const cupNote = detectionNote(cups.parsed, "en", { pageIngredient: "butter", skipDirection: true });
+  assert.match(cupNote, /I read this as 2 cups\./);
+  assert.equal(cupNote.includes("Cups →"), false);
+  assert.equal(butterGrams("2", { defaultUnit: "oz" }).grams, "57 g");
+  const pinches = butterGrams("2 pinches", { defaultUnit: "oz" });
+  assert.equal(pinches.grams, "57 g");
+  assert.match(detectionNote(pinches.parsed, "en", { pageIngredient: "butter", skipDirection: true }), /2 oz/);
+  const tapped = applyUnitTap("2 sticks", "g", { ingredient: "butter", spoonStyle: "us", hero: "grams" });
+  assert.equal(tapped.amount, "227");
+  assert.equal(butterGrams(tapped.amount, { defaultUnit: "g" }).grams, "227 g");
+  const bare = applyUnitTap("2", "cup", { ingredient: "butter", spoonStyle: "us", defaultUnit: "stick", hero: "grams" });
+  assert.equal(bare.amount, "2");
+  assert.equal(butterGrams("2000 sticks").grams, "226796 g");
+  assert.equal(butterGrams("16000 tbsp").grams, "226800 g");
+  const tooMany = interpret("2001 sticks", { ingredient: "butter", spoonStyle: "us" });
+  assert.equal(tooMany.ok, false);
+  const message = errorText(tooMany.resolved.reason, "en", tooMany.resolved.limit, tooMany.resolved.unit);
+  assert.match(message, /2,000 sticks/);
+  assert.match(message, /for example 2/);
+  assert.match(errorText(tooMany.resolved.reason, "zh-cn", tooMany.resolved.limit, tooMany.resolved.unit), /2,000 条/);
+  assert.equal(butterGrams("0.25 lb").grams, "113 g");
+  assert.equal(butterGrams("1e3 g").grams, "1000 g");
+  assert.equal(butterGrams("半杯").grams, "113 g");
+  assert.equal(butterGrams("半條").grams, "57 g");
+  assert.equal(butterGrams("半条").grams, "57 g");
+  assert.equal(butterGrams("0.4", { defaultUnit: "g" }).grams, "0.4 g");
+  const third = butterView(interpret("1/3 cup", { ingredient: "butter", spoonStyle: "us", hero: "grams" }).result, "en");
+  assert.equal(third.summary.includes("(0.67)"), false);
+  assert.match(third.summary, /2\/3 stick/);
+  const typedCups = detectionNote(butterGrams("2 cups").parsed, "en", { pageIngredient: "butter", skipDirection: true });
+  assert.equal(typedCups.includes("Cups →"), false);
 });

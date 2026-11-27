@@ -7,6 +7,7 @@ import {
   formatKitchen,
   ingredientById,
   measureFigures,
+  displayGrams,
   nearestCup,
   wholeGrams,
 } from "./cups.mjs";
@@ -69,16 +70,17 @@ export function butterView(result, lang) {
   const cups = cupsCopy[lang];
   const figures = measureFigures(result);
   const butter = result.ingredient === "butter";
-  const grams = wholeGrams(figures.grams);
+  const grams = displayGrams(figures.grams);
   const gramBit = lang === "en" ? `${grams} g` : `${grams} ${copy.gram}`;
   const name = cups.names[result.ingredient];
   const shown = lang === "en" ? name.charAt(0).toLowerCase() + name.slice(1) : name;
   const tbspN = Math.round(figures.tbsp);
   const tbspBit = `${tbspN} ${copy.tbsp}`;
+  const sticksPlain = formatKitchen(figures.sticks);
   const sticksLabel = formatKitchen(figures.sticks, { thirdNote: true });
   const stickWord = lang === "en" && figures.sticks > 1.005 ? copy.sticks : copy.stick;
   const summary = butter
-    ? `${gramBit} ${shown} ≈ ${tbspBit} ≈ ${sticksLabel} ${stickWord}`
+    ? `${gramBit} ${shown} ≈ ${tbspBit} ≈ ${sticksPlain} ${stickWord}`
     : `${gramBit} ${shown} ≈ ${tbspBit}`;
   const nearest = nearestCup(figures.cups);
   let frac = "";

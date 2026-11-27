@@ -1,5 +1,5 @@
 import { cupsCopy, detectionNote, errorText } from "./cups-copy.mjs";
-import { interpret } from "./cups.mjs";
+import { applyUnitTap, interpret } from "./cups.mjs";
 import { butterCopy, butterView } from "./butter-copy.mjs";
 
 const lang =
@@ -31,9 +31,10 @@ function syncUnits(unit) {
   }
 }
 
-function showError(reason, limit) {
+function showError(failure) {
   error.hidden = false;
-  error.textContent = reason === "stick" ? cupsCopy[lang].stickError : errorText(reason, lang, limit);
+  error.textContent =
+    failure.reason === "stick" ? cupsCopy[lang].stickError : errorText(failure.reason, lang, failure.limit || 100000, failure.unit);
   detected.textContent = "";
   document.querySelector("#out-main").textContent = "";
   document.querySelector("#out-summary").textContent = "";
@@ -68,12 +69,11 @@ function update() {
   });
   document.querySelector("#standard-hint").hidden = system() === "us";
   if (!out.ok) {
-    const failure = out.resolved || out.parsed;
-    showError(failure.reason, failure.limit || 100000);
+    showError(out.resolved || out.parsed);
     return;
   }
   if (out.parsed.unit) syncUnits(out.parsed.unit);
-  let note = detectionNote(out.parsed, lang, { mode: "grams", pageIngredient: "butter" });
+  let note = detectionNote(out.parsed, lang, { mode: "grams", pageIngredient: "butter", skipDirection: true });
   if (out.parsed.ingredient && out.parsed.ingredient !== "butter" && out.parsed.unit !== "stick") {
     const using = copy.usingTyped.replace("{name}", names[out.parsed.ingredient]);
     note = note ? `${using} ${note}` : using;
@@ -93,12 +93,15 @@ form.addEventListener("submit", (event) => {
 for (const button of form.querySelectorAll(".units [data-unit]")) {
   button.addEventListener("click", () => {
     const unit = button.dataset.unit;
-    const current = interpret(amount.value, { ingredient: "butter", defaultUnit: selectedUnit(), spoonStyle: "us" });
+    const tap = applyUnitTap(amount.value, unit, {
+      ingredient: "butter",
+      system: system(),
+      spoonStyle: "us",
+      defaultUnit: selectedUnit(),
+      hero: "grams",
+    });
+    amount.value = tap.amount;
     syncUnits(unit);
-    if (current.ok && current.parsed.unit && current.parsed.unit !== unit) {
-      const rounded = Number(current.parsed.value);
-      amount.value = Number.isInteger(rounded) ? String(rounded) : String(current.parsed.value);
-    }
     update();
   });
 }
