@@ -2901,7 +2901,8 @@ export const doughGuides = {
         heading: "Detailed method",
         lead: `Baguettes with a poolish in the starter field, weighed on top of the flour. Currently {{flour}} g flour, {{hydration}}% hydration, {{starterPct}}% poolish, {{saltPct}}% salt, and {{yeastPct}}% yeast. That is {{water}} g water, {{starter}} g poolish, {{salt}} g salt, and {{yeast}} g yeast, {{total}} g of dough. The poolish is 100% hydration, the same assumption used for effective hydration. The page shows {{effective}}% effective hydration. Currently {{balls}} sticks of {{piece}} g. Mix the poolish the day before. ${tail.en}`,
         alt: "Three flour-dusted baguettes on a board, the nearest one running out of the frame.",
-        caption: "The photo shows three flour-dusted baguettes. The nearest one runs out of the frame.",
+        caption: "The photo shows three flour-dusted baguettes. The nearest one runs out of the frame. This batch makes four.",
+        licenseAfter: ". Resized and converted to WebP.",
         steps: [
           { title: "Poolish", body: "Mix the {{starter}} g poolish from equal weights of flour and water, and leave it covered until it is bubbly and about doubled, 8 to 12 hours. That weight is the starter field, on top of the {{flour}} g flour in the final dough. The final dough also uses {{yeast}} g instant yeast." },
           { title: "Mix", body: "Stir {{flour}} g flour, {{water}} g water, the {{starter}} g poolish, {{yeast}} g instant yeast, and {{salt}} g salt until no dry flour remains. At {{hydration}}% the dough is soft. Aim for about 24°C (75°F)." },
@@ -2915,7 +2916,8 @@ export const doughGuides = {
         heading: "详细做法",
         lead: `法棍的酸种栏里填的是液种，重量加在面粉之外。目前是面粉 {{flour}} 克，水合 {{hydration}}%，液种 {{starterPct}}%，盐 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克、液种 {{starter}} 克、盐 {{salt}} 克、酵母 {{yeast}} 克，合计 {{total}} 克。液种按 100% 水合计，和结果里的有效水合用的是同一种假设。页面上的有效水合是 {{effective}}%。目前是 {{balls}} 根、每根 {{piece}} 克。液种要提前一天拌好。${tail["zh-cn"]}`,
         alt: "木板上三根撒了粉的法棍，最前面一根出了画面。",
-        caption: "照片是三根撒了粉的法棍，最前面一根出了画面。",
+        caption: "照片是三根撒了粉的法棍，最前面一根出了画面。这一炉做四根。",
+        licenseAfter: "。已缩小并转为 WebP。",
         steps: [
           { title: "液种", body: "把 {{starter}} 克液种按面粉和水各一半拌好，盖着放到起泡、大约发到两倍，8 到 12 小时。这个重量填在酸种栏，加在最后面团的 {{flour}} 克面粉之外。最后面团还要用 {{yeast}} 克即发酵母。" },
           { title: "搅拌", body: "把 {{flour}} 克面粉、{{water}} 克水、{{starter}} 克液种、{{yeast}} 克即发酵母和 {{salt}} 克盐拌到没有干粉。水合 {{hydration}}%，柔软。面团温度大约 24°C。" },
@@ -2929,7 +2931,8 @@ export const doughGuides = {
         heading: "詳細做法",
         lead: `法國長棍的酸種欄裡填的是液種，重量加在麵粉之外。目前是麵粉 {{flour}} 克，水合 {{hydration}}%，液種 {{starterPct}}%，鹽 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克、液種 {{starter}} 克、鹽 {{salt}} 克、酵母 {{yeast}} 克，合計 {{total}} 克。液種按 100% 水合計，和結果裡的有效水合用的是同一種假設。頁面上的有效水合是 {{effective}}%。目前是 {{balls}} 根、每根 {{piece}} 克。液種要提前一天拌好。${tail["zh-tw"]}`,
         alt: "木板上三根撒了粉的法國長棍，最前面一根出了畫面。",
-        caption: "照片是三根撒了粉的法國長棍，最前面一根出了畫面。",
+        caption: "照片是三根撒了粉的法國長棍，最前面一根出了畫面。這一爐做四根。",
+        licenseAfter: "。已縮小並轉為 WebP。",
         steps: [
           { title: "液種", body: "把 {{starter}} 克液種按麵粉和水各一半拌好，蓋著放到起泡、大約發到兩倍，8 到 12 小時。這個重量填在酸種欄，加在最後麵團的 {{flour}} 克麵粉之外。最後麵團還要用 {{yeast}} 克速發酵母。" },
           { title: "攪拌", body: "把 {{flour}} 克麵粉、{{water}} 克水、{{starter}} 克液種、{{yeast}} 克速發酵母和 {{salt}} 克鹽拌到沒有乾粉。水合 {{hydration}}%，柔軟。麵團溫度大約 24°C。" },

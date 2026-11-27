@@ -684,7 +684,13 @@ test("batch 10 guides keep the method, photo, and ball defaults together", () =>
   assert.equal(ciabatta.caption.includes("{{"), false);
   const baguette = doughGuides["bread-poolish-baguette"].en;
   assert.match(baguette.caption, /three/);
+  assert.match(baguette.caption, /This batch makes four\./);
   assert.equal(baguette.caption.includes("{{"), false);
+  assert.match(doughGuides["bread-poolish-baguette"]["zh-cn"].caption, /这一炉做四根。/);
+  assert.match(doughGuides["bread-poolish-baguette"]["zh-tw"].caption, /這一爐做四根。/);
+  assert.match(renderPage(pages.find((item) => item.id === "bread-poolish-baguette"), "en"), /Resized and converted to WebP/);
+  assert.match(renderPage(pages.find((item) => item.id === "bread-poolish-baguette"), "zh-cn"), /已缩小并转为 WebP/);
+  assert.match(renderPage(pages.find((item) => item.id === "bread-poolish-baguette"), "zh-tw"), /已縮小並轉為 WebP/);
   assert.match(renderPage(pages.find((item) => item.id === "bread-poolish-baguette"), "en"), /class="tall"/);
 });
 
