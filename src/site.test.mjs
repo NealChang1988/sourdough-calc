@@ -395,7 +395,7 @@ test("country sourdough page adds a method and photo without touching other page
     const page = pages.find((item) => item.id === id);
     const tw = renderPage(page, "zh-tw");
     const method = tw.slice(tw.indexOf('<section class="method">'), tw.indexOf('<section class="related">'));
-    const visible = method.replace(/<[^>]+>/g, "").replace(/[A-Za-z]+/g, "").replace(/\d\.\d/g, "0");
+    const visible = method.replace(/<[^>]+>/g, "").replace(/[A-Z]\./g, "").replace(/[A-Za-z]+/g, "").replace(/\d\.\d/g, "0");
     assert.equal(/[,.:;!?()]/.test(visible), false, `${id} ${visible}`);
     assert.match(tw, /id="download-pdf"/);
     assert.match(tw, /class="method"/);
@@ -540,7 +540,7 @@ for lang, texts in data.items():
 
 test("batch 9 guides keep the method, photo, and ball defaults together", () => {
   const cases = [
-    ["bread-overnight-white", "/assets/overnight-white.webp", "Mateusz Feliksik", "Pexels", 1, 871.25, "871.3"],
+    ["bread-overnight-white", "/assets/overnight-white.webp", "Mateusz Feliksik", "Pexels", 1, 871.3, "871.3"],
     ["bread-soft-rolls", "/assets/soft-rolls.webp", "Güneş", "Pexels", 12, 70, "70"],
     ["bread-sourdough-sandwich", "/assets/sourdough-sandwich.webp", "Polina Tankilevitch", "Pexels", 1, 940, "940"],
     ["bread-sourdough-baguette", "/assets/sourdough-baguette.webp", "jules / stonesoup", "CC BY 2.0", 4, 237.5, "237.5"],
@@ -618,11 +618,128 @@ test("flour at 1000 keeps pan defaults and follows yeast, seeds, and rounding", 
   assert.equal(formatAmount(flourMode.total), formatAmount(ballMode.total));
   assert.equal(formatAmount(flourMode.total), "871.3");
   const piece = fillAmounts("{{piece}}", recipeFor(buns.preset), buns.preset);
-  assert.equal(piece, String(buns.preset.gramsPerBall));
+  assert.equal(piece, "82.6");
   const baguette = doughGuides["bread-sourdough-baguette"].en;
   assert.match(baguette.caption, /three/i);
   assert.equal(baguette.caption.includes("{{"), false);
   assert.equal(baguette.steps.some((step) => /photo shows \{\{/.test(step.body)), false);
+});
+
+test("batch 10 guides keep the method, photo, and ball defaults together", () => {
+  const cases = [
+    ["bread-high-hydration-sourdough", "/assets/high-hydration-sourdough.webp", "Virtual-Pano", "CC BY-SA 4.0", 1, 1035, "86.4", "default 1035 g uses a round lidded pot about 24 cm across and 11 cm high"],
+    ["bread-olive-sourdough", "/assets/olive-sourdough.webp", "Neil Conway", "CC BY 2.0", 1, 970, "74.5", "970 g of dough plus 100 g of olives"],
+    ["bread-miche", "/assets/miche.webp", "Chris R. Sims", "CC BY-SA 4.0", 1, 1950, "79.5", "default 1950 g uses a round lidded pot about 28 cm across and 12 cm high"],
+    ["bread-sourdough-ciabatta", "/assets/sourdough-ciabatta.webp", "Key West Wedding Photography", "CC BY 2.0", 4, 255.3, "83.6", "default 1021 g uses a rimmed tray about 40 cm long, 30 cm wide, and 2 cm high"],
+    ["bread-poolish-baguette", "/assets/poolish-baguette.webp", "Ivan J. Long", "Pexels", 4, 254, "72.5", "default 1016 g uses a rimmed tray about 40 cm long, 30 cm wide, and 2 cm high"],
+  ];
+  for (const [id, photo, photographer, license, balls, grams, effective, pan] of cases) {
+    const page = pages.find((item) => item.id === id);
+    assert.equal(page.preset.balls, balls, id);
+    assert.equal(page.preset.gramsPerBall, grams, id);
+    for (const lang of ["en", "zh-cn", "zh-tw"]) {
+      const html = renderPage(page, lang);
+      assert.match(html, new RegExp(`src="${photo}"`), `${id} ${lang}`);
+      assert.match(html, new RegExp(photographer), `${id} ${lang}`);
+      assert.match(html, new RegExp(license.replaceAll(".", "\\.")), `${id} ${lang}`);
+      assert.match(html, /data-template="/, `${id} ${lang}`);
+      assert.match(html, /id="download-pdf"/, `${id} ${lang}`);
+      assert.match(html, /class="method"/, `${id} ${lang}`);
+      assert.match(html, new RegExp(effective), `${id} ${lang}`);
+      assert.equal(html.includes("心裡"), false, `${id} ${lang}`);
+      const method = html.slice(html.indexOf('class="method"'), html.indexOf('class="related"'));
+      assert.equal(method.replace(/<[^>]+>/g, "").includes("{{"), false, `${id} ${lang}`);
+      const payload = pdfPayload(page, lang);
+      const pdfText = [payload.method.lead, payload.method.leadTemplate || "", ...payload.method.steps.flatMap((step) => [step.body, step.bodyTemplate || ""])].join("\n");
+      assert.equal(/The photo|In the photo|in the photo|照片/.test(pdfText), false, `${id} ${lang} pdf photo`);
+      if (lang === "en") {
+        assert.match(html, /For illustration only\./, id);
+        assert.match(method, new RegExp(pan.replaceAll(".", "\\.")), id);
+        assert.match(html, /Currently /, id);
+        assert.equal(method.includes("The calculator opens at"), false, id);
+        assert.match(method, /g starter|g poolish/, id);
+        if (page.preset.yeast > 0) assert.match(method, /g yeast/, id);
+        else assert.equal(/\b0 g yeast\b/.test(method), false, id);
+      }
+      if (lang === "zh-cn") {
+        assert.match(html, /示意图。/, id);
+        assert.match(html, /目前是/, id);
+        assert.equal(html.includes("示意圖"), false, id);
+        assert.equal(html.includes("默认是"), false, id);
+        assert.equal(html.includes("打开时"), false, id);
+      }
+      if (lang === "zh-tw") {
+        assert.match(html, /示意圖。/, id);
+        assert.match(html, /目前是/, id);
+        assert.equal(html.includes("示意图"), false, id);
+        assert.equal(method.includes("預設是"), false, id);
+        assert.equal(html.includes("打開時"), false, id);
+      }
+    }
+    const tw = renderPage(page, "zh-tw");
+    assert.match(tw, /速發酵母/, id);
+    assert.equal(tw.includes("即發酵母"), false, id);
+  }
+  const ciabatta = doughGuides["bread-sourdough-ciabatta"].en;
+  assert.match(ciabatta.caption, /four/);
+  assert.equal(ciabatta.caption.includes("{{"), false);
+  const baguette = doughGuides["bread-poolish-baguette"].en;
+  assert.match(baguette.caption, /three/);
+  assert.match(baguette.caption, /This batch makes four\./);
+  assert.equal(baguette.caption.includes("{{"), false);
+  assert.match(doughGuides["bread-poolish-baguette"]["zh-cn"].caption, /这一炉做四根。/);
+  assert.match(doughGuides["bread-poolish-baguette"]["zh-tw"].caption, /這一爐做四根。/);
+  assert.match(renderPage(pages.find((item) => item.id === "bread-poolish-baguette"), "en"), /Resized and converted to WebP/);
+  assert.match(renderPage(pages.find((item) => item.id === "bread-poolish-baguette"), "zh-cn"), /已缩小并转为 WebP/);
+  assert.match(renderPage(pages.find((item) => item.id === "bread-poolish-baguette"), "zh-tw"), /已縮小並轉為 WebP/);
+  assert.match(renderPage(pages.find((item) => item.id === "bread-poolish-baguette"), "en"), /class="tall"/);
+});
+
+test("batch 10 at flour 1000 keeps pan defaults and scales olives, starter, and yeast", () => {
+  const doubled = (page, flour = 1000) => ({ ...page.preset, flour });
+  const body = (id, title) => doughGuides[id].en.steps.find((step) => step.title === title).body;
+  const filled = (id, title, flour) => {
+    const page = pages.find((item) => item.id === id);
+    const preset = doubled(page, flour);
+    return fillAmounts(body(id, title), recipeFor(preset), preset);
+  };
+  const high = filled("bread-high-hydration-sourdough", "Shape", 1000);
+  assert.match(high, /default 1035 g uses a round lidded pot about 24 cm across and 11 cm high/);
+  assert.equal(/24 cm across and 11 cm high suits this 2070/.test(high), false);
+  const olives = filled("bread-olive-sourdough", "Olives", 1000);
+  assert.match(olives, /200 g of pitted/);
+  const oliveShape = filled("bread-olive-sourdough", "Shape", 1000);
+  assert.match(oliveShape, /970 g of dough plus 100 g of olives/);
+  assert.match(oliveShape, /1940 g of dough plus 200 g of olives/);
+  const miche = filled("bread-miche", "Shape", 2000);
+  assert.match(miche, /default 1950 g uses a round lidded pot about 28 cm across and 12 cm high/);
+  assert.equal(/28 cm across and 12 cm high suits this 3900/.test(miche), false);
+  const ciabatta = filled("bread-sourdough-ciabatta", "Cut", 1000);
+  assert.match(ciabatta, /default 1021 g uses a rimmed tray about 40 cm long, 30 cm wide, and 2 cm high/);
+  assert.match(ciabatta, /510\.5 g/);
+  const poolishPage = pages.find((item) => item.id === "bread-poolish-baguette");
+  const poolishPreset = doubled(poolishPage);
+  const poolishRecipe = recipeFor(poolishPreset);
+  const poolishLead = fillAmounts(doughGuides[poolishPage.id].en.lead, poolishRecipe, poolishPreset);
+  const poolishMix = fillAmounts(body(poolishPage.id, "Mix"), poolishRecipe, poolishPreset);
+  assert.match(poolishLead, /330 g poolish/);
+  assert.match(poolishLead, /2 g yeast/);
+  assert.match(poolishMix, /330 g poolish/);
+  assert.match(poolishMix, /2 g instant yeast/);
+  const tray = filled("bread-poolish-baguette", "Shape", 1000);
+  assert.match(tray, /default 1016 g uses a rimmed tray about 40 cm long, 30 cm wide, and 2 cm high/);
+  const withYeast = { ...pages.find((item) => item.id === "bread-high-hydration-sourdough").preset, flour: 1000, yeast: 0.5 };
+  const yeastRecipe = recipeFor(withYeast);
+  const yeastLead = fillAmounts(doughGuides["bread-high-hydration-sourdough"].en.lead, yeastRecipe, withYeast);
+  const yeastMix = fillAmounts(body("bread-high-hydration-sourdough", "Mix"), yeastRecipe, withYeast);
+  assert.match(yeastLead, new RegExp(`${formatAmount(yeastRecipe.yeast)} g yeast`));
+  assert.match(yeastMix, new RegExp(`${formatAmount(yeastRecipe.yeast)} g instant yeast`));
+  const ciabattaPage = pages.find((item) => item.id === "bread-sourdough-ciabatta");
+  assert.equal(formatAmount(recipeFor({ ...ciabattaPage.preset, mode: "flour" }).total), "1021");
+  assert.equal(ciabattaPage.preset.gramsPerBall, 255.3);
+  const overnightPage = pages.find((item) => item.id === "bread-overnight-white");
+  assert.equal(formatAmount(recipeFor({ ...overnightPage.preset, mode: "flour" }).total), "871.3");
+  assert.equal(overnightPage.preset.gramsPerBall, 871.3);
 });
 
 test("every page discloses anonymous analytics and none claim there is none", async () => {

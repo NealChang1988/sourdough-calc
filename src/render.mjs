@@ -379,7 +379,7 @@ function methodSection(page, lang, weigh) {
   const photo = guide.photo;
   const license = photo.licenseUrl
     ? `${escapeHtml(copy.licenseBefore || "")}<a href="${photo.licenseUrl}">${escapeHtml(copy.licenseLabel || "")}</a>${escapeHtml(copy.licenseAfter || "")}`
-    : "";
+    : escapeHtml(copy.licenseAfter || "");
   const caption = copy.caption ? `${methodText(copy.caption, recipe, page.preset, lang, weigh)} ` : "";
   return `<section class="method">
 <h2>${escapeHtml(copy.heading)}</h2>
