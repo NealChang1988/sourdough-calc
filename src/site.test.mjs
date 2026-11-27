@@ -1030,32 +1030,64 @@ test("batch 13 guides keep the method, photo, and ball defaults together", () =>
   const pizzaMany = fillAmounts(doughGuides[pizza.id]["zh-cn"].steps[0].body, recipeFor(pizza.preset), pizza.preset);
   assert.match(pizzaMany, /112\.2 克/);
   const schiacciata = pages.find((item) => item.id === "bread-schiacciata");
-  const doubled = { ...schiacciata.preset, flour: 1000 };
-  const doubledRecipe = recipeFor(doubled);
-  assert.equal(formatAmount(doubledRecipe.total), "1726");
-  const doubledPage = { ...schiacciata, preset: doubled };
   const panTitle = { en: "Pan", "zh-cn": "入盘", "zh-tw": "入盤" };
-  for (const lang of ["en", "zh-cn", "zh-tw"]) {
-    const source = doughGuides[schiacciata.id][lang].steps.find((step) => step.title === panTitle[lang]).body;
-    const filled = fillAmounts(source, doubledRecipe, doubled);
-    assert.match(filled, /2/, `${lang} trays`);
-    assert.equal(/all 1726|1726 克全部/.test(filled), false, `${lang} all`);
-    assert.equal(/If you change the amount|份量改了/.test(filled), false, `${lang} resize`);
-    const payload = pdfPayload(doubledPage, lang);
-    const pan = payload.method.steps.find((step) => step.title === panTitle[lang]);
-    assert.equal(pan.body, filled, `${lang} pdf`);
-    assert.match(pan.bodyTemplate, /\{\{trays\}\}/, `${lang} live`);
+  const sheetCases = [
+    [{ flour: 1000, balls: 1 }, "2", "863", true],
+    [{ flour: 1000, balls: 3 }, "3", "575.3", false],
+  ];
+  for (const [overrides, count, grams, split] of sheetCases) {
+    const preset = { ...schiacciata.preset, ...overrides };
+    const recipe = recipeFor(preset);
+    assert.equal(formatAmount(recipe.total), "1726", `${count} total`);
+    const page = { ...schiacciata, preset };
+    for (const lang of ["en", "zh-cn", "zh-tw"]) {
+      const guide = doughGuides[schiacciata.id][lang];
+      const lead = fillAmounts(guide.lead, recipe, preset);
+      const panSource = guide.steps.find((step) => step.title === panTitle[lang]).body;
+      const pan = fillAmounts(panSource, recipe, preset);
+      assert.match(lead, new RegExp(`${count}`), `${lang} ${count} lead count`);
+      assert.match(lead, new RegExp(grams.replace(".", "\\.")), `${lang} ${count} lead grams`);
+      assert.match(pan, new RegExp(`${count}`), `${lang} ${count} pan count`);
+      assert.match(pan, new RegExp(grams.replace(".", "\\.")), `${lang} ${count} pan grams`);
+      assert.equal(/950/.test(pan), split, `${lang} ${count} split note`);
+      assert.equal(/all 1726|1726 克全部/.test(pan), false, `${lang} ${count} all`);
+      const payload = pdfPayload(page, lang);
+      assert.equal(payload.method.lead, lead, `${lang} ${count} pdf lead`);
+      const pdfPan = payload.method.steps.find((step) => step.title === panTitle[lang]);
+      assert.equal(pdfPan.body, pan, `${lang} ${count} pdf pan`);
+      assert.match(pdfPan.bodyTemplate, /\{\{sheets\}\}/, `${lang} live`);
+    }
   }
-  const enPan = fillAmounts(doughGuides[schiacciata.id].en.steps.find((step) => step.title === "Pan").body, doubledRecipe, doubled);
+  const two = { ...schiacciata.preset, flour: 1000, balls: 1 };
+  const twoRecipe = recipeFor(two);
+  const enLead = fillAmounts(doughGuides[schiacciata.id].en.lead, twoRecipe, two);
+  const enPan = fillAmounts(doughGuides[schiacciata.id].en.steps.find((step) => step.title === "Pan").body, twoRecipe, two);
+  assert.match(enLead, /Currently 2 sheets of 863 g each/);
   assert.match(enPan, /Divide the 1726 g into 2 parts of about 863 g each/);
-  assert.match(enPan, /Oil 2 rimmed trays about 40 cm long and 30 cm wide/);
-  assert.match(enPan, /Bake one tray at a time, or in batches if the oven cannot fit them/);
-  const cnPan = fillAmounts(doughGuides[schiacciata.id]["zh-cn"].steps.find((step) => step.title === "入盘").body, doubledRecipe, doubled);
-  assert.match(cnPan, /分成 2 份，每份大约 863 克/);
-  assert.match(cnPan, /抹 2 只大约 40 厘米长、30 厘米宽的烤盘/);
-  const twPan = fillAmounts(doughGuides[schiacciata.id]["zh-tw"].steps.find((step) => step.title === "入盤").body, doubledRecipe, doubled);
-  assert.match(twPan, /分成 2 份，每份大約 863 克/);
-  assert.match(twPan, /抹 2 隻大約 40 公分長、30 公分寬的烤盤/);
+  assert.match(enPan, /One 40x30 cm tray holds about 950 g, so this is split into 2 trays/);
+  const three = { ...schiacciata.preset, flour: 1000, balls: 3 };
+  const threeRecipe = recipeFor(three);
+  const enLead3 = fillAmounts(doughGuides[schiacciata.id].en.lead, threeRecipe, three);
+  const enPan3 = fillAmounts(doughGuides[schiacciata.id].en.steps.find((step) => step.title === "Pan").body, threeRecipe, three);
+  assert.match(enLead3, /Currently 3 sheets of 575\.3 g each/);
+  assert.match(enPan3, /Divide the 1726 g into 3 parts of about 575\.3 g each/);
+  assert.equal(/950/.test(enPan3), false);
+  const cnPan = fillAmounts(doughGuides[schiacciata.id]["zh-cn"].steps.find((step) => step.title === "入盘").body, twoRecipe, two);
+  assert.match(cnPan, /抹 2 个大约 40 厘米长、30 厘米宽的烤盘/);
+  assert.match(cnPan, /就要分成 2 盘/);
+  assert.equal(cnPan.includes("只"), false);
+  const twPan = fillAmounts(doughGuides[schiacciata.id]["zh-tw"].steps.find((step) => step.title === "入盤").body, twoRecipe, two);
+  assert.match(twPan, /抹 2 個大約 40 公分長、30 公分寬的烤盤/);
+  assert.match(twPan, /就要分成 2 盤/);
+  assert.equal(twPan.includes("隻"), false);
+  const cnLead3 = fillAmounts(doughGuides[schiacciata.id]["zh-cn"].lead, threeRecipe, three);
+  const cnPan3 = fillAmounts(doughGuides[schiacciata.id]["zh-cn"].steps.find((step) => step.title === "入盘").body, threeRecipe, three);
+  assert.match(cnLead3, /目前是 3 张、每张 575\.3 克/);
+  assert.match(cnPan3, /分成 3 份，每份大约 575\.3 克/);
+  const twLead3 = fillAmounts(doughGuides[schiacciata.id]["zh-tw"].lead, threeRecipe, three);
+  const twPan3 = fillAmounts(doughGuides[schiacciata.id]["zh-tw"].steps.find((step) => step.title === "入盤").body, threeRecipe, three);
+  assert.match(twLead3, /目前是 3 張、每張 575\.3 克/);
+  assert.match(twPan3, /分成 3 份，每份大約 575\.3 克/);
 });
 
 test("every page discloses anonymous analytics and none claim there is none", async () => {

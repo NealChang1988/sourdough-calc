@@ -124,6 +124,11 @@ test("schiacciata trays round up from about 950 g of dough", () => {
   assert.equal(fillAmounts("{{trays}}", { total: 950.1 }, {}), "2");
   assert.equal(fillAmounts("{{trays}} {{trayPiece}}", { total: 1726 }, {}), "2 863");
   assert.equal(fillAmounts("{{trays}} {{trayPiece}}", { total: 1900.1 }, {}), "3 633.4");
+  assert.equal(fillAmounts("{{sheets}} {{sheetPiece}}", { total: 863 }, { balls: 1 }), "1 863");
+  assert.equal(fillAmounts("{{sheets}} {{sheetPiece}}", { total: 1726 }, { balls: 1 }), "2 863");
+  assert.equal(fillAmounts("{{sheets}} {{sheetPiece}}", { total: 1726 }, { balls: 3 }), "3 575.3");
+  assert.equal(fillAmounts("{{ifTraySplit}}split{{endTraySplit}}", { total: 1726 }, { balls: 1 }), "split");
+  assert.equal(fillAmounts("{{ifTraySplit}}split{{endTraySplit}}", { total: 1726 }, { balls: 3 }), "");
 });
 
 test("method amounts follow the current flour, not a frozen batch", () => {
