@@ -85,6 +85,28 @@ test("parseInputs reads thousands separators, full-width digits, and a trailing 
   assert.equal(parseInputs({ ...base, flour: "500", yeast: "0,2" }).ok, false);
 });
 
+test("switching to flour mode keeps the ball-mode total when the flour was only rounded", () => {
+  const thin = { balls: 4, gramsPerBall: 200, hydration: 55, starter: 0, salt: 2, yeast: 0.4 };
+  const thinBalls = recipeFor({ ...thin, mode: "balls" });
+  const thinFlour = recipeFor({ ...thin, mode: "flour", flour: Number(formatAmount(thinBalls.flour)) });
+  assert.equal(formatAmount(thinBalls.total), "800");
+  assert.equal(formatAmount(thinFlour.total), "800");
+  const day = { balls: 4, gramsPerBall: 250, hydration: 62, starter: 0, salt: 2.5, yeast: 0.8 };
+  const dayBalls = recipeFor({ ...day, mode: "balls" });
+  const dayFlour = recipeFor({ ...day, mode: "flour", flour: Number(formatAmount(dayBalls.flour)) });
+  assert.equal(formatAmount(dayBalls.total), "1000");
+  assert.equal(formatAmount(dayFlour.total), "1000");
+  const cold = { balls: 4, gramsPerBall: 250, hydration: 66, starter: 0, salt: 2.8, yeast: 0.15 };
+  const coldBalls = recipeFor({ ...cold, mode: "balls" });
+  const coldFlour = recipeFor({ ...cold, mode: "flour", flour: Number(formatAmount(coldBalls.flour)) });
+  assert.equal(formatAmount(coldFlour.total), formatAmount(coldBalls.total));
+  const sour = { balls: 2, gramsPerBall: 192.5, hydration: 70, starter: 20, salt: 2.5, yeast: 1 };
+  const sourBalls = recipeFor({ ...sour, mode: "balls" });
+  const sourFlour = recipeFor({ ...sour, mode: "flour", flour: Number(formatAmount(sourBalls.flour)) });
+  assert.equal(formatAmount(sourBalls.total), "385");
+  assert.equal(formatAmount(sourFlour.total), "385");
+});
+
 test("switching to balls mode keeps an integer flour when the piece weight is only rounded", () => {
   const ciabatta = recipeFor({ mode: "balls", balls: 4, gramsPerBall: 255.3, hydration: 82, starter: 20, salt: 2.2, yeast: 0 });
   assert.equal(formatAmount(ciabatta.flour), "500");

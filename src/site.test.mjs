@@ -10,7 +10,7 @@ import { nearestHydration, pages, redirectRules, toolCount } from "./catalog.mjs
 import { doughGuides } from "./data/dough-guides.mjs";
 import { fillAmounts, formatAmount, recipeFor } from "./formula.mjs";
 import { ui } from "./i18n.mjs";
-import { pdfPayload, renderPage } from "./render.mjs";
+import { assertNoRawTemplates, pdfPayload, renderPage } from "./render.mjs";
 
 test("long-tail calculators are the kept hydration, pizza, and bread pages", () => {
   assert.equal(toolCount(), 72);
@@ -831,13 +831,56 @@ test("batch 11 guides keep the method, photo, and ball defaults together", () =>
   assert.match(pizzaDivide, /Then stretch each ball/);
 });
 
+test("built pages do not leave raw templates in the head or visible text", () => {
+  for (const page of pages) {
+    for (const lang of ["en", "zh-cn", "zh-tw"]) {
+      const html = renderPage(page, lang);
+      assertNoRawTemplates(html, `${page.id} ${lang}`);
+    }
+  }
+  const expect = [
+    ["bread-sandwich-loaf", "en", "full 840 g"],
+    ["bread-sandwich-loaf", "zh-tw", "整團 840 克"],
+    ["bread-pullman-loaf", "en", "845 g of dough"],
+    ["bread-pullman-loaf", "zh-cn", "放入 845 克"],
+    ["bread-soft-rolls", "en", "12 rounds of 70 g"],
+    ["bread-soft-rolls", "zh-tw", "這一爐是 12 個軟餐包，每個 70 克"],
+    ["bread-sourdough-focaccia", "en", "Spread all 1012.5 g"],
+    ["bread-sourdough-focaccia", "zh-cn", "1012.5 克全部铺进"],
+  ];
+  for (const [id, lang, snippet] of expect) {
+    const html = renderPage(pages.find((item) => item.id === id), lang);
+    const head = html.slice(0, html.indexOf("</head>"));
+    assert.ok(head.includes(snippet), `${id} ${lang} ${snippet}`);
+  }
+});
+
+test("a zero main leavening does not claim the dough will grow by half", () => {
+  const thin = pages.find((item) => item.id === "pizza-thin-crust");
+  const noYeast = { ...thin.preset, yeast: 0 };
+  for (const lang of ["en", "zh-cn", "zh-tw"]) {
+    const bulk = doughGuides[thin.id][lang].steps.find((step) => /Bulk|基本发酵|基本發酵/.test(step.title)).body;
+    const text = fillAmounts(bulk, recipeFor(noYeast), noYeast);
+    assert.equal(/0% yeast|酵母 0%|酵母有 0%/.test(text), false, lang);
+    assert.match(text, /will not rise|不会发起|不會發起/, lang);
+  }
+  const batard = pages.find((item) => item.id === "bread-batard");
+  const noStarter = { ...batard.preset, starter: 0 };
+  for (const lang of ["en", "zh-cn", "zh-tw"]) {
+    const proof = doughGuides[batard.id][lang].steps.find((step) => /Proof|最后发酵|最後發酵/.test(step.title)).body;
+    const text = fillAmounts(proof, recipeFor(noStarter), noStarter);
+    assert.equal(/0% starter|酸种有 0%|酸種有 0%/.test(text), false, lang);
+    assert.match(text, /will not rise|不会发起|不會發起/, lang);
+  }
+});
+
 test("batch 12 guides keep the method, photo, and ball defaults together", () => {
   const cases = [
     ["pizza-thin-crust", "/assets/thin-crust-pizza.webp", "jeffreyw", "CC BY 2.0", 4, 200, "508.3", "default 800 g uses a baking stone or tray about 40 cm across"],
     ["pizza-same-day", "/assets/same-day-pizza.webp", "jeffreyw", "CC BY 2.0", 4, 250, "605", "default 1000 g uses a baking stone or tray about 40 cm across"],
     ["pizza-cold-ferment", "/assets/cold-ferment-pizza.webp", "Jon Sullivan", "Public domain", 4, 250, "591.9", "default 1000 g uses a baking stone or tray about 40 cm across"],
     ["bread-sourdough-pita", "/assets/sourdough-pita.webp", "Calvin Neonardi", "CC BY-SA 3.0", 8, 93.4, "68.2", "default 747.2 g uses a baking stone or tray about 40 cm across"],
-    ["bread-batard", "/assets/batard.webp", "Do An Ngon Qua", "CC BY-SA 4.0", 1, 980, "76.4", "default 980 g uses a round lidded pot about 24 cm across and 11 cm high"],
+    ["bread-batard", "/assets/batard.webp", "Do An Ngon Qua", "CC BY-SA 4.0", 1, 980, "76.4", "default 980 g uses an oval lidded pot about 30 cm long"],
   ];
   for (const [id, photo, photographer, license, balls, grams, shown, pan] of cases) {
     const page = pages.find((item) => item.id === id);
