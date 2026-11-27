@@ -235,6 +235,11 @@ const BALL_PRESET = {
   "hard-rolls": [8, 100.5],
   batard: [1, 980],
   "sourdough-pita": [8, 93.4],
+  ficelle: [4, 172.8],
+  schiacciata: [1, 863],
+  "pane-pugliese": [1, 990],
+  filone: [1, 853.5],
+  "spelt-loaf": [1, 864],
 };
 
 // New breads stay out of older pages' related lists so those pages keep the same four links.

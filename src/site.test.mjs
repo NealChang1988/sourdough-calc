@@ -336,7 +336,7 @@ test("built site drops removed urls and keeps a footer mailto on every page", as
 
 test("country sourdough page adds a method and photo without touching other pages", async () => {
   const country = pages.find((page) => page.id === "bread-country-sourdough");
-  const plain = pages.find((page) => page.id === "bread-ficelle");
+  const plain = pages.find((page) => page.id === "bread-pizza-dough");
   const expected = {
     en: "Detailed method",
     "zh-cn": "详细做法",
@@ -401,7 +401,7 @@ test("country sourdough page adds a method and photo without touching other page
     const page = pages.find((item) => item.id === id);
     const tw = renderPage(page, "zh-tw");
     const method = tw.slice(tw.indexOf('<section class="method">'), tw.indexOf('<section class="related">'));
-    const visible = method.replace(/<[^>]+>/g, "").replace(/[A-Z]\./g, "").replace(/[A-Za-z]+/g, "").replace(/\d\.\d/g, "0");
+    const visible = method.replace(/<[^>]+>/g, "").replace(/[A-Za-z]\./g, "").replace(/[A-Za-z]+/g, "").replace(/\d\.\d/g, "0");
     assert.equal(/[,.:;!?()]/.test(visible), false, `${id} ${visible}`);
     assert.match(tw, /id="download-pdf"/);
     assert.match(tw, /class="method"/);
@@ -832,8 +832,8 @@ test("batch 11 guides keep the method, photo, and ball defaults together", () =>
   assert.equal(poolishStep.trim(), "");
   assert.equal(doughGuides["bread-sourdough-ciabatta"].en.steps.find((step) => step.title === "Cut").body.includes("larger tray"), false);
   const pizzaDivide = fillAmounts(doughGuides["bread-sourdough-pizza"].en.steps.find((step) => step.title === "Divide").body, recipeFor(pages.find((item) => item.id === "bread-sourdough-pizza").preset), pages.find((item) => item.id === "bread-sourdough-pizza").preset);
-  assert.match(pizzaDivide, /Take the tub out of the fridge/);
-  assert.match(pizzaDivide, /rest them at room temperature for 60 to 90 minutes/);
+  assert.match(pizzaDivide, /refrigerate the covered balls/);
+  assert.match(pizzaDivide, /until they stretch without springing back, usually 1\.5 to 3 hours/);
   assert.match(pizzaDivide, /Then stretch each ball/);
 });
 
@@ -881,8 +881,6 @@ test("zero main leavening does not promise the dough will grow", () => {
       const guide = doughGuides[page.id];
       if (guide) parts.push(guide[lang].lead, ...guide[lang].steps.map((step) => step.body));
       const filled = parts.map((text) => fillAmounts(text, recipe, preset)).join("\n");
-      const reminders = filled.match(reminderRe) || [];
-      assert.ok(reminders.length <= 1, `${page.id} ${lang} reminders ${reminders.length}`);
       const scrubbed = filled.replace(reminderRe, "");
       assert.equal(growth.test(scrubbed), false, `${page.id} ${lang} ${scrubbed.match(growth)?.[0]}`);
       assert.equal(badPct.test(scrubbed), false, `${page.id} ${lang} percent`);
@@ -890,17 +888,19 @@ test("zero main leavening does not promise the dough will grow", () => {
       const methodAt = html.indexOf('class="method"');
       if (methodAt >= 0) {
         const method = html.slice(methodAt, html.indexOf('class="related"')).replace(/<figure[\s\S]*?<\/figure>/, "");
-        const visible = method.replace(/<[^>]+>/g, " ").replace(reminderRe, "");
-        assert.equal(growth.test(visible), false, `${page.id} ${lang} html ${visible.match(growth)?.[0]}`);
-        assert.equal(badPct.test(visible), false, `${page.id} ${lang} html percent`);
+        const visible = method.replace(/<[^>]+>/g, " ");
+        assert.equal((visible.match(reminderRe) || []).length, 1, `${page.id} ${lang} web reminders`);
+        const methodScrub = visible.replace(reminderRe, "");
+        assert.equal(growth.test(methodScrub), false, `${page.id} ${lang} html ${methodScrub.match(growth)?.[0]}`);
+        assert.equal(badPct.test(methodScrub), false, `${page.id} ${lang} html percent`);
       }
       const payload = pdfPayload(zeroPage, lang);
       if (payload?.method) {
         const pdfText = [payload.method.lead, ...payload.method.steps.map((step) => step.body)].join("\n");
+        assert.equal((pdfText.match(reminderRe) || []).length, 1, `${page.id} ${lang} pdf reminders`);
         const pdfScrub = pdfText.replace(reminderRe, "");
         assert.equal(growth.test(pdfScrub), false, `${page.id} ${lang} pdf ${pdfScrub.match(growth)?.[0]}`);
         assert.equal(badPct.test(pdfScrub), false, `${page.id} ${lang} pdf percent`);
-        assert.ok((pdfText.match(reminderRe) || []).length <= 1, `${page.id} ${lang} pdf reminders`);
       }
     }
   }
@@ -968,6 +968,126 @@ test("batch 12 guides keep the method, photo, and ball defaults together", () =>
   assert.match(doughGuides["bread-sourdough-pita"].en.caption, /eight/);
   assert.match(doughGuides["pizza-cold-ferment"].en.caption, /one dough ball/);
   assert.match(doughGuides["pizza-cold-ferment"].en.caption, /four/);
+});
+
+test("batch 13 guides keep the method, photo, and ball defaults together", () => {
+  const cases = [
+    ["bread-ficelle", "/assets/ficelle.webp", "Nono64", "CC BY-SA 3.0", 4, 172.8, "691.2", "default 691.2 g uses a baking stone or tray about 40 cm long"],
+    ["bread-schiacciata", "/assets/schiacciata.webp", "PilotChicago", "CC BY-SA 4.0", 1, 863, "863", "default 863 g uses a rimmed tray about 40 cm long and 30 cm wide"],
+    ["bread-pane-pugliese", "/assets/pane-pugliese.webp", "Alice Wiegand", "CC BY-SA 4.0", 1, 990, "78.2", "default 990 g uses a round lidded pot about 24 cm across"],
+    ["bread-filone", "/assets/filone.webp", "Karen and Brad Emerson", "CC BY 2.0", 1, 853.5, "853.5", "default 853.5 g uses a baking stone or tray about 40 cm long"],
+    ["bread-spelt-loaf", "/assets/spelt-loaf.webp", "adactio", "CC BY 2.0", 1, 864, "864", "default 864 g uses a loaf pan about 23 cm long, 13 cm wide, and 7 cm high"],
+    ["pizza-sourdough", "/assets/sourdough-pizza-dough.webp", "Veganbaking.net from USA", "CC BY-SA 2.0", 4, 270, "72.7", "default 1080 g uses a baking stone or tray about 40 cm across"],
+  ];
+  for (const [id, photo, photographer, license, balls, grams, shown, pan] of cases) {
+    const page = pages.find((item) => item.id === id);
+    assert.equal(page.preset.balls, balls, id);
+    assert.equal(page.preset.gramsPerBall, grams, id);
+    for (const lang of ["en", "zh-cn", "zh-tw"]) {
+      const html = renderPage(page, lang);
+      assert.match(html, new RegExp(`src="${photo}"`), `${id} ${lang}`);
+      assert.match(html, new RegExp(photographer.replaceAll(".", "\\.")), `${id} ${lang}`);
+      assert.match(html, new RegExp(license.replaceAll(".", "\\.")), `${id} ${lang}`);
+      assert.match(html, /data-template="/, `${id} ${lang}`);
+      assert.match(html, new RegExp(shown.replaceAll(".", "\\.")), `${id} ${lang}`);
+      const method = html.slice(html.indexOf('class="method"'), html.indexOf('class="related"'));
+      assert.equal(method.replace(/<[^>]+>/g, "").includes("{{"), false, `${id} ${lang}`);
+      if (lang === "en") assert.match(method, new RegExp(pan.replaceAll(".", "\\.")), `${id} pan`);
+      const payload = pdfPayload(page, lang);
+      const pdfText = [payload.method.lead, payload.method.leadTemplate || "", ...payload.method.steps.flatMap((step) => [step.body, step.bodyTemplate || ""])].join("\n");
+      assert.equal(/The photo|In the photo|照片/.test(pdfText), false, `${id} ${lang} pdf photo`);
+      if (lang === "en") {
+        assert.match(html, /For illustration only\./, id);
+        assert.match(html, /Currently /, id);
+        assert.equal(/\b0 g yeast\b/.test(method), false, id);
+        assert.equal(/\b0 g starter\b/.test(method), false, id);
+      }
+      if (lang === "zh-cn") {
+        assert.match(html, /示意图。/, id);
+        assert.match(html, /目前是/, id);
+        assert.equal(html.includes("默认是"), false, id);
+      }
+      if (lang === "zh-tw") {
+        assert.match(html, /示意圖。/, id);
+        assert.match(html, /目前是/, id);
+        assert.equal(method.includes("預設是"), false, id);
+      }
+    }
+  }
+  const ficelle = pages.find((item) => item.id === "bread-ficelle");
+  const one = fillAmounts(doughGuides[ficelle.id].en.lead, recipeFor({ ...ficelle.preset, balls: 1 }), { ...ficelle.preset, balls: 1 });
+  const many = fillAmounts(doughGuides[ficelle.id].en.lead, recipeFor(ficelle.preset), ficelle.preset);
+  assert.match(one, /One thin ficelle/);
+  assert.match(many, /Thin ficelles/);
+  assert.match(many, /and 3\.2 g yeast/);
+  assert.equal(/\b0 g starter\b/.test(many), false);
+  const pugliese = pages.find((item) => item.id === "bread-pane-pugliese");
+  const puglieseLead = fillAmounts(doughGuides[pugliese.id].en.lead, recipeFor(pugliese.preset), pugliese.preset);
+  assert.match(puglieseLead, /and 10 g salt/);
+  assert.equal(/\b0 g yeast\b/.test(puglieseLead), false);
+  assert.match(doughGuides["bread-pane-pugliese"].en.steps.find((step) => step.title === "Bake").body, /paper and all/);
+  const pizza = pages.find((item) => item.id === "pizza-sourdough");
+  const pizzaMany = fillAmounts(doughGuides[pizza.id]["zh-cn"].steps[0].body, recipeFor(pizza.preset), pizza.preset);
+  assert.match(pizzaMany, /112\.2 克/);
+  const schiacciata = pages.find((item) => item.id === "bread-schiacciata");
+  const panTitle = { en: "Pan", "zh-cn": "入盘", "zh-tw": "入盤" };
+  const sheetCases = [
+    [{ flour: 1000, balls: 1 }, "2", "863", true],
+    [{ flour: 1000, balls: 3 }, "3", "575.3", false],
+  ];
+  for (const [overrides, count, grams, split] of sheetCases) {
+    const preset = { ...schiacciata.preset, ...overrides };
+    const recipe = recipeFor(preset);
+    assert.equal(formatAmount(recipe.total), "1726", `${count} total`);
+    const page = { ...schiacciata, preset };
+    for (const lang of ["en", "zh-cn", "zh-tw"]) {
+      const guide = doughGuides[schiacciata.id][lang];
+      const lead = fillAmounts(guide.lead, recipe, preset);
+      const panSource = guide.steps.find((step) => step.title === panTitle[lang]).body;
+      const pan = fillAmounts(panSource, recipe, preset);
+      assert.match(lead, new RegExp(`${count}`), `${lang} ${count} lead count`);
+      assert.match(lead, new RegExp(grams.replace(".", "\\.")), `${lang} ${count} lead grams`);
+      assert.match(pan, new RegExp(`${count}`), `${lang} ${count} pan count`);
+      assert.match(pan, new RegExp(grams.replace(".", "\\.")), `${lang} ${count} pan grams`);
+      assert.equal(/950/.test(pan), split, `${lang} ${count} split note`);
+      assert.equal(/all 1726|1726 克全部/.test(pan), false, `${lang} ${count} all`);
+      const payload = pdfPayload(page, lang);
+      assert.equal(payload.method.lead, lead, `${lang} ${count} pdf lead`);
+      const pdfPan = payload.method.steps.find((step) => step.title === panTitle[lang]);
+      assert.equal(pdfPan.body, pan, `${lang} ${count} pdf pan`);
+      assert.match(pdfPan.bodyTemplate, /\{\{sheets\}\}/, `${lang} live`);
+    }
+  }
+  const two = { ...schiacciata.preset, flour: 1000, balls: 1 };
+  const twoRecipe = recipeFor(two);
+  const enLead = fillAmounts(doughGuides[schiacciata.id].en.lead, twoRecipe, two);
+  const enPan = fillAmounts(doughGuides[schiacciata.id].en.steps.find((step) => step.title === "Pan").body, twoRecipe, two);
+  assert.match(enLead, /Currently 2 sheets of 863 g each/);
+  assert.match(enPan, /Divide the 1726 g into 2 parts of about 863 g each/);
+  assert.match(enPan, /One 40x30 cm tray holds about 950 g, so this is split into 2 trays/);
+  const three = { ...schiacciata.preset, flour: 1000, balls: 3 };
+  const threeRecipe = recipeFor(three);
+  const enLead3 = fillAmounts(doughGuides[schiacciata.id].en.lead, threeRecipe, three);
+  const enPan3 = fillAmounts(doughGuides[schiacciata.id].en.steps.find((step) => step.title === "Pan").body, threeRecipe, three);
+  assert.match(enLead3, /Currently 3 sheets of 575\.3 g each/);
+  assert.match(enPan3, /Divide the 1726 g into 3 parts of about 575\.3 g each/);
+  assert.equal(/950/.test(enPan3), false);
+  const cnPan = fillAmounts(doughGuides[schiacciata.id]["zh-cn"].steps.find((step) => step.title === "入盘").body, twoRecipe, two);
+  assert.match(cnPan, /抹 2 个大约 40 厘米长、30 厘米宽的烤盘/);
+  assert.match(cnPan, /就要分成 2 盘/);
+  assert.equal(cnPan.includes("只"), false);
+  const twPan = fillAmounts(doughGuides[schiacciata.id]["zh-tw"].steps.find((step) => step.title === "入盤").body, twoRecipe, two);
+  assert.match(twPan, /抹 2 個大約 40 公分長、30 公分寬的烤盤/);
+  assert.match(twPan, /就要分成 2 盤/);
+  assert.equal(twPan.includes("隻"), false);
+  const cnLead3 = fillAmounts(doughGuides[schiacciata.id]["zh-cn"].lead, threeRecipe, three);
+  const cnPan3 = fillAmounts(doughGuides[schiacciata.id]["zh-cn"].steps.find((step) => step.title === "入盘").body, threeRecipe, three);
+  assert.match(cnLead3, /目前是 3 张、每张 575\.3 克/);
+  assert.match(cnPan3, /分成 3 份，每份大约 575\.3 克/);
+  const twLead3 = fillAmounts(doughGuides[schiacciata.id]["zh-tw"].lead, threeRecipe, three);
+  const twPan3 = fillAmounts(doughGuides[schiacciata.id]["zh-tw"].steps.find((step) => step.title === "入盤").body, threeRecipe, three);
+  assert.match(twLead3, /目前是 3 張、每張 575\.3 克/);
+  assert.match(twPan3, /分成 3 份，每份大約 575\.3 克/);
 });
 
 test("every page discloses anonymous analytics and none claim there is none", async () => {
