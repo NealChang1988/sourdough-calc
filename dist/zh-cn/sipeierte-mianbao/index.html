@@ -42,8 +42,8 @@
 <label class="field"><span class="label">面粉 <span class="unit">克</span></span><input name="flour" inputmode="decimal" min="0" step="any" value="500"></label>
 </div>
 <div class="fields grid-2" data-panel="balls" hidden>
-<label class="field"><span class="label">面团球数</span><input name="balls" inputmode="decimal" min="0" step="any" value="4"></label>
-<label class="field"><span class="label">每球克数 <span class="unit">克</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="250"></label>
+<label class="field"><span class="label">面团球数</span><input name="balls" inputmode="decimal" min="0" step="any" value="1"></label>
+<label class="field"><span class="label">每球克数 <span class="unit">克</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="864"></label>
 </div>
 <div class="fields grid-2">
 <label class="field"><span class="label">水合 <span class="unit">%</span></span><input name="hydration" inputmode="decimal" min="0" step="any" value="70"></label>
@@ -61,11 +61,34 @@
 <div class="actions">
 <button type="button" id="copy">复制配方</button>
 <button type="button" id="print" class="secondary">打印</button>
+<button type="button" id="download-pdf" data-label="下载 PDF" data-loading="正在加载…" data-busy="正在生成 PDF…">下载 PDF</button>
+<script>
+(function () {
+  var button = document.getElementById("download-pdf");
+  if (!button) return;
+  button.addEventListener("click", function () {
+    if (window.__pdfReady || window.__pdfPending) return;
+    window.__pdfPending = true;
+    button.disabled = true;
+    button.textContent = button.getAttribute("data-loading");
+  });
+})();
+</script>
 </div>
+<p id="pdf-error" class="error" role="alert" hidden>PDF 生成失败，请再按一次。</p>
 <textarea id="recipe-text" hidden readonly></textarea>
 </section>
 <script type="application/json" id="labels">{"title":"斯佩尔特面包烘焙百分比","flour":"面粉","water":"水","starter":"酸种","salt":"盐","yeast":"酵母","total":"面团总重","grams":"克","effective":"有效水合","copied":"已复制","copyFail":"请选中配方文字再复制"}</script>
-<script type="module" src="/assets/calc.js"></script>
+<script type="application/json" id="pdf-meta">{"title":"斯佩尔特面包烘焙百分比","url":"https://doughcalc.app/zh-cn/sipeierte-mianbao/","filename":"doughcalc-sipeierte-mianbao-zh-cn-recipe.pdf","lang":"zh-CN","fontUrl":"/assets/fonts/noto-sans-sc-subset.ttf","labels":{"result":"配方","flour":"面粉","water":"水","starter":"酸种","salt":"盐","yeast":"酵母","total":"面团总重","grams":"克","effective":"有效水合","hydration":"水合","modeFlour":"按面粉重量","modeBalls":"按面团球","balls":"面团球数","perBall":"每球克数"},"method":{"heading":"详细做法","lead":"一条斯佩尔特吐司。目前是面粉 500 克，水合 70%，盐 1.8%，酵母 1%。也就是水 350 克、盐 9 克和酵母 5 克，合计 864 克。目前是 1 条、864 克。看到没有干粉就停手。用力揉会把斯佩尔特麦揉断。下面的时间按只改面粉的量、百分比不变来估。发酵还是看面团的样子和手感。","leadTemplate":"{{ifOne}}一条斯佩尔特吐司。{{endOne}}{{ifMany}}斯佩尔特吐司。{{endMany}}目前是面粉 {{flour}} 克，水合 {{hydration}}%，盐 {{saltPct}}%，酵母 {{yeastPct}}%。也就是{{zhjoin}}{{item}}水 {{water}} 克{{enditem}}{{item}}{{ifStarter}}酸种 {{starter}} 克{{endStarter}}{{enditem}}{{item}}盐 {{salt}} 克{{enditem}}{{item}}{{ifYeast}}酵母 {{yeast}} 克{{endYeast}}{{enditem}}{{endjoin}}，合计 {{total}} 克。{{ifOne}}目前是 {{balls}} 条、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 条、每条 {{piece}} 克{{endMany}}。看到没有干粉就停手。用力揉会把斯佩尔特麦揉断。下面的时间按只改面粉的量、百分比不变来估。发酵还是看面团的样子和手感。","steps":[{"title":"搅拌","body":"把 500 克斯佩尔特面粉、350 克水、9 克盐和 5 克即发酵母拌到没有干粉就停。水合 70%，柔软。用力揉会把面团揉断、揉塌。面团温度大约 24°C。","bodyTemplate":"把 {{zhjoin}}{{item}}{{flour}} 克斯佩尔特面粉{{enditem}}{{item}}{{water}} 克水{{enditem}}{{item}}{{ifStarter}}{{starter}} 克酸种{{endStarter}}{{enditem}}{{item}}{{salt}} 克盐{{enditem}}{{item}}{{ifYeast}}{{yeast}} 克即发酵母{{endYeast}}{{enditem}}{{endjoin}}拌到没有干粉就停。水合 {{hydration}}%，柔软。用力揉会把面团揉断、揉塌。面团温度大约 24°C。"},{"title":"基本发酵","body":"盖着，放在大约 24°C，50 到 70 分钟。轻轻折叠一轮。酵母有 1%，大约胀起一半即可。","bodyTemplate":"盖着，放在大约 24°C，50 到 70 分钟。轻轻折叠一轮。{{ifYeast}}酵母有 {{yeastPct}}%，大约胀起一半即可。{{endYeast}}{{ifNoYeast}}没有酵母，面团不会发起。{{endNoYeast}}"},{"title":"入模","body":"把 864 克放进抹了油的吐司模，湿手把表面抹平。这一炉是 1 条。默认 864 克用大约 23 厘米长、13 厘米宽、7 厘米高的吐司模；份量改了请换合适大小的模具，或分成两条。烤模里的油是另外加的，不在合计克数里。","bodyTemplate":"{{ifOne}}把 {{total}} 克放进抹了油的吐司模，湿手把表面抹平。这一炉是 {{balls}} 条。{{endOne}}{{ifMany}}把 {{total}} 克分成 {{balls}} 份，每份 {{piece}} 克，各自放进抹了油的吐司模。{{endMany}}默认 864 克用大约 23 厘米长、13 厘米宽、7 厘米高的吐司模；份量改了请换合适大小的模具，或分成两条。烤模里的油是另外加的，不在合计克数里。"},{"title":"最后发酵","body":"盖着发 30 到 45 分钟，发到接近模沿。","bodyTemplate":"盖着发 30 到 45 分钟{{ifYeast}}，发到接近模沿{{endYeast}}。"},{"title":"烘烤","body":"烤箱 200°C。烤 30 到 36 分钟，直到顶部金黄、侧面定住。在模里停 10 分钟，再移到架子上。放凉再切。"}]},"messages":{"label":"下载 PDF","busy":"正在生成 PDF…","fail":"PDF 生成失败，请再按一次。"}}</script>
+<script type="module" src="/assets/calc.js"></script><section class="method">
+<h2>详细做法</h2>
+<p><span data-template="{{ifOne}}一条斯佩尔特吐司。{{endOne}}{{ifMany}}斯佩尔特吐司。{{endMany}}目前是面粉 {{flour}} 克，水合 {{hydration}}%，盐 {{saltPct}}%，酵母 {{yeastPct}}%。也就是{{zhjoin}}{{item}}水 {{water}} 克{{enditem}}{{item}}{{ifStarter}}酸种 {{starter}} 克{{endStarter}}{{enditem}}{{item}}盐 {{salt}} 克{{enditem}}{{item}}{{ifYeast}}酵母 {{yeast}} 克{{endYeast}}{{enditem}}{{endjoin}}，合计 {{total}} 克。{{ifOne}}目前是 {{balls}} 条、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 条、每条 {{piece}} 克{{endMany}}。看到没有干粉就停手。用力揉会把斯佩尔特麦揉断。下面的时间按只改面粉的量、百分比不变来估。发酵还是看面团的样子和手感。">一条斯佩尔特吐司。目前是面粉 500 克，水合 70%，盐 1.8%，酵母 1%。也就是水 350 克、盐 9 克和酵母 5 克，合计 864 克。目前是 1 条、864 克。看到没有干粉就停手。用力揉会把斯佩尔特麦揉断。下面的时间按只改面粉的量、百分比不变来估。发酵还是看面团的样子和手感。</span></p>
+<ol><li><strong>搅拌</strong> <span data-template="把 {{zhjoin}}{{item}}{{flour}} 克斯佩尔特面粉{{enditem}}{{item}}{{water}} 克水{{enditem}}{{item}}{{ifStarter}}{{starter}} 克酸种{{endStarter}}{{enditem}}{{item}}{{salt}} 克盐{{enditem}}{{item}}{{ifYeast}}{{yeast}} 克即发酵母{{endYeast}}{{enditem}}{{endjoin}}拌到没有干粉就停。水合 {{hydration}}%，柔软。用力揉会把面团揉断、揉塌。面团温度大约 24°C。">把 500 克斯佩尔特面粉、350 克水、9 克盐和 5 克即发酵母拌到没有干粉就停。水合 70%，柔软。用力揉会把面团揉断、揉塌。面团温度大约 24°C。</span></li><li><strong>基本发酵</strong> <span data-template="盖着，放在大约 24°C，50 到 70 分钟。轻轻折叠一轮。{{ifYeast}}酵母有 {{yeastPct}}%，大约胀起一半即可。{{endYeast}}{{ifNoYeast}}没有酵母，面团不会发起。{{endNoYeast}}">盖着，放在大约 24°C，50 到 70 分钟。轻轻折叠一轮。酵母有 1%，大约胀起一半即可。</span></li><li><strong>入模</strong> <span data-template="{{ifOne}}把 {{total}} 克放进抹了油的吐司模，湿手把表面抹平。这一炉是 {{balls}} 条。{{endOne}}{{ifMany}}把 {{total}} 克分成 {{balls}} 份，每份 {{piece}} 克，各自放进抹了油的吐司模。{{endMany}}默认 864 克用大约 23 厘米长、13 厘米宽、7 厘米高的吐司模；份量改了请换合适大小的模具，或分成两条。烤模里的油是另外加的，不在合计克数里。">把 864 克放进抹了油的吐司模，湿手把表面抹平。这一炉是 1 条。默认 864 克用大约 23 厘米长、13 厘米宽、7 厘米高的吐司模；份量改了请换合适大小的模具，或分成两条。烤模里的油是另外加的，不在合计克数里。</span></li><li><strong>最后发酵</strong> <span data-template="盖着发 30 到 45 分钟{{ifYeast}}，发到接近模沿{{endYeast}}。">盖着发 30 到 45 分钟，发到接近模沿。</span></li><li><strong>烘烤</strong> 烤箱 200°C。烤 30 到 36 分钟，直到顶部金黄、侧面定住。在模里停 10 分钟，再移到架子上。放凉再切。</li></ol>
+<figure>
+<img src="/assets/spelt-loaf.webp" width="1200" height="900" alt="一个撒了粉的圆面包，顶上划了十字，放在木桌上。" loading="lazy">
+<figcaption>示意图。照片是一个撒了粉的圆面包，顶上划了十字。这一炉做一条吐司。 摄影：adactio，来自 <a href="https://commons.wikimedia.org/wiki/File:Pain_d%27%C3%A9peautre.jpg">Wikimedia Commons</a>，<a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a>。已从 1600×1200 缩小到 1200×900，并转为 WebP。</figcaption>
+</figure>
+</section>
 <section class="related"><h2>相关计算</h2><ul class="link-list"><li><a href="/zh-cn/quanmai-mianbao/">全麦面包烘焙百分比</a></li><li><a href="/zh-cn/heimai-mianbao/">黑麦面包烘焙百分比</a></li><li><a href="/zh-cn/zaliang/">杂粮面包烘焙百分比</a></li><li><a href="/zh-cn/yidali-chang/">意大利长面包烘焙百分比</a></li></ul></section>
 </main>
 <footer>

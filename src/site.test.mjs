@@ -336,7 +336,7 @@ test("built site drops removed urls and keeps a footer mailto on every page", as
 
 test("country sourdough page adds a method and photo without touching other pages", async () => {
   const country = pages.find((page) => page.id === "bread-country-sourdough");
-  const plain = pages.find((page) => page.id === "bread-ficelle");
+  const plain = pages.find((page) => page.id === "bread-pizza-dough");
   const expected = {
     en: "Detailed method",
     "zh-cn": "详细做法",
@@ -968,6 +968,67 @@ test("batch 12 guides keep the method, photo, and ball defaults together", () =>
   assert.match(doughGuides["bread-sourdough-pita"].en.caption, /eight/);
   assert.match(doughGuides["pizza-cold-ferment"].en.caption, /one dough ball/);
   assert.match(doughGuides["pizza-cold-ferment"].en.caption, /four/);
+});
+
+test("batch 13 guides keep the method, photo, and ball defaults together", () => {
+  const cases = [
+    ["bread-ficelle", "/assets/ficelle.webp", "Nono64", "CC BY-SA 3.0", 4, 172.8, "691.2", "default 691.2 g uses a baking stone or tray about 40 cm long"],
+    ["bread-schiacciata", "/assets/schiacciata.webp", "PilotChicago", "CC BY-SA 4.0", 1, 863, "863", "default 863 g uses a rimmed tray about 30 cm long and 20 cm wide"],
+    ["bread-pane-pugliese", "/assets/pane-pugliese.webp", "Alice Wiegand", "CC BY-SA 4.0", 1, 990, "78.2", "default 990 g uses a round lidded pot about 24 cm across"],
+    ["bread-filone", "/assets/filone.webp", "Karen and Brad Emerson", "CC BY 2.0", 1, 853.5, "853.5", "default 853.5 g uses a baking stone or tray about 40 cm long"],
+    ["bread-spelt-loaf", "/assets/spelt-loaf.webp", "adactio", "CC BY 2.0", 1, 864, "864", "default 864 g uses a loaf pan about 23 cm long, 13 cm wide, and 7 cm high"],
+    ["pizza-sourdough", "/assets/sourdough-pizza-dough.webp", "Veganbaking", "CC BY-SA 2.0", 4, 270, "72.7", "default 1080 g uses a baking stone or tray about 40 cm across"],
+  ];
+  for (const [id, photo, photographer, license, balls, grams, shown, pan] of cases) {
+    const page = pages.find((item) => item.id === id);
+    assert.equal(page.preset.balls, balls, id);
+    assert.equal(page.preset.gramsPerBall, grams, id);
+    for (const lang of ["en", "zh-cn", "zh-tw"]) {
+      const html = renderPage(page, lang);
+      assert.match(html, new RegExp(`src="${photo}"`), `${id} ${lang}`);
+      assert.match(html, new RegExp(photographer.replaceAll(".", "\\.")), `${id} ${lang}`);
+      assert.match(html, new RegExp(license.replaceAll(".", "\\.")), `${id} ${lang}`);
+      assert.match(html, /data-template="/, `${id} ${lang}`);
+      assert.match(html, new RegExp(shown.replaceAll(".", "\\.")), `${id} ${lang}`);
+      const method = html.slice(html.indexOf('class="method"'), html.indexOf('class="related"'));
+      assert.equal(method.replace(/<[^>]+>/g, "").includes("{{"), false, `${id} ${lang}`);
+      if (lang === "en") assert.match(method, new RegExp(pan.replaceAll(".", "\\.")), `${id} pan`);
+      const payload = pdfPayload(page, lang);
+      const pdfText = [payload.method.lead, payload.method.leadTemplate || "", ...payload.method.steps.flatMap((step) => [step.body, step.bodyTemplate || ""])].join("\n");
+      assert.equal(/The photo|In the photo|照片/.test(pdfText), false, `${id} ${lang} pdf photo`);
+      if (lang === "en") {
+        assert.match(html, /For illustration only\./, id);
+        assert.match(html, /Currently /, id);
+        assert.equal(/\b0 g yeast\b/.test(method), false, id);
+        assert.equal(/\b0 g starter\b/.test(method), false, id);
+      }
+      if (lang === "zh-cn") {
+        assert.match(html, /示意图。/, id);
+        assert.match(html, /目前是/, id);
+        assert.equal(html.includes("默认是"), false, id);
+      }
+      if (lang === "zh-tw") {
+        assert.match(html, /示意圖。/, id);
+        assert.match(html, /目前是/, id);
+        assert.equal(method.includes("預設是"), false, id);
+      }
+    }
+  }
+  const ficelle = pages.find((item) => item.id === "bread-ficelle");
+  const one = fillAmounts(doughGuides[ficelle.id].en.lead, recipeFor({ ...ficelle.preset, balls: 1 }), { ...ficelle.preset, balls: 1 });
+  const many = fillAmounts(doughGuides[ficelle.id].en.lead, recipeFor(ficelle.preset), ficelle.preset);
+  assert.match(one, /One thin ficelle/);
+  assert.match(many, /Thin ficelles/);
+  assert.match(many, /and 3\.2 g yeast/);
+  assert.equal(/\b0 g starter\b/.test(many), false);
+  const pugliese = pages.find((item) => item.id === "bread-pane-pugliese");
+  const puglieseLead = fillAmounts(doughGuides[pugliese.id].en.lead, recipeFor(pugliese.preset), pugliese.preset);
+  assert.match(puglieseLead, /and 10 g salt/);
+  assert.equal(/\b0 g yeast\b/.test(puglieseLead), false);
+  assert.match(doughGuides["bread-pane-pugliese"].en.steps.find((step) => step.title === "Bake").body, /paper and all/);
+  const pizza = pages.find((item) => item.id === "pizza-sourdough");
+  const pizzaMany = fillAmounts(doughGuides[pizza.id]["zh-cn"].steps[0].body, recipeFor(pizza.preset), pizza.preset);
+  assert.match(pizzaMany, /112\.2 克/);
 });
 
 test("every page discloses anonymous analytics and none claim there is none", async () => {

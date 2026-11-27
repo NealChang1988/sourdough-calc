@@ -42,8 +42,8 @@
 <label class="field"><span class="label">麵粉 <span class="unit">克</span></span><input name="flour" inputmode="decimal" min="0" step="any" value="500"></label>
 </div>
 <div class="fields grid-2" data-panel="balls" hidden>
-<label class="field"><span class="label">麵團球數</span><input name="balls" inputmode="decimal" min="0" step="any" value="4"></label>
-<label class="field"><span class="label">每球克數 <span class="unit">克</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="250"></label>
+<label class="field"><span class="label">麵團球數</span><input name="balls" inputmode="decimal" min="0" step="any" value="1"></label>
+<label class="field"><span class="label">每球克數 <span class="unit">克</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="853.5"></label>
 </div>
 <div class="fields grid-2">
 <label class="field"><span class="label">水合 <span class="unit">%</span></span><input name="hydration" inputmode="decimal" min="0" step="any" value="68"></label>
@@ -61,11 +61,34 @@
 <div class="actions">
 <button type="button" id="copy">複製配方</button>
 <button type="button" id="print" class="secondary">列印</button>
+<button type="button" id="download-pdf" data-label="下載 PDF" data-loading="正在載入…" data-busy="正在產生 PDF…">下載 PDF</button>
+<script>
+(function () {
+  var button = document.getElementById("download-pdf");
+  if (!button) return;
+  button.addEventListener("click", function () {
+    if (window.__pdfReady || window.__pdfPending) return;
+    window.__pdfPending = true;
+    button.disabled = true;
+    button.textContent = button.getAttribute("data-loading");
+  });
+})();
+</script>
 </div>
+<p id="pdf-error" class="error" role="alert" hidden>PDF 產生失敗，請再按一次。</p>
 <textarea id="recipe-text" hidden readonly></textarea>
 </section>
 <script type="application/json" id="labels">{"title":"義大利長麵包烘焙百分比","flour":"麵粉","water":"水","starter":"酸種","salt":"鹽","yeast":"酵母","total":"麵團總重","grams":"克","effective":"有效水合","copied":"已複製","copyFail":"請選中配方文字再複製"}</script>
-<script type="module" src="/assets/calc.js"></script>
+<script type="application/json" id="pdf-meta">{"title":"義大利長麵包烘焙百分比","url":"https://doughcalc.app/zh-tw/yidali-chang/","filename":"doughcalc-yidali-chang-zh-tw-recipe.pdf","lang":"zh-TW","fontUrl":"/assets/fonts/noto-sans-tc-subset.ttf","labels":{"result":"配方","flour":"麵粉","water":"水","starter":"酸種","salt":"鹽","yeast":"酵母","total":"麵團總重","grams":"克","effective":"有效水合","hydration":"水合","modeFlour":"按麵粉重量","modeBalls":"按麵團球","balls":"麵團球數","perBall":"每球克數"},"method":{"heading":"詳細做法","lead":"一條粗長麵包。目前是麵粉 500 克，水合 68%，鹽 2%，酵母 0.7%。也就是水 340 克、鹽 10 克和酵母 3.5 克，合計 853.5 克。目前是 1 條、853.5 克。中段比法國長棍更粗，表面斜著劃幾刀。下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。","leadTemplate":"{{ifOne}}一條粗長麵包。{{endOne}}{{ifMany}}粗長麵包。{{endMany}}目前是麵粉 {{flour}} 克，水合 {{hydration}}%，鹽 {{saltPct}}%，酵母 {{yeastPct}}%。也就是{{zhjoin}}{{item}}水 {{water}} 克{{enditem}}{{item}}{{ifStarter}}酸種 {{starter}} 克{{endStarter}}{{enditem}}{{item}}鹽 {{salt}} 克{{enditem}}{{item}}{{ifYeast}}酵母 {{yeast}} 克{{endYeast}}{{enditem}}{{endjoin}}，合計 {{total}} 克。{{ifOne}}目前是 {{balls}} 條、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 條、每條 {{piece}} 克{{endMany}}。中段比法國長棍更粗，表面斜著劃幾刀。下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。","steps":[{"title":"攪拌","body":"把 500 克麵粉、340 克水、10 克鹽和 3.5 克速發酵母拌到沒有乾粉，再揉大約 6 分鐘，直到光滑。水合 68%，能成團。麵團溫度大約 24°C。","bodyTemplate":"把 {{zhjoin}}{{item}}{{flour}} 克麵粉{{enditem}}{{item}}{{water}} 克水{{enditem}}{{item}}{{ifStarter}}{{starter}} 克酸種{{endStarter}}{{enditem}}{{item}}{{salt}} 克鹽{{enditem}}{{item}}{{ifYeast}}{{yeast}} 克速發酵母{{endYeast}}{{enditem}}{{endjoin}}拌到沒有乾粉，再揉大約 6 分鐘，直到光滑。水合 {{hydration}}%，能成團。麵團溫度大約 24°C。"},{"title":"基本發酵","body":"蓋著，放在大約 24°C，60 到 90 分鐘，摺疊一輪。酵母有 0.7%，差不多發到兩倍。","bodyTemplate":"蓋著，放在大約 24°C，60 到 90 分鐘，摺疊一輪。{{ifYeast}}酵母有 {{yeastPct}}%，差不多發到兩倍。{{endYeast}}{{ifNoYeast}}沒有酵母，麵團不會發起。{{endNoYeast}}"},{"title":"整形","body":"把 853.5 克收成一條粗長麵包，中段比法國長棍更粗。這一爐是 1 條。接縫朝下，放在撒了粉的布上。預設 853.5 克用大約 40 公分長的烤石或烤盤；份量改了請換合適大小的烤盤，或分成幾爐。","bodyTemplate":"{{ifOne}}把 {{total}} 克收成一條粗長麵包，中段比法國長棍更粗。這一爐是 {{balls}} 條。{{endOne}}{{ifMany}}把 {{total}} 克分成 {{balls}} 份，每份 {{piece}} 克，各自收成一條粗長麵包。{{endMany}}接縫朝下，放在撒了粉的布上。預設 853.5 克用大約 40 公分長的烤石或烤盤；份量改了請換合適大小的烤盤，或分成幾爐。"},{"title":"最後發酵","body":"蓋著發 30 到 50 分鐘，發到蓬鬆。","bodyTemplate":"{{ifOne}}蓋著發{{endOne}}{{ifMany}}各自蓋著發{{endMany}} 30 到 50 分鐘{{ifYeast}}，發到蓬鬆{{endYeast}}。"},{"title":"烘烤","body":"烤箱連烤石或烤盤預熱到 230°C，大約 30 分鐘。斜著劃四五刀。帶蒸汽烤 18 到 24 分鐘，直到表皮金黃、側面定住。放到架上至少 30 分鐘，再切開。"}]},"messages":{"label":"下載 PDF","busy":"正在產生 PDF…","fail":"PDF 產生失敗，請再按一次。"}}</script>
+<script type="module" src="/assets/calc.js"></script><section class="method">
+<h2>詳細做法</h2>
+<p><span data-template="{{ifOne}}一條粗長麵包。{{endOne}}{{ifMany}}粗長麵包。{{endMany}}目前是麵粉 {{flour}} 克，水合 {{hydration}}%，鹽 {{saltPct}}%，酵母 {{yeastPct}}%。也就是{{zhjoin}}{{item}}水 {{water}} 克{{enditem}}{{item}}{{ifStarter}}酸種 {{starter}} 克{{endStarter}}{{enditem}}{{item}}鹽 {{salt}} 克{{enditem}}{{item}}{{ifYeast}}酵母 {{yeast}} 克{{endYeast}}{{enditem}}{{endjoin}}，合計 {{total}} 克。{{ifOne}}目前是 {{balls}} 條、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 條、每條 {{piece}} 克{{endMany}}。中段比法國長棍更粗，表面斜著劃幾刀。下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。">一條粗長麵包。目前是麵粉 500 克，水合 68%，鹽 2%，酵母 0.7%。也就是水 340 克、鹽 10 克和酵母 3.5 克，合計 853.5 克。目前是 1 條、853.5 克。中段比法國長棍更粗，表面斜著劃幾刀。下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。</span></p>
+<ol><li><strong>攪拌</strong> <span data-template="把 {{zhjoin}}{{item}}{{flour}} 克麵粉{{enditem}}{{item}}{{water}} 克水{{enditem}}{{item}}{{ifStarter}}{{starter}} 克酸種{{endStarter}}{{enditem}}{{item}}{{salt}} 克鹽{{enditem}}{{item}}{{ifYeast}}{{yeast}} 克速發酵母{{endYeast}}{{enditem}}{{endjoin}}拌到沒有乾粉，再揉大約 6 分鐘，直到光滑。水合 {{hydration}}%，能成團。麵團溫度大約 24°C。">把 500 克麵粉、340 克水、10 克鹽和 3.5 克速發酵母拌到沒有乾粉，再揉大約 6 分鐘，直到光滑。水合 68%，能成團。麵團溫度大約 24°C。</span></li><li><strong>基本發酵</strong> <span data-template="蓋著，放在大約 24°C，60 到 90 分鐘，摺疊一輪。{{ifYeast}}酵母有 {{yeastPct}}%，差不多發到兩倍。{{endYeast}}{{ifNoYeast}}沒有酵母，麵團不會發起。{{endNoYeast}}">蓋著，放在大約 24°C，60 到 90 分鐘，摺疊一輪。酵母有 0.7%，差不多發到兩倍。</span></li><li><strong>整形</strong> <span data-template="{{ifOne}}把 {{total}} 克收成一條粗長麵包，中段比法國長棍更粗。這一爐是 {{balls}} 條。{{endOne}}{{ifMany}}把 {{total}} 克分成 {{balls}} 份，每份 {{piece}} 克，各自收成一條粗長麵包。{{endMany}}接縫朝下，放在撒了粉的布上。預設 853.5 克用大約 40 公分長的烤石或烤盤；份量改了請換合適大小的烤盤，或分成幾爐。">把 853.5 克收成一條粗長麵包，中段比法國長棍更粗。這一爐是 1 條。接縫朝下，放在撒了粉的布上。預設 853.5 克用大約 40 公分長的烤石或烤盤；份量改了請換合適大小的烤盤，或分成幾爐。</span></li><li><strong>最後發酵</strong> <span data-template="{{ifOne}}蓋著發{{endOne}}{{ifMany}}各自蓋著發{{endMany}} 30 到 50 分鐘{{ifYeast}}，發到蓬鬆{{endYeast}}。">蓋著發 30 到 50 分鐘，發到蓬鬆。</span></li><li><strong>烘烤</strong> 烤箱連烤石或烤盤預熱到 230°C，大約 30 分鐘。斜著劃四五刀。帶蒸汽烤 18 到 24 分鐘，直到表皮金黃、側面定住。放到架上至少 30 分鐘，再切開。</li></ol>
+<figure>
+<img src="/assets/filone.webp" width="1200" height="874" alt="一條粗長麵包，表面有斜刀，放在深色烤盤上。" loading="lazy">
+<figcaption>示意圖。照片是深色烤盤上的一條粗長麵包，表面有斜刀。這一爐做一條。 攝影：Karen and Brad Emerson，來自 <a href="https://commons.wikimedia.org/wiki/File:Italian_bread_(3477577117).jpg">Wikimedia Commons</a>，<a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a>。已從 2205×1606 縮小到 1200×874，並轉為 WebP。</figcaption>
+</figure>
+</section>
 <section class="related"><h2>相關計算</h2><ul class="link-list"><li><a href="/zh-tw/sanmingzhi/">三明治吐司烘焙百分比</a></li><li><a href="/zh-tw/daigai-tusi/">帶蓋吐司烘焙百分比</a></li><li><a href="/zh-tw/mianrou/">免揉麵包烘焙百分比</a></li><li><a href="/zh-tw/geye-baimianbao/">隔夜白麵包烘焙百分比</a></li></ul></section>
 </main>
 <footer>
