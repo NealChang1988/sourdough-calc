@@ -28,7 +28,7 @@ export const countryMethod = {
       },
       {
         title: "Bulk fermentation",
-        body: "From the moment the starter goes in, keep the covered dough around 24–26°C (75–79°F) for about 4 to 4½ hours. During the first 2 hours, give it four stretch-and-folds, about 30 minutes apart. Wet your hands, lift one side, stretch it up, and fold it over the center. Turn the bowl a quarter turn and repeat until you have gone all the way around. After the last fold, leave the dough alone. It is ready when it has grown by about half, the top is domed, and a gentle shake shows bubbles just under the skin.",
+        body: "From the moment the starter goes in, keep the covered dough around 24–26°C (75–79°F) for about 4 to 4½ hours. During the first 2 hours, give it four stretch-and-folds, about 30 minutes apart. Wet your hands, lift one side, stretch it up, and fold it over the center. Turn the bowl a quarter turn and repeat until you have gone all the way around. After the last fold, leave the dough alone.{{ifStarter}} It is ready when it has grown by about half, the top is domed, and a gentle shake shows bubbles just under the skin.{{endStarter}}{{ifNoStarter}} Without starter the dough will not rise.{{endNoStarter}}",
       },
       {
         title: "Shape",
@@ -69,7 +69,7 @@ export const countryMethod = {
       },
       {
         title: "基本发酵",
-        body: "从酸种拌进去开始算，盖着的面团放在大约 24 到 26°C，大约 4 到 4 个半小时。前 2 小时做四轮拉伸折叠，大约每 30 分钟一轮。手沾水，提起一面，向上拉，折到中间，碗转四分之一圈，绕完一圈即可。最后一轮之后不要再动。面团大约胀起一半，表面鼓起，轻轻晃碗能看到皮下的气泡，就可以整形。",
+        body: "从酸种拌进去开始算，盖着的面团放在大约 24 到 26°C，大约 4 到 4 个半小时。前 2 小时做四轮拉伸折叠，大约每 30 分钟一轮。手沾水，提起一面，向上拉，折到中间，碗转四分之一圈，绕完一圈即可。最后一轮之后不要再动。{{ifStarter}}面团大约胀起一半，表面鼓起，轻轻晃碗能看到皮下的气泡，就可以整形。{{endStarter}}{{ifNoStarter}}没有酸种，面团不会发起。{{endNoStarter}}",
       },
       {
         title: "整形",
@@ -110,7 +110,7 @@ export const countryMethod = {
       },
       {
         title: "基本發酵",
-        body: "從酸種拌進去起算，蓋著的麵團放在大約 24 到 26°C，大約 4 到 4 個半小時。前 2 小時做四輪拉伸摺疊，大約每 30 分鐘一輪。手沾水，提起一邊，向上拉，再折到中央，碗轉四分之一圈，繞完一圈就好。最後一輪之後不要再動它。麵團大約脹起一半，表面鼓起來，輕輕晃碗能看到皮下的氣泡，就可以整形。",
+        body: "從酸種拌進去起算，蓋著的麵團放在大約 24 到 26°C，大約 4 到 4 個半小時。前 2 小時做四輪拉伸摺疊，大約每 30 分鐘一輪。手沾水，提起一邊，向上拉，再折到中央，碗轉四分之一圈，繞完一圈就好。最後一輪之後不要再動它。{{ifStarter}}麵團大約脹起一半，表面鼓起來，輕輕晃碗能看到皮下的氣泡，就可以整形。{{endStarter}}{{ifNoStarter}}沒有酸種，麵團不會發起。{{endNoStarter}}",
       },
       {
         title: "整形",

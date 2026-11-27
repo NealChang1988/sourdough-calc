@@ -122,13 +122,19 @@ test("kept pages describe different doughs and category pages calculate", () => 
   assert.match(renderPage(pages.find((page) => page.id === "home"), "en"), /Enter a number only, for example 3000, without units/);
 });
 
+function visibleIntro(page, lang) {
+  return page.intro[lang]
+    .map((paragraph) => (page.preset ? fillAmounts(paragraph, recipeFor(page.preset), page.preset) : paragraph))
+    .join("\n");
+}
+
 test("visible long-tail paragraphs differ within each language", () => {
   const payload = {};
   for (const category of ["bread", "hydration", "pizza"]) {
     const group = pages.filter((page) => page.category === category && page.kind === "tool");
     payload[category] = {};
     for (const lang of ["en", "zh-cn", "zh-tw"]) {
-      payload[category][lang] = group.map((page) => page.intro[lang].join("\n"));
+      payload[category][lang] = group.map((page) => visibleIntro(page, lang));
     }
   }
   const script = `
@@ -517,7 +523,7 @@ test("bread page intros stay under 50% similar", () => {
   const group = pages.filter((page) => page.category === "bread" && page.kind === "tool");
   const payload = {};
   for (const lang of ["en", "zh-cn", "zh-tw"]) {
-    payload[lang] = group.map((page) => page.intro[lang].join("\n"));
+    payload[lang] = group.map((page) => visibleIntro(page, lang));
   }
   const script = `
 import json, difflib, sys
@@ -855,22 +861,48 @@ test("built pages do not leave raw templates in the head or visible text", () =>
   }
 });
 
-test("a zero main leavening does not claim the dough will grow by half", () => {
-  const thin = pages.find((item) => item.id === "pizza-thin-crust");
-  const noYeast = { ...thin.preset, yeast: 0 };
-  for (const lang of ["en", "zh-cn", "zh-tw"]) {
-    const bulk = doughGuides[thin.id][lang].steps.find((step) => /Bulk|基本发酵|基本發酵/.test(step.title)).body;
-    const text = fillAmounts(bulk, recipeFor(noYeast), noYeast);
-    assert.equal(/0% yeast|酵母 0%|酵母有 0%/.test(text), false, lang);
-    assert.match(text, /will not rise|不会发起|不會發起/, lang);
-  }
-  const batard = pages.find((item) => item.id === "bread-batard");
-  const noStarter = { ...batard.preset, starter: 0 };
-  for (const lang of ["en", "zh-cn", "zh-tw"]) {
-    const proof = doughGuides[batard.id][lang].steps.find((step) => /Proof|最后发酵|最後發酵/.test(step.title)).body;
-    const text = fillAmounts(proof, recipeFor(noStarter), noStarter);
-    assert.equal(/0% starter|酸种有 0%|酸種有 0%/.test(text), false, lang);
-    assert.match(text, /will not rise|不会发起|不會發起/, lang);
+test("zero main leavening does not promise the dough will grow", () => {
+  const growth =
+    /\b(?:grow(?:n|s|ing)?|doubl(?:e|ed|es|ing)|puff(?:y|ier|s|ed|ing)?|balloon(?:s|ed|ing)?|ris(?:e|es|en|ing)|proof(?:s|ed|ing)?)\b|胀起|脹起|发到|發到|发起来|發起來|两倍|兩倍|蓬松|蓬鬆|鼓出|略微鼓|胀得|脹得/;
+  const badPct =
+    /酵母只有\s*0%|酵母有\s*0%|酸种有\s*0%|酸種有\s*0%|酸种又只有\s*0%|酸種又只有\s*0%|With (?:only )?0%\s*(?:yeast|starter)|only 0%\s*yeast|The 0%\s*yeast/i;
+  const reminderRe =
+    /Without (?:yeast|starter) the dough will not rise\.|没有酵母，面团不会发起。|沒有酵母，麵團不會發起。|没有酸种，面团不会发起。|沒有酸種，麵團不會發起。/g;
+  const targets = pages.filter((page) => page.preset && page.kind === "tool" && (page.category === "bread" || page.category === "pizza"));
+  assert.ok(targets.length >= 40);
+  for (const page of targets) {
+    const mainStarter = (page.preset.starter ?? 0) > 0 && (page.preset.yeast ?? 0) === 0;
+    const preset = { ...page.preset, ...(mainStarter ? { starter: 0 } : { yeast: 0 }) };
+    const recipe = recipeFor(preset);
+    const zeroPage = { ...page, preset };
+    for (const lang of ["en", "zh-cn", "zh-tw"]) {
+      const parts = [...page.intro[lang]];
+      if (!page.intro[lang].includes(page.description[lang])) parts.push(page.description[lang]);
+      const guide = doughGuides[page.id];
+      if (guide) parts.push(guide[lang].lead, ...guide[lang].steps.map((step) => step.body));
+      const filled = parts.map((text) => fillAmounts(text, recipe, preset)).join("\n");
+      const reminders = filled.match(reminderRe) || [];
+      assert.ok(reminders.length <= 1, `${page.id} ${lang} reminders ${reminders.length}`);
+      const scrubbed = filled.replace(reminderRe, "");
+      assert.equal(growth.test(scrubbed), false, `${page.id} ${lang} ${scrubbed.match(growth)?.[0]}`);
+      assert.equal(badPct.test(scrubbed), false, `${page.id} ${lang} percent`);
+      const html = renderPage(zeroPage, lang);
+      const methodAt = html.indexOf('class="method"');
+      if (methodAt >= 0) {
+        const method = html.slice(methodAt, html.indexOf('class="related"')).replace(/<figure[\s\S]*?<\/figure>/, "");
+        const visible = method.replace(/<[^>]+>/g, " ").replace(reminderRe, "");
+        assert.equal(growth.test(visible), false, `${page.id} ${lang} html ${visible.match(growth)?.[0]}`);
+        assert.equal(badPct.test(visible), false, `${page.id} ${lang} html percent`);
+      }
+      const payload = pdfPayload(zeroPage, lang);
+      if (payload?.method) {
+        const pdfText = [payload.method.lead, ...payload.method.steps.map((step) => step.body)].join("\n");
+        const pdfScrub = pdfText.replace(reminderRe, "");
+        assert.equal(growth.test(pdfScrub), false, `${page.id} ${lang} pdf ${pdfScrub.match(growth)?.[0]}`);
+        assert.equal(badPct.test(pdfScrub), false, `${page.id} ${lang} pdf percent`);
+        assert.ok((pdfText.match(reminderRe) || []).length <= 1, `${page.id} ${lang} pdf reminders`);
+      }
+    }
   }
 });
 
