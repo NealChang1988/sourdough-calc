@@ -40,7 +40,7 @@ function clearOutputs() {
 function showError(parsed) {
   const limit = parsed.limit || (mode().direction === "grams" ? 100000 : 1000);
   error.hidden = false;
-  error.textContent = parsed.reason === "stick" ? copy.stickError : errorText(parsed.reason, lang, limit);
+  error.textContent = parsed.reason === "stick" ? copy.stickError : errorText(parsed.reason, lang, limit, parsed.unit);
   detected.textContent = "";
   clearOutputs();
   if (parsed.reason === "stick") {

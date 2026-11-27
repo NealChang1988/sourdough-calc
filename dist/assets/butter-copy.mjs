@@ -99,9 +99,8 @@ export function butterView(result, lang) {
     cups: formatKitchen(figures.cups, { sixteenths: true }),
     ml: `${ml} ${cups.suffix.ml}`,
   };
-  const copyText = butter
-    ? `${summary} · ${cells.oz} · ${cells.cups} ${copy.cup} · ${cells.ml}`
-    : `${summary} · ${cells.oz} · ${cells.cups} ${copy.cup} · ${cells.ml}`;
+  const cupName = lang === "en" && figures.cups > 1.005 ? "cups" : copy.cup;
+  const copyText = `${summary} · ${cells.oz} · ${cells.cups} ${cupName} · ${cells.ml}`;
   return {
     grams: gramBit,
     summary,

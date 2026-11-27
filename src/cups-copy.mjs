@@ -537,19 +537,30 @@ export function detectionNote(parsed, lang, options = {}) {
   return bits.join(" ");
 }
 
+function namedUnit(limit, unit) {
+  if (unit) return unit;
+  const n = Number(limit);
+  if (n === 1000) return "cup";
+  if (n === 2000) return "stick";
+  if (n === 16000) return "tbsp";
+  if (n === 48000) return "tsp";
+  return "g";
+}
+
 function limitMax(limit, unit, lang) {
-  if (!unit) return String(limit);
   const copy = cupsCopy[lang];
-  const plural = Number(limit) === 1 ? unit : unit === "stick" ? "sticks" : unit === "cup" ? "cups" : unit;
-  const name = copy.unitName[plural] || copy.unitName[unit] || unit;
+  const id = namedUnit(limit, unit);
+  const plural = Number(limit) === 1 ? id : id === "stick" ? "sticks" : id === "cup" ? "cups" : id;
+  const name = copy.unitName[plural] || copy.unitName[id] || id;
   const num = Number(limit).toLocaleString("en-US");
   return `${num} ${name}`;
 }
 
 function limitExample(limit, unit) {
-  if (unit === "stick" || unit === "tbsp" || unit === "tsp") return "2";
-  if (!unit && Number(limit) > 1000) return "250";
-  if (unit === "g" && Number(limit) > 1000) return "250";
+  const id = namedUnit(limit, unit);
+  if (id === "oz") return "4";
+  if (id === "stick" || id === "tbsp" || id === "tsp") return "2";
+  if (id === "g" && Number(limit) > 1000) return "250";
   return "1.5";
 }
 
@@ -558,7 +569,7 @@ export function errorText(reason, lang, limit, unit) {
   if (reason === "limit") {
     const max = limitMax(limit, unit, lang);
     const text = copy.limitError.replace("{max}", max).replace("{example}", limitExample(limit, unit));
-    return unit && lang !== "en" ? text.replace(`${max} 的`, `${max}的`) : text;
+    return lang === "en" ? text : text.replace(`${max} 的`, `${max}的`);
   }
   return copy.formatError;
 }

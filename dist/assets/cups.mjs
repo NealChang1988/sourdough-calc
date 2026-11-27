@@ -430,6 +430,15 @@ function classicUnit(unit) {
   return !unit || ["g", "kg", "oz", "lb", "cup"].includes(unit.name);
 }
 
+function capFor(name, count, grams) {
+  if (name === "cup" && count > CUP_LIMIT) return { limit: CUP_LIMIT, unit: "cup" };
+  if (name === "g" && grams > GRAM_LIMIT) return { limit: GRAM_LIMIT, unit: "g" };
+  if (name === "kg" && grams > GRAM_LIMIT) return { limit: GRAM_LIMIT / 1000, unit: "kg" };
+  if (name === "oz" && grams > GRAM_LIMIT) return { limit: Math.floor(GRAM_LIMIT / OZ_G), unit: "oz" };
+  if (name === "lb" && grams > GRAM_LIMIT) return { limit: Math.floor(GRAM_LIMIT / (OZ_G * 16)), unit: "lb" };
+  return null;
+}
+
 export function parseInput(raw, mode = "grams") {
   if (typeof raw !== "string" || raw.trim() === "") return { ok: false, reason: "format" };
   const text = normalize(raw);
@@ -443,8 +452,9 @@ export function parseInput(raw, mode = "grams") {
   const value = counted ? number.value * (unit?.scale ?? 1) : number.value;
   const direction = !unit || unit.kind === "stick" || unit.kind === "weight" ? (unit ? "grams" : mode) : unit.kind === "ml" ? "grams" : "cups";
   if (counted) {
-    const limit = direction === "grams" ? GRAM_LIMIT : CUP_LIMIT;
-    if (!(value > 0) || value > limit) return { ok: false, reason: "limit", limit };
+    const name = unit?.name || (direction === "grams" ? "g" : "cup");
+    const capped = capFor(name, number.value, value);
+    if (capped) return { ok: false, reason: "limit", limit: capped.limit, unit: capped.unit };
   }
   const found = findIngredient(text);
   const withoutNumber = `${text.slice(0, number.index)} ${text.slice(number.index + number.length)}`;
@@ -506,17 +516,15 @@ export function resolveAmount(parsed, { system = "us", ingredient = "ap", spoonS
   }
   if (unit === "ml") {
     const grams = (count * item.gUs) / US_ML;
-    if (grams > GRAM_LIMIT) return { ok: false, reason: "limit", limit: GRAM_LIMIT, unit: "g" };
+    if (grams > GRAM_LIMIT) {
+      return { ok: false, reason: "limit", limit: Math.floor((GRAM_LIMIT * US_ML) / item.gUs), unit: "ml" };
+    }
     return { ok: true, amount: grams, direction: "grams", hero: "grams", unit, ingredient: ing };
   }
-  if (parsed.assumed && unit === "oz") {
-    const grams = count * OZ_G;
-    if (grams > GRAM_LIMIT) return { ok: false, reason: "limit", limit: GRAM_LIMIT, unit: "g" };
-    return { ok: true, amount: grams, direction: "grams", hero: "grams", unit, ingredient: ing };
-  }
-  if (parsed.assumed && unit === "kg") {
-    const grams = count * 1000;
-    if (grams > GRAM_LIMIT) return { ok: false, reason: "limit", limit: GRAM_LIMIT, unit: "g" };
+  if (parsed.assumed && (unit === "oz" || unit === "lb" || unit === "kg")) {
+    const grams = count * (unit === "oz" ? OZ_G : unit === "lb" ? OZ_G * 16 : 1000);
+    const capped = capFor(unit, count, grams);
+    if (capped) return { ok: false, reason: "limit", limit: capped.limit, unit: capped.unit };
     return { ok: true, amount: grams, direction: "grams", hero: "grams", unit, ingredient: ing };
   }
   if (parsed.assumed && unit === "g") {
@@ -593,7 +601,11 @@ export function formatKitchen(value, { sixteenths = false, thirdNote = false } =
     if ((thirdNote && third) || sixteenth) return `${text} (${roundTo(v, 2).toFixed(2)})`;
     return text;
   }
-  return roundTo(v, 2).toFixed(2);
+  const decimal = roundTo(v, 2);
+  if (Math.abs(decimal - Math.round(decimal)) < 1e-9 && Math.abs(v - Math.round(decimal)) < 0.002) {
+    return String(Math.round(decimal));
+  }
+  return decimal.toFixed(2);
 }
 
 export function wholeGrams(value) {
@@ -603,6 +615,7 @@ export function wholeGrams(value) {
 export function displayGrams(value) {
   if (!(value > 0)) return "0";
   const whole = Math.round(value);
+  if (value < 10 && Math.abs(value - whole) >= 0.05) return roundTo(value, 1).toFixed(1);
   if (whole >= 1) return String(whole);
   const tenth = roundTo(value, 1);
   if (tenth >= 0.1) return tenth.toFixed(1);
@@ -611,15 +624,40 @@ export function displayGrams(value) {
   return "< 0.01";
 }
 
-export function quantityInUnit(result, unit) {
+function exactInUnit(result, unit) {
   const figures = measureFigures(result);
-  if (unit === "g") return displayGrams(figures.grams);
-  if (unit === "oz") return trimNumber(roundTo(figures.oz, 2));
-  if (unit === "ml") return trimNumber(roundTo(figures.ml, 2));
-  const value = unit === "cup" ? figures.cups : unit === "stick" ? figures.sticks : unit === "tbsp" ? figures.tbsp : figures.tsp;
-  const label = formatKitchen(value);
-  if (label && !label.includes("(")) return label;
-  return trimNumber(roundTo(value, 2));
+  if (unit === "g") return figures.grams;
+  if (unit === "oz") return figures.oz;
+  if (unit === "ml") return figures.ml;
+  if (unit === "lb") return figures.grams / (OZ_G * 16);
+  if (unit === "kg") return figures.grams / 1000;
+  if (unit === "cup") return figures.cups;
+  if (unit === "stick") return figures.sticks;
+  if (unit === "tbsp") return figures.tbsp;
+  return figures.tsp;
+}
+
+export function quantityInUnit(result, unit) {
+  const target = displayGrams(result.gramsExact);
+  const exact = exactInUnit(result, unit);
+  const nice = formatKitchen(exact);
+  const candidates = [];
+  if (nice && !nice.includes("(")) candidates.push(nice);
+  for (let digits = 2; digits <= 6; digits += 1) candidates.push(trimNumber(roundTo(exact, digits)));
+  const seen = new Set();
+  for (const text of candidates) {
+    if (!text || seen.has(text)) continue;
+    seen.add(text);
+    const again = interpret(text, {
+      ingredient: result.ingredient,
+      system: result.system,
+      spoonStyle: "us",
+      hero: "grams",
+      defaultUnit: unit,
+    });
+    if (again.ok && displayGrams(again.result.gramsExact) === target) return text;
+  }
+  return trimNumber(roundTo(exact, 6));
 }
 
 export function applyUnitTap(raw, nextUnit, options = {}) {
