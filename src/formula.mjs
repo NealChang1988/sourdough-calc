@@ -83,6 +83,13 @@ function formatPiece(n) {
   return formatAmount(n);
 }
 
+const SCHIACCIATA_TRAY_GRAMS = 950;
+
+function trayCount(total) {
+  if (!(total > 0)) return 1;
+  return Math.max(1, Math.ceil(snap(total) / SCHIACCIATA_TRAY_GRAMS - 1e-9));
+}
+
 function shownPreset(n) {
   const text = String(n);
   return text.includes("e") ? formatAmount(n) : text;
@@ -105,6 +112,8 @@ const AMOUNT_TOKENS = {
   saltPct: (_recipe, preset) => shownPreset(preset.salt),
   yeastPct: (_recipe, preset) => shownPreset(preset.yeast),
   balls: (_recipe, preset) => shownPreset(preset.balls),
+  trays: (recipe) => String(trayCount(recipe.total)),
+  trayPiece: (recipe) => formatAmount(recipe.total / trayCount(recipe.total)),
 };
 
 const CONDITIONS = [
@@ -114,6 +123,8 @@ const CONDITIONS = [
   ["ifOne", "endOne", (_recipe, preset) => !(Number(preset.balls) > 1)],
   ["ifNoYeast", "endNoYeast", (recipe) => formatAmount(recipe.yeast) === "0"],
   ["ifNoStarter", "endNoStarter", (recipe) => formatAmount(recipe.starter) === "0"],
+  ["ifOneTray", "endOneTray", (recipe) => trayCount(recipe.total) <= 1],
+  ["ifManyTrays", "endManyTrays", (recipe) => trayCount(recipe.total) > 1],
 ];
 
 function zhJoined(items) {

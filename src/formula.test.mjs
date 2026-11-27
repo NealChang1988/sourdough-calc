@@ -118,6 +118,14 @@ test("switching to balls mode keeps an integer flour when the piece weight is on
   assert.equal(formatAmount(typed.flour), "594.5");
 });
 
+test("schiacciata trays round up from about 950 g of dough", () => {
+  assert.equal(fillAmounts("{{trays}}", { total: 863 }, {}), "1");
+  assert.equal(fillAmounts("{{trays}}", { total: 950 }, {}), "1");
+  assert.equal(fillAmounts("{{trays}}", { total: 950.1 }, {}), "2");
+  assert.equal(fillAmounts("{{trays}} {{trayPiece}}", { total: 1726 }, {}), "2 863");
+  assert.equal(fillAmounts("{{trays}} {{trayPiece}}", { total: 1900.1 }, {}), "3 633.4");
+});
+
 test("method amounts follow the current flour, not a frozen batch", () => {
   const preset = { mode: "flour", flour: 500, hydration: 72, starter: 0, salt: 2, yeast: 0.25, balls: 1, gramsPerBall: 871.25 };
   const text = "{{flour}} g flour, {{water}} g water, {{yeast}} g yeast, {{total}} g, {{yeastPct}}% yeast, {{piece}} g each";

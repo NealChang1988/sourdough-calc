@@ -1029,6 +1029,33 @@ test("batch 13 guides keep the method, photo, and ball defaults together", () =>
   const pizza = pages.find((item) => item.id === "pizza-sourdough");
   const pizzaMany = fillAmounts(doughGuides[pizza.id]["zh-cn"].steps[0].body, recipeFor(pizza.preset), pizza.preset);
   assert.match(pizzaMany, /112\.2 克/);
+  const schiacciata = pages.find((item) => item.id === "bread-schiacciata");
+  const doubled = { ...schiacciata.preset, flour: 1000 };
+  const doubledRecipe = recipeFor(doubled);
+  assert.equal(formatAmount(doubledRecipe.total), "1726");
+  const doubledPage = { ...schiacciata, preset: doubled };
+  const panTitle = { en: "Pan", "zh-cn": "入盘", "zh-tw": "入盤" };
+  for (const lang of ["en", "zh-cn", "zh-tw"]) {
+    const source = doughGuides[schiacciata.id][lang].steps.find((step) => step.title === panTitle[lang]).body;
+    const filled = fillAmounts(source, doubledRecipe, doubled);
+    assert.match(filled, /2/, `${lang} trays`);
+    assert.equal(/all 1726|1726 克全部/.test(filled), false, `${lang} all`);
+    assert.equal(/If you change the amount|份量改了/.test(filled), false, `${lang} resize`);
+    const payload = pdfPayload(doubledPage, lang);
+    const pan = payload.method.steps.find((step) => step.title === panTitle[lang]);
+    assert.equal(pan.body, filled, `${lang} pdf`);
+    assert.match(pan.bodyTemplate, /\{\{trays\}\}/, `${lang} live`);
+  }
+  const enPan = fillAmounts(doughGuides[schiacciata.id].en.steps.find((step) => step.title === "Pan").body, doubledRecipe, doubled);
+  assert.match(enPan, /Divide the 1726 g into 2 parts of about 863 g each/);
+  assert.match(enPan, /Oil 2 rimmed trays about 40 cm long and 30 cm wide/);
+  assert.match(enPan, /Bake one tray at a time, or in batches if the oven cannot fit them/);
+  const cnPan = fillAmounts(doughGuides[schiacciata.id]["zh-cn"].steps.find((step) => step.title === "入盘").body, doubledRecipe, doubled);
+  assert.match(cnPan, /分成 2 份，每份大约 863 克/);
+  assert.match(cnPan, /抹 2 只大约 40 厘米长、30 厘米宽的烤盘/);
+  const twPan = fillAmounts(doughGuides[schiacciata.id]["zh-tw"].steps.find((step) => step.title === "入盤").body, doubledRecipe, doubled);
+  assert.match(twPan, /分成 2 份，每份大約 863 克/);
+  assert.match(twPan, /抹 2 隻大約 40 公分長、30 公分寬的烤盤/);
 });
 
 test("every page discloses anonymous analytics and none claim there is none", async () => {
