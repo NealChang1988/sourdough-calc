@@ -1,4 +1,4 @@
-import { formatScoop, ingredientById } from "./cups.mjs";
+import { formatScoop, ingredientById, trimNumber } from "./cups.mjs";
 
 export const KING_ARTHUR_URL = "https://www.kingarthurbaking.com/learn/ingredient-weight-chart";
 
@@ -13,7 +13,7 @@ const notesEn = {
   sugar: "Granulated sugar uses 200 g for one US cup.",
   brown: "This is packed brown sugar; unpacked brown sugar is much lighter.",
   powdered: "This is unsifted powdered sugar; sifted sugar is lighter.",
-  butter: "A US butter stick is half a US cup, about 113.5 g.",
+  butter: "A US stick of butter is 4 oz (113 g), 8 tbsp, or half a US cup.",
   cocoa: "Unsweetened cocoa powder is much lighter than flour.",
   oats: "These are old-fashioned rolled oats, not oat flour.",
   rice: "This is raw long-grain rice, not a 180 ml rice-cooker cup.",
@@ -32,7 +32,7 @@ const notesCn = {
   sugar: "细砂糖用 200 克当作 1 美制杯。",
   brown: "这是压实的红糖；没压实会轻很多。",
   powdered: "这是未过筛的糖粉；过筛后比较轻。",
-  butter: "1 条美制黄油是半个美制杯，大约 113.5 克。",
+  butter: "一条美制黄油是 4 盎司（113 克）、8 汤匙，也就是半个美制杯。",
   cocoa: "无糖可可粉比面粉轻很多。",
   oats: "这是传统燕麦片，不是燕麦粉。",
   rice: "这是生的长米，不是 180 毫升的电饭锅量米杯。",
@@ -51,7 +51,7 @@ const notesTw = {
   sugar: "細砂糖用 200 克當作 1 美制杯。",
   brown: "這是壓實的紅糖；沒壓實會輕很多。",
   powdered: "這是未過篩的糖粉；過篩後比較輕。",
-  butter: "1 條美制奶油是半個美制杯，大約 113.5 克。",
+  butter: "一條美制奶油是 4 盎司（113 克）、8 湯匙，也就是半個美制杯。",
   cocoa: "無糖可可粉比麵粉輕很多。",
   oats: "這是傳統燕麥片，不是燕麥粉。",
   rice: "這是生的長米，不是 180 毫升的電鍋量米杯。",
@@ -168,6 +168,22 @@ export const cupsCopy = {
     },
     detectedSystem: "Detected {system}.",
     unknown: "No listed density for {text}. Pick the closest ingredient from the menu, for example Flour.",
+    readAs: 'I read this as {value} — I didn\'t recognize "{text}".',
+    readAsBare: "I read this as {value}.",
+    stickError: "A stick is a butter measure. Pick butter, or enter cups, grams, or tablespoons.",
+    unitName: {
+      g: "g",
+      kg: "kg",
+      oz: "oz",
+      cup: "cup",
+      cups: "cups",
+      tbsp: "tbsp",
+      tsp: "tsp",
+      ml: "ml",
+      stick: "stick",
+      sticks: "sticks",
+      lb: "lb",
+    },
     units: { one: "cup", many: "cups", tbsp: "tbsp", tsp: "tsp" },
     cupWord: "cups",
     gramWord: "g",
@@ -263,6 +279,22 @@ export const cupsCopy = {
     detectedDirection: { grams: "辨认出克，所以改用克 → 杯。", cups: "辨认出杯，所以改用杯 → 克。" },
     detectedSystem: "辨认出{system}。",
     unknown: "清单没有「{text}」这种食材。请从菜单挑选最接近的食材，例如面粉。",
+    readAs: "我按 {value} 计算——看不懂“{text}”。",
+    readAsBare: "我按 {value} 计算。",
+    stickError: "“条”是黄油专用的单位。请选黄油，或改用杯、克、汤匙。",
+    unitName: {
+      g: "克",
+      kg: "千克",
+      oz: "盎司",
+      cup: "杯",
+      cups: "杯",
+      tbsp: "汤匙",
+      tsp: "茶匙",
+      ml: "毫升",
+      stick: "条",
+      sticks: "条",
+      lb: "磅",
+    },
     units: { one: "杯", many: "杯", tbsp: "汤匙", tsp: "茶匙" },
     cupWord: "杯",
     gramWord: "克",
@@ -352,6 +384,22 @@ export const cupsCopy = {
     detectedDirection: { grams: "辨認出克，所以改用克 → 杯。", cups: "辨認出杯，所以改用杯 → 克。" },
     detectedSystem: "辨認出{system}。",
     unknown: "清單沒有「{text}」這種食材。請從選單挑選最接近的食材，例如麵粉。",
+    readAs: "我當成 {value} 計算——看不懂「{text}」。",
+    readAsBare: "我當成 {value} 計算。",
+    stickError: "「條」是奶油專用的單位。請選奶油，或改用杯、克、湯匙。",
+    unitName: {
+      g: "克",
+      kg: "千克",
+      oz: "盎司",
+      cup: "杯",
+      cups: "杯",
+      tbsp: "湯匙",
+      tsp: "茶匙",
+      ml: "毫升",
+      stick: "條",
+      sticks: "條",
+      lb: "磅",
+    },
     units: { one: "杯", many: "杯", tbsp: "湯匙", tsp: "茶匙" },
     cupWord: "杯",
     gramWord: "克",
@@ -433,8 +481,9 @@ export function present(result, lang) {
     lang === "en"
       ? `${gramsBit} ${name} = ${cupsBit} (${approx}) · ${result.tbspText} tbsp · ${result.mlText} ml · ${result.ozText} oz`
       : `${gramsBit} ${name} = ${cupsBit}（${approx}） · ${result.tbspText} ${copy.suffix.tbsp} · ${result.mlText} ${copy.suffix.ml} · ${result.ozText} ${copy.suffix.oz}`;
+  const gramsFirst = result.hero === "grams" || (result.hero !== "cups" && result.direction !== "grams");
   return {
-    main: result.direction === "grams" ? `${result.cupsText} ${copy.cupWord}` : `${result.gramsLabel} ${copy.gramWord}`,
+    main: gramsFirst ? `${result.gramsLabel} ${copy.gramWord}` : `${result.cupsText} ${copy.cupWord}`,
     frac,
     warn: far ? copy.far : "",
     scoop: scoop ? copy.scoop.replace("{scoop}", scoop) : "",
@@ -458,22 +507,69 @@ export function present(result, lang) {
   };
 }
 
-export function detectionNote(parsed, lang) {
+export function readAsValue(parsed, lang, mode = "grams") {
+  const copy = cupsCopy[lang];
+  const n = trimNumber(parsed.count ?? parsed.value);
+  const unit = parsed.unit;
+  if (!unit) return mode === "cups" ? `${n} ${copy.cupWord}` : `${n} ${copy.gramWord}`;
+  if (unit === "stick") return `${n} ${Number(n) > 1 ? copy.unitName.sticks : copy.unitName.stick}`;
+  if (unit === "cup") return `${n} ${Number(n) === 1 ? copy.unitName.cup : copy.unitName.cups}`;
+  return `${n} ${copy.unitName[unit] || unit}`;
+}
+
+export function detectionNote(parsed, lang, options = {}) {
   if (!parsed?.ok) return "";
   const copy = cupsCopy[lang];
+  const mode = options.mode || "grams";
   const bits = [];
   if (parsed.ingredientDetected) bits.push(copy.detectedIngredient.replace("{name}", copy.names[parsed.ingredient]));
-  if (parsed.unknown) bits.push(copy.unknown.replace("{text}", parsed.unknown));
-  if (parsed.directionDetected) bits.push(copy.detectedDirection[parsed.direction]);
+  if (parsed.unrecognized) {
+    bits.push(copy.readAs.replace("{value}", readAsValue(parsed, lang, mode)).replace("{text}", parsed.unrecognized));
+  } else if (parsed.unknown && !options.pageIngredient) {
+    bits.push(copy.unknown.replace("{text}", parsed.unknown));
+  } else if (parsed.unknown && options.pageIngredient) {
+    bits.push(copy.readAs.replace("{value}", readAsValue(parsed, lang, mode)).replace("{text}", parsed.unknown));
+  } else if (parsed.assumed) {
+    bits.push(copy.readAsBare.replace("{value}", readAsValue(parsed, lang, mode)));
+  }
+  if (parsed.directionDetected && !options.skipDirection) bits.push(copy.detectedDirection[parsed.direction]);
   if (parsed.system) bits.push(copy.detectedSystem.replace("{system}", copy.systems[parsed.system]));
   return bits.join(" ");
 }
 
-export function errorText(reason, lang, limit) {
+function namedUnit(limit, unit) {
+  if (unit) return unit;
+  const n = Number(limit);
+  if (n === 1000) return "cup";
+  if (n === 2000) return "stick";
+  if (n === 16000) return "tbsp";
+  if (n === 48000) return "tsp";
+  return "g";
+}
+
+function limitMax(limit, unit, lang) {
+  const copy = cupsCopy[lang];
+  const id = namedUnit(limit, unit);
+  const plural = Number(limit) === 1 ? id : id === "stick" ? "sticks" : id === "cup" ? "cups" : id;
+  const name = copy.unitName[plural] || copy.unitName[id] || id;
+  const num = Number(limit).toLocaleString("en-US");
+  return `${num} ${name}`;
+}
+
+function limitExample(limit, unit) {
+  const id = namedUnit(limit, unit);
+  if (id === "oz") return "4";
+  if (id === "stick" || id === "tbsp" || id === "tsp") return "2";
+  if (id === "g" && Number(limit) > 1000) return "250";
+  return "1.5";
+}
+
+export function errorText(reason, lang, limit, unit) {
   const copy = cupsCopy[lang];
   if (reason === "limit") {
-    const example = Number(limit) > 1000 ? "250" : "1.5";
-    return copy.limitError.replace("{max}", String(limit)).replace("{example}", example);
+    const max = limitMax(limit, unit, lang);
+    const text = copy.limitError.replace("{max}", max).replace("{example}", limitExample(limit, unit));
+    return lang === "en" ? text : text.replace(`${max} 的`, `${max}的`);
   }
   return copy.formatError;
 }

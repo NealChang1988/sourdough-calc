@@ -1659,4 +1659,25 @@
     <xhtml:link rel="alternate" hreflang="zh-TW" href="https://doughcalc.app/zh-tw/ke-zhuan-bei-huansuan/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://doughcalc.app/en/grams-to-cups-converter/"/>
   </url>
+  <url>
+    <loc>https://doughcalc.app/en/butter-conversion/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doughcalc.app/en/butter-conversion/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://doughcalc.app/zh-cn/huangyou-huansuan/"/>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://doughcalc.app/zh-tw/naiyou-huansuan/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doughcalc.app/en/butter-conversion/"/>
+  </url>
+  <url>
+    <loc>https://doughcalc.app/zh-cn/huangyou-huansuan/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doughcalc.app/en/butter-conversion/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://doughcalc.app/zh-cn/huangyou-huansuan/"/>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://doughcalc.app/zh-tw/naiyou-huansuan/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doughcalc.app/en/butter-conversion/"/>
+  </url>
+  <url>
+    <loc>https://doughcalc.app/zh-tw/naiyou-huansuan/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doughcalc.app/en/butter-conversion/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://doughcalc.app/zh-cn/huangyou-huansuan/"/>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://doughcalc.app/zh-tw/naiyou-huansuan/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doughcalc.app/en/butter-conversion/"/>
+  </url>
 </urlset>

@@ -1,5 +1,6 @@
 import { SITE_URL } from "../site.config.mjs";
 import { pages, hubGroups, relatedPages, featuredPages } from "./catalog.mjs";
+import { renderButterInner } from "./butter-page.mjs";
 import { renderCupsInner } from "./cups-page.mjs";
 import { doughGuides } from "./data/dough-guides.mjs";
 import { effectiveHydration, fillAmounts, formatAmount, recipeFor } from "./formula.mjs";
@@ -126,7 +127,7 @@ function footer(lang) {
 function crumb(page, lang) {
   if (page.kind === "home") return "";
   const home = `<a href="${pagePath(lang, "")}">${escapeHtml(ui[lang].siteName)}</a>`;
-  if (page.kind === "hub" || page.kind === "convert") {
+  if (page.kind === "hub" || page.kind === "convert" || page.kind === "butter") {
     return `<nav class="crumb" aria-label="${escapeHtml(ui[lang].crumbLabel)}">${home}</nav>`;
   }
   const hub = pages.find((item) => item.id === `hub-${page.category}`);
@@ -397,16 +398,39 @@ function convertLinks() {
   return ["home", "hub-hydration", "hub-bread", "hub-pizza"].map((id) => pages.find((page) => page.id === id));
 }
 
-function homeCupsLink(lang) {
+function homeToolLinks(lang) {
+  return ["cups", "butter"]
+    .map((id) => pages.find((page) => page.id === id))
+    .map((page) => `<p><a href="${pagePath(lang, page.slug[lang])}">${escapeHtml(page.h1[lang])}</a></p>`)
+    .join("");
+}
+
+function butterRelated(lang) {
   const cups = pages.find((page) => page.id === "cups");
-  return `<p><a href="${pagePath(lang, cups.slug[lang])}">${escapeHtml(cups.title[lang])}</a></p>`;
+  const home = pages.find((page) => page.id === "home");
+  const items = [
+    [cups, cups.h1[lang]],
+    [home, home.title[lang]],
+  ];
+  return `<ul class="link-list">${items
+    .map(([page, label]) => `<li><a href="${pagePath(lang, page.slug[lang])}">${escapeHtml(label)}</a></li>`)
+    .join("")}</ul>`;
 }
 
 function relatedBlock(page, lang) {
+  if (page.kind === "butter") {
+    return `<section class="related"><h2>${escapeHtml(ui[lang].related)}</h2>${butterRelated(lang)}</section>`;
+  }
   const items = page.kind === "home" ? featuredPages() : page.kind === "convert" ? convertLinks() : relatedPages(page);
   if (!items.length) return "";
   const heading = page.kind === "home" ? ui[lang].featured : ui[lang].related;
-  const extra = page.kind === "home" ? homeCupsLink(lang) : "";
+  const butter = pages.find((item) => item.id === "butter");
+  const extra =
+    page.kind === "home"
+      ? homeToolLinks(lang)
+      : page.kind === "convert"
+        ? `<p><a href="${pagePath(lang, butter.slug[lang])}">${escapeHtml(butter.h1[lang])}</a></p>`
+        : "";
   return `<section class="related"><h2>${escapeHtml(heading)}</h2>${linkList(items, lang)}${extra}</section>`;
 }
 
@@ -428,7 +452,8 @@ function linkedIntro(page, lang, weigh) {
 }
 
 function article(page, lang, inner, introHtml) {
-  const mainClass = page.kind === "convert" ? ' class="convert"' : "";
+  const mainClass =
+    page.kind === "butter" ? ' class="convert butter"' : page.kind === "convert" ? ' class="convert"' : "";
   return `${header(page, lang)}
 <main id="main"${mainClass}>
 ${crumb(page, lang)}
@@ -444,11 +469,13 @@ export function renderPage(page, lang) {
   const canonical = absoluteUrl(pagePath(lang, page.slug[lang]));
   const alts = alternates(page);
   const cups = pages.find((item) => item.id === "cups");
-  const weigh = { done: page.kind === "convert", href: pagePath(lang, cups.slug[lang]) };
+  const weigh = { done: page.kind === "convert" || page.kind === "butter", href: pagePath(lang, cups.slug[lang]) };
   const introHtml = linkedIntro(page, lang, weigh);
   let inner = "";
   if (page.kind === "convert") {
     inner = renderCupsInner(lang);
+  } else if (page.kind === "butter") {
+    inner = renderButterInner(lang);
   } else if (page.kind === "hub") {
     const groups = hubGroups(page, lang)
       .filter((group) => group.pages.length > 0)

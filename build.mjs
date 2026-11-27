@@ -107,6 +107,8 @@ export async function writeSite(distDir) {
   await writeFile(path.join(assets, "cups.mjs"), await readFile(path.join(root, "src", "cups.mjs")));
   await writeFile(path.join(assets, "cups-copy.mjs"), await readFile(path.join(root, "src", "cups-copy.mjs")));
   await writeFile(path.join(assets, "cups.js"), await readFile(path.join(root, "src", "cups.js")));
+  await writeFile(path.join(assets, "butter.js"), await readFile(path.join(root, "src", "butter.js")));
+  await writeFile(path.join(assets, "butter-copy.mjs"), await readFile(path.join(root, "src", "butter-copy.mjs")));
   await writeFile(path.join(assets, "pdf-doc.js"), await readFile(path.join(root, "src", "pdf-doc.js")));
   await mkdir(path.join(assets, "vendor"), { recursive: true });
   await writeFile(

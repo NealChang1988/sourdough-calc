@@ -16,7 +16,7 @@ function escapeHtml(value) {
     .replaceAll('"', "&quot;");
 }
 
-const ICONS = [
+export const STEP_ICONS = [
   `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 10h8M8 13h8M8 16h5" fill="none" stroke="currentColor" stroke-width="2"/></svg>`,
   `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19h14M7 16l9.5-9.5a1.8 1.8 0 0 1 2.5 2.5L9.5 18.5 6 19.2 7 16z" fill="none" stroke="currentColor" stroke-width="2"/></svg>`,
   `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 12.5l2.5 2.5L16 9.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>`,
@@ -66,7 +66,7 @@ export function renderCupsInner(lang) {
     })
     .join("");
   const steps = copy.steps
-    .map((sentence, index) => `<li>${ICONS[index]}<span>${escapeHtml(sentence)}</span></li>`)
+    .map((sentence, index) => `<li>${STEP_ICONS[index]}<span>${escapeHtml(sentence)}</span></li>`)
     .join("");
   const example = copy.exampleRows
     .map((row) => `<tr><td>${escapeHtml(row[0])}</td><td>${escapeHtml(row[1])}</td></tr>`)
