@@ -1680,4 +1680,25 @@
     <xhtml:link rel="alternate" hreflang="zh-TW" href="https://doughcalc.app/zh-tw/naiyou-huansuan/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://doughcalc.app/en/butter-conversion/"/>
   </url>
+  <url>
+    <loc>https://doughcalc.app/en/tablespoons-teaspoons-to-grams/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doughcalc.app/en/tablespoons-teaspoons-to-grams/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://doughcalc.app/zh-cn/tangchi-chachi-zhuan-ke/"/>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://doughcalc.app/zh-tw/tangchi-chachi-zhuan-ke/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doughcalc.app/en/tablespoons-teaspoons-to-grams/"/>
+  </url>
+  <url>
+    <loc>https://doughcalc.app/zh-cn/tangchi-chachi-zhuan-ke/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doughcalc.app/en/tablespoons-teaspoons-to-grams/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://doughcalc.app/zh-cn/tangchi-chachi-zhuan-ke/"/>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://doughcalc.app/zh-tw/tangchi-chachi-zhuan-ke/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doughcalc.app/en/tablespoons-teaspoons-to-grams/"/>
+  </url>
+  <url>
+    <loc>https://doughcalc.app/zh-tw/tangchi-chachi-zhuan-ke/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://doughcalc.app/en/tablespoons-teaspoons-to-grams/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://doughcalc.app/zh-cn/tangchi-chachi-zhuan-ke/"/>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://doughcalc.app/zh-tw/tangchi-chachi-zhuan-ke/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://doughcalc.app/en/tablespoons-teaspoons-to-grams/"/>
+  </url>
 </urlset>

@@ -330,8 +330,9 @@ function phraseIndex(text, phrase) {
   return text.indexOf(phrase);
 }
 
-function findIngredient(text) {
-  for (const [phrase, id] of PHRASES) {
+function findIngredient(text, extra) {
+  const phrases = extra?.length ? [...extra, ...PHRASES].sort((a, b) => b[0].length - a[0].length) : PHRASES;
+  for (const [phrase, id] of phrases) {
     const index = phraseIndex(text, phrase);
     if (index !== -1) return { id, phrase, index };
   }
@@ -439,7 +440,7 @@ function capFor(name, count, grams) {
   return null;
 }
 
-export function parseInput(raw, mode = "grams") {
+export function parseInput(raw, mode = "grams", options = {}) {
   if (typeof raw !== "string" || raw.trim() === "") return { ok: false, reason: "format" };
   const text = normalize(raw);
   if (/^\s*-/.test(text)) return { ok: false, reason: "range" };
@@ -451,12 +452,12 @@ export function parseInput(raw, mode = "grams") {
   const counted = classicUnit(unit);
   const value = counted ? number.value * (unit?.scale ?? 1) : number.value;
   const direction = !unit || unit.kind === "stick" || unit.kind === "weight" ? (unit ? "grams" : mode) : unit.kind === "ml" ? "grams" : "cups";
-  if (counted) {
+  if (counted && !(options.deferBareCap && !unit)) {
     const name = unit?.name || (direction === "grams" ? "g" : "cup");
     const capped = capFor(name, number.value, value);
     if (capped) return { ok: false, reason: "limit", limit: capped.limit, unit: capped.unit };
   }
-  const found = findIngredient(text);
+  const found = findIngredient(text, options.extraPhrases);
   const withoutNumber = `${text.slice(0, number.index)} ${text.slice(number.index + number.length)}`;
   const rest = leftoverWords(found ? removePhrase(withoutNumber, found.phrase) : withoutNumber);
   let unknown = null;
@@ -543,7 +544,10 @@ export function resolveAmount(parsed, { system = "us", ingredient = "ap", spoonS
 
 export function interpret(raw, options = {}) {
   const mode = options.mode || "grams";
-  const parsed0 = parseInput(raw, mode);
+  const parsed0 = parseInput(raw, mode, {
+    deferBareCap: Boolean(options.defaultUnit),
+    extraPhrases: options.extraPhrases,
+  });
   if (!parsed0.ok) return { ok: false, parsed: parsed0 };
   const parsed =
     options.defaultUnit && !parsed0.unit ? { ...parsed0, unit: options.defaultUnit, assumed: true } : parsed0;

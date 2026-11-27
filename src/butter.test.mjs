@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { butterExampleRows, butterView, quickFacts, quickLines } from "./butter-copy.mjs";
 import { detectionNote, errorText } from "./cups-copy.mjs";
-import { applyUnitTap, displayGrams, formatKitchen, interpret, measureFigures, wholeGrams } from "./cups.mjs";
+import { applyUnitTap, displayGrams, formatKitchen, interpret, measureFigures, parseInput, wholeGrams } from "./cups.mjs";
 import { pages } from "./catalog.mjs";
 import { renderPage, renderSitemap } from "./render.mjs";
 
@@ -183,7 +183,7 @@ test("butter pages use the spec titles in all three languages", () => {
   assert.match(home, />Butter Converter: Sticks, Cups and Tablespoons to Grams</);
   assert.match(home, />Grams to Cups Converter</);
   const sitemap = renderSitemap();
-  assert.equal(sitemap.split("<loc>").length - 1, 240);
+  assert.equal(sitemap.split("<loc>").length - 1, 243);
   assert.match(sitemap, /<loc>https:\/\/doughcalc\.app\/en\/butter-conversion\/<\/loc>/);
   assert.match(sitemap, /<loc>https:\/\/doughcalc\.app\/zh-cn\/huangyou-huansuan\/<\/loc>/);
   assert.match(sitemap, /<loc>https:\/\/doughcalc\.app\/zh-tw\/naiyou-huansuan\/<\/loc>/);
@@ -292,4 +292,47 @@ test("the noted unit is the unit that was calculated", () => {
   const back = interpret(gramTap.amount, { ingredient: "butter", spoonStyle: "us", hero: "grams", defaultUnit: "g" });
   assert.match(butterView(back.result, "en").summary, /2 sticks/);
   assert.equal(butterView(back.result, "en").summary.includes("2.00"), false);
+});
+
+test("a bare over-limit number uses the remembered unit", () => {
+  const cases = [
+    ["ml", "200000", "104,317 ml", "104,317 毫升", "104,317 毫升"],
+    ["ml", "104318", "104,317 ml", "104,317 毫升", "104,317 毫升"],
+    ["stick", "200000", "2,000 sticks", "2,000 条", "2,000 條"],
+    ["tbsp", "200000", "16,000 tbsp", "16,000 汤匙", "16,000 湯匙"],
+    ["tsp", "200000", "48,000 tsp", "48,000 茶匙", "48,000 茶匙"],
+    ["cup", "200000", "1,000 cups", "1,000 杯", "1,000 杯"],
+    ["oz", "200000", "3,527 oz", "3,527 盎司", "3,527 盎司"],
+    ["lb", "200000", "220 lb", "220 磅", "220 磅"],
+    ["g", "200000", "100,000 g", "100,000 克", "100,000 克"],
+    ["oz", "3528", "3,527 oz", "3,527 盎司", "3,527 盎司"],
+  ];
+  for (const [unit, raw, en, cn, tw] of cases) {
+    const bare = interpret(raw, { ingredient: "butter", spoonStyle: "us", hero: "grams", defaultUnit: unit });
+    const typed = interpret(`${raw} ${unit}`, { ingredient: "butter", spoonStyle: "us", hero: "grams" });
+    assert.equal(bare.ok, false, `${raw} as ${unit}`);
+    assert.equal(typed.ok, false, `${raw} ${unit}`);
+    const fail = (out) => out.resolved || out.parsed;
+    for (const [lang, expectText] of [["en", en], ["zh-cn", cn], ["zh-tw", tw]]) {
+      const bareMsg = errorText(fail(bare).reason, lang, fail(bare).limit, fail(bare).unit);
+      const typedMsg = errorText(fail(typed).reason, lang, fail(typed).limit, fail(typed).unit);
+      assert.equal(bareMsg, typedMsg, `${lang} ${raw} ${unit}`);
+      assert.ok(bareMsg.includes(expectText), `${lang} ${bareMsg}`);
+    }
+  }
+  const kept = interpret("104317", { ingredient: "butter", spoonStyle: "us", hero: "grams", defaultUnit: "ml" });
+  assert.equal(kept.ok, true);
+  assert.equal(butterView(kept.result, "en").grams, "99999 g");
+  const grams = parseInput("100001", "grams");
+  assert.equal(grams.ok, false);
+  assert.match(errorText(grams.reason, "en", grams.limit, grams.unit), /at most 100,000 g, for example 250/);
+  const cupsMode = parseInput("1001", "cups");
+  assert.equal(cupsMode.ok, false);
+  assert.match(errorText(cupsMode.reason, "en", cupsMode.limit, cupsMode.unit), /at most 1,000 cups, for example 1\.5/);
+  const salt = parseInput("1 tsp salt");
+  assert.equal(salt.ingredient, null);
+  assert.match(salt.unknown, /salt/);
+  const powder = parseInput("1 tsp baking powder");
+  assert.equal(powder.ingredient, null);
+  assert.match(powder.unknown, /baking powder/);
 });

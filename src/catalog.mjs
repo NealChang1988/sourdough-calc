@@ -324,6 +324,39 @@ function cupsPage() {
   };
 }
 
+function spoonsPage() {
+  return {
+    id: "spoons",
+    kind: "spoons",
+    category: "convert",
+    slug: {
+      en: "tablespoons-teaspoons-to-grams",
+      "zh-cn": "tangchi-chachi-zhuan-ke",
+      "zh-tw": "tangchi-chachi-zhuan-ke",
+    },
+    title: {
+      en: "Tablespoons to Grams (and Teaspoons to Grams) by Ingredient",
+      "zh-cn": "汤匙、茶匙换算成克（各种食材）",
+      "zh-tw": "湯匙、茶匙換算成克（各種食材）",
+    },
+    h1: {
+      en: "Tablespoons and Teaspoons to Grams",
+      "zh-cn": "汤匙、茶匙转克换算器",
+      "zh-tw": "湯匙、茶匙轉克換算器",
+    },
+    description: {
+      en: "Tablespoons and teaspoons to grams for flour, sugar, butter, honey, salt and more, with US and metric spoons.",
+      "zh-cn": "面粉、糖、黄油、蜂蜜、盐等食材的汤匙、茶匙换算成克，含美制和公制汤匙。",
+      "zh-tw": "麵粉、糖、奶油、蜂蜜、鹽等食材的湯匙、茶匙換算成克，含美制和公制湯匙。",
+    },
+    intro: {
+      en: ["Pick an ingredient and convert tablespoons, teaspoons and grams."],
+      "zh-cn": ["选一种食材，就能在汤匙、茶匙和克之间换算。"],
+      "zh-tw": ["選一種食材，就能在湯匙、茶匙和克之間換算。"],
+    },
+  };
+}
+
 function butterPage() {
   return {
     id: "butter",
@@ -374,7 +407,7 @@ function assertPages(list) {
         if (!value || !value.trim()) throw new Error(`missing ${field} ${page.id} ${lang}`);
       }
       const paragraphs = page.intro[lang];
-      const minIntro = page.kind === "butter" ? 20 : 40;
+      const minIntro = page.kind === "butter" || page.kind === "spoons" ? 20 : 40;
       if (!paragraphs?.length || paragraphs.some((p) => p.trim().length < minIntro)) {
         throw new Error(`short intro ${page.id} ${lang}`);
       }
@@ -415,6 +448,7 @@ export const pages = [
   ...breadPages(),
   cupsPage(),
   butterPage(),
+  spoonsPage(),
 ];
 
 assertPages(pages);
