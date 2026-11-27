@@ -42,8 +42,8 @@
 <label class="field"><span class="label">面粉 <span class="unit">克</span></span><input name="flour" inputmode="decimal" min="0" step="any" value="400"></label>
 </div>
 <div class="fields grid-2" data-panel="balls" hidden>
-<label class="field"><span class="label">面团球数</span><input name="balls" inputmode="decimal" min="0" step="any" value="4"></label>
-<label class="field"><span class="label">每球克数 <span class="unit">克</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="250"></label>
+<label class="field"><span class="label">面团球数</span><input name="balls" inputmode="decimal" min="0" step="any" value="8"></label>
+<label class="field"><span class="label">每球克数 <span class="unit">克</span></span><input name="gramsPerBall" inputmode="decimal" min="0" step="any" value="93.4"></label>
 </div>
 <div class="fields grid-2">
 <label class="field"><span class="label">水合 <span class="unit">%</span></span><input name="hydration" inputmode="decimal" min="0" step="any" value="65"></label>
@@ -61,11 +61,34 @@
 <div class="actions">
 <button type="button" id="copy">复制配方</button>
 <button type="button" id="print" class="secondary">打印</button>
+<button type="button" id="download-pdf" data-label="下载 PDF" data-loading="正在加载…" data-busy="正在生成 PDF…">下载 PDF</button>
+<script>
+(function () {
+  var button = document.getElementById("download-pdf");
+  if (!button) return;
+  button.addEventListener("click", function () {
+    if (window.__pdfReady || window.__pdfPending) return;
+    window.__pdfPending = true;
+    button.disabled = true;
+    button.textContent = button.getAttribute("data-loading");
+  });
+})();
+</script>
 </div>
+<p id="pdf-error" class="error" role="alert" hidden>PDF 生成失败，请再按一次。</p>
 <textarea id="recipe-text" hidden readonly></textarea>
 </section>
 <script type="application/json" id="labels">{"title":"酸种皮塔烘焙百分比","flour":"面粉","water":"水","starter":"酸种","salt":"盐","yeast":"酵母","total":"面团总重","grams":"克","effective":"有效水合","copied":"已复制","copyFail":"请选中配方文字再复制"}</script>
-<script type="module" src="/assets/calc.js"></script>
+<script type="application/json" id="pdf-meta">{"title":"酸种皮塔烘焙百分比","url":"https://doughcalc.app/zh-cn/suanzhong-pita/","filename":"doughcalc-suanzhong-pita-zh-cn-recipe.pdf","lang":"zh-CN","fontUrl":"/assets/fonts/noto-sans-sc-subset.ttf","labels":{"result":"配方","flour":"面粉","water":"水","starter":"酸种","salt":"盐","yeast":"酵母","total":"面团总重","grams":"克","effective":"有效水合","hydration":"水合","modeFlour":"按面粉重量","modeBalls":"按面团球","balls":"面团球数","perBall":"每球克数"},"method":{"heading":"详细做法","lead":"酸种皮塔。目前是面粉 400 克，水合 65%，酸种 20%，盐 1.8%，酵母 0%。也就是水 260 克、酸种 80 克和 盐 7.2 克，合计 747.2 克。酸种按 100% 水合计，和结果里的有效水合用的是同一种假设。页面上的有效水合是 68.2%。目前是 8 张、每张 93.4 克。下面的时间按只改面粉的量、百分比不变来估。发酵还是看面团的样子和手感。","leadTemplate":"{{ifOne}}一张酸种皮塔。{{endOne}}{{ifMany}}酸种皮塔。{{endMany}}目前是面粉 {{flour}} 克，水合 {{hydration}}%，酸种 {{starterPct}}%，盐 {{saltPct}}%，酵母 {{yeastPct}}%。也就是{{zhjoin}}{{item}}水 {{water}} 克{{enditem}}{{item}}{{ifStarter}}酸种 {{starter}} 克{{endStarter}}{{enditem}}{{item}}盐 {{salt}} 克{{enditem}}{{item}}{{ifYeast}}酵母 {{yeast}} 克{{endYeast}}{{enditem}}{{endjoin}}，合计 {{total}} 克。酸种按 100% 水合计，和结果里的有效水合用的是同一种假设。页面上的有效水合是 {{effective}}%。{{ifOne}}目前是 {{balls}} 张、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 张、每张 {{piece}} 克{{endMany}}。下面的时间按只改面粉的量、百分比不变来估。发酵还是看面团的样子和手感。","steps":[{"title":"酸种","body":"用 80 克已经发到大约两倍、表面有气泡的酸种。这 80 克算在合计里。","bodyTemplate":"{{ifStarter}}用 {{starter}} 克已经发到大约两倍、表面有气泡的酸种。这 {{starter}} 克算在合计里。{{endStarter}}{{ifYeast}}酵母是 {{yeast}} 克。{{endYeast}}"},{"title":"搅拌","body":"把 400 克面粉、260 克水、80 克酸种和 7.2 克盐拌到没有干粉，再揉大约 6 分钟，直到光滑。水合 65%，柔软。面团温度大约 24°C。","bodyTemplate":"把 {{zhjoin}}{{item}}{{flour}} 克面粉{{enditem}}{{item}}{{water}} 克水{{enditem}}{{item}}{{ifStarter}}{{starter}} 克酸种{{endStarter}}{{enditem}}{{item}}{{ifYeast}}{{yeast}} 克即发酵母{{endYeast}}{{enditem}}{{item}}{{salt}} 克盐{{enditem}}{{endjoin}}拌到没有干粉，再揉大约 6 分钟，直到光滑。水合 {{hydration}}%，柔软。面团温度大约 24°C。"},{"title":"基本发酵","body":"盖着，放在大约 24°C，大约 3 到 4 小时。第一个小时折叠两轮。酸种有 20%，大约胀起一半就可以分割。","bodyTemplate":"盖着，放在大约 24°C，大约 3 到 4 小时。第一个小时折叠两轮。酸种有 {{starterPct}}%，大约胀起一半就可以分割。"},{"title":"分割","body":"把 747.2 克分成 8 份，每份 93.4 克，各自收成一个球，盖着松弛 20 分钟。默认 747.2 克用大约 40 厘米宽的烤石或烤盘；份量改了请换合适大小的烤石，或分成几炉。","bodyTemplate":"{{ifOne}}把 {{total}} 克收成一个球，盖着松弛 20 分钟。这一炉是 {{balls}} 张。{{endOne}}{{ifMany}}把 {{total}} 克分成 {{balls}} 份，每份 {{piece}} 克，各自收成一个球，盖着松弛 20 分钟。{{endMany}}默认 747.2 克用大约 40 厘米宽的烤石或烤盘；份量改了请换合适大小的烤石，或分成几炉。"},{"title":"擀开","body":"台面薄薄撒粉。把每一球擀到大约 15 厘米宽、大约 0.5 厘米厚。表皮破了就不会鼓。","bodyTemplate":"台面薄薄撒粉。把{{ifOne}}这一球{{endOne}}{{ifMany}}每一球{{endMany}}擀到大约 15 厘米宽、大约 0.5 厘米厚。表皮破了就不会鼓。"},{"title":"烘烤","body":"烤石或烤钢以 250°C 预热 30 分钟。一次放一到两张，烤 2 到 4 分钟，直到鼓起来。出炉后叠进干布里，表皮才不会变硬。"}]},"messages":{"label":"下载 PDF","busy":"正在生成 PDF…","fail":"PDF 生成失败，请再按一次。"}}</script>
+<script type="module" src="/assets/calc.js"></script><section class="method">
+<h2>详细做法</h2>
+<p><span data-template="{{ifOne}}一张酸种皮塔。{{endOne}}{{ifMany}}酸种皮塔。{{endMany}}目前是面粉 {{flour}} 克，水合 {{hydration}}%，酸种 {{starterPct}}%，盐 {{saltPct}}%，酵母 {{yeastPct}}%。也就是{{zhjoin}}{{item}}水 {{water}} 克{{enditem}}{{item}}{{ifStarter}}酸种 {{starter}} 克{{endStarter}}{{enditem}}{{item}}盐 {{salt}} 克{{enditem}}{{item}}{{ifYeast}}酵母 {{yeast}} 克{{endYeast}}{{enditem}}{{endjoin}}，合计 {{total}} 克。酸种按 100% 水合计，和结果里的有效水合用的是同一种假设。页面上的有效水合是 {{effective}}%。{{ifOne}}目前是 {{balls}} 张、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 张、每张 {{piece}} 克{{endMany}}。下面的时间按只改面粉的量、百分比不变来估。发酵还是看面团的样子和手感。">酸种皮塔。目前是面粉 400 克，水合 65%，酸种 20%，盐 1.8%，酵母 0%。也就是水 260 克、酸种 80 克和 盐 7.2 克，合计 747.2 克。酸种按 100% 水合计，和结果里的有效水合用的是同一种假设。页面上的有效水合是 68.2%。目前是 8 张、每张 93.4 克。下面的时间按只改面粉的量、百分比不变来估。发酵还是看面团的样子和手感。</span></p>
+<ol><li><strong>酸种</strong> <span data-template="{{ifStarter}}用 {{starter}} 克已经发到大约两倍、表面有气泡的酸种。这 {{starter}} 克算在合计里。{{endStarter}}{{ifYeast}}酵母是 {{yeast}} 克。{{endYeast}}">用 80 克已经发到大约两倍、表面有气泡的酸种。这 80 克算在合计里。</span></li><li><strong>搅拌</strong> <span data-template="把 {{zhjoin}}{{item}}{{flour}} 克面粉{{enditem}}{{item}}{{water}} 克水{{enditem}}{{item}}{{ifStarter}}{{starter}} 克酸种{{endStarter}}{{enditem}}{{item}}{{ifYeast}}{{yeast}} 克即发酵母{{endYeast}}{{enditem}}{{item}}{{salt}} 克盐{{enditem}}{{endjoin}}拌到没有干粉，再揉大约 6 分钟，直到光滑。水合 {{hydration}}%，柔软。面团温度大约 24°C。">把 400 克面粉、260 克水、80 克酸种和 7.2 克盐拌到没有干粉，再揉大约 6 分钟，直到光滑。水合 65%，柔软。面团温度大约 24°C。</span></li><li><strong>基本发酵</strong> <span data-template="盖着，放在大约 24°C，大约 3 到 4 小时。第一个小时折叠两轮。酸种有 {{starterPct}}%，大约胀起一半就可以分割。">盖着，放在大约 24°C，大约 3 到 4 小时。第一个小时折叠两轮。酸种有 20%，大约胀起一半就可以分割。</span></li><li><strong>分割</strong> <span data-template="{{ifOne}}把 {{total}} 克收成一个球，盖着松弛 20 分钟。这一炉是 {{balls}} 张。{{endOne}}{{ifMany}}把 {{total}} 克分成 {{balls}} 份，每份 {{piece}} 克，各自收成一个球，盖着松弛 20 分钟。{{endMany}}默认 747.2 克用大约 40 厘米宽的烤石或烤盘；份量改了请换合适大小的烤石，或分成几炉。">把 747.2 克分成 8 份，每份 93.4 克，各自收成一个球，盖着松弛 20 分钟。默认 747.2 克用大约 40 厘米宽的烤石或烤盘；份量改了请换合适大小的烤石，或分成几炉。</span></li><li><strong>擀开</strong> <span data-template="台面薄薄撒粉。把{{ifOne}}这一球{{endOne}}{{ifMany}}每一球{{endMany}}擀到大约 15 厘米宽、大约 0.5 厘米厚。表皮破了就不会鼓。">台面薄薄撒粉。把每一球擀到大约 15 厘米宽、大约 0.5 厘米厚。表皮破了就不会鼓。</span></li><li><strong>烘烤</strong> 烤石或烤钢以 250°C 预热 30 分钟。一次放一到两张，烤 2 到 4 分钟，直到鼓起来。出炉后叠进干布里，表皮才不会变硬。</li></ol>
+<figure>
+<img src="/assets/sourdough-pita.webp" width="1200" height="900" alt="篮子里几张浅色皮塔，垫着纸。" loading="lazy">
+<figcaption>示意图。照片是篮子里几张浅色皮塔，垫着纸。这一炉做八张。 摄影：Calvin Neonardi，来自 <a href="https://commons.wikimedia.org/wiki/File:Pita_(bread).JPG">Wikimedia Commons</a>，<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>。已从 4608×3456 缩小到 1200×900，并转为 WebP。</figcaption>
+</figure>
+</section>
 <section class="related"><h2>相关计算</h2><ul class="link-list"><li><a href="/zh-cn/fokaxia-hongbei-baifenbi/">佛卡夏烘焙百分比</a></li><li><a href="/zh-cn/suanzhong-fokaxia/">酸种佛卡夏烘焙百分比</a></li><li><a href="/zh-cn/pita/">皮塔饼烘焙百分比</a></li><li><a href="/zh-cn/nang/">馕烘焙百分比</a></li></ul></section>
 </main>
 <footer>

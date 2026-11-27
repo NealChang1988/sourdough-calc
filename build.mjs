@@ -89,6 +89,11 @@ export async function writeSite(distDir) {
     "sourdough-rolls.webp",
     "sourdough-pizza.webp",
     "hard-rolls.webp",
+    "thin-crust-pizza.webp",
+    "same-day-pizza.webp",
+    "cold-ferment-pizza.webp",
+    "sourdough-pita.webp",
+    "batard.webp",
   ]) {
     await writeFile(path.join(assets, name), await readFile(path.join(root, "src", name)));
   }

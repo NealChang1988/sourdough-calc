@@ -233,6 +233,8 @@ const BALL_PRESET = {
   "sourdough-rolls": [8, 117.5],
   "sourdough-pizza": [5, 192.5],
   "hard-rolls": [8, 100.5],
+  batard: [1, 980],
+  "sourdough-pita": [8, 93.4],
 };
 
 // New breads stay out of older pages' related lists so those pages keep the same four links.

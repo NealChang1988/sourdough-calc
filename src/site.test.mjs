@@ -330,7 +330,7 @@ test("built site drops removed urls and keeps a footer mailto on every page", as
 
 test("country sourdough page adds a method and photo without touching other pages", async () => {
   const country = pages.find((page) => page.id === "bread-country-sourdough");
-  const plain = pages.find((page) => page.id === "bread-batard");
+  const plain = pages.find((page) => page.id === "bread-ficelle");
   const expected = {
     en: "Detailed method",
     "zh-cn": "详细做法",
@@ -829,6 +829,70 @@ test("batch 11 guides keep the method, photo, and ball defaults together", () =>
   assert.match(pizzaDivide, /Take the tub out of the fridge/);
   assert.match(pizzaDivide, /rest them at room temperature for 60 to 90 minutes/);
   assert.match(pizzaDivide, /Then stretch each ball/);
+});
+
+test("batch 12 guides keep the method, photo, and ball defaults together", () => {
+  const cases = [
+    ["pizza-thin-crust", "/assets/thin-crust-pizza.webp", "jeffreyw", "CC BY 2.0", 4, 200, "508.3", "default 800 g uses a baking stone or tray about 40 cm across"],
+    ["pizza-same-day", "/assets/same-day-pizza.webp", "jeffreyw", "CC BY 2.0", 4, 250, "605", "default 1000 g uses a baking stone or tray about 40 cm across"],
+    ["pizza-cold-ferment", "/assets/cold-ferment-pizza.webp", "Jon Sullivan", "Public domain", 4, 250, "591.9", "default 1000 g uses a baking stone or tray about 40 cm across"],
+    ["bread-sourdough-pita", "/assets/sourdough-pita.webp", "Calvin Neonardi", "CC BY-SA 3.0", 8, 93.4, "68.2", "default 747.2 g uses a baking stone or tray about 40 cm across"],
+    ["bread-batard", "/assets/batard.webp", "Do An Ngon Qua", "CC BY-SA 4.0", 1, 980, "76.4", "default 980 g uses a round lidded pot about 24 cm across and 11 cm high"],
+  ];
+  for (const [id, photo, photographer, license, balls, grams, shown, pan] of cases) {
+    const page = pages.find((item) => item.id === id);
+    assert.equal(page.preset.balls, balls, id);
+    assert.equal(page.preset.gramsPerBall, grams, id);
+    for (const lang of ["en", "zh-cn", "zh-tw"]) {
+      const html = renderPage(page, lang);
+      assert.match(html, new RegExp(`src="${photo}"`), `${id} ${lang}`);
+      assert.match(html, new RegExp(photographer.replaceAll(".", "\\.")), `${id} ${lang}`);
+      if (license === "Public domain") {
+        if (lang === "en") assert.match(html, /Public domain/, id);
+        if (lang === "zh-cn") assert.match(html, /公有领域/, id);
+        if (lang === "zh-tw") assert.match(html, /公有領域/, id);
+      } else {
+        assert.match(html, new RegExp(license.replaceAll(".", "\\.")), `${id} ${lang}`);
+      }
+      assert.match(html, /data-template="/, `${id} ${lang}`);
+      assert.match(html, new RegExp(shown.replaceAll(".", "\\.")), `${id} ${lang}`);
+      const method = html.slice(html.indexOf('class="method"'), html.indexOf('class="related"'));
+      assert.equal(method.replace(/<[^>]+>/g, "").includes("{{"), false, `${id} ${lang}`);
+      if (lang === "en") assert.match(method, new RegExp(pan.replaceAll(".", "\\.")), `${id} pan`);
+      const payload = pdfPayload(page, lang);
+      const pdfText = [payload.method.lead, payload.method.leadTemplate || "", ...payload.method.steps.flatMap((step) => [step.body, step.bodyTemplate || ""])].join("\n");
+      assert.equal(/The photo|In the photo|照片/.test(pdfText), false, `${id} ${lang} pdf photo`);
+      if (lang === "en") {
+        assert.match(html, /For illustration only\./, id);
+        assert.match(html, /Currently /, id);
+        assert.equal(/\b0 g yeast\b/.test(method), false, id);
+        assert.equal(/\b0 g starter\b/.test(method), false, id);
+      }
+      if (lang === "zh-cn") {
+        assert.match(html, /示意图。/, id);
+        assert.match(html, /目前是/, id);
+        assert.equal(html.includes("默认是"), false, id);
+      }
+      if (lang === "zh-tw") {
+        assert.match(html, /示意圖。/, id);
+        assert.match(html, /目前是/, id);
+        assert.equal(method.includes("預設是"), false, id);
+      }
+    }
+  }
+  const thin = pages.find((item) => item.id === "pizza-thin-crust");
+  const thinLead = fillAmounts(doughGuides[thin.id].en.lead, recipeFor(thin.preset), thin.preset);
+  assert.match(thinLead, /and 2 g yeast/);
+  assert.equal(/\b0 g starter\b/.test(thinLead), false);
+  const batard = pages.find((item) => item.id === "bread-batard");
+  const one = fillAmounts(doughGuides[batard.id].en.lead, recipeFor(batard.preset), batard.preset);
+  assert.match(one, /One oval sourdough loaf/);
+  const many = fillAmounts(doughGuides[batard.id].en.lead, recipeFor({ ...batard.preset, balls: 2 }), { ...batard.preset, balls: 2 });
+  assert.match(many, /Oval sourdough loaves/);
+  assert.match(doughGuides["bread-batard"].en.steps.find((step) => step.title === "Bake").body, /paper and all/);
+  assert.match(doughGuides["bread-sourdough-pita"].en.caption, /eight/);
+  assert.match(doughGuides["pizza-cold-ferment"].en.caption, /one dough ball/);
+  assert.match(doughGuides["pizza-cold-ferment"].en.caption, /four/);
 });
 
 test("every page discloses anonymous analytics and none claim there is none", async () => {

@@ -141,9 +141,9 @@ export const pizzaStyles = [
       "zh-tw": "麵團偏硬，可以擀薄。若氣泡會把配料頂起來，就用叉子扎幾個小孔。",
     },
     ballsNote: {
-      en: "Balls start at 200 g. Add to the count when you are rolling more than one thin round.",
-      "zh-cn": "每球先按 200 克。要擀好几张薄饼，就把球数加大。",
-      "zh-tw": "每球先按 200 克。要擀好幾張薄餅，就把球數加大。",
+      en: "{{ifOne}}Roll one thin round of {{piece}} g.{{endOne}}{{ifMany}}Roll {{balls}} thin rounds of {{piece}} g each.{{endMany}} Add another round by raising the ball count.",
+      "zh-cn": "这一炉擀 {{balls}} 张薄饼，每张 {{piece}} 克。还要再擀，就把球数加大。",
+      "zh-tw": "這一爐擀 {{balls}} 張薄餅，每張 {{piece}} 克。還要再擀，就把球數加大。",
     },
   },
   {
@@ -199,9 +199,9 @@ export const pizzaStyles = [
       "zh-tw": "酵母偏多，適合室溫發酵幾小時後就烤。",
     },
     ballsNote: {
-      en: "The page opens at 4 balls of 250 g. Raise or lower the count for the number of pies you want this afternoon.",
-      "zh-cn": "页面先按 4 球、每球 250 克。今天下午要几张饼，就改成几球。",
-      "zh-tw": "頁面先按 4 球、每球 250 克。今天下午要幾張餅，就改成幾球。",
+      en: "{{ifOne}}Bake one ball of {{piece}} g this afternoon.{{endOne}}{{ifMany}}Bake {{balls}} balls of {{piece}} g each this afternoon.{{endMany}} Change the count to match how many pies you want today.",
+      "zh-cn": "今天下午烤 {{balls}} 张，每张 {{piece}} 克。张数变了，就改球数。",
+      "zh-tw": "今天下午烤 {{balls}} 張，每張 {{piece}} 克。張數變了，就改球數。",
     },
   },
   {
@@ -228,9 +228,9 @@ export const pizzaStyles = [
       "zh-tw": "酵母很少，放冰箱一天到兩天。回溫到能拉開、不會回縮撕裂再整形。",
     },
     ballsNote: {
-      en: "Balls start at 250 g. Set the count before the dough goes into the fridge.",
-      "zh-cn": "每球先按 250 克。进冰箱之前把球数定下来。",
-      "zh-tw": "每球先按 250 克。進冰箱之前把球數定下來。",
+      en: "{{ifOne}}Weigh one ball of {{piece}} g before the fridge.{{endOne}}{{ifMany}}Weigh {{balls}} balls of {{piece}} g each before the fridge.{{endMany}} Lock the count before the long cold rest.",
+      "zh-cn": "进冰箱前先分成 {{balls}} 球，每球 {{piece}} 克。冷藏之前把球数定下来。",
+      "zh-tw": "進冰箱前先分成 {{balls}} 球，每球 {{piece}} 克。冷藏之前把球數定下來。",
     },
   },
 ];
