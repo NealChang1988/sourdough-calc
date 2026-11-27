@@ -349,7 +349,7 @@ function adjustSection(page, lang, weigh) {
 }
 
 const FIGURE_LABEL = {
-  en: "Illustration",
+  en: "For illustration only",
   "zh-cn": "示意图",
   "zh-tw": "示意圖",
 };
@@ -386,7 +386,7 @@ function methodSection(page, lang, weigh) {
 <p>${methodText(copy.lead, recipe, page.preset, lang, weigh)}</p>
 <ol>${steps}</ol>
 <figure>
-<img src="${photo.src}" width="${photo.width}" height="${photo.height}" alt="${escapeHtml(copy.alt)}" loading="lazy">
+<img src="${photo.src}" width="${photo.width}" height="${photo.height}" alt="${escapeHtml(copy.alt)}"${photo.tall ? ' class="tall"' : ""} loading="lazy">
 <figcaption>${figureLabel(photo, lang)}${caption}${escapeHtml(copy.creditBefore)}<a href="${photo.pageUrl}">${escapeHtml(copy.creditLink)}</a>${license}</figcaption>
 </figure>
 </section>`;

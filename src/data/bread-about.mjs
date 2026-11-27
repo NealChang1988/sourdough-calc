@@ -185,9 +185,9 @@ export const breadAbout = {
     "zh-tw": "很硬的環，醒發比酵母版本更慢。做法仍是先煮後烤，只是在檯面上要多等一陣才拉得動。",
   },
   "sourdough-baguette": {
-    en: "Four sticks of 237.5 g. Shape them in two steps, with a rest between, and bake with steam. The timing follows the starter.",
-    "zh-cn": "四根酸种长棍，每根 237.5 克。先轻轻预整，松弛后再收紧，带蒸汽烘烤。时间跟着酸种走。",
-    "zh-tw": "四根酸種長棍，每根 237.5 克。先輕輕預整，鬆弛後再收緊，帶蒸汽烘烤。時間跟著酸種走。",
+    en: "This batch is four sticks of 237.5 g. Shape them in two steps and bake with steam. The photo shows three sticks.",
+    "zh-cn": "这一炉是四根酸种长棍，每根 237.5 克。分两步整形，带蒸汽烘烤。照片里是三根。",
+    "zh-tw": "這一爐是四根酸種長棍，每根 237.5 克。分兩步整形，帶蒸汽烘烤。照片裡是三根。",
   },
   "sourdough-ciabatta": {
     en: "Cut the slack dough into slippers and barely shape them, so the large holes survive. Leavened with starter rather than a packet of yeast.",
@@ -196,8 +196,8 @@ export const breadAbout = {
   },
   "sourdough-sandwich": {
     en: "Keep a lid on the tin for the first part of the bake if you want a thinner, paler roof. Slice it once the loaf has cooled.",
-    "zh-cn": "前半段盖上模具盖，顶部会更薄、颜色更浅。放凉后再切成片，盖着烤顶部不会太厚，顶部求薄。",
-    "zh-tw": "前半段蓋上模具蓋，頂部會更薄、顏色更淺。放涼後再切成片，蓋著烤頂部不會太厚，頂部求薄。",
+    "zh-cn": "前半段如果盖着烤，顶部会更薄、颜色更浅，等面包已经完全放凉以后再切成厚薄均匀的片。",
+    "zh-tw": "前半段如果蓋著烤，頂部會更薄、顏色更淺，等麵包已經完全放涼以後再切成厚薄均勻的片。",
   },
   "sourdough-pita": {
     en: "Needs a longer proof than a yeasted pita, then the same fierce heat so the thin disk inflates.",

@@ -29,14 +29,27 @@ export function effectiveHydration(recipe) {
   return (waterAll / flourAll) * 100;
 }
 
+function snap(n) {
+  return Math.round(n * 1e6) / 1e6;
+}
+
 export function round1(n) {
-  return Math.round((n + Number.EPSILON) * 10) / 10;
+  return Math.round(snap(n) * 10) / 10;
 }
 
 export function formatAmount(n) {
   const rounded = round1(n);
   if (Number.isInteger(rounded)) return String(rounded);
   return rounded.toFixed(1);
+}
+
+function formatPiece(n) {
+  const snapped = snap(n);
+  const hundredths = Math.round(snapped * 100);
+  if (Math.abs(snapped * 100 - hundredths) < 1e-4 && Math.abs(hundredths) % 10 === 5) {
+    return (hundredths / 100).toFixed(2).replace(/0$/, "");
+  }
+  return formatAmount(snapped);
 }
 
 function shownPreset(n) {
@@ -52,7 +65,8 @@ const AMOUNT_TOKENS = {
   yeast: (recipe) => formatAmount(recipe.yeast),
   total: (recipe) => formatAmount(recipe.total),
   effective: (recipe) => formatAmount(effectiveHydration(recipe)),
-  piece: (recipe, preset) => formatAmount(recipe.total / preset.balls),
+  piece: (recipe, preset) => formatPiece(recipe.total / preset.balls),
+  seeds: (recipe) => formatAmount(recipe.flour * 0.16),
   hydration: (_recipe, preset) => shownPreset(preset.hydration),
   starterPct: (_recipe, preset) => shownPreset(preset.starter),
   saltPct: (_recipe, preset) => shownPreset(preset.salt),

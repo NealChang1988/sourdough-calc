@@ -8,7 +8,7 @@ import { writeSite } from "../build.mjs";
 import { SITE_URL } from "../site.config.mjs";
 import { nearestHydration, pages, redirectRules, toolCount } from "./catalog.mjs";
 import { doughGuides } from "./data/dough-guides.mjs";
-import { formatAmount } from "./formula.mjs";
+import { fillAmounts, formatAmount, recipeFor } from "./formula.mjs";
 import { ui } from "./i18n.mjs";
 import { pdfPayload, renderPage } from "./render.mjs";
 
@@ -441,11 +441,11 @@ test("batch 7 guides keep the method, photo, and ball defaults together", () => 
 
 test("batch 8 guides keep the method, photo, and ball defaults together", () => {
   const cases = [
-    ["bread-sandwich-loaf", "/assets/sandwich-loaf.webp", "Christina", "Pexels", 1, 840, "840", "23 cm long and 13 cm wide"],
+    ["bread-sandwich-loaf", "/assets/sandwich-loaf.webp", "Christina", "Pexels", 1, 840, "840", "23 cm long, 13 cm wide, and 7 cm high"],
     ["bread-hot-dog-buns", "/assets/hot-dog-buns.webp", "Joy", "CC BY 2.0", 10, 82.55, "82.55", "40 cm long and 30 cm wide"],
     ["bread-pullman-loaf", "/assets/pullman-loaf.webp", "loppear", "CC BY 2.0", 1, 845, "845", "holds about 900 g"],
     ["bread-sourdough-focaccia", "/assets/sourdough-focaccia.webp", "Nunun Dy", "Pexels", 1, 1012.5, "1012.5", "30 cm long and 20 cm wide"],
-    ["bread-whole-wheat-sourdough", "/assets/whole-wheat-sourdough.webp", "Hatice Uyar", "Pexels", 1, 1046, "1046", "23 cm long and 13 cm wide"],
+    ["bread-whole-wheat-sourdough", "/assets/whole-wheat-sourdough.webp", "Hatice Uyar", "Pexels", 1, 1046, "1046", "23 by 13 by 8 cm"],
   ];
   for (const [id, photo, photographer, license, balls, grams, shown, pan] of cases) {
     const page = pages.find((item) => item.id === id);
@@ -468,21 +468,25 @@ test("batch 8 guides keep the method, photo, and ball defaults together", () => 
       assert.equal(/(^|\n|。|\. )(The photo|In the photo|照片)/.test(pdfText), false, `${id} ${lang} pdf photo`);
       assert.equal(/in the photo|照片/.test(pdfText), false, `${id} ${lang} pdf photo`);
       if (lang === "en") {
-        assert.match(html, /Illustration\./, id);
+        assert.match(html, /For illustration only\./, id);
         assert.match(method, new RegExp(pan), id);
+        assert.match(method, /Currently /, id);
         assert.equal(html.includes("示意圖"), false, id);
         assert.equal(html.includes("示意图"), false, id);
+        assert.equal(method.includes("The calculator opens at"), false, id);
       }
       if (lang === "zh-cn") {
         assert.match(html, /示意图/, id);
-        assert.match(html, /默认是/, id);
+        assert.match(html, /目前是/, id);
         assert.equal(html.includes("示意圖"), false, id);
+        assert.equal(html.includes("默认是"), false, id);
         assert.equal(html.includes("打开时"), false, id);
       }
       if (lang === "zh-tw") {
         assert.match(html, /示意圖/, id);
-        assert.match(html, /預設是/, id);
+        assert.match(html, /目前是/, id);
         assert.equal(html.includes("示意图"), false, id);
+        assert.equal(method.includes("預設是"), false, id);
         assert.equal(html.includes("打開時"), false, id);
       }
     }
@@ -539,7 +543,7 @@ test("batch 9 guides keep the method, photo, and ball defaults together", () => 
     ["bread-overnight-white", "/assets/overnight-white.webp", "Mateusz Feliksik", "Pexels", 1, 871.25, "871.3"],
     ["bread-soft-rolls", "/assets/soft-rolls.webp", "Güneş", "Pexels", 12, 70, "70"],
     ["bread-sourdough-sandwich", "/assets/sourdough-sandwich.webp", "Polina Tankilevitch", "Pexels", 1, 940, "940"],
-    ["bread-sourdough-baguette", "/assets/sourdough-baguette.webp", "jules", "CC BY 2.0", 4, 237.5, "237.5"],
+    ["bread-sourdough-baguette", "/assets/sourdough-baguette.webp", "jules / stonesoup", "CC BY 2.0", 4, 237.5, "237.5"],
     ["bread-seeded-sourdough", "/assets/seeded-sourdough.webp", "Jana Ohajdova", "Pexels", 1, 1021, "1021"],
   ];
   for (const [id, photo, photographer, license, balls, grams, shown] of cases) {
@@ -558,12 +562,67 @@ test("batch 9 guides keep the method, photo, and ball defaults together", () => 
       const method = html.slice(html.indexOf('class="method"'), html.indexOf('class="related"'));
       assert.equal(method.replace(/<[^>]+>/g, "").includes("{{"), false, `${id} ${lang}`);
       assert.equal(html.includes("心裡"), false, `${id} ${lang}`);
-      assert.equal(html.includes("示意图"), false, `${id} ${lang}`);
+      const payload = pdfPayload(page, lang);
+      const pdfText = [payload.method.lead, payload.method.leadTemplate || "", ...payload.method.steps.flatMap((step) => [step.body, step.bodyTemplate || ""])].join("\n");
+      assert.equal(/The photo|In the photo|in the photo|照片/.test(pdfText), false, `${id} ${lang} pdf photo`);
+      if (lang === "en") {
+        assert.match(html, /For illustration only\./, id);
+        assert.match(html, /Currently /, id);
+      }
+      if (lang === "zh-cn") assert.match(html, /示意图。/, id);
+      if (lang === "zh-tw") assert.match(html, /示意圖。/, id);
     }
     const tw = renderPage(page, "zh-tw");
     assert.match(tw, /速發酵母/, id);
     assert.equal(tw.includes("即發酵母"), false, id);
   }
+});
+
+test("flour at 1000 keeps pan defaults and follows yeast, seeds, and rounding", () => {
+  const focaccia = pages.find((page) => page.id === "bread-sourdough-focaccia");
+  const wheat = pages.find((page) => page.id === "bread-whole-wheat-sourdough");
+  const pullman = pages.find((page) => page.id === "bread-pullman-loaf");
+  const seeded = pages.find((page) => page.id === "bread-seeded-sourdough");
+  const overnight = pages.find((page) => page.id === "bread-overnight-white");
+  const buns = pages.find((page) => page.id === "bread-hot-dog-buns");
+  const doubled = (page) => ({ ...page.preset, flour: 1000 });
+  const panOf = (page, title) => doughGuides[page.id].en.steps.find((step) => step.title === title).body;
+  const focacciaPan = fillAmounts(panOf(focaccia, "Pan"), recipeFor(doubled(focaccia)), doubled(focaccia));
+  assert.match(focacciaPan, /default 1012\.5 g uses a rimmed tray about 30 cm long and 20 cm wide/);
+  assert.equal(/tray about 30 cm long and 20 cm wide suits this 2025/.test(focacciaPan), false);
+  const wheatPan = fillAmounts(panOf(wheat, "Shape"), recipeFor(doubled(wheat)), doubled(wheat));
+  assert.match(wheatPan, /default 1046 g uses a 23 by 13 by 8 cm loaf pan/);
+  assert.equal(/suits this 2092/.test(wheatPan), false);
+  const pullmanPan = fillAmounts(panOf(pullman, "Pan"), recipeFor(doubled(pullman)), doubled(pullman));
+  assert.match(pullmanPan, /default 845 g/);
+  assert.match(pullmanPan, /holds about 900 g/);
+  assert.match(pullmanPan, /1690 g/);
+  const seeds = fillAmounts(doughGuides[seeded.id].en.steps[0].body, recipeFor(doubled(seeded)), doubled(seeded));
+  assert.match(seeds, /160 g of seeds/);
+  assert.match(seeds, /in 160 g/);
+  const withYeast = { ...focaccia.preset, flour: 1000, yeast: 1 };
+  const yeastRecipe = recipeFor(withYeast);
+  const lead = fillAmounts(doughGuides[focaccia.id].en.lead, yeastRecipe, withYeast);
+  const mix = fillAmounts(doughGuides[focaccia.id].en.steps.find((step) => step.title === "Mix").body, yeastRecipe, withYeast);
+  assert.equal(lead.includes("no yeast"), false);
+  assert.match(lead, new RegExp(`${formatAmount(yeastRecipe.yeast)} g yeast`));
+  assert.match(mix, new RegExp(`${formatAmount(yeastRecipe.yeast)} g instant yeast`));
+  const withStarter = { ...buns.preset, flour: 1000, starter: 20 };
+  const starterRecipe = recipeFor(withStarter);
+  const bunLead = fillAmounts(doughGuides[buns.id].en.lead, starterRecipe, withStarter);
+  const bunMix = fillAmounts(doughGuides[buns.id].en.steps[0].body, starterRecipe, withStarter);
+  assert.match(bunLead, new RegExp(`${formatAmount(starterRecipe.starter)} g starter`));
+  assert.match(bunMix, new RegExp(`${formatAmount(starterRecipe.starter)} g starter`));
+  const flourMode = recipeFor({ ...overnight.preset, mode: "flour" });
+  const ballMode = recipeFor({ ...overnight.preset, mode: "balls" });
+  assert.equal(formatAmount(flourMode.total), formatAmount(ballMode.total));
+  assert.equal(formatAmount(flourMode.total), "871.3");
+  const piece = fillAmounts("{{piece}}", recipeFor(buns.preset), buns.preset);
+  assert.equal(piece, String(buns.preset.gramsPerBall));
+  const baguette = doughGuides["bread-sourdough-baguette"].en;
+  assert.match(baguette.caption, /three/i);
+  assert.equal(baguette.caption.includes("{{"), false);
+  assert.equal(baguette.steps.some((step) => /photo shows \{\{/.test(step.body)), false);
 });
 
 test("every page discloses anonymous analytics and none claim there is none", async () => {
