@@ -410,6 +410,12 @@ function relatedBlock(page, lang) {
   return `<section class="related"><h2>${escapeHtml(heading)}</h2>${linkList(items, lang)}${extra}</section>`;
 }
 
+function described(page, lang) {
+  const text = page.description[lang];
+  if (!page.preset || !text.includes("{{")) return text;
+  return fillAmounts(text, recipeFor(page.preset), page.preset);
+}
+
 function linkedIntro(page, lang, weigh) {
   const recipe = page.preset ? recipeFor(page.preset) : null;
   return page.intro[lang].map((paragraph) => {
@@ -455,10 +461,10 @@ export function renderPage(page, lang) {
   } else {
     inner = `${calculator(page, lang)}${adjustSection(page, lang, weigh)}${methodSection(page, lang, weigh)}`;
   }
-  return `${head({
+  const html = `${head({
     lang,
     title: page.title[lang],
-    description: page.description[lang],
+    description: described(page, lang),
     canonical,
     alts,
   })}
@@ -467,6 +473,20 @@ ${article(page, lang, inner, introHtml)}
 </body>
 </html>
 `;
+  assertNoRawTemplates(html, `${page.id} ${lang}`);
+  return html;
+}
+
+export function assertNoRawTemplates(html, label) {
+  const headEnd = html.indexOf("</head>");
+  const headHtml = headEnd >= 0 ? html.slice(0, headEnd) : html;
+  if (headHtml.includes("{{")) throw new Error(`raw template in head ${label}`);
+  const body = html.slice(html.indexOf("<body"));
+  const visible = body
+    .replace(/<script[\s\S]*?<\/script>/gi, "")
+    .replace(/<style[\s\S]*?<\/style>/gi, "")
+    .replace(/<[^>]+>/g, "");
+  if (visible.includes("{{")) throw new Error(`raw template in text ${label}`);
 }
 
 export function renderRoot() {

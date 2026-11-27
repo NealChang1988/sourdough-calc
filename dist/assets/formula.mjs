@@ -24,8 +24,12 @@ function snappedFlour(input, flour) {
   for (const candidate of [Math.round(flour), Math.floor(flour), Math.ceil(flour)]) {
     if (!(candidate > 0)) continue;
     const made = gramsFromFlour({ ...input, flour: candidate });
-    const gap = Math.abs(made.total / balls - per);
+    const piece = made.total / balls;
+    const gap = Math.abs(piece - per);
     if (gap > 0.051) continue;
+    const scaled = snap(piece * 10);
+    const distToHalf = Math.abs(scaled - Math.floor(scaled) - 0.5);
+    if (distToHalf > 0.02) continue;
     if (best === null || gap < best.gap) best = { flour: candidate, gap };
   }
   return best ? best.flour : flour;
@@ -38,9 +42,18 @@ export function flourFromBalls(input) {
   return gramsFromFlour({ ...input, flour: snappedFlour(input, flour) });
 }
 
+function flourModeRecipe(preset) {
+  const direct = gramsFromFlour(preset);
+  if (!(preset.balls > 0) || !Number.isFinite(preset.gramsPerBall) || !Number.isFinite(preset.flour)) return direct;
+  const fromBalls = flourFromBalls({ ...preset, mode: "balls" });
+  const sameShownFlour = formatAmount(fromBalls.flour) === formatAmount(preset.flour);
+  if (sameShownFlour && Math.abs(fromBalls.flour - preset.flour) <= 0.051) return fromBalls;
+  return direct;
+}
+
 export function recipeFor(preset) {
   if (preset.mode === "balls") return flourFromBalls(preset);
-  return gramsFromFlour(preset);
+  return flourModeRecipe(preset);
 }
 
 export function effectiveHydration(recipe) {
@@ -99,12 +112,20 @@ const CONDITIONS = [
   ["ifStarter", "endStarter", (recipe) => formatAmount(recipe.starter) !== "0"],
   ["ifMany", "endMany", (_recipe, preset) => Number(preset.balls) > 1],
   ["ifOne", "endOne", (_recipe, preset) => !(Number(preset.balls) > 1)],
+  ["ifNoYeast", "endNoYeast", (recipe) => formatAmount(recipe.yeast) === "0"],
+  ["ifNoStarter", "endNoStarter", (recipe) => formatAmount(recipe.starter) === "0"],
 ];
+
+function zhJoined(items) {
+  const next = items[items.length - 1].trim();
+  const gap = next.startsWith("{{") || /^[0-9]/.test(next) ? "和 " : "和";
+  return `${items.slice(0, -1).join("、")}${gap}${next}`;
+}
 
 function joinItems(items, sep, andWord) {
   if (items.length === 0) return "";
   if (items.length === 1) return items[0];
-  if (sep === "、") return `${items.slice(0, -1).join("、")}${andWord} ${items[items.length - 1]}`;
+  if (sep === "、") return zhJoined(items);
   if (items.length === 2) return `${items[0]} ${andWord} ${items[1]}`;
   return `${items.slice(0, -1).join(", ")}, ${andWord} ${items[items.length - 1]}`;
 }

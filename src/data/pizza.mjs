@@ -15,9 +15,9 @@ export const pizzaStyles = [
       "zh-tw": "那不勒斯披薩麵團",
     },
     about: {
-      en: "Soft dough for a small pizza with a thick, puffy rim and a thin center. It stretches by hand once the ball has rested, and it is still firm enough to hold that rim.",
-      "zh-cn": "适合小张披萨的软面团，边缘厚而蓬松，中心薄。面团球松弛后可以用手拉开，同时又撑得住厚边。",
-      "zh-tw": "適合小張披薩的軟麵團，邊緣厚而蓬鬆，中心薄。麵團球鬆弛後可以用手拉開，同時又撐得住厚邊。",
+      en: "{{ifYeast}}Soft dough for a small pizza with a thick, puffy rim and a thin center.{{endYeast}} It stretches by hand once the ball has rested, and it is still firm enough to hold that rim.{{ifNoYeast}} Without yeast the dough will not rise.{{endNoYeast}}",
+      "zh-cn": "{{ifYeast}}适合小张披萨的软面团，边缘厚而蓬松，中心薄。{{endYeast}}面团球松弛后可以用手拉开，同时又撑得住厚边。{{ifNoYeast}}没有酵母，面团不会发起。{{endNoYeast}}",
+      "zh-tw": "{{ifYeast}}適合小張披薩的軟麵團，邊緣厚而蓬鬆，中心薄。{{endYeast}}麵團球鬆弛後可以用手拉開，同時又撐得住厚邊。{{ifNoYeast}}沒有酵母，麵團不會發起。{{endNoYeast}}",
     },
     method: {
       en: "Stretch rested balls by hand so the rim stays thick and the center stays thin.",
@@ -102,14 +102,14 @@ export const pizzaStyles = [
       "zh-tw": "西西里披薩麵團",
     },
     about: {
-      en: "A thick square pan dough, softer than a Neapolitan ball. The page opens at 4 balls of 450 g. It proofs in oil until it jiggles, then bakes into a tall crumb.",
-      "zh-cn": "厚的方形盘面团，比那不勒斯更软。页面打开是 4 球、每球 450 克。在油里发到轻轻一晃会颤，烤出来组织又高又厚。",
-      "zh-tw": "厚的方形盤麵團，比那不勒斯更軟。頁面打開是 4 球、每球 450 克。在油裡發到輕輕一晃會顫，烤出來組織又高又厚。",
+      en: "A thick square pan dough, softer than a Neapolitan ball. The page opens at 4 balls of 450 g.{{ifYeast}} It proofs in oil until it jiggles, then bakes into a tall crumb.{{endYeast}}{{ifNoYeast}} Without yeast the dough will not rise.{{endNoYeast}}",
+      "zh-cn": "厚的方形盘面团，比那不勒斯更软。页面打开是 4 球、每球 450 克。{{ifYeast}}在油里发到轻轻一晃会颤，烤出来组织又高又厚。{{endYeast}}{{ifNoYeast}}没有酵母，面团不会发起。{{endNoYeast}}",
+      "zh-tw": "厚的方形盤麵團，比那不勒斯更軟。頁面打開是 4 球、每球 450 克。{{ifYeast}}在油裡發到輕輕一晃會顫，烤出來組織又高又厚。{{endYeast}}{{ifNoYeast}}沒有酵母，麵團不會發起。{{endNoYeast}}",
     },
     method: {
-      en: "Divide into 4 pieces of 450 g. Press each one into a well-oiled square pan and proof it until it jiggles before you top it.",
-      "zh-cn": "分成 4 份，每份 450 克。按进抹足油的方形烤盘，发到轻轻晃会颤，再放配料。",
-      "zh-tw": "分成 4 份，每份 450 克。按進抹足油的方形烤盤，發到輕輕晃會顫，再放配料。",
+      en: "Divide into 4 pieces of 450 g.{{ifYeast}} Press each one into a well-oiled square pan and proof it until it jiggles before you top it.{{endYeast}}",
+      "zh-cn": "分成 4 份，每份 450 克。按进抹足油的方形烤盘{{ifYeast}}，发到轻轻晃会颤，再放配料{{endYeast}}。",
+      "zh-tw": "分成 4 份，每份 450 克。按進抹足油的方形烤盤{{ifYeast}}，發到輕輕晃會顫，再放配料{{endYeast}}。",
     },
     ballsNote: {
       en: "Each ball starts at 450 g, one thick square pan. Change the count when you are filling more pans.",
@@ -131,9 +131,9 @@ export const pizzaStyles = [
       "zh-tw": "薄皮披薩麵團",
     },
     about: {
-      en: "A stiff dough that rolls thin with a pin. It is drier than the other pizzas here, holds a round shape, and stays crisp instead of stretching into a puffy rim.",
-      "zh-cn": "偏硬的面团，用擀面杖擀薄。比这里其他披萨更干，能保持圆形，烤出来是脆皮，不是蓬松的厚边。",
-      "zh-tw": "偏硬的麵團，用擀麵杖擀薄。比這裡其他披薩更乾，能保持圓形，烤出來是脆皮，不是蓬鬆的厚邊。",
+      en: "A stiff dough that rolls thin with a pin.{{ifYeast}} It is drier than the other pizzas here, holds a round shape, and stays crisp instead of stretching into a puffy rim.{{endYeast}}",
+      "zh-cn": "偏硬的面团，用擀面杖擀薄。{{ifYeast}}比这里其他披萨更干，能保持圆形，烤出来是脆皮，不是蓬松的厚边。{{endYeast}}",
+      "zh-tw": "偏硬的麵團，用擀麵杖擀薄。{{ifYeast}}比這裡其他披薩更乾，能保持圓形，烤出來是脆皮，不是蓬鬆的厚邊。{{endYeast}}",
     },
     method: {
       en: "This stiffer dough rolls thin. Dock it with a fork if a bubble would lift the toppings.",
@@ -141,9 +141,9 @@ export const pizzaStyles = [
       "zh-tw": "麵團偏硬，可以擀薄。若氣泡會把配料頂起來，就用叉子扎幾個小孔。",
     },
     ballsNote: {
-      en: "Balls start at 200 g. Add to the count when you are rolling more than one thin round.",
-      "zh-cn": "每球先按 200 克。要擀好几张薄饼，就把球数加大。",
-      "zh-tw": "每球先按 200 克。要擀好幾張薄餅，就把球數加大。",
+      en: "{{ifOne}}Roll one thin round of {{piece}} g.{{endOne}}{{ifMany}}Roll {{balls}} thin rounds of {{piece}} g each.{{endMany}} Add another round by raising the ball count.",
+      "zh-cn": "这一炉擀 {{balls}} 张薄饼，每张 {{piece}} 克。还要再擀，就把球数加大。",
+      "zh-tw": "這一爐擀 {{balls}} 張薄餅，每張 {{piece}} 克。還要再擀，就把球數加大。",
     },
   },
   {
@@ -160,12 +160,12 @@ export const pizzaStyles = [
       "zh-tw": "酸種披薩麵團",
     },
     about: {
-      en: "Pizza dough leavened with starter instead of added yeast. It is a bit wetter than the Neapolitan dough, likes a long cool rise, and stretches once the balls have warmed up.",
+      en: "Pizza dough leavened with starter instead of added yeast. It is a bit wetter than the Neapolitan dough{{ifStarter}}, likes a long cool rise{{endStarter}}, and stretches once the balls have warmed up.{{ifNoStarter}} Without starter the dough will not rise.{{endNoStarter}}",
       "zh-cn": "用酸种发酵、不加酵母的披萨面团。比那不勒斯略湿，适合长时间冷藏，面团球回温之后再拉开。",
       "zh-tw": "用酸種發酵、不加酵母的披薩麵團。比那不勒斯略濕，適合長時間冷藏，麵團球回溫之後再拉開。",
     },
     method: {
-      en: "Use starter instead of yeast and give the balls a long, cool rise. Let them warm up before you stretch.",
+      en: "{{ifStarter}}Use starter instead of yeast and give the balls a long, cool rise. {{endStarter}}Let them warm up before you stretch.",
       "zh-cn": "用酸种代替酵母，冷藏慢慢发酵。拉开之前先回温。",
       "zh-tw": "用酸種代替酵母，冷藏慢慢發酵。拉開之前先回溫。",
     },
@@ -199,9 +199,9 @@ export const pizzaStyles = [
       "zh-tw": "酵母偏多，適合室溫發酵幾小時後就烤。",
     },
     ballsNote: {
-      en: "The page opens at 4 balls of 250 g. Raise or lower the count for the number of pies you want this afternoon.",
-      "zh-cn": "页面先按 4 球、每球 250 克。今天下午要几张饼，就改成几球。",
-      "zh-tw": "頁面先按 4 球、每球 250 克。今天下午要幾張餅，就改成幾球。",
+      en: "{{ifOne}}Bake one ball of {{piece}} g this afternoon.{{endOne}}{{ifMany}}Bake {{balls}} balls of {{piece}} g each this afternoon.{{endMany}} Change the count to match how many pies you want today.",
+      "zh-cn": "今天下午烤 {{balls}} 张，每张 {{piece}} 克。张数变了，就改球数。",
+      "zh-tw": "今天下午烤 {{balls}} 張，每張 {{piece}} 克。張數變了，就改球數。",
     },
   },
   {
@@ -228,9 +228,9 @@ export const pizzaStyles = [
       "zh-tw": "酵母很少，放冰箱一天到兩天。回溫到能拉開、不會回縮撕裂再整形。",
     },
     ballsNote: {
-      en: "Balls start at 250 g. Set the count before the dough goes into the fridge.",
-      "zh-cn": "每球先按 250 克。进冰箱之前把球数定下来。",
-      "zh-tw": "每球先按 250 克。進冰箱之前把球數定下來。",
+      en: "{{ifOne}}Weigh one ball of {{piece}} g before the fridge.{{endOne}}{{ifMany}}Weigh {{balls}} balls of {{piece}} g each before the fridge.{{endMany}} Lock the count before the long cold rest.",
+      "zh-cn": "进冰箱前先分成 {{balls}} 球，每球 {{piece}} 克。冷藏之前把球数定下来。",
+      "zh-tw": "進冰箱前先分成 {{balls}} 球，每球 {{piece}} 克。冷藏之前把球數定下來。",
     },
   },
 ];

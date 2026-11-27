@@ -31,7 +31,7 @@
 <main id="main">
 <nav class="crumb" aria-label="目前位置"><a href="/zh-tw/">麵團計算器</a> / <a href="/zh-tw/pisa-fenlei/">披薩麵團</a></nav>
 <h1>當日披薩麵團</h1>
-<p>酵母偏多，適合室溫發酵幾小時後就烤。頁面先按 4 球、每球 250 克。今天下午要幾張餅，就改成幾球。</p>
+<p><span data-template="酵母偏多，適合室溫發酵幾小時後就烤。今天下午烤 {{balls}} 張，每張 {{piece}} 克。張數變了，就改球數。">酵母偏多，適合室溫發酵幾小時後就烤。今天下午烤 4 張，每張 250 克。張數變了，就改球數。</span></p>
 <form id="calc" autocomplete="off">
 <fieldset class="modes">
 <legend>怎麼算</legend>
@@ -61,11 +61,34 @@
 <div class="actions">
 <button type="button" id="copy">複製配方</button>
 <button type="button" id="print" class="secondary">列印</button>
+<button type="button" id="download-pdf" data-label="下載 PDF" data-loading="正在載入…" data-busy="正在產生 PDF…">下載 PDF</button>
+<script>
+(function () {
+  var button = document.getElementById("download-pdf");
+  if (!button) return;
+  button.addEventListener("click", function () {
+    if (window.__pdfReady || window.__pdfPending) return;
+    window.__pdfPending = true;
+    button.disabled = true;
+    button.textContent = button.getAttribute("data-loading");
+  });
+})();
+</script>
 </div>
+<p id="pdf-error" class="error" role="alert" hidden>PDF 產生失敗，請再按一次。</p>
 <textarea id="recipe-text" hidden readonly></textarea>
 </section>
 <script type="application/json" id="labels">{"title":"當日披薩麵團","flour":"麵粉","water":"水","starter":"酸種","salt":"鹽","yeast":"酵母","total":"麵團總重","grams":"克","effective":"有效水合","copied":"已複製","copyFail":"請選中配方文字再複製"}</script>
-<script type="module" src="/assets/calc.js"></script>
+<script type="application/json" id="pdf-meta">{"title":"當日披薩麵團","url":"https://doughcalc.app/zh-tw/dangri-pisa/","filename":"doughcalc-dangri-pisa-zh-tw-recipe.pdf","lang":"zh-TW","fontUrl":"/assets/fonts/noto-sans-tc-subset.ttf","labels":{"result":"配方","flour":"麵粉","water":"水","starter":"酸種","salt":"鹽","yeast":"酵母","total":"麵團總重","grams":"克","effective":"有效水合","hydration":"水合","modeFlour":"按麵粉重量","modeBalls":"按麵團球","balls":"麵團球數","perBall":"每球克數"},"method":{"heading":"詳細做法","lead":"當日披薩。目前是麵粉 605 克，水合 62%，酸種 0%，鹽 2.5%，酵母 0.8%。也就是水 375.1 克、鹽 15.1 克和酵母 4.8 克，合計 1000 克。目前是 4 張、每張 250 克。醬、起司和配料不在合計克數裡。下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。","leadTemplate":"{{ifOne}}一張當日披薩。{{endOne}}{{ifMany}}當日披薩。{{endMany}}目前是麵粉 {{flour}} 克，水合 {{hydration}}%，酸種 {{starterPct}}%，鹽 {{saltPct}}%，酵母 {{yeastPct}}%。也就是{{zhjoin}}{{item}}水 {{water}} 克{{enditem}}{{item}}{{ifStarter}}酸種 {{starter}} 克{{endStarter}}{{enditem}}{{item}}鹽 {{salt}} 克{{enditem}}{{item}}{{ifYeast}}酵母 {{yeast}} 克{{endYeast}}{{enditem}}{{endjoin}}，合計 {{total}} 克。{{ifOne}}目前是 {{balls}} 張、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 張、每張 {{piece}} 克{{endMany}}。醬、起司和配料不在合計克數裡。下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。","steps":[{"title":"攪拌","body":"把 605 克麵粉、375.1 克水、15.1 克鹽和 4.8 克速發酵母拌到沒有乾粉，再揉大約 6 分鐘，直到光滑。水合 62%，柔軟。麵團溫度大約 24°C。","bodyTemplate":"把 {{zhjoin}}{{item}}{{flour}} 克麵粉{{enditem}}{{item}}{{water}} 克水{{enditem}}{{item}}{{ifStarter}}{{starter}} 克酸種{{endStarter}}{{enditem}}{{item}}{{salt}} 克鹽{{enditem}}{{item}}{{ifYeast}}{{yeast}} 克速發酵母{{endYeast}}{{enditem}}{{endjoin}}拌到沒有乾粉，再揉大約 6 分鐘，直到光滑。水合 {{hydration}}%，柔軟。麵團溫度大約 24°C。"},{"title":"基本發酵","body":"蓋著，放在大約 24°C，大約 90 分鐘，摺疊一輪。酵母有 0.8%，大約脹起一半即可。這一團留在室溫，不進冰箱。","bodyTemplate":"蓋著，放在大約 24°C，大約 90 分鐘，摺疊一輪。{{ifYeast}}酵母有 {{yeastPct}}%，大約脹起一半即可。{{endYeast}}{{ifNoYeast}}沒有酵母，麵團不會發起。{{endNoYeast}}這一團留在室溫，不進冰箱。"},{"title":"分割","body":"把 1000 克分成 4 份，每份 250 克，各自收成一個球，蓋著放 30 到 45 分鐘。然後在撒了粉的板上用手拉開每一球，邊緣留厚，中間拉薄。預設 1000 克用大約 40 公分寬的烤石或烤盤；份量改了請換合適大小的烤石，或分成幾爐。","bodyTemplate":"{{ifOne}}把 {{total}} 克收成一個球，蓋著放 30 到 45 分鐘。這一爐是 {{balls}} 張。{{endOne}}{{ifMany}}把 {{total}} 克分成 {{balls}} 份，每份 {{piece}} 克，各自收成一個球，蓋著放 30 到 45 分鐘。{{endMany}}然後在撒了粉的板上用手拉開{{ifOne}}這一球{{endOne}}{{ifMany}}每一球{{endMany}}，邊緣留厚，中間拉薄。預設 1000 克用大約 40 公分寬的烤石或烤盤；份量改了請換合適大小的烤石，或分成幾爐。"},{"title":"烘烤","body":"烤箱 250°C，烤石或烤鋼預熱 45 分鐘。想加醬和起司可以加，那些不在合計克數裡。烤 7 到 10 分鐘，直到邊緣有焦斑、中心定住。放 2 分鐘再切。"}]},"messages":{"label":"下載 PDF","busy":"正在產生 PDF…","fail":"PDF 產生失敗，請再按一次。"}}</script>
+<script type="module" src="/assets/calc.js"></script><section class="method">
+<h2>詳細做法</h2>
+<p><span data-template="{{ifOne}}一張當日披薩。{{endOne}}{{ifMany}}當日披薩。{{endMany}}目前是麵粉 {{flour}} 克，水合 {{hydration}}%，酸種 {{starterPct}}%，鹽 {{saltPct}}%，酵母 {{yeastPct}}%。也就是{{zhjoin}}{{item}}水 {{water}} 克{{enditem}}{{item}}{{ifStarter}}酸種 {{starter}} 克{{endStarter}}{{enditem}}{{item}}鹽 {{salt}} 克{{enditem}}{{item}}{{ifYeast}}酵母 {{yeast}} 克{{endYeast}}{{enditem}}{{endjoin}}，合計 {{total}} 克。{{ifOne}}目前是 {{balls}} 張、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 張、每張 {{piece}} 克{{endMany}}。醬、起司和配料不在合計克數裡。下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。">當日披薩。目前是麵粉 605 克，水合 62%，酸種 0%，鹽 2.5%，酵母 0.8%。也就是水 375.1 克、鹽 15.1 克和酵母 4.8 克，合計 1000 克。目前是 4 張、每張 250 克。醬、起司和配料不在合計克數裡。下面的時間按只改麵粉的量、百分比不變來估。發酵還是看麵團的樣子和手感。</span></p>
+<ol><li><strong>攪拌</strong> <span data-template="把 {{zhjoin}}{{item}}{{flour}} 克麵粉{{enditem}}{{item}}{{water}} 克水{{enditem}}{{item}}{{ifStarter}}{{starter}} 克酸種{{endStarter}}{{enditem}}{{item}}{{salt}} 克鹽{{enditem}}{{item}}{{ifYeast}}{{yeast}} 克速發酵母{{endYeast}}{{enditem}}{{endjoin}}拌到沒有乾粉，再揉大約 6 分鐘，直到光滑。水合 {{hydration}}%，柔軟。麵團溫度大約 24°C。">把 605 克麵粉、375.1 克水、15.1 克鹽和 4.8 克速發酵母拌到沒有乾粉，再揉大約 6 分鐘，直到光滑。水合 62%，柔軟。麵團溫度大約 24°C。</span></li><li><strong>基本發酵</strong> <span data-template="蓋著，放在大約 24°C，大約 90 分鐘，摺疊一輪。{{ifYeast}}酵母有 {{yeastPct}}%，大約脹起一半即可。{{endYeast}}{{ifNoYeast}}沒有酵母，麵團不會發起。{{endNoYeast}}這一團留在室溫，不進冰箱。">蓋著，放在大約 24°C，大約 90 分鐘，摺疊一輪。酵母有 0.8%，大約脹起一半即可。這一團留在室溫，不進冰箱。</span></li><li><strong>分割</strong> <span data-template="{{ifOne}}把 {{total}} 克收成一個球，蓋著放 30 到 45 分鐘。這一爐是 {{balls}} 張。{{endOne}}{{ifMany}}把 {{total}} 克分成 {{balls}} 份，每份 {{piece}} 克，各自收成一個球，蓋著放 30 到 45 分鐘。{{endMany}}然後在撒了粉的板上用手拉開{{ifOne}}這一球{{endOne}}{{ifMany}}每一球{{endMany}}，邊緣留厚，中間拉薄。預設 1000 克用大約 40 公分寬的烤石或烤盤；份量改了請換合適大小的烤石，或分成幾爐。">把 1000 克分成 4 份，每份 250 克，各自收成一個球，蓋著放 30 到 45 分鐘。然後在撒了粉的板上用手拉開每一球，邊緣留厚，中間拉薄。預設 1000 克用大約 40 公分寬的烤石或烤盤；份量改了請換合適大小的烤石，或分成幾爐。</span></li><li><strong>烘烤</strong> 烤箱 250°C，烤石或烤鋼預熱 45 分鐘。想加醬和起司可以加，那些不在合計克數裡。烤 7 到 10 分鐘，直到邊緣有焦斑、中心定住。放 2 分鐘再切。</li></ol>
+<figure>
+<img src="/assets/same-day-pizza.webp" width="1200" height="798" alt="一張披薩，上面有番茄、起司、洋蔥和甜椒，放在木板上。" loading="lazy">
+<figcaption>示意圖。照片是一張披薩，上面有番茄、起司、洋蔥和甜椒。這一爐做四張。 攝影：jeffreyw，來自 <a href="https://commons.wikimedia.org/wiki/File:Homemade_pizza_(10).jpg">Wikimedia Commons</a>，<a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a>。已從 1600×1063 縮小到 1200×798，並轉為 WebP。</figcaption>
+</figure>
+</section>
 <section class="related"><h2>相關計算</h2><ul class="link-list"><li><a href="/zh-tw/xixili-pisa/">西西里披薩麵團</a></li><li><a href="/zh-tw/baopi-pisa/">薄皮披薩麵團</a></li><li><a href="/zh-tw/suanzhong-pisa/">酸種披薩麵團</a></li><li><a href="/zh-tw/lengcang-pisa/">冷藏發酵披薩麵團</a></li></ul></section>
 </main>
 <footer>

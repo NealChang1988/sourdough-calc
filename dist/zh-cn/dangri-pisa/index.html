@@ -31,7 +31,7 @@
 <main id="main">
 <nav class="crumb" aria-label="当前位置"><a href="/zh-cn/">面团计算器</a> / <a href="/zh-cn/pisa-fenlei/">披萨面团</a></nav>
 <h1>当日披萨面团</h1>
-<p>酵母偏多，适合室温发酵几小时后就烤。页面先按 4 球、每球 250 克。今天下午要几张饼，就改成几球。</p>
+<p><span data-template="酵母偏多，适合室温发酵几小时后就烤。今天下午烤 {{balls}} 张，每张 {{piece}} 克。张数变了，就改球数。">酵母偏多，适合室温发酵几小时后就烤。今天下午烤 4 张，每张 250 克。张数变了，就改球数。</span></p>
 <form id="calc" autocomplete="off">
 <fieldset class="modes">
 <legend>怎么算</legend>
@@ -61,11 +61,34 @@
 <div class="actions">
 <button type="button" id="copy">复制配方</button>
 <button type="button" id="print" class="secondary">打印</button>
+<button type="button" id="download-pdf" data-label="下载 PDF" data-loading="正在加载…" data-busy="正在生成 PDF…">下载 PDF</button>
+<script>
+(function () {
+  var button = document.getElementById("download-pdf");
+  if (!button) return;
+  button.addEventListener("click", function () {
+    if (window.__pdfReady || window.__pdfPending) return;
+    window.__pdfPending = true;
+    button.disabled = true;
+    button.textContent = button.getAttribute("data-loading");
+  });
+})();
+</script>
 </div>
+<p id="pdf-error" class="error" role="alert" hidden>PDF 生成失败，请再按一次。</p>
 <textarea id="recipe-text" hidden readonly></textarea>
 </section>
 <script type="application/json" id="labels">{"title":"当日披萨面团","flour":"面粉","water":"水","starter":"酸种","salt":"盐","yeast":"酵母","total":"面团总重","grams":"克","effective":"有效水合","copied":"已复制","copyFail":"请选中配方文字再复制"}</script>
-<script type="module" src="/assets/calc.js"></script>
+<script type="application/json" id="pdf-meta">{"title":"当日披萨面团","url":"https://doughcalc.app/zh-cn/dangri-pisa/","filename":"doughcalc-dangri-pisa-zh-cn-recipe.pdf","lang":"zh-CN","fontUrl":"/assets/fonts/noto-sans-sc-subset.ttf","labels":{"result":"配方","flour":"面粉","water":"水","starter":"酸种","salt":"盐","yeast":"酵母","total":"面团总重","grams":"克","effective":"有效水合","hydration":"水合","modeFlour":"按面粉重量","modeBalls":"按面团球","balls":"面团球数","perBall":"每球克数"},"method":{"heading":"详细做法","lead":"当日披萨。目前是面粉 605 克，水合 62%，酸种 0%，盐 2.5%，酵母 0.8%。也就是水 375.1 克、盐 15.1 克和酵母 4.8 克，合计 1000 克。目前是 4 张、每张 250 克。酱、奶酪和配料不在合计克数里。下面的时间按只改面粉的量、百分比不变来估。发酵还是看面团的样子和手感。","leadTemplate":"{{ifOne}}一张当日披萨。{{endOne}}{{ifMany}}当日披萨。{{endMany}}目前是面粉 {{flour}} 克，水合 {{hydration}}%，酸种 {{starterPct}}%，盐 {{saltPct}}%，酵母 {{yeastPct}}%。也就是{{zhjoin}}{{item}}水 {{water}} 克{{enditem}}{{item}}{{ifStarter}}酸种 {{starter}} 克{{endStarter}}{{enditem}}{{item}}盐 {{salt}} 克{{enditem}}{{item}}{{ifYeast}}酵母 {{yeast}} 克{{endYeast}}{{enditem}}{{endjoin}}，合计 {{total}} 克。{{ifOne}}目前是 {{balls}} 张、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 张、每张 {{piece}} 克{{endMany}}。酱、奶酪和配料不在合计克数里。下面的时间按只改面粉的量、百分比不变来估。发酵还是看面团的样子和手感。","steps":[{"title":"搅拌","body":"把 605 克面粉、375.1 克水、15.1 克盐和 4.8 克即发酵母拌到没有干粉，再揉大约 6 分钟，直到光滑。水合 62%，柔软。面团温度大约 24°C。","bodyTemplate":"把 {{zhjoin}}{{item}}{{flour}} 克面粉{{enditem}}{{item}}{{water}} 克水{{enditem}}{{item}}{{ifStarter}}{{starter}} 克酸种{{endStarter}}{{enditem}}{{item}}{{salt}} 克盐{{enditem}}{{item}}{{ifYeast}}{{yeast}} 克即发酵母{{endYeast}}{{enditem}}{{endjoin}}拌到没有干粉，再揉大约 6 分钟，直到光滑。水合 {{hydration}}%，柔软。面团温度大约 24°C。"},{"title":"基本发酵","body":"盖着，放在大约 24°C，大约 90 分钟，折叠一轮。酵母有 0.8%，大约胀起一半即可。这一团留在室温，不进冰箱。","bodyTemplate":"盖着，放在大约 24°C，大约 90 分钟，折叠一轮。{{ifYeast}}酵母有 {{yeastPct}}%，大约胀起一半即可。{{endYeast}}{{ifNoYeast}}没有酵母，面团不会发起。{{endNoYeast}}这一团留在室温，不进冰箱。"},{"title":"分割","body":"把 1000 克分成 4 份，每份 250 克，各自收成一个球，盖着放 30 到 45 分钟。然后在撒了粉的板上用手拉开每一球，边缘留厚，中间拉薄。默认 1000 克用大约 40 厘米宽的烤石或烤盘；份量改了请换合适大小的烤石，或分成几炉。","bodyTemplate":"{{ifOne}}把 {{total}} 克收成一个球，盖着放 30 到 45 分钟。这一炉是 {{balls}} 张。{{endOne}}{{ifMany}}把 {{total}} 克分成 {{balls}} 份，每份 {{piece}} 克，各自收成一个球，盖着放 30 到 45 分钟。{{endMany}}然后在撒了粉的板上用手拉开{{ifOne}}这一球{{endOne}}{{ifMany}}每一球{{endMany}}，边缘留厚，中间拉薄。默认 1000 克用大约 40 厘米宽的烤石或烤盘；份量改了请换合适大小的烤石，或分成几炉。"},{"title":"烘烤","body":"烤箱 250°C，烤石或烤钢预热 45 分钟。想加酱和奶酪可以加，那些不在合计克数里。烤 7 到 10 分钟，直到边缘有焦斑、中心定住。放 2 分钟再切。"}]},"messages":{"label":"下载 PDF","busy":"正在生成 PDF…","fail":"PDF 生成失败，请再按一次。"}}</script>
+<script type="module" src="/assets/calc.js"></script><section class="method">
+<h2>详细做法</h2>
+<p><span data-template="{{ifOne}}一张当日披萨。{{endOne}}{{ifMany}}当日披萨。{{endMany}}目前是面粉 {{flour}} 克，水合 {{hydration}}%，酸种 {{starterPct}}%，盐 {{saltPct}}%，酵母 {{yeastPct}}%。也就是{{zhjoin}}{{item}}水 {{water}} 克{{enditem}}{{item}}{{ifStarter}}酸种 {{starter}} 克{{endStarter}}{{enditem}}{{item}}盐 {{salt}} 克{{enditem}}{{item}}{{ifYeast}}酵母 {{yeast}} 克{{endYeast}}{{enditem}}{{endjoin}}，合计 {{total}} 克。{{ifOne}}目前是 {{balls}} 张、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 张、每张 {{piece}} 克{{endMany}}。酱、奶酪和配料不在合计克数里。下面的时间按只改面粉的量、百分比不变来估。发酵还是看面团的样子和手感。">当日披萨。目前是面粉 605 克，水合 62%，酸种 0%，盐 2.5%，酵母 0.8%。也就是水 375.1 克、盐 15.1 克和酵母 4.8 克，合计 1000 克。目前是 4 张、每张 250 克。酱、奶酪和配料不在合计克数里。下面的时间按只改面粉的量、百分比不变来估。发酵还是看面团的样子和手感。</span></p>
+<ol><li><strong>搅拌</strong> <span data-template="把 {{zhjoin}}{{item}}{{flour}} 克面粉{{enditem}}{{item}}{{water}} 克水{{enditem}}{{item}}{{ifStarter}}{{starter}} 克酸种{{endStarter}}{{enditem}}{{item}}{{salt}} 克盐{{enditem}}{{item}}{{ifYeast}}{{yeast}} 克即发酵母{{endYeast}}{{enditem}}{{endjoin}}拌到没有干粉，再揉大约 6 分钟，直到光滑。水合 {{hydration}}%，柔软。面团温度大约 24°C。">把 605 克面粉、375.1 克水、15.1 克盐和 4.8 克即发酵母拌到没有干粉，再揉大约 6 分钟，直到光滑。水合 62%，柔软。面团温度大约 24°C。</span></li><li><strong>基本发酵</strong> <span data-template="盖着，放在大约 24°C，大约 90 分钟，折叠一轮。{{ifYeast}}酵母有 {{yeastPct}}%，大约胀起一半即可。{{endYeast}}{{ifNoYeast}}没有酵母，面团不会发起。{{endNoYeast}}这一团留在室温，不进冰箱。">盖着，放在大约 24°C，大约 90 分钟，折叠一轮。酵母有 0.8%，大约胀起一半即可。这一团留在室温，不进冰箱。</span></li><li><strong>分割</strong> <span data-template="{{ifOne}}把 {{total}} 克收成一个球，盖着放 30 到 45 分钟。这一炉是 {{balls}} 张。{{endOne}}{{ifMany}}把 {{total}} 克分成 {{balls}} 份，每份 {{piece}} 克，各自收成一个球，盖着放 30 到 45 分钟。{{endMany}}然后在撒了粉的板上用手拉开{{ifOne}}这一球{{endOne}}{{ifMany}}每一球{{endMany}}，边缘留厚，中间拉薄。默认 1000 克用大约 40 厘米宽的烤石或烤盘；份量改了请换合适大小的烤石，或分成几炉。">把 1000 克分成 4 份，每份 250 克，各自收成一个球，盖着放 30 到 45 分钟。然后在撒了粉的板上用手拉开每一球，边缘留厚，中间拉薄。默认 1000 克用大约 40 厘米宽的烤石或烤盘；份量改了请换合适大小的烤石，或分成几炉。</span></li><li><strong>烘烤</strong> 烤箱 250°C，烤石或烤钢预热 45 分钟。想加酱和奶酪可以加，那些不在合计克数里。烤 7 到 10 分钟，直到边缘有焦斑、中心定住。放 2 分钟再切。</li></ol>
+<figure>
+<img src="/assets/same-day-pizza.webp" width="1200" height="798" alt="一张披萨，上面有番茄、奶酪、洋葱和甜椒，放在木板上。" loading="lazy">
+<figcaption>示意图。照片是一张披萨，上面有番茄、奶酪、洋葱和甜椒。这一炉做四张。 摄影：jeffreyw，来自 <a href="https://commons.wikimedia.org/wiki/File:Homemade_pizza_(10).jpg">Wikimedia Commons</a>，<a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a>。已从 1600×1063 缩小到 1200×798，并转为 WebP。</figcaption>
+</figure>
+</section>
 <section class="related"><h2>相关计算</h2><ul class="link-list"><li><a href="/zh-cn/xixili-pisa/">西西里披萨面团</a></li><li><a href="/zh-cn/baopi-pisa/">薄皮披萨面团</a></li><li><a href="/zh-cn/suanzhong-pisa/">酸种披萨面团</a></li><li><a href="/zh-cn/lengcang-pisa/">冷藏发酵披萨面团</a></li></ul></section>
 </main>
 <footer>

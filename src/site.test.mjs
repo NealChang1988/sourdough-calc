@@ -10,7 +10,7 @@ import { nearestHydration, pages, redirectRules, toolCount } from "./catalog.mjs
 import { doughGuides } from "./data/dough-guides.mjs";
 import { fillAmounts, formatAmount, recipeFor } from "./formula.mjs";
 import { ui } from "./i18n.mjs";
-import { pdfPayload, renderPage } from "./render.mjs";
+import { assertNoRawTemplates, pdfPayload, renderPage } from "./render.mjs";
 
 test("long-tail calculators are the kept hydration, pizza, and bread pages", () => {
   assert.equal(toolCount(), 72);
@@ -122,13 +122,19 @@ test("kept pages describe different doughs and category pages calculate", () => 
   assert.match(renderPage(pages.find((page) => page.id === "home"), "en"), /Enter a number only, for example 3000, without units/);
 });
 
+function visibleIntro(page, lang) {
+  return page.intro[lang]
+    .map((paragraph) => (page.preset ? fillAmounts(paragraph, recipeFor(page.preset), page.preset) : paragraph))
+    .join("\n");
+}
+
 test("visible long-tail paragraphs differ within each language", () => {
   const payload = {};
   for (const category of ["bread", "hydration", "pizza"]) {
     const group = pages.filter((page) => page.category === category && page.kind === "tool");
     payload[category] = {};
     for (const lang of ["en", "zh-cn", "zh-tw"]) {
-      payload[category][lang] = group.map((page) => page.intro[lang].join("\n"));
+      payload[category][lang] = group.map((page) => visibleIntro(page, lang));
     }
   }
   const script = `
@@ -330,7 +336,7 @@ test("built site drops removed urls and keeps a footer mailto on every page", as
 
 test("country sourdough page adds a method and photo without touching other pages", async () => {
   const country = pages.find((page) => page.id === "bread-country-sourdough");
-  const plain = pages.find((page) => page.id === "bread-batard");
+  const plain = pages.find((page) => page.id === "bread-ficelle");
   const expected = {
     en: "Detailed method",
     "zh-cn": "详细做法",
@@ -517,7 +523,7 @@ test("bread page intros stay under 50% similar", () => {
   const group = pages.filter((page) => page.category === "bread" && page.kind === "tool");
   const payload = {};
   for (const lang of ["en", "zh-cn", "zh-tw"]) {
-    payload[lang] = group.map((page) => page.intro[lang].join("\n"));
+    payload[lang] = group.map((page) => visibleIntro(page, lang));
   }
   const script = `
 import json, difflib, sys
@@ -829,6 +835,139 @@ test("batch 11 guides keep the method, photo, and ball defaults together", () =>
   assert.match(pizzaDivide, /Take the tub out of the fridge/);
   assert.match(pizzaDivide, /rest them at room temperature for 60 to 90 minutes/);
   assert.match(pizzaDivide, /Then stretch each ball/);
+});
+
+test("built pages do not leave raw templates in the head or visible text", () => {
+  for (const page of pages) {
+    for (const lang of ["en", "zh-cn", "zh-tw"]) {
+      const html = renderPage(page, lang);
+      assertNoRawTemplates(html, `${page.id} ${lang}`);
+    }
+  }
+  const expect = [
+    ["bread-sandwich-loaf", "en", "full 840 g"],
+    ["bread-sandwich-loaf", "zh-tw", "整團 840 克"],
+    ["bread-pullman-loaf", "en", "845 g of dough"],
+    ["bread-pullman-loaf", "zh-cn", "放入 845 克"],
+    ["bread-soft-rolls", "en", "12 rounds of 70 g"],
+    ["bread-soft-rolls", "zh-tw", "這一爐是 12 個軟餐包，每個 70 克"],
+    ["bread-sourdough-focaccia", "en", "Spread all 1012.5 g"],
+    ["bread-sourdough-focaccia", "zh-cn", "1012.5 克全部铺进"],
+  ];
+  for (const [id, lang, snippet] of expect) {
+    const html = renderPage(pages.find((item) => item.id === id), lang);
+    const head = html.slice(0, html.indexOf("</head>"));
+    assert.ok(head.includes(snippet), `${id} ${lang} ${snippet}`);
+  }
+});
+
+test("zero main leavening does not promise the dough will grow", () => {
+  const growth =
+    /\b(?:grow(?:n|s|ing)?|doubl(?:e|ed|es|ing)|puff(?:y|ier|s|ed|ing)?|balloon(?:s|ed|ing)?|ris(?:e|es|en|ing)|proof(?:s|ed|ing)?)\b|胀起|脹起|发到|發到|发起来|發起來|两倍|兩倍|蓬松|蓬鬆|鼓出|略微鼓|胀得|脹得/;
+  const badPct =
+    /酵母只有\s*0%|酵母有\s*0%|酸种有\s*0%|酸種有\s*0%|酸种又只有\s*0%|酸種又只有\s*0%|With (?:only )?0%\s*(?:yeast|starter)|only 0%\s*yeast|The 0%\s*yeast/i;
+  const reminderRe =
+    /Without (?:yeast|starter) the dough will not rise\.|没有酵母，面团不会发起。|沒有酵母，麵團不會發起。|没有酸种，面团不会发起。|沒有酸種，麵團不會發起。/g;
+  const targets = pages.filter((page) => page.preset && page.kind === "tool" && (page.category === "bread" || page.category === "pizza"));
+  assert.ok(targets.length >= 40);
+  for (const page of targets) {
+    const mainStarter = (page.preset.starter ?? 0) > 0 && (page.preset.yeast ?? 0) === 0;
+    const preset = { ...page.preset, ...(mainStarter ? { starter: 0 } : { yeast: 0 }) };
+    const recipe = recipeFor(preset);
+    const zeroPage = { ...page, preset };
+    for (const lang of ["en", "zh-cn", "zh-tw"]) {
+      const parts = [...page.intro[lang]];
+      if (!page.intro[lang].includes(page.description[lang])) parts.push(page.description[lang]);
+      const guide = doughGuides[page.id];
+      if (guide) parts.push(guide[lang].lead, ...guide[lang].steps.map((step) => step.body));
+      const filled = parts.map((text) => fillAmounts(text, recipe, preset)).join("\n");
+      const reminders = filled.match(reminderRe) || [];
+      assert.ok(reminders.length <= 1, `${page.id} ${lang} reminders ${reminders.length}`);
+      const scrubbed = filled.replace(reminderRe, "");
+      assert.equal(growth.test(scrubbed), false, `${page.id} ${lang} ${scrubbed.match(growth)?.[0]}`);
+      assert.equal(badPct.test(scrubbed), false, `${page.id} ${lang} percent`);
+      const html = renderPage(zeroPage, lang);
+      const methodAt = html.indexOf('class="method"');
+      if (methodAt >= 0) {
+        const method = html.slice(methodAt, html.indexOf('class="related"')).replace(/<figure[\s\S]*?<\/figure>/, "");
+        const visible = method.replace(/<[^>]+>/g, " ").replace(reminderRe, "");
+        assert.equal(growth.test(visible), false, `${page.id} ${lang} html ${visible.match(growth)?.[0]}`);
+        assert.equal(badPct.test(visible), false, `${page.id} ${lang} html percent`);
+      }
+      const payload = pdfPayload(zeroPage, lang);
+      if (payload?.method) {
+        const pdfText = [payload.method.lead, ...payload.method.steps.map((step) => step.body)].join("\n");
+        const pdfScrub = pdfText.replace(reminderRe, "");
+        assert.equal(growth.test(pdfScrub), false, `${page.id} ${lang} pdf ${pdfScrub.match(growth)?.[0]}`);
+        assert.equal(badPct.test(pdfScrub), false, `${page.id} ${lang} pdf percent`);
+        assert.ok((pdfText.match(reminderRe) || []).length <= 1, `${page.id} ${lang} pdf reminders`);
+      }
+    }
+  }
+});
+
+test("batch 12 guides keep the method, photo, and ball defaults together", () => {
+  const cases = [
+    ["pizza-thin-crust", "/assets/thin-crust-pizza.webp", "jeffreyw", "CC BY 2.0", 4, 200, "508.3", "default 800 g uses a baking stone or tray about 40 cm across"],
+    ["pizza-same-day", "/assets/same-day-pizza.webp", "jeffreyw", "CC BY 2.0", 4, 250, "605", "default 1000 g uses a baking stone or tray about 40 cm across"],
+    ["pizza-cold-ferment", "/assets/cold-ferment-pizza.webp", "Jon Sullivan", "Public domain", 4, 250, "591.9", "default 1000 g uses a baking stone or tray about 40 cm across"],
+    ["bread-sourdough-pita", "/assets/sourdough-pita.webp", "Calvin Neonardi", "CC BY-SA 3.0", 8, 93.4, "68.2", "default 747.2 g uses a baking stone or tray about 40 cm across"],
+    ["bread-batard", "/assets/batard.webp", "Do An Ngon Qua", "CC BY-SA 4.0", 1, 980, "76.4", "default 980 g uses an oval lidded pot about 30 cm long"],
+  ];
+  for (const [id, photo, photographer, license, balls, grams, shown, pan] of cases) {
+    const page = pages.find((item) => item.id === id);
+    assert.equal(page.preset.balls, balls, id);
+    assert.equal(page.preset.gramsPerBall, grams, id);
+    for (const lang of ["en", "zh-cn", "zh-tw"]) {
+      const html = renderPage(page, lang);
+      assert.match(html, new RegExp(`src="${photo}"`), `${id} ${lang}`);
+      assert.match(html, new RegExp(photographer.replaceAll(".", "\\.")), `${id} ${lang}`);
+      if (license === "Public domain") {
+        if (lang === "en") assert.match(html, /Public domain/, id);
+        if (lang === "zh-cn") assert.match(html, /公有领域/, id);
+        if (lang === "zh-tw") assert.match(html, /公有領域/, id);
+      } else {
+        assert.match(html, new RegExp(license.replaceAll(".", "\\.")), `${id} ${lang}`);
+      }
+      assert.match(html, /data-template="/, `${id} ${lang}`);
+      assert.match(html, new RegExp(shown.replaceAll(".", "\\.")), `${id} ${lang}`);
+      const method = html.slice(html.indexOf('class="method"'), html.indexOf('class="related"'));
+      assert.equal(method.replace(/<[^>]+>/g, "").includes("{{"), false, `${id} ${lang}`);
+      if (lang === "en") assert.match(method, new RegExp(pan.replaceAll(".", "\\.")), `${id} pan`);
+      const payload = pdfPayload(page, lang);
+      const pdfText = [payload.method.lead, payload.method.leadTemplate || "", ...payload.method.steps.flatMap((step) => [step.body, step.bodyTemplate || ""])].join("\n");
+      assert.equal(/The photo|In the photo|照片/.test(pdfText), false, `${id} ${lang} pdf photo`);
+      if (lang === "en") {
+        assert.match(html, /For illustration only\./, id);
+        assert.match(html, /Currently /, id);
+        assert.equal(/\b0 g yeast\b/.test(method), false, id);
+        assert.equal(/\b0 g starter\b/.test(method), false, id);
+      }
+      if (lang === "zh-cn") {
+        assert.match(html, /示意图。/, id);
+        assert.match(html, /目前是/, id);
+        assert.equal(html.includes("默认是"), false, id);
+      }
+      if (lang === "zh-tw") {
+        assert.match(html, /示意圖。/, id);
+        assert.match(html, /目前是/, id);
+        assert.equal(method.includes("預設是"), false, id);
+      }
+    }
+  }
+  const thin = pages.find((item) => item.id === "pizza-thin-crust");
+  const thinLead = fillAmounts(doughGuides[thin.id].en.lead, recipeFor(thin.preset), thin.preset);
+  assert.match(thinLead, /and 2 g yeast/);
+  assert.equal(/\b0 g starter\b/.test(thinLead), false);
+  const batard = pages.find((item) => item.id === "bread-batard");
+  const one = fillAmounts(doughGuides[batard.id].en.lead, recipeFor(batard.preset), batard.preset);
+  assert.match(one, /One oval sourdough loaf/);
+  const many = fillAmounts(doughGuides[batard.id].en.lead, recipeFor({ ...batard.preset, balls: 2 }), { ...batard.preset, balls: 2 });
+  assert.match(many, /Oval sourdough loaves/);
+  assert.match(doughGuides["bread-batard"].en.steps.find((step) => step.title === "Bake").body, /paper and all/);
+  assert.match(doughGuides["bread-sourdough-pita"].en.caption, /eight/);
+  assert.match(doughGuides["pizza-cold-ferment"].en.caption, /one dough ball/);
+  assert.match(doughGuides["pizza-cold-ferment"].en.caption, /four/);
 });
 
 test("every page discloses anonymous analytics and none claim there is none", async () => {

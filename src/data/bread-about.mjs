@@ -40,7 +40,7 @@ export const breadAbout = {
     "zh-tw": "等麵團已經有一點筋力，再拌入切碎的橄欖，果肉才是一塊一塊的，而不是攪成泥。晚拌才保得住顆粒。",
   },
   miche: {
-    en: "One very large round that needs a wide basket and a slow rise so it does not spill over the basket.",
+    en: "{{ifStarter}}One very large round that needs a wide basket and a slow rise so it does not spill over the basket.{{endStarter}}",
     "zh-cn": "面团很大，这是一个大圆面包。篮子要宽，发酵要慢，不然会从篮沿漫出来，一次就是一整锅。",
     "zh-tw": "麵團很大，這是一個大圓麵包。籃子要寬，發酵要慢，不然會從籃沿漫出來，一次就是一整鍋。",
   },
@@ -65,9 +65,9 @@ export const breadAbout = {
     "zh-tw": "把很濕的麵切成方塊，攤著直接烤。若用力收緊，大孔洞會被擠沒，大方孔才是它的樣子。",
   },
   focaccia: {
-    en: "A flat sheet in an oiled pan. Dimple the puffy dough with oily fingers and bake it hot until the peaks brown.",
-    "zh-cn": "铺在抹了油的烤盘里，发到蓬松后用沾油的手指戳出深坑，高温烤到凸起的地方上色。它是一张饼，不是高面包。",
-    "zh-tw": "鋪在抹了油的烤盤裡，發到蓬鬆後用沾油的手指戳出深坑，高溫烤到凸起的地方上色。它是一張餅，不是高麵包。",
+    en: "A flat sheet in an oiled pan.{{ifYeast}} Dimple the puffy dough with oily fingers and bake it hot until the peaks brown.{{endYeast}}{{ifNoYeast}} Without yeast the dough will not rise.{{endNoYeast}}",
+    "zh-cn": "铺在抹了油的烤盘里{{ifYeast}}，发到蓬松后用沾油的手指戳出深坑，高温烤到凸起的地方上色{{endYeast}}。它是一张饼，不是高面包。{{ifNoYeast}}没有酵母，面团不会发起。{{endNoYeast}}",
+    "zh-tw": "鋪在抹了油的烤盤裡{{ifYeast}}，發到蓬鬆後用沾油的手指戳出深坑，高溫烤到凸起的地方上色{{endYeast}}。它是一張餅，不是高麵包。{{ifNoYeast}}沒有酵母，麵團不會發起。{{endNoYeast}}",
   },
   "sourdough-focaccia": {
     en: "Spread all {{total}} g in one oiled pan. Only starter lifts the sheet, so wait longer to dimple it, and let the underside fry.",
@@ -85,7 +85,7 @@ export const breadAbout = {
     "zh-tw": "這一爐分成 10 個小圓餅，每個 79.3 克。中間壓一個坑，填上切碎的洋蔥再烤。不要下水煮。",
   },
   pita: {
-    en: "Roll thin disks and bake them very hot so they balloon into a pocket. A crowded oven will not puff them.",
+    en: "{{ifYeast}}Roll thin disks and bake them very hot so they balloon into a pocket.{{endYeast}}{{ifYeast}} A crowded oven will not puff them.{{endYeast}}{{ifNoYeast}}Without yeast the dough will not rise.{{endNoYeast}}",
     "zh-cn": "擀成薄圆片，用很高的温度烤，才会鼓成一个口袋。烤箱塞太满就鼓不起来，中间要留空。",
     "zh-tw": "擀成薄圓片，用很高的溫度烤，才會鼓成一個口袋。烤箱塞太滿就鼓不起來，中間要留空。",
   },
@@ -100,34 +100,34 @@ export const breadAbout = {
     "zh-tw": "擀到接近紙那麼薄，烤到起泡。趁熱疊起來是軟餅，放涼到乾就是脆片，兩種吃法都可以。",
   },
   "dinner-rolls": {
-    en: "Divide evenly, proof until the pieces touch, and bake until the crowns color. Pull them apart at the table.",
-    "zh-cn": "均匀分成小份，发到彼此碰上再烤，烤到顶部上色。上桌时从相连的地方用手掰开，小份相连。",
-    "zh-tw": "均勻分成小份，發到彼此碰上再烤，烤到頂部上色。上桌時從相連的地方用手掰開，小份相連。",
+    en: "{{ifYeast}}Divide evenly, proof until the pieces touch, and bake until the crowns color.{{endYeast}} Pull them apart at the table.{{ifNoYeast}} Without yeast the dough will not rise.{{endNoYeast}}",
+    "zh-cn": "均匀分成小份{{ifYeast}}，发到彼此碰上再烤，烤到顶部上色{{endYeast}}。上桌时从相连的地方用手掰开，小份相连。{{ifNoYeast}}没有酵母，面团不会发起。{{endNoYeast}}",
+    "zh-tw": "均勻分成小份{{ifYeast}}，發到彼此碰上再烤，烤到頂部上色{{endYeast}}。上桌時從相連的地方用手掰開，小份相連。{{ifNoYeast}}沒有酵母，麵團不會發起。{{endNoYeast}}",
   },
   "hamburger-buns": {
-    en: "Palm-wide disks, roughly 90 to 100 g each, pressed slightly flat before the last proof so they do not dome into balls.",
+    en: "{{ifYeast}}Palm-wide disks, roughly 90 to 100 g each, pressed slightly flat before the last proof so they do not dome into balls.{{endYeast}}{{ifNoYeast}}Without yeast the dough will not rise.{{endNoYeast}}",
     "zh-cn": "每个大约 90 到 100 克，巴掌宽的圆饼。最后发酵前轻轻压扁，免得鼓成球，上面要平一点。",
     "zh-tw": "每個大約 90 到 100 克，巴掌寬的圓餅。最後發酵前輕輕壓扁，免得鼓成球，上面要平一點。",
   },
   "hot-dog-buns": {
-    en: "The logs proof in a row and touch. The sides stay pale, and a split along the top holds the sausage.",
+    en: "{{ifYeast}}The logs proof in a row and touch.{{endYeast}} The sides stay pale, and a split along the top holds the sausage.",
     "zh-cn": "短条排成一排、彼此碰上再发。贴住的侧面颜色浅，入炉前在顶部划一道开口，用来放香肠。",
     "zh-tw": "短條排成一排、彼此碰上再發。貼住的側面顏色淺，入爐前在頂部劃一道開口，用來放香腸。",
   },
   "sandwich-loaf": {
-    en: "One open tin takes the full {{total}} g. Let the crown rise past the rim, then cut even slices from the close crumb.",
-    "zh-cn": "整团 {{total}} 克放进一只敞口模具。等顶部鼓出模沿再进炉，出炉后把细密的组织切成厚薄均匀的片。",
-    "zh-tw": "整團 {{total}} 克放進一隻敞口模具。等頂部鼓出模沿再進爐，出爐後把細密的組織切成厚薄均勻的片。",
+    en: "One open tin takes the full {{total}} g.{{ifYeast}} Let the crown rise past the rim, then cut even slices from the close crumb.{{endYeast}}",
+    "zh-cn": "整团 {{total}} 克放进一只敞口模具。{{ifYeast}}等顶部鼓出模沿再进炉，出炉后把细密的组织切成厚薄均匀的片。{{endYeast}}",
+    "zh-tw": "整團 {{total}} 克放進一隻敞口模具。{{ifYeast}}等頂部鼓出模沿再進爐，出爐後把細密的組織切成厚薄均勻的片。{{endYeast}}",
   },
   "pullman-loaf": {
-    en: "A lidded straight-sided tin, filled about halfway with {{total}} g of dough, holds this loaf while it rises into the lid.",
+    en: "{{ifYeast}}A lidded straight-sided tin, filled about halfway with {{total}} g of dough, holds this loaf while it rises into the lid.{{endYeast}}",
     "zh-cn": "带盖的直角模里放入 {{total}} 克，高度大约只到一半。盖严之后，面团贴着盖子继续膨胀。",
     "zh-tw": "帶蓋的直角模裡放入 {{total}} 克，高度大約只到一半。蓋嚴之後，麵團貼著蓋子繼續膨脹。",
   },
   "soft-rolls": {
-    en: "{{ifOne}}One round of {{piece}} g. Let it proof, then bake.{{endOne}}{{ifMany}}{{balls}} rounds of {{piece}} g. Let them proof until the sides touch, then bake.{{endMany}} A spoon of oil, if you add one, is outside the gram total.",
-    "zh-cn": "这一炉是 {{balls}} 个软餐包，每个 {{piece}} 克。发到彼此碰上再烤。若另加一勺油，油不在克数合计里。",
-    "zh-tw": "這一爐是 {{balls}} 個軟餐包，每個 {{piece}} 克。發到彼此碰上再烤。若另加一匙油，油不在克數合計裡。",
+    en: "{{ifOne}}One round of {{piece}} g.{{ifYeast}} Let it proof, then bake.{{endYeast}}{{endOne}}{{ifMany}}{{balls}} rounds of {{piece}} g.{{ifYeast}} Let them proof until the sides touch, then bake.{{endYeast}}{{endMany}} A spoon of oil, if you add one, is outside the gram total.",
+    "zh-cn": "这一炉是 {{balls}} 个软餐包，每个 {{piece}} 克。{{ifYeast}}发到彼此碰上再烤。{{endYeast}}若另加一勺油，油不在克数合计里。",
+    "zh-tw": "這一爐是 {{balls}} 個軟餐包，每個 {{piece}} 克。{{ifYeast}}發到彼此碰上再烤。{{endYeast}}若另加一匙油，油不在克數合計裡。",
   },
   "hard-rolls": {
     en: "Small, stiff pieces. A burst of steam as they go into the oven is what crackles the shell.",
@@ -140,12 +140,12 @@ export const breadAbout = {
     "zh-tw": "在結實的圓麵團上壓出或折出一個結，再帶著蒸汽烘烤，頂部的星形才清楚，花紋要留住。",
   },
   "hoagie-rolls": {
-    en: "Divide this batch into 8 long rolls of 103 g. Proof them seam-side down, then bake until the crust can hold a filling.",
+    en: "Divide this batch into 8 long rolls of 103 g.{{ifYeast}} Proof them seam-side down, then bake until the crust can hold a filling.{{endYeast}}{{ifNoYeast}} Without yeast the dough will not rise.{{endNoYeast}}",
     "zh-cn": "这一炉分成 8 条长面包，每条 103 克。接缝朝下醒发，烤到外皮撑得住塞进去的馅料。",
     "zh-tw": "這一爐分成 8 條長麵包，每條 103 克。接縫朝下醒發，烤到外皮撐得住塞進去的餡料。",
   },
   breadsticks: {
-    en: "After the first rise, divide the dough into pieces and roll each one into a thin stick. Bake until the center is cooked. A snack stick, not a loaf.",
+    en: "{{ifYeast}}After the first rise, divide the dough into pieces and roll each one into a thin stick.{{endYeast}} Bake until the center is cooked. A snack stick, not a loaf.{{ifNoYeast}} Without yeast the dough will not rise.{{endNoYeast}}",
     "zh-cn": "第一次发酵后分成小份，再把每份搓成细棒。烤到中心没有生面。是细棍点心，不是一条面包，中间要烤熟。",
     "zh-tw": "第一次發酵後分成小份，再把每份搓成細棒。烤到中心沒有生麵。是細棍點心，不是一條麵包，中間要烤熟。",
   },
@@ -180,7 +180,7 @@ export const breadAbout = {
     "zh-tw": "整團先冷藏發酵。從冰箱取出後再分割，在室溫回溫，然後拉開。配方裡不加商業酵母，靠酸種發酵。",
   },
   "sourdough-bagels": {
-    en: "The rings take longer to puff than a commercial-yeast version, and each one still gets a short simmer before the oven.",
+    en: "{{ifStarter}}The rings take longer to puff than a commercial-yeast version, and each one still gets a short simmer before the oven.{{endStarter}}{{ifNoStarter}}Without starter the dough will not rise.{{endNoStarter}}",
     "zh-cn": "很硬的环，醒发比酵母版本更慢。做法仍是先煮后烤，只是在台面上要多等一阵才拉得动。",
     "zh-tw": "很硬的環，醒發比酵母版本更慢。做法仍是先煮後烤，只是在檯面上要多等一陣才拉得動。",
   },
@@ -200,12 +200,12 @@ export const breadAbout = {
     "zh-tw": "前半段如果蓋著烤，頂部會更薄、顏色更淺，等麵包已經完全放涼以後再切成厚薄均勻的片。",
   },
   "sourdough-pita": {
-    en: "Needs a longer proof than a yeasted pita, then the same fierce heat so the thin disk inflates.",
+    en: "{{ifStarter}}Needs a longer proof than a yeasted pita, then the same fierce heat so the thin disk inflates.{{endStarter}}",
     "zh-cn": "醒发要比酵母皮塔更久，然后同样用猛火，薄片才会鼓起来。多等一会再进高温，火候要够。",
     "zh-tw": "醒發要比酵母皮塔更久，然後同樣用猛火，薄片才會鼓起來。多等一會再進高溫，火候要夠。",
   },
   "sourdough-rolls": {
-    en: "Portion them once the bowl has finished rising. The tray takes its time to puff.",
+    en: "{{ifStarter}}Portion them once the bowl has finished rising.{{endStarter}}{{ifStarter}} The tray takes its time to puff.{{endStarter}}",
     "zh-cn": "等基本发酵结束再分割。同样大小的一盘，膨发比酵母小餐包更慢，不要提前切，慢一点没关系。",
     "zh-tw": "等基本發酵結束再分割。同樣大小的一盤，膨發比酵母小餐包更慢，不要提前切，慢一點沒關係。",
   },
@@ -265,7 +265,7 @@ export const breadAbout = {
     "zh-tw": "比佛卡夏更薄，壓得更平，坑洞要烤上色。是一張零食餅，不是厚厚的盤烤麵包，坑要見色。",
   },
   "pane-toscano": {
-    en: "One flour-dusted loaf of 960 g, with the salt left at zero. The rise runs fast and the crust tastes of wheat. Do not salt it back.",
+    en: "One flour-dusted loaf of 960 g, with the salt left at zero.{{ifStarter}} The rise runs fast and the crust tastes of wheat.{{endStarter}} Do not salt it back.{{ifNoStarter}} Without starter the dough will not rise.{{endNoStarter}}",
     "zh-cn": "一条 960 克、表面撒粉的面包，盐保持为零。发酵因此很快，表皮是小麦本身的味道。不要再把盐加回去。",
     "zh-tw": "一條 960 克、表面撒粉的麵包，鹽保持為零。發酵因此很快，表皮是小麥本身的味道。不要再把鹽加回去。",
   },
