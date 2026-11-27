@@ -540,7 +540,7 @@ for lang, texts in data.items():
 
 test("batch 9 guides keep the method, photo, and ball defaults together", () => {
   const cases = [
-    ["bread-overnight-white", "/assets/overnight-white.webp", "Mateusz Feliksik", "Pexels", 1, 871.25, "871.3"],
+    ["bread-overnight-white", "/assets/overnight-white.webp", "Mateusz Feliksik", "Pexels", 1, 871.3, "871.3"],
     ["bread-soft-rolls", "/assets/soft-rolls.webp", "Güneş", "Pexels", 12, 70, "70"],
     ["bread-sourdough-sandwich", "/assets/sourdough-sandwich.webp", "Polina Tankilevitch", "Pexels", 1, 940, "940"],
     ["bread-sourdough-baguette", "/assets/sourdough-baguette.webp", "jules / stonesoup", "CC BY 2.0", 4, 237.5, "237.5"],
@@ -630,7 +630,7 @@ test("batch 10 guides keep the method, photo, and ball defaults together", () =>
     ["bread-high-hydration-sourdough", "/assets/high-hydration-sourdough.webp", "Virtual-Pano", "CC BY-SA 4.0", 1, 1035, "86.4", "default 1035 g uses a round lidded pot about 24 cm across and 11 cm high"],
     ["bread-olive-sourdough", "/assets/olive-sourdough.webp", "Neil Conway", "CC BY 2.0", 1, 970, "74.5", "970 g of dough plus 100 g of olives"],
     ["bread-miche", "/assets/miche.webp", "Chris R. Sims", "CC BY-SA 4.0", 1, 1950, "79.5", "default 1950 g uses a round lidded pot about 28 cm across and 12 cm high"],
-    ["bread-sourdough-ciabatta", "/assets/sourdough-ciabatta.webp", "Key West Wedding Photography", "CC BY 2.0", 4, 255.25, "83.6", "default 1021 g uses a rimmed tray about 40 cm long, 30 cm wide, and 2 cm high"],
+    ["bread-sourdough-ciabatta", "/assets/sourdough-ciabatta.webp", "Key West Wedding Photography", "CC BY 2.0", 4, 255.3, "83.6", "default 1021 g uses a rimmed tray about 40 cm long, 30 cm wide, and 2 cm high"],
     ["bread-poolish-baguette", "/assets/poolish-baguette.webp", "Ivan J. Long", "Pexels", 4, 254, "72.5", "default 1016 g uses a rimmed tray about 40 cm long, 30 cm wide, and 2 cm high"],
   ];
   for (const [id, photo, photographer, license, balls, grams, effective, pan] of cases) {
@@ -735,7 +735,11 @@ test("batch 10 at flour 1000 keeps pan defaults and scales olives, starter, and 
   assert.match(yeastLead, new RegExp(`${formatAmount(yeastRecipe.yeast)} g yeast`));
   assert.match(yeastMix, new RegExp(`${formatAmount(yeastRecipe.yeast)} g instant yeast`));
   const ciabattaPage = pages.find((item) => item.id === "bread-sourdough-ciabatta");
-  assert.equal(formatAmount(recipeFor({ ...ciabattaPage.preset, mode: "flour" }).total), formatAmount(recipeFor({ ...ciabattaPage.preset, mode: "balls" }).total));
+  assert.equal(formatAmount(recipeFor({ ...ciabattaPage.preset, mode: "flour" }).total), "1021");
+  assert.equal(ciabattaPage.preset.gramsPerBall, 255.3);
+  const overnightPage = pages.find((item) => item.id === "bread-overnight-white");
+  assert.equal(formatAmount(recipeFor({ ...overnightPage.preset, mode: "flour" }).total), "871.3");
+  assert.equal(overnightPage.preset.gramsPerBall, 871.3);
 });
 
 test("every page discloses anonymous analytics and none claim there is none", async () => {

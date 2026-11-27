@@ -2007,7 +2007,7 @@ export const doughGuides = {
     {
       en: {
         heading: "Detailed method",
-        lead: `One open tin holds this batch. Currently {{flour}} g flour, {{hydration}}% hydration, {{saltPct}}% salt, and {{yeastPct}}% yeast. That is {{water}} g water{{ifStarter}}, {{starter}} g starter{{endStarter}}, {{salt}} g salt{{ifYeast}}, and {{yeast}} g yeast{{endYeast}}, {{total}} g of dough. {{ifOne}}Currently {{balls}} loaf of {{piece}} g{{endOne}}{{ifMany}}Currently {{balls}} loaves of {{piece}} g each{{endMany}}. Smooth the top and proof until the dome clears the rim. The crumb stays close enough to slice. ${tail.en}`,
+        lead: `{{ifOne}}One open tin holds this batch.{{endOne}}{{ifMany}}Open tins hold this batch.{{endMany}} Currently {{flour}} g flour, {{hydration}}% hydration, {{saltPct}}% salt, and {{yeastPct}}% yeast. That is {{water}} g water{{ifStarter}}, {{starter}} g starter{{endStarter}}, {{salt}} g salt{{ifYeast}}, and {{yeast}} g yeast{{endYeast}}, {{total}} g of dough. {{ifOne}}Currently {{balls}} loaf of {{piece}} g{{endOne}}{{ifMany}}Currently {{balls}} loaves of {{piece}} g each{{endMany}}. Smooth the top and proof until the dome clears the rim. The crumb stays close enough to slice. ${tail.en}`,
         alt: "A row of soft white sandwich slices on a wooden board. The cut face of the front slice shows a close crumb.",
         steps: [
           { title: "Mix", body: "Stir {{flour}} g flour, {{water}} g water, {{ifStarter}}{{starter}} g starter, {{endStarter}}{{salt}} g salt{{ifYeast}}, and {{yeast}} g instant yeast{{endYeast}}, then knead 8 to 10 minutes until smooth. At {{hydration}}% the dough is soft and holds a ball. Aim for about 24°C (75°F)." },
@@ -2024,7 +2024,7 @@ export const doughGuides = {
       },
       "zh-cn": {
         heading: "详细做法",
-        lead: `这一炉用一只敞口模具。目前是面粉 {{flour}} 克，水合 {{hydration}}%，盐 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸种 {{starter}} 克{{endStarter}}、盐 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合计 {{total}} 克。{{ifOne}}目前是 {{balls}} 条、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 条、每条 {{piece}} 克{{endMany}}。表面收光，发到拱起高出模沿。组织细密，适合切片。${tail["zh-cn"]}`,
+        lead: `{{ifOne}}这一炉用一只敞口模具。{{endOne}}{{ifMany}}这一炉用敞口模具，一条一个。{{endMany}}目前是面粉 {{flour}} 克，水合 {{hydration}}%，盐 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸种 {{starter}} 克{{endStarter}}、盐 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合计 {{total}} 克。{{ifOne}}目前是 {{balls}} 条、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 条、每条 {{piece}} 克{{endMany}}。表面收光，发到拱起高出模沿。组织细密，适合切片。${tail["zh-cn"]}`,
         alt: "一排柔软的白吐司片放在木板上，最前面一片的切面组织细密。",
         steps: [
           { title: "搅拌", body: "把 {{flour}} 克面粉、{{water}} 克水{{ifStarter}}、{{starter}} 克酸种{{endStarter}}、{{salt}} 克盐和 {{yeast}} 克即发酵母拌匀，再揉 8 到 10 分钟，直到光滑。水合 {{hydration}}%，柔软，能成团。面团温度大约 24°C。" },
@@ -2041,7 +2041,7 @@ export const doughGuides = {
       },
       "zh-tw": {
         heading: "詳細做法",
-        lead: `這一爐用一隻敞口模具。目前是麵粉 {{flour}} 克，水合 {{hydration}}%，鹽 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸種 {{starter}} 克{{endStarter}}、鹽 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合計 {{total}} 克。{{ifOne}}目前是 {{balls}} 條、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 條、每條 {{piece}} 克{{endMany}}。表面收光，發到拱起高出模沿。組織細密，適合切片。${tail["zh-tw"]}`,
+        lead: `{{ifOne}}這一爐用一隻敞口模具。{{endOne}}{{ifMany}}這一爐用敞口模具，一條一個。{{endMany}}目前是麵粉 {{flour}} 克，水合 {{hydration}}%，鹽 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸種 {{starter}} 克{{endStarter}}、鹽 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合計 {{total}} 克。{{ifOne}}目前是 {{balls}} 條、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 條、每條 {{piece}} 克{{endMany}}。表面收光，發到拱起高出模沿。組織細密，適合切片。${tail["zh-tw"]}`,
         alt: "一排柔軟的白吐司片放在木板上，最前面一片的切面組織細密。",
         steps: [
           { title: "攪拌", body: "把 {{flour}} 克麵粉、{{water}} 克水{{ifStarter}}、{{starter}} 克酸種{{endStarter}}、{{salt}} 克鹽和 {{yeast}} 克速發酵母拌勻，再揉 8 到 10 分鐘，直到光滑。水合 {{hydration}}%，柔軟，能成團。麵團溫度大約 24°C。" },
@@ -2140,7 +2140,7 @@ export const doughGuides = {
     {
       en: {
         heading: "Detailed method",
-        lead: `A lid sits on this tin loaf. Currently {{flour}} g flour, {{hydration}}% hydration, {{saltPct}}% salt, and {{yeastPct}}% yeast. That is {{water}} g water{{ifStarter}}, {{starter}} g starter{{endStarter}}, {{salt}} g salt{{ifYeast}}, and {{yeast}} g yeast{{endYeast}}, {{total}} g of dough. {{ifOne}}Currently {{balls}} loaf of {{piece}} g{{endOne}}{{ifMany}}Currently {{balls}} loaves of {{piece}} g each{{endMany}}. Fill a straight-sided tin about halfway so the dough can rise into the lid. ${tail.en}`,
+        lead: `{{ifOne}}A lid sits on this tin loaf.{{endOne}}{{ifMany}}A lid sits on each tin loaf.{{endMany}} Currently {{flour}} g flour, {{hydration}}% hydration, {{saltPct}}% salt, and {{yeastPct}}% yeast. That is {{water}} g water{{ifStarter}}, {{starter}} g starter{{endStarter}}, {{salt}} g salt{{ifYeast}}, and {{yeast}} g yeast{{endYeast}}, {{total}} g of dough. {{ifOne}}Currently {{balls}} loaf of {{piece}} g{{endOne}}{{ifMany}}Currently {{balls}} loaves of {{piece}} g each{{endMany}}. Fill a straight-sided tin about halfway so the dough can rise into the lid. ${tail.en}`,
         alt: "A tightly cropped, dark photo of a crusty loaf with a domed top and one slice beside it.",
         caption: "The photo is a tight, dark crop of a crusty loaf with a domed top.",
         licenseBefore: ", ",
@@ -2160,7 +2160,7 @@ export const doughGuides = {
       },
       "zh-cn": {
         heading: "详细做法",
-        lead: `盖子扣在这条面包上。目前是面粉 {{flour}} 克，水合 {{hydration}}%，盐 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸种 {{starter}} 克{{endStarter}}、盐 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合计 {{total}} 克。{{ifOne}}目前是 {{balls}} 条、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 条、每条 {{piece}} 克{{endMany}}。直角模具大约只装一半，面团才会顶到盖子。${tail["zh-cn"]}`,
+        lead: `{{ifOne}}盖子扣在这条面包上。{{endOne}}{{ifMany}}盖子扣在每一条上。{{endMany}}目前是面粉 {{flour}} 克，水合 {{hydration}}%，盐 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸种 {{starter}} 克{{endStarter}}、盐 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合计 {{total}} 克。{{ifOne}}目前是 {{balls}} 条、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 条、每条 {{piece}} 克{{endMany}}。直角模具大约只装一半，面团才会顶到盖子。${tail["zh-cn"]}`,
         alt: "一张裁得很近、光线偏暗的照片，一条顶面拱起、表皮偏硬的面包，旁边有一片。",
         caption: "照片裁得很近，光线偏暗，顶面拱起，表皮偏硬。",
         licenseBefore: "，",
@@ -2180,7 +2180,7 @@ export const doughGuides = {
       },
       "zh-tw": {
         heading: "詳細做法",
-        lead: `蓋子扣在這條麵包上。目前是麵粉 {{flour}} 克，水合 {{hydration}}%，鹽 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸種 {{starter}} 克{{endStarter}}、鹽 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合計 {{total}} 克。{{ifOne}}目前是 {{balls}} 條、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 條、每條 {{piece}} 克{{endMany}}。直角模具大約只裝一半，麵團才會頂到蓋子。${tail["zh-tw"]}`,
+        lead: `{{ifOne}}蓋子扣在這條麵包上。{{endOne}}{{ifMany}}蓋子扣在每一條上。{{endMany}}目前是麵粉 {{flour}} 克，水合 {{hydration}}%，鹽 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸種 {{starter}} 克{{endStarter}}、鹽 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合計 {{total}} 克。{{ifOne}}目前是 {{balls}} 條、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 條、每條 {{piece}} 克{{endMany}}。直角模具大約只裝一半，麵團才會頂到蓋子。${tail["zh-tw"]}`,
         alt: "一張裁得很近、光線偏暗的照片，一條頂面拱起、表皮偏硬的麵包，旁邊有一片。",
         caption: "照片裁得很近，光線偏暗，頂面拱起，表皮偏硬。",
         licenseBefore: "，",
@@ -2278,8 +2278,8 @@ export const doughGuides = {
     {
       en: {
         heading: "Detailed method",
-        lead: `This is the sourdough whole wheat, not the yeasted whole wheat loaf. Currently {{flour}} g flour, {{hydration}}% hydration, {{starterPct}}% starter, {{saltPct}}% salt, and {{yeastPct}}% yeast. That is {{water}} g water{{ifStarter}}, {{starter}} g starter{{endStarter}}, {{salt}} g salt{{ifYeast}}, and {{yeast}} g yeast{{endYeast}}, {{total}} g of dough. The starter is itself 100% hydration, the same assumption used for effective hydration. The page shows {{effective}}% effective hydration. {{ifOne}}Currently {{balls}} loaf of {{piece}} g{{endOne}}{{ifMany}}Currently {{balls}} loaves of {{piece}} g each{{endMany}}. The bran drinks water, so mix longer at the start and expect a tighter crumb. Rolled oats on the crust are extra and are not in the gram total. The photo shows oats on top. ${tail.en}`,
-        pdfLead: `This is the sourdough whole wheat, not the yeasted whole wheat loaf. Currently {{flour}} g flour, {{hydration}}% hydration, {{starterPct}}% starter, {{saltPct}}% salt, and {{yeastPct}}% yeast. That is {{water}} g water{{ifStarter}}, {{starter}} g starter{{endStarter}}, {{salt}} g salt{{ifYeast}}, and {{yeast}} g yeast{{endYeast}}, {{total}} g of dough. The starter is itself 100% hydration, the same assumption used for effective hydration. The page shows {{effective}}% effective hydration. {{ifOne}}Currently {{balls}} loaf of {{piece}} g{{endOne}}{{ifMany}}Currently {{balls}} loaves of {{piece}} g each{{endMany}}. The bran drinks water, so mix longer at the start and expect a tighter crumb. Rolled oats on the crust are extra and are not in the gram total. ${tail.en}`,
+        lead: `{{ifOne}}This is the sourdough whole wheat, not the yeasted whole wheat loaf.{{endOne}}{{ifMany}}These are sourdough whole wheat loaves, not yeasted whole wheat loaves.{{endMany}} Currently {{flour}} g flour, {{hydration}}% hydration, {{starterPct}}% starter, {{saltPct}}% salt, and {{yeastPct}}% yeast. That is {{water}} g water{{ifStarter}}, {{starter}} g starter{{endStarter}}, {{salt}} g salt{{ifYeast}}, and {{yeast}} g yeast{{endYeast}}, {{total}} g of dough. The starter is itself 100% hydration, the same assumption used for effective hydration. The page shows {{effective}}% effective hydration. {{ifOne}}Currently {{balls}} loaf of {{piece}} g{{endOne}}{{ifMany}}Currently {{balls}} loaves of {{piece}} g each{{endMany}}. The bran drinks water, so mix longer at the start and expect a tighter crumb. Rolled oats on the crust are extra and are not in the gram total. The photo shows oats on top. ${tail.en}`,
+        pdfLead: `{{ifOne}}This is the sourdough whole wheat, not the yeasted whole wheat loaf.{{endOne}}{{ifMany}}These are sourdough whole wheat loaves, not yeasted whole wheat loaves.{{endMany}} Currently {{flour}} g flour, {{hydration}}% hydration, {{starterPct}}% starter, {{saltPct}}% salt, and {{yeastPct}}% yeast. That is {{water}} g water{{ifStarter}}, {{starter}} g starter{{endStarter}}, {{salt}} g salt{{ifYeast}}, and {{yeast}} g yeast{{endYeast}}, {{total}} g of dough. The starter is itself 100% hydration, the same assumption used for effective hydration. The page shows {{effective}}% effective hydration. {{ifOne}}Currently {{balls}} loaf of {{piece}} g{{endOne}}{{ifMany}}Currently {{balls}} loaves of {{piece}} g each{{endMany}}. The bran drinks water, so mix longer at the start and expect a tighter crumb. Rolled oats on the crust are extra and are not in the gram total. ${tail.en}`,
         alt: "A sliced whole wheat tin loaf with rolled oats pressed onto the crust.",
         steps: [
           { title: "Starter", body: "Use {{starter}} g of starter that is bubbly and has about doubled. That starter is part of the gram total. {{ifYeast}}The yeast amount is {{yeast}} g.{{endYeast}}" },
@@ -2297,8 +2297,8 @@ export const doughGuides = {
       },
       "zh-cn": {
         heading: "详细做法",
-        lead: `这是全麦酸种，不是酵母全麦面包。目前是面粉 {{flour}} 克，水合 {{hydration}}%，酸种 {{starterPct}}%，盐 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸种 {{starter}} 克{{endStarter}}、盐 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合计 {{total}} 克。酸种按 100% 水合计，和结果里的有效水合用的是同一种假设。页面上的有效水合是 {{effective}}%。{{ifOne}}目前是 {{balls}} 条、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 条、每条 {{piece}} 克{{endMany}}。麸皮会吃水，一开始要多拌，组织比白面粉乡村面包更紧。表面的燕麦片不在合计克数里。照片上就有燕麦。${tail["zh-cn"]}`,
-        pdfLead: `这是全麦酸种，不是酵母全麦面包。目前是面粉 {{flour}} 克，水合 {{hydration}}%，酸种 {{starterPct}}%，盐 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸种 {{starter}} 克{{endStarter}}、盐 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合计 {{total}} 克。酸种按 100% 水合计，和结果里的有效水合用的是同一种假设。页面上的有效水合是 {{effective}}%。{{ifOne}}目前是 {{balls}} 条、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 条、每条 {{piece}} 克{{endMany}}。麸皮会吃水，一开始要多拌，组织比白面粉乡村面包更紧。表面的燕麦片不在合计克数里。${tail["zh-cn"]}`,
+        lead: `{{ifOne}}这是全麦酸种，不是酵母全麦面包。{{endOne}}{{ifMany}}这些是全麦酸种，不是酵母全麦面包。{{endMany}}目前是面粉 {{flour}} 克，水合 {{hydration}}%，酸种 {{starterPct}}%，盐 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸种 {{starter}} 克{{endStarter}}、盐 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合计 {{total}} 克。酸种按 100% 水合计，和结果里的有效水合用的是同一种假设。页面上的有效水合是 {{effective}}%。{{ifOne}}目前是 {{balls}} 条、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 条、每条 {{piece}} 克{{endMany}}。麸皮会吃水，一开始要多拌，组织比白面粉乡村面包更紧。表面的燕麦片不在合计克数里。照片上就有燕麦。${tail["zh-cn"]}`,
+        pdfLead: `{{ifOne}}这是全麦酸种，不是酵母全麦面包。{{endOne}}{{ifMany}}这些是全麦酸种，不是酵母全麦面包。{{endMany}}目前是面粉 {{flour}} 克，水合 {{hydration}}%，酸种 {{starterPct}}%，盐 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸种 {{starter}} 克{{endStarter}}、盐 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合计 {{total}} 克。酸种按 100% 水合计，和结果里的有效水合用的是同一种假设。页面上的有效水合是 {{effective}}%。{{ifOne}}目前是 {{balls}} 条、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 条、每条 {{piece}} 克{{endMany}}。麸皮会吃水，一开始要多拌，组织比白面粉乡村面包更紧。表面的燕麦片不在合计克数里。${tail["zh-cn"]}`,
         alt: "一条切开来的全麦烤模面包，表皮压着燕麦片。",
         steps: [
           { title: "酸种", body: "用 {{starter}} 克已经发到大约两倍、表面有气泡的酸种。这 {{starter}} 克算在合计里。{{ifYeast}}酵母是 {{yeast}} 克。{{endYeast}}" },
@@ -2316,8 +2316,8 @@ export const doughGuides = {
       },
       "zh-tw": {
         heading: "詳細做法",
-        lead: `這是全麥酸種，不是酵母全麥麵包。目前是麵粉 {{flour}} 克，水合 {{hydration}}%，酸種 {{starterPct}}%，鹽 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸種 {{starter}} 克{{endStarter}}、鹽 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合計 {{total}} 克。酸種按 100% 水合計，和結果裡的有效水合用的是同一種假設。頁面上的有效水合是 {{effective}}%。{{ifOne}}目前是 {{balls}} 條、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 條、每條 {{piece}} 克{{endMany}}。麩皮會吃水，一開始要多拌，組織比白麵粉鄉村麵包更緊。表面的燕麥片不在合計克數裡。照片上就有燕麥。${tail["zh-tw"]}`,
-        pdfLead: `這是全麥酸種，不是酵母全麥麵包。目前是麵粉 {{flour}} 克，水合 {{hydration}}%，酸種 {{starterPct}}%，鹽 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸種 {{starter}} 克{{endStarter}}、鹽 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合計 {{total}} 克。酸種按 100% 水合計，和結果裡的有效水合用的是同一種假設。頁面上的有效水合是 {{effective}}%。{{ifOne}}目前是 {{balls}} 條、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 條、每條 {{piece}} 克{{endMany}}。麩皮會吃水，一開始要多拌，組織比白麵粉鄉村麵包更緊。表面的燕麥片不在合計克數裡。${tail["zh-tw"]}`,
+        lead: `{{ifOne}}這是全麥酸種，不是酵母全麥麵包。{{endOne}}{{ifMany}}這些是全麥酸種，不是酵母全麥麵包。{{endMany}}目前是麵粉 {{flour}} 克，水合 {{hydration}}%，酸種 {{starterPct}}%，鹽 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸種 {{starter}} 克{{endStarter}}、鹽 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合計 {{total}} 克。酸種按 100% 水合計，和結果裡的有效水合用的是同一種假設。頁面上的有效水合是 {{effective}}%。{{ifOne}}目前是 {{balls}} 條、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 條、每條 {{piece}} 克{{endMany}}。麩皮會吃水，一開始要多拌，組織比白麵粉鄉村麵包更緊。表面的燕麥片不在合計克數裡。照片上就有燕麥。${tail["zh-tw"]}`,
+        pdfLead: `{{ifOne}}這是全麥酸種，不是酵母全麥麵包。{{endOne}}{{ifMany}}這些是全麥酸種，不是酵母全麥麵包。{{endMany}}目前是麵粉 {{flour}} 克，水合 {{hydration}}%，酸種 {{starterPct}}%，鹽 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸種 {{starter}} 克{{endStarter}}、鹽 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合計 {{total}} 克。酸種按 100% 水合計，和結果裡的有效水合用的是同一種假設。頁面上的有效水合是 {{effective}}%。{{ifOne}}目前是 {{balls}} 條、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 條、每條 {{piece}} 克{{endMany}}。麩皮會吃水，一開始要多拌，組織比白麵粉鄉村麵包更緊。表面的燕麥片不在合計克數裡。${tail["zh-tw"]}`,
         alt: "一條切開來的全麥烤模麵包，表皮壓著燕麥片。",
         steps: [
           { title: "酸種", body: "用 {{starter}} 克已經發到大約兩倍、表面有氣泡的酸種。這 {{starter}} 克算在合計裡。{{ifYeast}}酵母是 {{yeast}} 克。{{endYeast}}" },
@@ -2347,7 +2347,7 @@ export const doughGuides = {
     {
       en: {
         heading: "Detailed method",
-        lead: `One loaf, mixed today and baked tomorrow. Currently {{flour}} g flour, {{hydration}}% hydration, {{saltPct}}% salt, and {{yeastPct}}% yeast. That is {{water}} g water{{ifStarter}}, {{starter}} g starter{{endStarter}}, {{salt}} g salt{{ifYeast}}, and {{yeast}} g yeast{{endYeast}}, {{total}} g of dough. {{ifOne}}Currently {{balls}} loaf of {{piece}} g{{endOne}}{{ifMany}}Currently {{balls}} loaves of {{piece}} g each{{endMany}}. The small yeast amount is for a night in the refrigerator. ${tail.en}`,
+        lead: `{{ifOne}}One loaf, mixed today and baked tomorrow.{{endOne}}{{ifMany}}Loaves mixed today and baked tomorrow.{{endMany}} Currently {{flour}} g flour, {{hydration}}% hydration, {{saltPct}}% salt, and {{yeastPct}}% yeast. That is {{water}} g water{{ifStarter}}, {{starter}} g starter{{endStarter}}, {{salt}} g salt{{ifYeast}}, and {{yeast}} g yeast{{endYeast}}, {{total}} g of dough. {{ifOne}}Currently {{balls}} loaf of {{piece}} g{{endOne}}{{ifMany}}Currently {{balls}} loaves of {{piece}} g each{{endMany}}. The small yeast amount is for a night in the refrigerator. ${tail.en}`,
         alt: "One sliced white loaf with a pale crumb and a thin golden crust.",
         caption: "The photo shows one sliced loaf.",
         steps: [
@@ -2362,7 +2362,7 @@ export const doughGuides = {
       },
       "zh-cn": {
         heading: "详细做法",
-        lead: `先拌好，第二天再烤，一条面包。目前是面粉 {{flour}} 克，水合 {{hydration}}%，盐 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸种 {{starter}} 克{{endStarter}}、盐 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合计 {{total}} 克。{{ifOne}}目前是 {{balls}} 条、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 条、每条 {{piece}} 克{{endMany}}。酵母这么少，是为了在冰箱过一夜。${tail["zh-cn"]}`,
+        lead: `{{ifOne}}先拌好，第二天再烤，一条面包。{{endOne}}{{ifMany}}先拌好，第二天再烤。{{endMany}}目前是面粉 {{flour}} 克，水合 {{hydration}}%，盐 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸种 {{starter}} 克{{endStarter}}、盐 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合计 {{total}} 克。{{ifOne}}目前是 {{balls}} 条、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 条、每条 {{piece}} 克{{endMany}}。酵母这么少，是为了在冰箱过一夜。${tail["zh-cn"]}`,
         alt: "一条切开的白面包，内部浅色，表皮薄而金黄。",
         caption: "照片里就是这一条切开的面包。",
         steps: [
@@ -2377,7 +2377,7 @@ export const doughGuides = {
       },
       "zh-tw": {
         heading: "詳細做法",
-        lead: `先拌好，第二天再烤，一條麵包。目前是麵粉 {{flour}} 克，水合 {{hydration}}%，鹽 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸種 {{starter}} 克{{endStarter}}、鹽 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合計 {{total}} 克。{{ifOne}}目前是 {{balls}} 條、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 條、每條 {{piece}} 克{{endMany}}。酵母這麼少，是為了在冰箱過一夜。${tail["zh-tw"]}`,
+        lead: `{{ifOne}}先拌好，第二天再烤，一條麵包。{{endOne}}{{ifMany}}先拌好，第二天再烤。{{endMany}}目前是麵粉 {{flour}} 克，水合 {{hydration}}%，鹽 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸種 {{starter}} 克{{endStarter}}、鹽 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合計 {{total}} 克。{{ifOne}}目前是 {{balls}} 條、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 條、每條 {{piece}} 克{{endMany}}。酵母這麼少，是為了在冰箱過一夜。${tail["zh-tw"]}`,
         alt: "一條切開的白麵包，內部淺色，表皮薄而金黃。",
         caption: "照片裡就是這一條切開的麵包。",
         steps: [
@@ -2458,7 +2458,7 @@ export const doughGuides = {
     {
       en: {
         heading: "Detailed method",
-        lead: `This is the sourdough sandwich loaf, not the yeasted one. Currently {{flour}} g flour, {{hydration}}% hydration, {{starterPct}}% starter, {{saltPct}}% salt, and {{yeastPct}}% yeast. That is {{water}} g water{{ifStarter}}, {{starter}} g starter{{endStarter}}, {{salt}} g salt{{ifYeast}}, and {{yeast}} g yeast{{endYeast}}, {{total}} g of dough. The starter is itself 100% hydration, the same assumption used for effective hydration. The page shows {{effective}}% effective hydration. {{ifOne}}Currently {{balls}} loaf of {{piece}} g{{endOne}}{{ifMany}}Currently {{balls}} loaves of {{piece}} g each{{endMany}}. A lid for the first part of the bake keeps the top thinner. ${tail.en}`,
+        lead: `{{ifOne}}This is the sourdough sandwich loaf, not the yeasted one.{{endOne}}{{ifMany}}These are sourdough sandwich loaves, not yeasted ones.{{endMany}} Currently {{flour}} g flour, {{hydration}}% hydration, {{starterPct}}% starter, {{saltPct}}% salt, and {{yeastPct}}% yeast. That is {{water}} g water{{ifStarter}}, {{starter}} g starter{{endStarter}}, {{salt}} g salt{{ifYeast}}, and {{yeast}} g yeast{{endYeast}}, {{total}} g of dough. The starter is itself 100% hydration, the same assumption used for effective hydration. The page shows {{effective}}% effective hydration. {{ifOne}}Currently {{balls}} loaf of {{piece}} g{{endOne}}{{ifMany}}Currently {{balls}} loaves of {{piece}} g each{{endMany}}. A lid for the first part of the bake keeps the top thinner. ${tail.en}`,
         alt: "Soft white sandwich slices with a close crumb and a thin golden edge.",
         caption: "The photo shows those soft slices.",
         steps: [
@@ -2472,7 +2472,7 @@ export const doughGuides = {
       },
       "zh-cn": {
         heading: "详细做法",
-        lead: `这是酸种吐司，不是酵母吐司。目前是面粉 {{flour}} 克，水合 {{hydration}}%，酸种 {{starterPct}}%，盐 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸种 {{starter}} 克{{endStarter}}、盐 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合计 {{total}} 克。酸种按 100% 水合计，和结果里的有效水合用的是同一种假设。页面上的有效水合是 {{effective}}%。{{ifOne}}目前是 {{balls}} 条、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 条、每条 {{piece}} 克{{endMany}}。前半段加盖，顶部会更薄。${tail["zh-cn"]}`,
+        lead: `{{ifOne}}这是酸种吐司，不是酵母吐司。{{endOne}}{{ifMany}}这些是酸种吐司，不是酵母吐司。{{endMany}}目前是面粉 {{flour}} 克，水合 {{hydration}}%，酸种 {{starterPct}}%，盐 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸种 {{starter}} 克{{endStarter}}、盐 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合计 {{total}} 克。酸种按 100% 水合计，和结果里的有效水合用的是同一种假设。页面上的有效水合是 {{effective}}%。{{ifOne}}目前是 {{balls}} 条、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 条、每条 {{piece}} 克{{endMany}}。前半段加盖，顶部会更薄。${tail["zh-cn"]}`,
         alt: "柔软的白吐司片，组织细密，边缘薄而金黄。",
         caption: "照片里就是这种柔软的片。",
         steps: [
@@ -2486,7 +2486,7 @@ export const doughGuides = {
       },
       "zh-tw": {
         heading: "詳細做法",
-        lead: `這是酸種吐司，不是酵母吐司。目前是麵粉 {{flour}} 克，水合 {{hydration}}%，酸種 {{starterPct}}%，鹽 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸種 {{starter}} 克{{endStarter}}、鹽 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合計 {{total}} 克。酸種按 100% 水合計，和結果裡的有效水合用的是同一種假設。頁面上的有效水合是 {{effective}}%。{{ifOne}}目前是 {{balls}} 條、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 條、每條 {{piece}} 克{{endMany}}。前半段加蓋，頂部會更薄。${tail["zh-tw"]}`,
+        lead: `{{ifOne}}這是酸種吐司，不是酵母吐司。{{endOne}}{{ifMany}}這些是酸種吐司，不是酵母吐司。{{endMany}}目前是麵粉 {{flour}} 克，水合 {{hydration}}%，酸種 {{starterPct}}%，鹽 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸種 {{starter}} 克{{endStarter}}、鹽 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合計 {{total}} 克。酸種按 100% 水合計，和結果裡的有效水合用的是同一種假設。頁面上的有效水合是 {{effective}}%。{{ifOne}}目前是 {{balls}} 條、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 條、每條 {{piece}} 克{{endMany}}。前半段加蓋，頂部會更薄。${tail["zh-tw"]}`,
         alt: "柔軟的白吐司片，組織細密，邊緣薄而金黃。",
         caption: "照片裡就是這種柔軟的片。",
         steps: [
@@ -2581,7 +2581,7 @@ export const doughGuides = {
     {
       en: {
         heading: "Detailed method",
-        lead: `One seeded sourdough loaf. Currently {{flour}} g flour, {{hydration}}% hydration, {{starterPct}}% starter, {{saltPct}}% salt, and {{yeastPct}}% yeast. That is {{water}} g water{{ifStarter}}, {{starter}} g starter{{endStarter}}, {{salt}} g salt{{ifYeast}}, and {{yeast}} g yeast{{endYeast}}, {{total}} g of dough. The starter is itself 100% hydration, the same assumption used for effective hydration. The page shows {{effective}}% effective hydration. {{ifOne}}Currently {{balls}} loaf of {{piece}} g{{endOne}}{{ifMany}}Currently {{balls}} loaves of {{piece}} g each{{endMany}}. Soak the seeds in part of that water before the mix. The seeds are extra and are not in the gram total. ${tail.en}`,
+        lead: `{{ifOne}}One seeded sourdough loaf.{{endOne}}{{ifMany}}Seeded sourdough loaves.{{endMany}} Currently {{flour}} g flour, {{hydration}}% hydration, {{starterPct}}% starter, {{saltPct}}% salt, and {{yeastPct}}% yeast. That is {{water}} g water{{ifStarter}}, {{starter}} g starter{{endStarter}}, {{salt}} g salt{{ifYeast}}, and {{yeast}} g yeast{{endYeast}}, {{total}} g of dough. The starter is itself 100% hydration, the same assumption used for effective hydration. The page shows {{effective}}% effective hydration. {{ifOne}}Currently {{balls}} loaf of {{piece}} g{{endOne}}{{ifMany}}Currently {{balls}} loaves of {{piece}} g each{{endMany}}. Soak the seeds in part of that water before the mix. The seeds are extra and are not in the gram total. ${tail.en}`,
         alt: "One oval sourdough loaf with seeds in the crust and a long score.",
         caption: "The photo shows one oval with seeds in the crust.",
         steps: [
@@ -2596,7 +2596,7 @@ export const doughGuides = {
       },
       "zh-cn": {
         heading: "详细做法",
-        lead: `一条种子酸种面包。目前是面粉 {{flour}} 克，水合 {{hydration}}%，酸种 {{starterPct}}%，盐 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸种 {{starter}} 克{{endStarter}}、盐 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合计 {{total}} 克。酸种按 100% 水合计，和结果里的有效水合用的是同一种假设。页面上的有效水合是 {{effective}}%。{{ifOne}}目前是 {{balls}} 条、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 条、每条 {{piece}} 克{{endMany}}。拌面前用一部分配方水把种子泡软。种子不在合计克数里。${tail["zh-cn"]}`,
+        lead: `{{ifOne}}一条种子酸种面包。{{endOne}}{{ifMany}}种子酸种面包。{{endMany}}目前是面粉 {{flour}} 克，水合 {{hydration}}%，酸种 {{starterPct}}%，盐 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸种 {{starter}} 克{{endStarter}}、盐 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合计 {{total}} 克。酸种按 100% 水合计，和结果里的有效水合用的是同一种假设。页面上的有效水合是 {{effective}}%。{{ifOne}}目前是 {{balls}} 条、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 条、每条 {{piece}} 克{{endMany}}。拌面前用一部分配方水把种子泡软。种子不在合计克数里。${tail["zh-cn"]}`,
         alt: "一条椭圆酸种面包，表皮有种子，中间划开一道长口。",
         caption: "照片是一条带籽的椭圆面包。",
         steps: [
@@ -2611,7 +2611,7 @@ export const doughGuides = {
       },
       "zh-tw": {
         heading: "詳細做法",
-        lead: `一條種子酸種麵包。目前是麵粉 {{flour}} 克，水合 {{hydration}}%，酸種 {{starterPct}}%，鹽 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸種 {{starter}} 克{{endStarter}}、鹽 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合計 {{total}} 克。酸種按 100% 水合計，和結果裡的有效水合用的是同一種假設。頁面上的有效水合是 {{effective}}%。{{ifOne}}目前是 {{balls}} 條、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 條、每條 {{piece}} 克{{endMany}}。拌麵前用一部分配方水把種子泡軟。種子不在合計克數裡。${tail["zh-tw"]}`,
+        lead: `{{ifOne}}一條種子酸種麵包。{{endOne}}{{ifMany}}種子酸種麵包。{{endMany}}目前是麵粉 {{flour}} 克，水合 {{hydration}}%，酸種 {{starterPct}}%，鹽 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸種 {{starter}} 克{{endStarter}}、鹽 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合計 {{total}} 克。酸種按 100% 水合計，和結果裡的有效水合用的是同一種假設。頁面上的有效水合是 {{effective}}%。{{ifOne}}目前是 {{balls}} 條、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 條、每條 {{piece}} 克{{endMany}}。拌麵前用一部分配方水把種子泡軟。種子不在合計克數裡。${tail["zh-tw"]}`,
         alt: "一條橢圓酸種麵包，表皮有種子，中間劃開一道長口。",
         caption: "照片是一條帶籽的橢圓麵包。",
         steps: [
@@ -2640,7 +2640,7 @@ export const doughGuides = {
     {
       en: {
         heading: "Detailed method",
-        lead: `A slack round that needs a pot or a floured basket. Currently {{flour}} g flour, {{hydration}}% hydration, {{starterPct}}% starter, {{saltPct}}% salt, and {{yeastPct}}% yeast. That is {{water}} g water{{ifStarter}}, {{starter}} g starter{{endStarter}}, {{salt}} g salt{{ifYeast}}, and {{yeast}} g yeast{{endYeast}}, {{total}} g of dough. The starter is itself 100% hydration, the same assumption used for effective hydration. The page shows {{effective}}% effective hydration. {{ifOne}}Currently {{balls}} loaf of {{piece}} g{{endOne}}{{ifMany}}Currently {{balls}} loaves of {{piece}} g each{{endMany}}. ${tail.en}`,
+        lead: `{{ifOne}}A slack round that needs a pot or a floured basket.{{endOne}}{{ifMany}}Slack rounds that need a pot or a floured basket.{{endMany}} Currently {{flour}} g flour, {{hydration}}% hydration, {{starterPct}}% starter, {{saltPct}}% salt, and {{yeastPct}}% yeast. That is {{water}} g water{{ifStarter}}, {{starter}} g starter{{endStarter}}, {{salt}} g salt{{ifYeast}}, and {{yeast}} g yeast{{endYeast}}, {{total}} g of dough. The starter is itself 100% hydration, the same assumption used for effective hydration. The page shows {{effective}}% effective hydration. {{ifOne}}Currently {{balls}} loaf of {{piece}} g{{endOne}}{{ifMany}}Currently {{balls}} loaves of {{piece}} g each{{endMany}}. ${tail.en}`,
         alt: "One round loaf with a spiral score, baked in a round pot.",
         caption: "The photo shows one round loaf in a pot, with a spiral score on top.",
         licenseBefore: ", ",
@@ -2657,7 +2657,7 @@ export const doughGuides = {
       },
       "zh-cn": {
         heading: "详细做法",
-        lead: `这是软到站不住的圆面包，要用锅或撒足粉的发酵篮。目前是面粉 {{flour}} 克，水合 {{hydration}}%，酸种 {{starterPct}}%，盐 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸种 {{starter}} 克{{endStarter}}、盐 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合计 {{total}} 克。酸种按 100% 水合计，和结果里的有效水合用的是同一种假设。页面上的有效水合是 {{effective}}%。{{ifOne}}目前是 {{balls}} 条、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 条、每条 {{piece}} 克{{endMany}}。${tail["zh-cn"]}`,
+        lead: `{{ifOne}}这是软到站不住的圆面包，要用锅或撒足粉的发酵篮。{{endOne}}{{ifMany}}这些是软到站不住的圆面包，要用锅或撒足粉的发酵篮。{{endMany}}目前是面粉 {{flour}} 克，水合 {{hydration}}%，酸种 {{starterPct}}%，盐 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸种 {{starter}} 克{{endStarter}}、盐 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合计 {{total}} 克。酸种按 100% 水合计，和结果里的有效水合用的是同一种假设。页面上的有效水合是 {{effective}}%。{{ifOne}}目前是 {{balls}} 条、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 条、每条 {{piece}} 克{{endMany}}。${tail["zh-cn"]}`,
         alt: "一个圆面包，顶上有旋纹，放在圆锅里。",
         caption: "照片是一口锅里的一个圆面包，顶上有一圈旋纹。",
         licenseBefore: "，",
@@ -2674,7 +2674,7 @@ export const doughGuides = {
       },
       "zh-tw": {
         heading: "詳細做法",
-        lead: `這是軟到站不住的圓麵包，要用鍋或撒足粉的發酵籃。目前是麵粉 {{flour}} 克，水合 {{hydration}}%，酸種 {{starterPct}}%，鹽 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸種 {{starter}} 克{{endStarter}}、鹽 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合計 {{total}} 克。酸種按 100% 水合計，和結果裡的有效水合用的是同一種假設。頁面上的有效水合是 {{effective}}%。{{ifOne}}目前是 {{balls}} 條、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 條、每條 {{piece}} 克{{endMany}}。${tail["zh-tw"]}`,
+        lead: `{{ifOne}}這是軟到站不住的圓麵包，要用鍋或撒足粉的發酵籃。{{endOne}}{{ifMany}}這些是軟到站不住的圓麵包，要用鍋或撒足粉的發酵籃。{{endMany}}目前是麵粉 {{flour}} 克，水合 {{hydration}}%，酸種 {{starterPct}}%，鹽 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸種 {{starter}} 克{{endStarter}}、鹽 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合計 {{total}} 克。酸種按 100% 水合計，和結果裡的有效水合用的是同一種假設。頁面上的有效水合是 {{effective}}%。{{ifOne}}目前是 {{balls}} 條、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 條、每條 {{piece}} 克{{endMany}}。${tail["zh-tw"]}`,
         alt: "一個圓麵包，頂上有旋紋，放在圓鍋裡。",
         caption: "照片是一口鍋裡的一個圓麵包，頂上有一圈旋紋。",
         licenseBefore: "，",
@@ -2705,7 +2705,7 @@ export const doughGuides = {
     {
       en: {
         heading: "Detailed method",
-        lead: `One round with olives folded in after the dough has some strength. Currently {{flour}} g flour, {{hydration}}% hydration, {{starterPct}}% starter, {{saltPct}}% salt, and {{yeastPct}}% yeast. That is {{water}} g water{{ifStarter}}, {{starter}} g starter{{endStarter}}, {{salt}} g salt{{ifYeast}}, and {{yeast}} g yeast{{endYeast}}, {{total}} g of dough. The starter is itself 100% hydration, the same assumption used for effective hydration. The page shows {{effective}}% effective hydration. {{ifOne}}Currently {{balls}} loaf of {{piece}} g{{endOne}}{{ifMany}}Currently {{balls}} loaves of {{piece}} g each{{endMany}}. The olives are extra and are not in the gram total. ${tail.en}`,
+        lead: `{{ifOne}}One round with olives folded in after the dough has some strength.{{endOne}}{{ifMany}}Rounds with olives folded in after the dough has some strength.{{endMany}} Currently {{flour}} g flour, {{hydration}}% hydration, {{starterPct}}% starter, {{saltPct}}% salt, and {{yeastPct}}% yeast. That is {{water}} g water{{ifStarter}}, {{starter}} g starter{{endStarter}}, {{salt}} g salt{{ifYeast}}, and {{yeast}} g yeast{{endYeast}}, {{total}} g of dough. The starter is itself 100% hydration, the same assumption used for effective hydration. The page shows {{effective}}% effective hydration. {{ifOne}}Currently {{balls}} loaf of {{piece}} g{{endOne}}{{ifMany}}Currently {{balls}} loaves of {{piece}} g each{{endMany}}. The olives are extra and are not in the gram total. ${tail.en}`,
         alt: "One round loaf with dark olive pieces in the crust, on a cooling rack.",
         caption: "The photo shows one round loaf with dark olive pieces in the crust.",
         licenseBefore: ", ",
@@ -2722,7 +2722,7 @@ export const doughGuides = {
       },
       "zh-cn": {
         heading: "详细做法",
-        lead: `一个圆面包，等面团有一点筋力再拌进橄榄。目前是面粉 {{flour}} 克，水合 {{hydration}}%，酸种 {{starterPct}}%，盐 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸种 {{starter}} 克{{endStarter}}、盐 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合计 {{total}} 克。酸种按 100% 水合计，和结果里的有效水合用的是同一种假设。页面上的有效水合是 {{effective}}%。{{ifOne}}目前是 {{balls}} 条、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 条、每条 {{piece}} 克{{endMany}}。橄榄是另外加的，不在合计克数里。${tail["zh-cn"]}`,
+        lead: `{{ifOne}}一个圆面包，等面团有一点筋力再拌进橄榄。{{endOne}}{{ifMany}}圆面包等面团有一点筋力再拌进橄榄。{{endMany}}目前是面粉 {{flour}} 克，水合 {{hydration}}%，酸种 {{starterPct}}%，盐 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸种 {{starter}} 克{{endStarter}}、盐 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合计 {{total}} 克。酸种按 100% 水合计，和结果里的有效水合用的是同一种假设。页面上的有效水合是 {{effective}}%。{{ifOne}}目前是 {{balls}} 条、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 条、每条 {{piece}} 克{{endMany}}。橄榄是另外加的，不在合计克数里。${tail["zh-cn"]}`,
         alt: "一个圆面包，表皮嵌着深色橄榄，放在晾架上。",
         caption: "照片是一个圆面包，表皮嵌着深色橄榄。",
         licenseBefore: "，",
@@ -2739,7 +2739,7 @@ export const doughGuides = {
       },
       "zh-tw": {
         heading: "詳細做法",
-        lead: `一個圓麵包，等麵團有一點筋力再拌進橄欖。目前是麵粉 {{flour}} 克，水合 {{hydration}}%，酸種 {{starterPct}}%，鹽 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸種 {{starter}} 克{{endStarter}}、鹽 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合計 {{total}} 克。酸種按 100% 水合計，和結果裡的有效水合用的是同一種假設。頁面上的有效水合是 {{effective}}%。{{ifOne}}目前是 {{balls}} 條、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 條、每條 {{piece}} 克{{endMany}}。橄欖是另外加的，不在合計克數裡。${tail["zh-tw"]}`,
+        lead: `{{ifOne}}一個圓麵包，等麵團有一點筋力再拌進橄欖。{{endOne}}{{ifMany}}圓麵包等麵團有一點筋力再拌進橄欖。{{endMany}}目前是麵粉 {{flour}} 克，水合 {{hydration}}%，酸種 {{starterPct}}%，鹽 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸種 {{starter}} 克{{endStarter}}、鹽 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合計 {{total}} 克。酸種按 100% 水合計，和結果裡的有效水合用的是同一種假設。頁面上的有效水合是 {{effective}}%。{{ifOne}}目前是 {{balls}} 條、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 條、每條 {{piece}} 克{{endMany}}。橄欖是另外加的，不在合計克數裡。${tail["zh-tw"]}`,
         alt: "一個圓麵包，表皮嵌著深色橄欖，放在晾架上。",
         caption: "照片是一個圓麵包，表皮嵌著深色橄欖。",
         licenseBefore: "，",
@@ -2770,7 +2770,7 @@ export const doughGuides = {
     {
       en: {
         heading: "Detailed method",
-        lead: `One large round from {{flour}} g of flour. Currently {{flour}} g flour, {{hydration}}% hydration, {{starterPct}}% starter, {{saltPct}}% salt, and {{yeastPct}}% yeast. That is {{water}} g water{{ifStarter}}, {{starter}} g starter{{endStarter}}, {{salt}} g salt{{ifYeast}}, and {{yeast}} g yeast{{endYeast}}, {{total}} g of dough. The starter is itself 100% hydration, the same assumption used for effective hydration. The page shows {{effective}}% effective hydration. {{ifOne}}Currently {{balls}} loaf of {{piece}} g{{endOne}}{{ifMany}}Currently {{balls}} loaves of {{piece}} g each{{endMany}}. The lower starter gives this much dough time to rise. ${tail.en}`,
+        lead: `{{ifOne}}One large round from {{flour}} g of flour.{{endOne}}{{ifMany}}Large rounds from {{flour}} g of flour.{{endMany}} Currently {{flour}} g flour, {{hydration}}% hydration, {{starterPct}}% starter, {{saltPct}}% salt, and {{yeastPct}}% yeast. That is {{water}} g water{{ifStarter}}, {{starter}} g starter{{endStarter}}, {{salt}} g salt{{ifYeast}}, and {{yeast}} g yeast{{endYeast}}, {{total}} g of dough. The starter is itself 100% hydration, the same assumption used for effective hydration. The page shows {{effective}}% effective hydration. {{ifOne}}Currently {{balls}} loaf of {{piece}} g{{endOne}}{{ifMany}}Currently {{balls}} loaves of {{piece}} g each{{endMany}}. The lower starter gives this much dough time to rise. ${tail.en}`,
         alt: "Two rounds on a board: a large flour-dusted loaf and a smaller scored loaf.",
         caption: "The photo shows two rounds: a large flour-dusted loaf and a smaller scored loaf. This batch makes one large loaf.",
         licenseBefore: ", ",
@@ -2787,7 +2787,7 @@ export const doughGuides = {
       },
       "zh-cn": {
         heading: "详细做法",
-        lead: `用 {{flour}} 克面粉做一个大圆面包。目前是面粉 {{flour}} 克，水合 {{hydration}}%，酸种 {{starterPct}}%，盐 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸种 {{starter}} 克{{endStarter}}、盐 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合计 {{total}} 克。酸种按 100% 水合计，和结果里的有效水合用的是同一种假设。页面上的有效水合是 {{effective}}%。{{ifOne}}目前是 {{balls}} 条、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 条、每条 {{piece}} 克{{endMany}}。酸种放少一点，这么大的面团才有时间慢慢发。${tail["zh-cn"]}`,
+        lead: `{{ifOne}}用 {{flour}} 克面粉做一个大圆面包。{{endOne}}{{ifMany}}用 {{flour}} 克面粉做大圆面包。{{endMany}}目前是面粉 {{flour}} 克，水合 {{hydration}}%，酸种 {{starterPct}}%，盐 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸种 {{starter}} 克{{endStarter}}、盐 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合计 {{total}} 克。酸种按 100% 水合计，和结果里的有效水合用的是同一种假设。页面上的有效水合是 {{effective}}%。{{ifOne}}目前是 {{balls}} 条、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 条、每条 {{piece}} 克{{endMany}}。酸种放少一点，这么大的面团才有时间慢慢发。${tail["zh-cn"]}`,
         alt: "木板上两个圆面包，一个较大、撒了粉，一个较小、表面有划口。",
         caption: "照片是两个圆面包：一个较大、撒了粉，一个较小、表面有划口。这一炉只做一个大的。",
         licenseBefore: "，",
@@ -2804,7 +2804,7 @@ export const doughGuides = {
       },
       "zh-tw": {
         heading: "詳細做法",
-        lead: `用 {{flour}} 克麵粉做一個大圓麵包。目前是麵粉 {{flour}} 克，水合 {{hydration}}%，酸種 {{starterPct}}%，鹽 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸種 {{starter}} 克{{endStarter}}、鹽 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合計 {{total}} 克。酸種按 100% 水合計，和結果裡的有效水合用的是同一種假設。頁面上的有效水合是 {{effective}}%。{{ifOne}}目前是 {{balls}} 條、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 條、每條 {{piece}} 克{{endMany}}。酸種放少一點，這麼大的麵團才有時間慢慢發。${tail["zh-tw"]}`,
+        lead: `{{ifOne}}用 {{flour}} 克麵粉做一個大圓麵包。{{endOne}}{{ifMany}}用 {{flour}} 克麵粉做大圓麵包。{{endMany}}目前是麵粉 {{flour}} 克，水合 {{hydration}}%，酸種 {{starterPct}}%，鹽 {{saltPct}}%，酵母 {{yeastPct}}%。也就是水 {{water}} 克{{ifStarter}}、酸種 {{starter}} 克{{endStarter}}、鹽 {{salt}} 克{{ifYeast}}、酵母 {{yeast}} 克{{endYeast}}，合計 {{total}} 克。酸種按 100% 水合計，和結果裡的有效水合用的是同一種假設。頁面上的有效水合是 {{effective}}%。{{ifOne}}目前是 {{balls}} 條、{{piece}} 克{{endOne}}{{ifMany}}目前是 {{balls}} 條、每條 {{piece}} 克{{endMany}}。酸種放少一點，這麼大的麵團才有時間慢慢發。${tail["zh-tw"]}`,
         alt: "木板上兩個圓麵包，一個較大、撒了粉，一個較小、表面有劃口。",
         caption: "照片是兩個圓麵包：一個較大、撒了粉，一個較小、表面有劃口。這一爐只做一個大的。",
         licenseBefore: "，",
