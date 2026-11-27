@@ -881,8 +881,6 @@ test("zero main leavening does not promise the dough will grow", () => {
       const guide = doughGuides[page.id];
       if (guide) parts.push(guide[lang].lead, ...guide[lang].steps.map((step) => step.body));
       const filled = parts.map((text) => fillAmounts(text, recipe, preset)).join("\n");
-      const reminders = filled.match(reminderRe) || [];
-      assert.ok(reminders.length <= 1, `${page.id} ${lang} reminders ${reminders.length}`);
       const scrubbed = filled.replace(reminderRe, "");
       assert.equal(growth.test(scrubbed), false, `${page.id} ${lang} ${scrubbed.match(growth)?.[0]}`);
       assert.equal(badPct.test(scrubbed), false, `${page.id} ${lang} percent`);
@@ -890,17 +888,19 @@ test("zero main leavening does not promise the dough will grow", () => {
       const methodAt = html.indexOf('class="method"');
       if (methodAt >= 0) {
         const method = html.slice(methodAt, html.indexOf('class="related"')).replace(/<figure[\s\S]*?<\/figure>/, "");
-        const visible = method.replace(/<[^>]+>/g, " ").replace(reminderRe, "");
-        assert.equal(growth.test(visible), false, `${page.id} ${lang} html ${visible.match(growth)?.[0]}`);
-        assert.equal(badPct.test(visible), false, `${page.id} ${lang} html percent`);
+        const visible = method.replace(/<[^>]+>/g, " ");
+        assert.equal((visible.match(reminderRe) || []).length, 1, `${page.id} ${lang} web reminders`);
+        const methodScrub = visible.replace(reminderRe, "");
+        assert.equal(growth.test(methodScrub), false, `${page.id} ${lang} html ${methodScrub.match(growth)?.[0]}`);
+        assert.equal(badPct.test(methodScrub), false, `${page.id} ${lang} html percent`);
       }
       const payload = pdfPayload(zeroPage, lang);
       if (payload?.method) {
         const pdfText = [payload.method.lead, ...payload.method.steps.map((step) => step.body)].join("\n");
+        assert.equal((pdfText.match(reminderRe) || []).length, 1, `${page.id} ${lang} pdf reminders`);
         const pdfScrub = pdfText.replace(reminderRe, "");
         assert.equal(growth.test(pdfScrub), false, `${page.id} ${lang} pdf ${pdfScrub.match(growth)?.[0]}`);
         assert.equal(badPct.test(pdfScrub), false, `${page.id} ${lang} pdf percent`);
-        assert.ok((pdfText.match(reminderRe) || []).length <= 1, `${page.id} ${lang} pdf reminders`);
       }
     }
   }

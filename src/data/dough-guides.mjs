@@ -45,7 +45,7 @@ export const doughGuides = {
         steps: [
           { title: "Mix", body: "Stir the flour, water, and yeast until no dry flour remains, then work in the salt. At the opening recipe the dough is soft but not soupy. Aim for about 24°C (75°F)." },
           { title: "Rest", body: "Cover the bowl and leave it for 20 minutes. The 65% dough smooths out and stops tearing when you fold it." },
-          { title: "Bulk", body: "Keep it covered at about 24°C (75°F) for 1 hour. Give it one stretch-and-fold halfway through.{{ifYeast}} It should look a little puffier, not doubled.{{endYeast}}{{ifYeast}} With only 0.2% yeast, most of the rise happens later in the cold.{{endYeast}}" },
+          { title: "Bulk", body: "Keep it covered at about 24°C (75°F) for 1 hour. Give it one stretch-and-fold halfway through.{{ifYeast}} It should look a little puffier, not doubled.{{endYeast}}{{ifYeast}} With only 0.2% yeast, most of the rise happens later in the cold.{{endYeast}}{{ifNoYeast}} Without yeast the dough will not rise.{{endNoYeast}}" },
           { title: "Ball", body: "Divide the dough into the number of balls on the calculator. The page opens at 4 balls of 250 g. Tighten each one so the skin is smooth, then set them in a covered tray with a little space between them." },
           { title: "Cold ferment", body: "Refrigerate the balls at about 4°C (39°F) for 16 to 24 hours. They should spread slightly and smell mildly yeasty, not sharp." },
           { title: "Warm and stretch", body: "Take the balls out 60 to 90 minutes before baking. Stretch each one by hand on a floured peel: leave a thick rim and a thin center. A rolling pin presses the rim flat." },
@@ -60,7 +60,7 @@ export const doughGuides = {
         steps: [
           { title: "搅拌", body: "把面粉、水和酵母拌到没有干粉，再把盐揉进去。按页面上的初始配方，面团柔软但不稀。面团温度大约 24°C。" },
           { title: "松弛", body: "盖上，静置 20 分钟。65% 水合的面团会变得比较顺，折叠时不容易扯破。" },
-          { title: "基本发酵", body: "盖着，放在大约 24°C，1 小时。中途做一轮拉伸折叠。{{ifYeast}}只要略微发起来，不必发到两倍。{{endYeast}}{{ifYeast}}酵母只有 0.2%，大部分发酵要留到冷藏里。{{endYeast}}" },
+          { title: "基本发酵", body: "盖着，放在大约 24°C，1 小时。中途做一轮拉伸折叠。{{ifYeast}}只要略微发起来，不必发到两倍。{{endYeast}}{{ifYeast}}酵母只有 0.2%，大部分发酵要留到冷藏里。{{endYeast}}{{ifNoYeast}}没有酵母，面团不会发起。{{endNoYeast}}" },
           { title: "分球", body: "按计算器上的球数分割。页面打开时是 4 球、每球 250 克。每个都收成表面光滑的圆球，盖好，球和球之间留一点空隙。" },
           { title: "冷藏", body: "放进大约 4°C 的冰箱，16 到 24 小时。面团球会稍微摊开，气味温和{{ifYeast}}，不要发到刺鼻{{endYeast}}。" },
           { title: "回温并拉开", body: "烤前 60 到 90 分钟取出。在撒了粉的板上用手拉开：边缘留厚，中间拉薄。擀面杖会把厚边压没。" },
@@ -75,7 +75,7 @@ export const doughGuides = {
         steps: [
           { title: "攪拌", body: "把麵粉、水和酵母拌到沒有乾粉，再把鹽揉進去。按頁面上的初始配方，麵團柔軟但不稀。麵團溫度大約 24°C。" },
           { title: "鬆弛", body: "蓋上，靜置 20 分鐘。65% 水合的麵團會變得比較順，摺疊時不容易扯破。" },
-          { title: "基本發酵", body: "蓋著，放在大約 24°C，1 小時。中途做一輪拉伸摺疊。{{ifYeast}}只要略微發起來，不必發到兩倍。{{endYeast}}{{ifYeast}}酵母只有 0.2%，大部分發酵要留到冷藏裡。{{endYeast}}" },
+          { title: "基本發酵", body: "蓋著，放在大約 24°C，1 小時。中途做一輪拉伸摺疊。{{ifYeast}}只要略微發起來，不必發到兩倍。{{endYeast}}{{ifYeast}}酵母只有 0.2%，大部分發酵要留到冷藏裡。{{endYeast}}{{ifNoYeast}}沒有酵母，麵團不會發起。{{endNoYeast}}" },
           { title: "分球", body: "按計算器上的球數分割。頁面打開時是 4 球、每球 250 克。每個都收成表面光滑的圓球，蓋好，球和球之間留一點空隙。" },
           { title: "冷藏", body: "放進大約 4°C 的冰箱，16 到 24 小時。麵團球會稍微攤開，氣味溫和{{ifYeast}}，不要發到刺鼻{{endYeast}}。" },
           { title: "回溫並拉開", body: "烤前 60 到 90 分鐘取出。在撒了粉的板上用手拉開：邊緣留厚，中間拉薄。擀麵杖會把厚邊壓沒。" },
@@ -268,7 +268,7 @@ export const doughGuides = {
           { title: "Folds", body: "Cover it at about 24°C (75°F) for 2 to 3 hours. Give it three stretch-and-folds in the first 90 minutes, about 30 minutes apart. It should turn bubbly and jiggle." },
           { title: "Pan", body: "Oil a rimmed sheet or a roasting pan generously. Tip the dough in. Do not drag it to the corners yet." },
           { title: "Stretch", body: "After 20 minutes, oil your fingers and ease the dough toward the corners. If it springs back, wait another 10 minutes and finish the stretch." },
-          { title: "Proof", body: "Leave it in the pan, covered, for 45 to 75 minutes at about 24°C (75°F){{ifYeast}}, until it is puffy and full of bubbles{{endYeast}}.{{ifYeast}} The 0.5% yeast needs that time.{{endYeast}}" },
+          { title: "Proof", body: "Leave it in the pan, covered, for 45 to 75 minutes at about 24°C (75°F){{ifYeast}}, until it is puffy and full of bubbles{{endYeast}}.{{ifYeast}} The 0.5% yeast needs that time.{{endYeast}}{{ifNoYeast}} Without yeast the dough will not rise.{{endNoYeast}}" },
           { title: "Dimple", body: "Oil your fingers again and press them straight down to the pan, all over the surface. The dimples should stay open. The 2.5% salt is already in the dough." },
           { title: "Bake", body: "Bake at 230°C (450°F) for 20 to 25 minutes, until the raised parts are deep gold and the bottom is crisp." },
           { title: "Cool", body: "Leave it in the pan for 10 minutes, then move it to a rack. Cut it while it is warm, after the steam has eased." },
@@ -280,7 +280,7 @@ export const doughGuides = {
         alt: "戳了坑的佛卡夏，上面有橄榄和香草，垫在烘焙纸上。",
         steps: [
           { title: "搅拌", body: "把面粉、水、盐和酵母拌到没有干粉。78% 水合又黏又软。面团温度大约 24°C。" },
-          { title: "折叠", body: "盖上，放在大约 24°C，2 到 3 小时。前 90 分钟做三轮拉伸折叠，大约每 30 分钟一轮。{{ifYeast}}面团要发到起泡、轻轻一晃会颤。{{endYeast}}" },
+          { title: "折叠", body: "盖上，放在大约 24°C，2 到 3 小时。前 90 分钟做三轮拉伸折叠，大约每 30 分钟一轮。{{ifYeast}}面团要发到起泡、轻轻一晃会颤。{{endYeast}}{{ifNoYeast}}没有酵母，面团不会发起。{{endNoYeast}}" },
           { title: "入盘", body: "烤盘多抹油。把面团倒进去。先不要硬拉到四角。" },
           { title: "铺开", body: "20 分钟后，手指沾油，把面团慢慢推向四角。如果缩回去，再等 10 分钟铺完。" },
           { title: "盘中发酵", body: "盖着，放在大约 24°C，45 到 75 分钟{{ifYeast}}，直到蓬松、满是气泡{{endYeast}}。{{ifYeast}}酵母只有 0.5%，需要这段时间。{{endYeast}}" },
@@ -295,7 +295,7 @@ export const doughGuides = {
         alt: "戳了坑的佛卡夏，上面有橄欖和香草，墊在烘焙紙上。",
         steps: [
           { title: "攪拌", body: "把麵粉、水、鹽和酵母拌到沒有乾粉。78% 水合又黏又軟。麵團溫度大約 24°C。" },
-          { title: "摺疊", body: "蓋上，放在大約 24°C，2 到 3 小時。前 90 分鐘做三輪拉伸摺疊，大約每 30 分鐘一輪。{{ifYeast}}麵團要發到起泡、輕輕一晃會顫。{{endYeast}}" },
+          { title: "摺疊", body: "蓋上，放在大約 24°C，2 到 3 小時。前 90 分鐘做三輪拉伸摺疊，大約每 30 分鐘一輪。{{ifYeast}}麵團要發到起泡、輕輕一晃會顫。{{endYeast}}{{ifNoYeast}}沒有酵母，麵團不會發起。{{endNoYeast}}" },
           { title: "入盤", body: "烤盤多抹油。把麵團倒進去。先不要硬拉到四角。" },
           { title: "鋪開", body: "20 分鐘後，手指沾油，把麵團慢慢推向四角。如果縮回去，再等 10 分鐘鋪完。" },
           { title: "盤中發酵", body: "蓋著，放在大約 24°C，45 到 75 分鐘{{ifYeast}}，直到蓬鬆、滿是氣泡{{endYeast}}。{{ifYeast}}酵母只有 0.5%，需要這段時間。{{endYeast}}" },
@@ -483,7 +483,7 @@ export const doughGuides = {
         alt: "Three puffed, flour-dusted flatbreads stacked on a wooden board.",
         steps: [
           { title: "Mix", body: "Stir the flour, water, salt, and yeast, then knead about 6 minutes until smooth. At 62% hydration the dough is soft, not slack. Aim for about 24°C (75°F)." },
-          { title: "Bulk", body: "Cover it at about 24°C (75°F) for 60 to 90 minutes.{{ifYeast}} With 0.7% yeast it should nearly double.{{endYeast}}" },
+          { title: "Bulk", body: "Cover it at about 24°C (75°F) for 60 to 90 minutes.{{ifYeast}} With 0.7% yeast it should nearly double.{{endYeast}}{{ifNoYeast}} Without yeast the dough will not rise.{{endNoYeast}}" },
           { title: "Divide", body: "Divide into eight pieces of about 82 g. Roll each into a smooth ball, cover, and rest 15 to 20 minutes." },
           { title: "Roll", body: "Dust the counter lightly. Roll each ball to about 15 cm across and about 0.5 cm thick.{{ifYeast}} A tear in the skin will not puff.{{endYeast}}" },
           { title: "Heat", body: "Heat a stone, steel, or an inverted heavy sheet at 250°C (480°F) for 30 minutes. Cover the disks while you wait." },
@@ -536,7 +536,7 @@ export const doughGuides = {
         alt: "Golden rolls baked close together in a round metal pan.",
         steps: [
           { title: "Mix", body: "Stir the flour, water, salt, and yeast, then knead about 8 minutes until smooth. At 64% hydration the dough is soft and holds a ball. Aim for about 24°C (75°F)." },
-          { title: "Bulk", body: "Cover it at about 24°C (75°F) for 60 to 90 minutes.{{ifYeast}} With 1.2% yeast it should nearly double.{{endYeast}}" },
+          { title: "Bulk", body: "Cover it at about 24°C (75°F) for 60 to 90 minutes.{{ifYeast}} With 1.2% yeast it should nearly double.{{endYeast}}{{ifNoYeast}} Without yeast the dough will not rise.{{endNoYeast}}" },
           { title: "Divide", body: "Divide into ten pieces of about 84 g. Roll each into a smooth round." },
           { title: "Pan", body: "Set the rounds close together in a buttered round pan, with a small gap.{{ifYeast}} They should meet as they rise.{{endYeast}}" },
           { title: "Proof", body: "Cover the pan at about 24°C (75°F) for 40 to 60 minutes{{ifYeast}}, until the rounds are puffy and joined along the sides{{endYeast}}." },
@@ -550,7 +550,7 @@ export const doughGuides = {
         alt: "金色小餐包紧挨着烤在一个圆金属盘里。",
         steps: [
           { title: "搅拌", body: "把面粉、水、盐和酵母拌匀，再揉大约 8 分钟，直到光滑。64% 水合柔软，能成团。面团温度大约 24°C。" },
-          { title: "基本发酵", body: "盖上，放在大约 24°C，60 到 90 分钟。{{ifYeast}}酵母有 1.2%，差不多发到两倍。{{endYeast}}" },
+          { title: "基本发酵", body: "盖上，放在大约 24°C，60 到 90 分钟。{{ifYeast}}酵母有 1.2%，差不多发到两倍。{{endYeast}}{{ifNoYeast}}没有酵母，面团不会发起。{{endNoYeast}}" },
           { title: "分割", body: "分成十份，每份大约 84 克。每个收成表面光滑的圆球。" },
           { title: "入盘", body: "圆烤盘抹一点黄油。圆球紧挨着摆，中间留一条小缝。发酵时它们会靠到一起。" },
           { title: "最后发酵", body: "盖着，放在大约 24°C，40 到 60 分钟{{ifYeast}}，直到圆球蓬松、侧面连在一起{{endYeast}}。" },
@@ -564,7 +564,7 @@ export const doughGuides = {
         alt: "金色小餐包緊挨著烤在一個圓金屬盤裡。",
         steps: [
           { title: "攪拌", body: "把麵粉、水、鹽和酵母拌勻，再揉大約 8 分鐘，直到光滑。64% 水合柔軟，能成團。麵團溫度大約 24°C。" },
-          { title: "基本發酵", body: "蓋上，放在大約 24°C，60 到 90 分鐘。{{ifYeast}}酵母有 1.2%，差不多發到兩倍。{{endYeast}}" },
+          { title: "基本發酵", body: "蓋上，放在大約 24°C，60 到 90 分鐘。{{ifYeast}}酵母有 1.2%，差不多發到兩倍。{{endYeast}}{{ifNoYeast}}沒有酵母，麵團不會發起。{{endNoYeast}}" },
           { title: "分割", body: "分成十份，每份大約 84 克。每個收成表面光滑的圓球。" },
           { title: "入盤", body: "圓烤盤抹一點奶油。圓球緊挨著擺，中間留一條小縫。發酵時它們會靠到一起。" },
           { title: "最後發酵", body: "蓋著，放在大約 24°C，40 到 60 分鐘{{ifYeast}}，直到圓球蓬鬆、側面連在一起{{endYeast}}。" },
@@ -751,7 +751,7 @@ export const doughGuides = {
         alt: "A stack of round sesame hamburger buns on a paper tray.",
         steps: [
           { title: "Mix", body: "Stir the flour, water, salt, and yeast, then knead for about 8 minutes until smooth. At 62% it is soft. Aim for about 24°C (75°F)." },
-          { title: "Bulk", body: "Cover the bowl at about 24°C (75°F) for 60 to 90 minutes.{{ifYeast}} With 1.1% yeast it should nearly double.{{endYeast}}" },
+          { title: "Bulk", body: "Cover the bowl at about 24°C (75°F) for 60 to 90 minutes.{{ifYeast}} With 1.1% yeast it should nearly double.{{endYeast}}{{ifNoYeast}} Without yeast the dough will not rise.{{endNoYeast}}" },
           { title: "Divide", body: "Cut nine pieces of about 92 g. Round each one and rest them, covered, for 10 minutes." },
           { title: "Flatten", body: "Press each ball into a disk about 10 cm across. If you leave them as balls they bake into domes, not buns." },
           { title: "Proof", body: "Set them on a tray with space between them. Cover them at about 24°C (75°F) for 30 to 45 minutes{{ifYeast}}, until puffy{{endYeast}}." },
@@ -811,7 +811,7 @@ export const doughGuides = {
           { title: "Butter", body: "Pound 250 g of butter into a square about 15 cm across, cool but pliable, about 15°C (59°F). Roll the dough, lock the butter in the center, and seal the edges. The butter is extra and is not in the gram total." },
           { title: "Folds", body: "Roll it to a long rectangle and fold it in three. Chill 25 minutes. Repeat that letter fold two more times, with 25 minutes in the fridge between folds." },
           { title: "Shape", body: "Roll the dough to about 4 mm thick. Cut eight triangles and roll each one into a crescent, with the tip tucked under. Each piece of the original dough was about 97 g before the butter went in." },
-          { title: "Proof", body: "Cover them at about 24°C (75°F) for 2 to 2.5 hours, until they jiggle and the layers look swollen. Brush with 1 beaten egg. The egg is extra." },
+          { title: "Proof", body: "Cover them at about 24°C (75°F) for 2 to 2.5 hours, until they jiggle and the layers look swollen. Brush with 1 beaten egg. The egg is extra.{{ifNoYeast}} Without yeast the dough will not rise.{{endNoYeast}}" },
           { title: "Bake", body: "Heat the oven to 200°C (390°F). Bake 16 to 20 minutes, until they are deep gold and the layers have set." },
           { title: "Cool", body: "Move them to a rack for at least 20 minutes. The inside is still soft right out of the oven." },
         ],
@@ -1130,7 +1130,7 @@ export const doughGuides = {
         steps: [
           { title: "Mix", body: "Stir 500 g flour, 275 g water, 75 g starter, and 10 g salt until no dry flour remains. Leave the yeast at 0. At 55% added water the dough is stiff. Aim for about 24°C (75°F). The 75 g of starter is part of the 860 g total." },
           { title: "Knead", body: "Knead for 8 to 10 minutes, until the dough is smooth and springs back when you press it. It should not feel like a soft loaf. Stop before it tears." },
-          { title: "Bulk", body: "Cover it at about 24°C (75°F) for 3 to 5 hours.{{ifStarter}} With starter and no added yeast it grows slowly.{{endStarter}}{{ifStarter}} It is ready when it has grown by about half.{{endStarter}} A warm kitchen finishes sooner." },
+          { title: "Bulk", body: "Cover it at about 24°C (75°F) for 3 to 5 hours.{{ifStarter}} With starter and no added yeast it grows slowly.{{endStarter}}{{ifStarter}} It is ready when it has grown by about half.{{endStarter}}{{ifNoStarter}} Without starter the dough will not rise.{{endNoStarter}} A warm kitchen finishes sooner." },
           { title: "Shape", body: "Divide the 860 g dough into 8 rings of 107.5 g. Roll each piece into a rope about 20 cm long, overlap the ends, and roll the seam shut. If the rope snaps back, rest it 10 minutes and try again." },
           { title: "Proof", body: "Cover the rings for 45 to 80 minutes{{ifStarter}}, until they look slightly puffy{{endStarter}}. A test ring dropped into a bowl of water should float. If it sinks, give them a little longer." },
           { title: "Boil", body: "Bring a wide pot of water to a steady simmer, about 95°C (200°F). Stir in 15 g of barley malt syrup if you want a shinier crust. Boil the rings for 30 to 45 seconds on each side, then let the water drip off. The water and the syrup are not in the gram total." },
@@ -1478,7 +1478,7 @@ export const doughGuides = {
         alt: "Long thin sesame breadsticks on a wooden board.",
         steps: [
           { title: "Mix", body: "Stir 400 g flour, 248 g water, 8.8 g salt, and 2.4 g instant yeast, then knead for about 8 minutes until smooth. At 62% the dough is soft and holds a ball. Aim for about 24°C (75°F)." },
-          { title: "Rise", body: "Cover it at about 24°C (75°F) for 80 to 110 minutes.{{ifYeast}} With 0.6% yeast it should about double.{{endYeast}} One fold halfway through is enough." },
+          { title: "Rise", body: "Cover it at about 24°C (75°F) for 80 to 110 minutes.{{ifYeast}} With 0.6% yeast it should about double.{{endYeast}}{{ifNoYeast}} Without yeast the dough will not rise.{{endNoYeast}} One fold halfway through is enough." },
           { title: "Divide", body: "Divide the 659.2 g dough into 16 pieces of 41.2 g, the weight in the balls fields. Cover them and rest 10 minutes." },
           { title: "Roll", body: "Dust the counter lightly. Roll each piece into a stick about 28 cm long and about 1 cm thick. If the dough snaps back, rest it 5 minutes and roll again. Lay the sticks on a lightly oiled sheet with a little space between them. The oil is extra and is not in the gram total." },
           { title: "Proof", body: "Cover the sticks for 15 to 25 minutes{{ifYeast}}, until they look slightly puffy{{endYeast}}. They should not touch." },
@@ -1696,7 +1696,7 @@ export const doughGuides = {
         steps: [
           { title: "Mix", body: "Stir 1042.3 g flour, 729.6 g water, 22.9 g salt, and 5.2 g instant yeast until no dry flour remains. At 70% the dough is soft and a little sticky. Aim for about 24°C (75°F)." },
           { title: "Rest", body: "Cover the bowl for 20 minutes so the dough stops tearing when you fold it." },
-          { title: "Bulk", body: "Keep it covered at about 24°C (75°F) for 70 to 100 minutes. Give it two stretch-and-folds.{{ifYeast}} With 0.5% yeast it should grow by about half, not double.{{endYeast}}" },
+          { title: "Bulk", body: "Keep it covered at about 24°C (75°F) for 70 to 100 minutes. Give it two stretch-and-folds.{{ifYeast}} With 0.5% yeast it should grow by about half, not double.{{endYeast}}{{ifNoYeast}} Without yeast the dough will not rise.{{endNoYeast}}" },
           { title: "Pan", body: "Divide into 4 pieces of 450 g, the count and the weight the page opens with. Oil a square pan about 23 cm on each side for each piece. About 15 g of oil in each pan is extra and is not in the gram total." },
           { title: "Spread", body: "With oiled fingers, press the dough toward the corners. If it springs back, cover it for 10 minutes and press again until it fills the square. This is a thick pan pizza, not a thin round." },
           { title: "Proof", body: "Cover the pan at about 24°C (75°F) for 40 to 60 minutes{{ifYeast}}, until the dough looks puffy and jiggles when you shake the pan{{endYeast}}." },
@@ -1713,7 +1713,7 @@ export const doughGuides = {
         steps: [
           { title: "搅拌", body: "把 1042.3 克面粉、729.6 克水、22.9 克盐和 5.2 克即发酵母拌到没有干粉。水合 70%，柔软，有一点黏。面团温度大约 24°C。" },
           { title: "松弛", body: "盖上 20 分钟，折叠时才不容易扯破。" },
-          { title: "基本发酵", body: "盖着，放在大约 24°C，70 到 100 分钟。做两轮拉伸折叠。{{ifYeast}}酵母有 0.5%，大约胀起一半即可，不必发到两倍。{{endYeast}}" },
+          { title: "基本发酵", body: "盖着，放在大约 24°C，70 到 100 分钟。做两轮拉伸折叠。{{ifYeast}}酵母有 0.5%，大约胀起一半即可，不必发到两倍。{{endYeast}}{{ifNoYeast}}没有酵母，面团不会发起。{{endNoYeast}}" },
           { title: "入盘", body: "分成 4 份，每份 450 克，就是页面打开时的球数和重量。每份用一个大约 23 厘米见方的烤盘，抹上大约 15 克油。油是另外加的，不在合计克数里。" },
           { title: "铺开", body: "手指沾油，把面团按向四角。如果缩回去，盖上 10 分钟再按，直到铺满方盘。这是厚的盘披萨，不是薄的圆饼。" },
           { title: "最后发酵", body: "盖着，放在大约 24°C，40 到 60 分钟{{ifYeast}}，发到蓬松，轻轻晃烤盘会颤{{endYeast}}。" },
@@ -1730,7 +1730,7 @@ export const doughGuides = {
         steps: [
           { title: "攪拌", body: "把 1042.3 克麵粉、729.6 克水、22.9 克鹽和 5.2 克速發酵母拌到沒有乾粉。水合 70%，柔軟，有一點黏。麵團溫度大約 24°C。" },
           { title: "鬆弛", body: "蓋上 20 分鐘，摺疊時才不容易扯破。" },
-          { title: "基本發酵", body: "蓋著，放在大約 24°C，70 到 100 分鐘。做兩輪拉伸摺疊。{{ifYeast}}酵母有 0.5%，大約脹起一半即可，不必發到兩倍。{{endYeast}}" },
+          { title: "基本發酵", body: "蓋著，放在大約 24°C，70 到 100 分鐘。做兩輪拉伸摺疊。{{ifYeast}}酵母有 0.5%，大約脹起一半即可，不必發到兩倍。{{endYeast}}{{ifNoYeast}}沒有酵母，麵團不會發起。{{endNoYeast}}" },
           { title: "入盤", body: "分成 4 份，每份 450 克，就是頁面打開時的球數和重量。每份用一個大約 23 公分見方的烤盤，抹上大約 15 克油。油是另外加的，不在合計克數裡。" },
           { title: "鋪開", body: "手指沾油，把麵團按向四角。如果縮回去，蓋上 10 分鐘再按，直到鋪滿方盤。這是厚的盤披薩，不是薄的圓餅。" },
           { title: "最後發酵", body: "蓋著，放在大約 24°C，40 到 60 分鐘{{ifYeast}}，發到蓬鬆，輕輕晃烤盤會顫{{endYeast}}。" },
@@ -1823,7 +1823,7 @@ export const doughGuides = {
         licenseAfter: ". Converted to WebP.",
         steps: [
           { title: "Mix", body: "Stir 500 g flour, 310 g water, 10 g salt, and 4 g instant yeast, then knead for about 8 minutes until smooth. At 62% the dough is soft and holds a ball. Aim for about 24°C (75°F)." },
-          { title: "Bulk", body: "Cover it at about 24°C (75°F) for 70 to 90 minutes.{{ifYeast}} With 0.8% yeast it should about double.{{endYeast}}" },
+          { title: "Bulk", body: "Cover it at about 24°C (75°F) for 70 to 90 minutes.{{ifYeast}} With 0.8% yeast it should about double.{{endYeast}}{{ifNoYeast}} Without yeast the dough will not rise.{{endNoYeast}}" },
           { title: "Divide", body: "Divide the 824 g dough into 8 pieces of 103 g, the weight in the balls fields. Cover them and rest 10 minutes." },
           { title: "Shape", body: "Roll each piece into a log about 18 cm long and pinch the seam shut. Set the rolls seam-side down on a sheet, with a little space between them." },
           { title: "Proof", body: "Cover the rolls for 30 to 45 minutes{{ifYeast}}, until they look puffy{{endYeast}}. Keep the seam underneath." },
@@ -1888,7 +1888,7 @@ export const doughGuides = {
         steps: [
           { title: "Starter", body: "{{ifStarter}}Use 100 g of starter that is bubbly and has about doubled.{{endStarter}} That starter is part of the gram total. Do not add instant yeast, and do not add salt. Both fields stay at zero." },
           { title: "Mix", body: "Stir 500 g flour, 360 g water, and the 100 g starter until no dry flour remains. At 72% with no salt the dough feels slack. Aim for about 24°C (75°F)." },
-          { title: "Bulk", body: "Cover it at about 24°C (75°F). With no salt it moves faster than a salted loaf.{{ifStarter}} Give it three gentle folds in the first 90 minutes, then leave it until it has grown by about half, often 2 to 3 hours from the mix.{{endStarter}} If the top starts to sink, shape it." },
+          { title: "Bulk", body: "Cover it at about 24°C (75°F). With no salt it moves faster than a salted loaf.{{ifStarter}} Give it three gentle folds in the first 90 minutes, then leave it until it has grown by about half, often 2 to 3 hours from the mix.{{endStarter}}{{ifNoStarter}} Without starter the dough will not rise.{{endNoStarter}} If the top starts to sink, shape it." },
           { title: "Shape", body: "Dust the counter and the dough with flour. Tighten the whole 960 g into one oval. This batch is one loaf. The flour on the skin is a light dusting and is not part of the gram total." },
           { title: "Proof", body: "Set it seam-side up in a floured basket, or seam-side down on a cloth. Cover it for 40 to 60 minutes{{ifStarter}}, until it looks puffy{{endStarter}}. Do not let it collapse." },
           { title: "Bake", body: "Heat the oven to 230°C (450°F) with a lidded pot, or with a tray of hot water for steam. Score once. Bake 20 minutes with the steam, then 20 to 25 minutes more at 200°C (390°F), until the crust is deep gold and firm." },
@@ -3894,7 +3894,7 @@ export const doughGuides = {
         steps: [
           { title: "Starter", body: "{{ifStarter}}Use {{starter}} g of starter that is bubbly and has about doubled. That starter is part of the gram total.{{endStarter}}{{ifYeast}} The yeast amount is {{yeast}} g.{{endYeast}}" },
           { title: "Mix", body: "Stir {{enjoin}}{{item}}{{flour}} g flour{{enditem}}{{item}}{{water}} g water{{enditem}}{{item}}{{ifStarter}}the {{starter}} g starter{{endStarter}}{{enditem}}{{item}}{{ifYeast}}{{yeast}} g instant yeast{{endYeast}}{{enditem}}{{item}}{{salt}} g salt{{enditem}}{{endjoin}} until no dry flour remains. At {{hydration}}% the dough is soft. Aim for about 24°C (75°F)." },
-          { title: "Bulk", body: "Cover the dough in one piece at about 24°C (75°F) for about 60 minutes and fold it once. {{ifStarter}}With {{starterPct}}% starter it only grows a little.{{endStarter}} Divide it before the cold rest." },
+          { title: "Bulk", body: "Cover the dough in one piece at about 24°C (75°F) for about 60 minutes and fold it once. {{ifStarter}}With {{starterPct}}% starter it only grows a little.{{endStarter}}{{ifNoStarter}} Without starter the dough will not rise.{{endNoStarter}} Divide it before the cold rest." },
           { title: "Divide", body: "{{ifOne}}Tighten the {{total}} g into one ball and cover it. This batch is {{balls}} pizza.{{endOne}}{{ifMany}}Divide the {{total}} g into {{balls}} pieces of {{piece}} g each, tighten each piece into a ball, and cover them.{{endMany}} The default 1080 g uses a baking stone or tray about 40 cm across. If you change the amount, use a stone sized to fit, or bake in batches." },
           { title: "Cold", body: "{{ifOne}}Refrigerate the covered ball{{endOne}}{{ifMany}}Refrigerate the covered balls{{endMany}} at about 4°C (39°F) for 24 to 48 hours. {{ifOne}}It{{endOne}}{{ifMany}}They{{endMany}} should spread a little and smell mild, not sharp." },
           { title: "Warm", body: "Take {{ifOne}}the ball{{endOne}}{{ifMany}}the balls{{endMany}} out 60 to 90 minutes before baking. Then stretch {{ifOne}}it{{endOne}}{{ifMany}}each ball{{endMany}} by hand on a floured peel. Leave a rim and a thin center." },
