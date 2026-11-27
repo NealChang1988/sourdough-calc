@@ -67,6 +67,7 @@ const AMOUNT_TOKENS = {
   effective: (recipe) => formatAmount(effectiveHydration(recipe)),
   piece: (recipe, preset) => formatPiece(recipe.total / preset.balls),
   seeds: (recipe) => formatAmount(recipe.flour * 0.16),
+  olives: (recipe) => formatAmount(recipe.flour * 0.2),
   hydration: (_recipe, preset) => shownPreset(preset.hydration),
   starterPct: (_recipe, preset) => shownPreset(preset.starter),
   saltPct: (_recipe, preset) => shownPreset(preset.salt),

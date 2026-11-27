@@ -223,6 +223,11 @@ const BALL_PRESET = {
   "sourdough-sandwich": [1, 940],
   "sourdough-baguette": [4, 237.5],
   "seeded-sourdough": [1, 1021],
+  "high-hydration-sourdough": [1, 1035],
+  "olive-sourdough": [1, 970],
+  miche: [1, 1950],
+  "sourdough-ciabatta": [4, 255.25],
+  "poolish-baguette": [4, 254],
 };
 
 // New breads stay out of older pages' related lists so those pages keep the same four links.
